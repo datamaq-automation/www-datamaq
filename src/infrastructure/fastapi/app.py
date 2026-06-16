@@ -1,5 +1,5 @@
-from typing import Any
-from fastapi import FastAPI, Request
+from typing import Any, Dict, TypedDict, List, cast
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import Response, FileResponse
@@ -9,11 +9,36 @@ from src.infrastructure.settings import config
 import yaml
 import subprocess
 import time
+import os
+
+# Definición de tipos para mejorar el tipado de Pylance
+class Negocio(TypedDict):
+    nombre: str
+    titulo_pagina: str
+    hero_titulo: str
+    telefono: str
+    whatsapp_link: str
+    descripcion: str
+    rango_precios: str
+    cta_whatsapp: str
+    cta_llamada: str
+    seo_description: str
+    og_image: str
+    chatwoot: Dict[str, str]
+
+class Servicio(TypedDict):
+    nombre: str
+    descripcion: str
+    precio: str
+
+class Contenido(TypedDict):
+    negocio: Negocio
+    servicios: List[Servicio]
+    faq: List[Dict[str, str]]
 
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
-        # Caché por 7 días
         response.headers["Cache-Control"] = f"public, max-age={config.STATIC_CACHE_SECONDS}, immutable"
         return response
 
@@ -21,8 +46,6 @@ app = FastAPI(title=config.APP_TITLE)
 app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="static")
 
 templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
-
-
 
 def get_static_version_hash() -> str:
     try:
@@ -36,12 +59,44 @@ templates.env.globals["config"] = config # type: ignore
 
 logger = setup_logger(config.LOGGER_NAME)
 
-def cargar_contenido() -> dict[str, Any]:
+def cargar_datos() -> tuple[Contenido, Dict[str, Any]]:
     with open(config.CONTENT_DATA_PATH, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) # type: ignore
+        # Pylance no puede tipar PyYAML, ignoramos la advertencia en esta línea
+        contenido = cast(Contenido, yaml.safe_load(f)) # type: ignore
+    
+    geografia_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml")
+    with open(geografia_path, "r", encoding="utf-8") as f:
+        geografia = cast(Dict[str, Any], yaml.safe_load(f)) # type: ignore
+        
+    return contenido, geografia
 
-contenido: dict[str, Any] = cargar_contenido()
+contenido, geografia = cargar_datos()
 chatwoot_token = config.CHATWOOT_TOKEN
+
+@app.get("/{provincia}/{municipio}/{localidad}.html")
+async def pagina_localidad(request: Request, provincia: str, municipio: str, localidad: str):
+    # Validar existencia
+    locs = geografia.get("localidades", {})
+    # Acceso seguro a la estructura de geografía
+    prov = locs.get(provincia, {})
+    mun = prov.get(municipio, {})
+    nombre_localidad = mun.get(localidad)
+    
+    if not nombre_localidad:
+        raise HTTPException(status_code=404, detail="Localidad no encontrada")
+        
+    context: Dict[str, Any] = {
+        "negocio": contenido["negocio"],
+        "servicios": contenido["servicios"],
+        "faq": contenido["faq"],
+        "chatwoot_token": chatwoot_token,
+        "localidad_nombre": nombre_localidad,
+        "municipio": municipio.replace("-", " ").title(),
+        "provincia": provincia.replace("-", " ").title(),
+        "seo_titulo": f"Electricista en {nombre_localidad}, {municipio.replace("-", " ").title()} - Urgencias 24/7",
+        "seo_descripcion": f"¿Necesitas un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio.replace("-", " ").title()}. Atención rápida, segura y 24/7."
+    }
+    return templates.TemplateResponse(request=request, name="index.html", context=context)
 
 @app.get("/robots.txt")
 async def robots():
@@ -57,7 +112,7 @@ async def sitemap(request: Request):
 
 @app.get("/dev/preview/{partial_name}")
 async def preview(request: Request, partial_name: str):
-    context: dict[str, Any] = {
+    context: Dict[str, Any] = {
         "negocio": contenido["negocio"], 
         "servicios": contenido["servicios"],
         "faq": contenido["faq"],
@@ -69,7 +124,7 @@ async def preview(request: Request, partial_name: str):
 @app.get("/")
 async def root(request: Request):
     logger.info("Acceso a la Landing Page")
-    context: dict[str, Any] = {
+    context: Dict[str, Any] = {
         "negocio": contenido["negocio"], 
         "servicios": contenido["servicios"],
         "faq": contenido["faq"],
