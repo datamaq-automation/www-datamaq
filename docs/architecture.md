@@ -7,5 +7,10 @@
 4. **Capa de Presentación (Jinja2):** Renderizado final de HTML.
 5. **Capa de Comportamiento (Frontend JS):** Inicialización de componentes (Chat) mediante lectura de atributos data-*.
 
+## Calidad y Testing
+- Se utiliza *pytest* para la suite de pruebas unitarias e integración.
+- La cobertura se mantiene por encima del 90% (verificado con *pytest-cov*).
+- Se ha implementado un *pre-push hook* (en *scripts/pre-push.sh*) que automatiza la ejecución de pruebas antes de cualquier envío al repositorio.
+
 ## Optimización
 - Los activos estáticos utilizan cabeceras Cache-Control (7 días).

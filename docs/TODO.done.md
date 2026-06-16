@@ -9,3 +9,5 @@
 - [x] Integración de Chatwoot (Modularizada con data-*).
 - [x] Migración de secretos a .env.
 - [x] Documentación básica inicial y sincronización de arquitectura bot/web.
+- [x] Implementación y testing de Banner de Cookies (consentimiento basado en estado).
+- [x] Implementación de suite de tests (pytest, cobertura >90%, pre-push hook).
