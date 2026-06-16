@@ -8,6 +8,7 @@ from src.infrastructure.settings.logger import setup_logger
 from src.infrastructure.settings import config
 import yaml
 import subprocess
+import time
 
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
@@ -23,13 +24,14 @@ templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
 
 
 
-def get_git_revision_hash() -> str:
+def get_static_version_hash() -> str:
     try:
         return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode("ascii").strip()
     except Exception:
-        return "unknown"
+        logger.warning("No se pudo obtener el hash de git, usando timestamp.")
+        return str(int(time.time()))
 
-templates.env.globals["static_version"] = get_git_revision_hash # type: ignore
+templates.env.globals["static_version"] = get_static_version_hash # type: ignore
 templates.env.globals["config"] = config # type: ignore
 
 logger = setup_logger(config.LOGGER_NAME)
