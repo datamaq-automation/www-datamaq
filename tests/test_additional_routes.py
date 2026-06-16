@@ -2,7 +2,7 @@ import pytest
 from httpx import AsyncClient, ASGITransport # type: ignore
 from src.infrastructure.fastapi.app import app
 from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token
-from src.infrastructure.fastapi.schemas import ContenidoModel
+from src.domain.models import ContenidoModel
 
 # Mock data
 async def override_get_contenido():

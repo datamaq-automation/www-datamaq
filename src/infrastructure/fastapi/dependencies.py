@@ -3,12 +3,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import Response
 from starlette.types import Scope
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.schemas import ContenidoModel, IndustriaModel
-from typing import Any, Dict, cast
+from src.application.data_service import DataService
 import subprocess
 import time
 import logging
-import yaml
 import os
 
 logger = logging.getLogger(config.LOGGER_NAME)
@@ -23,25 +21,18 @@ class CachedStaticFiles(StaticFiles):
 
 templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
 
-# --- Dependencias de Datos ---
-def get_contenido() -> ContenidoModel:
-    with open(config.CONTENT_DATA_PATH, "r", encoding="utf-8") as f:
-        raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
-        return ContenidoModel(**raw_data)
+# --- Configuración del Servicio de Datos ---
+data_service = DataService(
+    content_path=config.CONTENT_DATA_PATH,
+    geography_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml"),
+    industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml")
+)
 
-def get_geografia() -> Dict[str, Any]:
-    geografia_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml")
-    with open(geografia_path, "r", encoding="utf-8") as f:
-        return cast(Dict[str, Any], yaml.safe_load(f)) # type: ignore
-
-def get_industrias() -> IndustriaModel:
-    industrias_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml")
-    with open(industrias_path, "r", encoding="utf-8") as f:
-        raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
-        return IndustriaModel(**raw_data)
-
+# --- Dependencias de Datos (Puente a la Capa de Aplicación) ---
+def get_contenido(): return data_service.get_contenido()
+def get_geografia(): return data_service.get_geografia()
+def get_industrias(): return data_service.get_industrias()
 def get_chatwoot_token() -> str:
-    # Aseguramos que retorne str, incluso si es None en la config, retornamos string vacío
     return config.CHATWOOT_TOKEN or ""
 
 # --- Configuración Jinja2 ---

@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_chatwoot_token
-from src.infrastructure.fastapi.schemas import ContenidoModel
+from src.domain.models import ContenidoModel
 
 router = APIRouter()
 

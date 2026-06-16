@@ -3,7 +3,7 @@ from fastapi import APIRouter, Request, Depends
 from fastapi.responses import FileResponse
 from src.infrastructure.settings import config
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
-from src.infrastructure.fastapi.schemas import ContenidoModel
+from src.domain.models import ContenidoModel
 
 router = APIRouter()
 
