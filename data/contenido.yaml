@@ -15,7 +15,7 @@ negocio:
 
 servicios:
   - nombre: "Instalación Eléctrica"
-    descripcion: "Instalación completa de sistemas eléctricos para hogares."
+    descripcion: "Instalación completa de sistemas eléctricos para hogares, comercios e industrias."
     precio: "Consultar"
   - nombre: "Reparación de Averías"
     descripcion: "Solución rápida a cortocircuitos y fallas eléctricas."

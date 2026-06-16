@@ -1,9 +1,9 @@
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from starlette.types import Scope
 from fastapi.responses import Response
+from starlette.types import Scope
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.schemas import ContenidoModel
+from src.infrastructure.fastapi.schemas import ContenidoModel, IndustriaModel
 from typing import Any, Dict, cast
 import subprocess
 import time
@@ -13,7 +13,7 @@ import os
 
 logger = logging.getLogger(config.LOGGER_NAME)
 
-# --- Inicialización de componentes compartidos ---
+# --- Instancias compartidas ---
 
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
@@ -33,6 +33,12 @@ def get_geografia() -> Dict[str, Any]:
     geografia_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml")
     with open(geografia_path, "r", encoding="utf-8") as f:
         return cast(Dict[str, Any], yaml.safe_load(f)) # type: ignore
+
+def get_industrias() -> IndustriaModel:
+    industrias_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml")
+    with open(industrias_path, "r", encoding="utf-8") as f:
+        raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
+        return IndustriaModel(**raw_data)
 
 def get_chatwoot_token() -> str:
     # Aseguramos que retorne str, incluso si es None en la config, retornamos string vacío

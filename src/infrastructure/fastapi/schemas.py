@@ -24,3 +24,6 @@ class ContenidoModel(BaseModel):
     negocio: NegocioModel
     servicios: List[ServicioModel]
     faq: List[Dict[str, str]]
+
+class IndustriaModel(BaseModel):
+    industrias: Dict[str, str]
