@@ -25,7 +25,7 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "localidad_nombre": nombre_localidad,
         "municipio": municipio.replace("-", " ").title(),
         "provincia": provincia.replace("-", " ").title(),
-        "seo_titulo": f"Electricista en {nombre_localidad}, {municipio.replace("-", " ").title()} - Urgencias 24/7",
-        "seo_descripcion": f"¿Necesitas un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio.replace("-", " ").title()}. Atención rápida, segura y 24/7."
+        "seo_titulo": f"Electricista en {nombre_localidad}, {municipio.replace('-', ' ').title()} - Urgencias 24/7",
+        "seo_descripcion": f"¿Necesitas un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio.replace('-', ' ').title()}. Atención rápida, segura y 24/7."
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
