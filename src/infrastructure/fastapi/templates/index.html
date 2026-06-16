@@ -32,7 +32,7 @@
          data-base-url="{{ negocio.chatwoot.base_url }}" 
          data-website-token="{{ chatwoot_token }}">
     </div>
-    <script src="/static/js/app.js"></script>
+    <script src="/static/js/app.js?v={{ static_version() }}"></script>
     {% if config.GOOGLE_ANALYTICS_ID or config.CLARITY_ID %}
         {% include "partials/cookie-banner.html" %}
     {% endif %}

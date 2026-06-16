@@ -7,9 +7,8 @@ from starlette.types import Scope
 from src.infrastructure.settings.logger import setup_logger
 from src.infrastructure.settings import config
 import yaml
-import time
+import subprocess
 
-# Clase para añadir cabeceras de caché a archivos estáticos
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
@@ -22,23 +21,24 @@ app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="stati
 
 templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
 
-def add_static_version():
-    return int(time.time())
 
-# Configuración de globales para Jinja2
-# Usamos # type: ignore para evitar el error de Pylance sin romper la sintaxis
-templates.env.globals["static_version"] = add_static_version # type: ignore
+
+def get_git_revision_hash() -> str:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode("ascii").strip()
+    except Exception:
+        return "unknown"
+
+templates.env.globals["static_version"] = get_git_revision_hash # type: ignore
 templates.env.globals["config"] = config # type: ignore
 
 logger = setup_logger(config.LOGGER_NAME)
 
-# Cargar contenido desde YAML
-def cargar_contenido():
+def cargar_contenido() -> dict[str, Any]:
     with open(config.CONTENT_DATA_PATH, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        return yaml.safe_load(f) # type: ignore
 
-contenido = cargar_contenido()
-# Inyectar el token secreto desde el entorno
+contenido: dict[str, Any] = cargar_contenido()
 chatwoot_token = config.CHATWOOT_TOKEN
 
 @app.get("/robots.txt")
@@ -67,7 +67,6 @@ async def preview(request: Request, partial_name: str):
 @app.get("/")
 async def root(request: Request):
     logger.info("Acceso a la Landing Page")
-    # Definir el contexto con tipos explícitos para satisfacer a Pylance
     context: dict[str, Any] = {
         "negocio": contenido["negocio"], 
         "servicios": contenido["servicios"],
