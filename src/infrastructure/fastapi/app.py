@@ -27,8 +27,8 @@ templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
 def get_static_version_hash() -> str:
     try:
         return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode("ascii").strip()
-    except Exception:
-        logger.warning("No se pudo obtener el hash de git, usando timestamp.")
+    except Exception as e:
+        logger.warning(f"No se pudo obtener el hash de git. Error: {e}. Usando timestamp.")
         return str(int(time.time()))
 
 templates.env.globals["static_version"] = get_static_version_hash # type: ignore
