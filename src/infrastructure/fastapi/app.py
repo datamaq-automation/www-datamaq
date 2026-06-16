@@ -1,4 +1,4 @@
-from typing import Any, Dict, TypedDict, List, cast
+from typing import Any, Dict
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -6,35 +6,11 @@ from fastapi.responses import Response, FileResponse
 from starlette.types import Scope
 from src.infrastructure.settings.logger import setup_logger
 from src.infrastructure.settings import config
+from src.infrastructure.fastapi.schemas import ContenidoModel
 import yaml
 import subprocess
 import time
 import os
-
-# Definición de tipos para mejorar el tipado de Pylance
-class Negocio(TypedDict):
-    nombre: str
-    titulo_pagina: str
-    hero_titulo: str
-    telefono: str
-    whatsapp_link: str
-    descripcion: str
-    rango_precios: str
-    cta_whatsapp: str
-    cta_llamada: str
-    seo_description: str
-    og_image: str
-    chatwoot: Dict[str, str]
-
-class Servicio(TypedDict):
-    nombre: str
-    descripcion: str
-    precio: str
-
-class Contenido(TypedDict):
-    negocio: Negocio
-    servicios: List[Servicio]
-    faq: List[Dict[str, str]]
 
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
@@ -59,14 +35,15 @@ templates.env.globals["config"] = config # type: ignore
 
 logger = setup_logger(config.LOGGER_NAME)
 
-def cargar_datos() -> tuple[Contenido, Dict[str, Any]]:
+def cargar_datos() -> tuple[ContenidoModel, Dict[str, Any]]:
     with open(config.CONTENT_DATA_PATH, "r", encoding="utf-8") as f:
         # Pylance no puede tipar PyYAML, ignoramos la advertencia en esta línea
-        contenido = cast(Contenido, yaml.safe_load(f)) # type: ignore
+        raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
+        contenido = ContenidoModel(**raw_data)
     
     geografia_path = os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml")
     with open(geografia_path, "r", encoding="utf-8") as f:
-        geografia = cast(Dict[str, Any], yaml.safe_load(f)) # type: ignore
+        geografia: Dict[str, Any] = yaml.safe_load(f) # type: ignore
         
     return contenido, geografia
 
@@ -86,9 +63,9 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         raise HTTPException(status_code=404, detail="Localidad no encontrada")
         
     context: Dict[str, Any] = {
-        "negocio": contenido["negocio"],
-        "servicios": contenido["servicios"],
-        "faq": contenido["faq"],
+        "negocio": contenido.negocio.model_dump(),
+        "servicios": [s.model_dump() for s in contenido.servicios],
+        "faq": contenido.faq,
         "chatwoot_token": chatwoot_token,
         "localidad_nombre": nombre_localidad,
         "municipio": municipio.replace("-", " ").title(),
@@ -113,9 +90,9 @@ async def sitemap(request: Request):
 @app.get("/dev/preview/{partial_name}")
 async def preview(request: Request, partial_name: str):
     context: Dict[str, Any] = {
-        "negocio": contenido["negocio"], 
-        "servicios": contenido["servicios"],
-        "faq": contenido["faq"],
+        "negocio": contenido.negocio.model_dump(),
+        "servicios": [s.model_dump() for s in contenido.servicios],
+        "faq": contenido.faq,
         "chatwoot_token": chatwoot_token,
         "partial_name": partial_name
     }
@@ -125,9 +102,9 @@ async def preview(request: Request, partial_name: str):
 async def root(request: Request):
     logger.info("Acceso a la Landing Page")
     context: Dict[str, Any] = {
-        "negocio": contenido["negocio"], 
-        "servicios": contenido["servicios"],
-        "faq": contenido["faq"],
+        "negocio": contenido.negocio.model_dump(),
+        "servicios": [s.model_dump() for s in contenido.servicios],
+        "faq": contenido.faq,
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
