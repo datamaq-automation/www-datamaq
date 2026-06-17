@@ -13,12 +13,12 @@
         </nav>
         
         <div class="c-home-header__actions">
-            <a href="javascript:void(0)" onclick="openChatwoot()" class="c-home-header__icon-link" aria-label="Contacto" title="Contacto">
-                <i class="bi bi-telephone-forward-fill" aria-hidden="true"></i>
+            <a href="{{ negocio.whatsapp_link }}" target="_blank" rel="noopener noreferrer" class="c-home-header__icon-link" aria-label="WhatsApp" title="WhatsApp">
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
             </a>
-            <button type="button" onclick="openChatwoot()" class="cta-button primary c-home-header__cta">
-                Contacto
-            </button>
+            <a href="{{ negocio.whatsapp_link }}" target="_blank" rel="noopener noreferrer" class="cta-button primary c-home-header__cta">
+                {{ negocio.cta_whatsapp }}
+            </a>
         </div>
     </div>
 </header>

@@ -1,8 +1,8 @@
-/* Componente: Header DataMaq */
+/* Componente: Header DataMaq - Dark Theme */
 .c-home-header {
-    background-color: var(--white);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    background-color: var(--dm-surface);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -21,7 +21,7 @@
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
-    color: var(--slate-grey);
+    color: var(--dm-text);
     font-weight: 700;
 }
 .c-home-header__brand-icon {
@@ -29,7 +29,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    color: var(--electric-orange);
+    color: var(--dm-orange);
 }
 .c-home-header__brand-copy {
     font-size: 1.4rem;
@@ -41,13 +41,15 @@
 }
 .c-home-header__nav-link {
     text-decoration: none;
-    color: var(--slate-grey);
+    color: var(--dm-text);
+    opacity: 0.8;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
 }
 .c-home-header__nav-link:hover {
-    color: var(--electric-orange);
+    color: var(--dm-orange);
+    opacity: 1;
 }
 .c-home-header__actions {
     display: flex;
@@ -55,12 +57,15 @@
     gap: 1rem;
 }
 .c-home-header__icon-link {
-    color: var(--electric-orange);
+    color: var(--dm-orange);
     font-size: 1.5rem;
     display: flex;
 }
 .c-home-header__cta {
     display: none;
+    background-color: var(--dm-orange);
+    color: white;
+    border: none;
     padding: 0.6rem 1.25rem;
     font-size: 0.9rem;
 }

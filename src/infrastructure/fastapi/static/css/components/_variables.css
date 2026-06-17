@@ -1,16 +1,34 @@
 /* 
- * Variables globales y reset básico.
- * Uso: Global (importado en main.css)
+ * Variables globales oficiales - DataMaq (v4.2.1 Sync)
  */
 :root {
-    /* Ajustado para mejorar contraste - Naranja más saturado/oscuro */
-    --electric-orange: #E67E00; 
-    --slate-grey: #2F4F4F;
-    --white: #FFFFFF;
-    --light-grey: #F4F4F4;
-    /* Azul más visible para el anillo de foco */
-    --focus-ring: #0056b3; 
+    /* Colores */
+    --dm-primary: #ff6a00;
+    --dm-accent: #ff9a4d;
+    --dm-bg: #0c092f;
+    --dm-surface: #0f1b3a;
+    --dm-border: #2b3d6a;
+    
+    /* Texto */
+    --dm-text-0: #e2e9f3;
+    --dm-text-muted: #99a9d1;
+
+    /* Compatibilidad con estilos previos */
+    --electric-orange: var(--dm-primary);
+    --slate-grey: var(--dm-surface);
+    --white: var(--dm-text-0);
 }
 
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 0; padding: 0; color: #1a1a1a; }
+html { 
+    scroll-behavior: smooth; 
+    background-color: var(--dm-bg);
+}
+
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; 
+    margin: 0; 
+    padding: 0; 
+    color: var(--dm-text-0); 
+    background-color: var(--dm-bg);
+}

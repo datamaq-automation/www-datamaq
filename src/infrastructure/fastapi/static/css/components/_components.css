@@ -85,3 +85,8 @@
     background: transparent;
     border: 1px solid var(--white);
 }
+.hero { background: var(--dm-bg); color: var(--dm-text-0); padding: 4rem 2rem; text-align: center; border-bottom: 1px solid var(--dm-border); }
+.servicio-card, .faq-card { background: var(--dm-surface); border: 1px solid var(--dm-border); border-radius: 12px; transition: transform 0.2s; }
+.servicio-card:hover { border-color: var(--dm-primary); transform: translateY(-5px); }
+.cta-button.primary { background-color: var(--dm-primary); color: white; border: none; }
+.cta-button.primary:hover { background-color: var(--dm-accent); }
