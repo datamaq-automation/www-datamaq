@@ -1,21 +1,15 @@
-<section class="hero">
-    <div class="hero-content">
-        <span class="badge">{{ content.hero.badge }}</span>
-        <h1>{{ content.hero.title }}</h1>
-        <p class="subtitle">{{ content.hero.subtitle }}</p>
-        <div class="hero-actions">
-            <a href="{{ content.hero.primaryCta.href }}" class="cta-button primary">{{ content.hero.primaryCta.label }}</a>
-            <a href="{{ content.hero.secondaryCta.href }}" class="cta-button secondary">{{ content.hero.secondaryCta.label }}</a>
-        </div>
-        <p class="response-note">{{ content.hero.responseNote }}</p>
-        
-        <div class="hero-benefits">
-            {% for benefit in content.hero.benefits %}
-            <div class="benefit-item">
-                <h3>{{ benefit.title }}</h3>
-                <p>{{ benefit.text }}</p>
+<section class="c-home-hero" style="background-image: linear-gradient(180deg, rgba(15, 27, 58, 0.4), rgba(12, 9, 47, 0.95)), url('/static/media/hero-energy.svg');">
+    <div class="c-home-hero__inner">
+        <div class="c-home-hero__copy">
+            <span class="c-home-eyebrow">{{ content.hero.badge }}</span>
+            <h1 class="c-home-hero__title">{{ content.hero.title }}</h1>
+            <p class="c-home-hero__subtitle">{{ content.hero.subtitle }}</p>
+            <div class="hero-actions">
+                <a href="{{ content.hero.primaryCta.href }}" class="cta-button primary">{{ content.hero.primaryCta.label }}</a>
             </div>
-            {% endfor %}
         </div>
+        <article class="c-home-hero__media-card">
+            <img src="/static/media/hero-energy.svg" alt="{{ content.hero.image.alt }}" class="c-home-hero__image" width="900" height="700">
+        </article>
     </div>
 </section>

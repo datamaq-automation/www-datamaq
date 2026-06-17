@@ -30,6 +30,7 @@ class HeroModel(BaseModel):
     badge: str
     title: str
     subtitle: str
+    image: PhotoModel
     responseNote: str
     primaryCta: CtaModel
     secondaryCta: CtaModel
@@ -77,3 +78,19 @@ class ContenidoModel(BaseModel):
 
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]
+
+class ContactSubmitPayload(BaseModel):
+    name: str
+    firstName: Optional[str] = None
+    lastName: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    company: Optional[str] = None
+    geographicLocation: Optional[str] = None
+    comment: str
+    preferredContactChannel: Optional[str] = "whatsapp"
+    pageLocation: Optional[str] = None
+    trafficSource: Optional[str] = None
+    userAgent: Optional[str] = None
+    createdAt: str
+    captchaToken: Optional[str] = None

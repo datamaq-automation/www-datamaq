@@ -1,0 +1,73 @@
+/* Componente Hero DataMaq */
+.c-home-hero {
+    background-size: cover;
+    background-position: center;
+    padding: 6rem 1.5rem;
+    color: var(--dm-text-0);
+    position: relative;
+    border-bottom: 1px solid var(--dm-border);
+}
+
+.c-home-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .c-home-hero__inner {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+.c-home-hero__copy {
+    grid-column: span 1;
+}
+
+@media (min-width: 1024px) {
+    .c-home-hero__copy {
+        grid-column: span 7;
+    }
+}
+
+.c-home-eyebrow {
+    color: var(--dm-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.c-home-hero__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.c-home-hero__subtitle {
+    font-size: 1.1rem;
+    color: var(--dm-text-muted);
+    margin-bottom: 2rem;
+}
+
+.c-home-hero__media-card {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .c-home-hero__media-card {
+        display: block;
+        grid-column: span 5;
+    }
+}
+
+.c-home-hero__image {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+}

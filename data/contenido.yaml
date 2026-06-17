@@ -14,6 +14,9 @@ content:
     badge: "Captura automática de datos operativos"
     title: "Instalación e integración de equipos IoT para energía y producción"
     subtitle: "Implementación de soluciones para medir variables eléctricas y operativas, integrarlas a sistemas existentes y dejar una base técnica usable para seguimiento, diagnóstico y capacitación."
+    image:
+      src: "/static/media/hero-energy.svg"
+      alt: "Captura e integración de datos energéticos y operativos en entorno industrial"
     responseNote: "Base operativa: Garín (GBA Norte). El alcance se define según tablero, señales disponibles, conectividad, sistema destino y objetivo operativo."
     primaryCta:
       label: "Escribime por WhatsApp"
