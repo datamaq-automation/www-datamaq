@@ -90,3 +90,26 @@
 .servicio-card:hover { border-color: var(--dm-primary); transform: translateY(-5px); }
 .cta-button.primary { background-color: var(--dm-primary); color: white; border: none; }
 .cta-button.primary:hover { background-color: var(--dm-accent); }
+/* Componente Perfil DataMaq */
+.c-home-profile { padding: 4rem 1.5rem; }
+.c-home-profile__inner { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+@media (min-width: 1024px) { .c-home-profile__inner { grid-template-columns: repeat(12, 1fr); align-items: stretch; } }
+
+.c-home-panel { background: var(--dm-surface); padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--dm-border); }
+
+.c-home-profile__card { grid-column: span 1; text-align: center; }
+@media (min-width: 1024px) { .c-home-profile__card { grid-column: span 5; } }
+
+.c-home-profile__avatar-wrap { justify-content: center; margin: 1.5rem 0; }
+.c-home-profile__avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+.c-home-profile__name { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.c-home-profile__role { color: var(--dm-primary); font-weight: 600; margin-bottom: 1rem; }
+.c-home-profile__cta { width: 100%; margin-top: 1.5rem; }
+
+.c-home-profile__details { grid-column: span 1; }
+@media (min-width: 1024px) { .c-home-profile__details { grid-column: span 7; } }
+
+.c-home-profile__section-label { color: var(--dm-primary); font-weight: 600; text-transform: uppercase; margin-bottom: 1rem; }
+.c-home-profile__benefits-grid { display: grid; gap: 1rem; margin-top: 2rem; }
+.c-home-profile__benefit-card { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: rgba(var(--dm-bg-0-rgb), 0.3); border-radius: 1rem; }
+.c-home-profile__benefit-icon { color: var(--dm-primary); font-size: 1.2rem; }

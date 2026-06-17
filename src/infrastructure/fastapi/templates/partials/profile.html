@@ -1,0 +1,35 @@
+<section id="perfil" class="c-home-profile">
+    <div class="c-home-profile__inner">
+        <div class="c-home-profile__left">
+            <article class="c-home-panel c-home-profile__card">
+                <span class="c-home-eyebrow">Perfil profesional</span>
+                <div class="c-home-profile__avatar-wrap">
+                    <img src="{{ brand.technician.photo }}" alt="{{ brand.technician.name }}" class="c-home-profile__avatar" width="700" height="933" loading="lazy" decoding="async">
+                </div>
+                <h2 id="perfil-title" class="c-home-profile__name">{{ brand.technician.name }}</h2>
+                <p class="c-home-profile__role">{{ content.about.title }}</p>
+                <p>{{ content.about.paragraphs[0] }}</p>
+                <a href="{{ brand.whatsappUrl }}" target="_blank" class="cta-button primary c-home-profile__cta">
+                    Escribime directo por WhatsApp
+                </a>
+            </article>
+        </div>
+        <div class="c-home-profile__right">
+            <article class="c-home-panel c-home-profile__details">
+                <p class="c-home-profile__section-label">Enfoque técnico</p>
+                <p class="c-home-profile__detail-copy">{{ content.about.paragraphs[1] }}</p>
+                
+                <div class="c-home-profile__benefits-grid">
+                    {% for bullet in content.profile.bullets %}
+                    <article class="c-home-profile__benefit-card">
+                        <span class="c-home-profile__benefit-icon" aria-hidden="true">
+                            <i class="bi bi-check2-circle"></i>
+                        </span>
+                        <p>{{ bullet }}</p>
+                    </article>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

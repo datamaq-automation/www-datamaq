@@ -14,9 +14,6 @@ content:
     badge: "Captura automática de datos operativos"
     title: "Instalación e integración de equipos IoT para energía y producción"
     subtitle: "Implementación de soluciones para medir variables eléctricas y operativas, integrarlas a sistemas existentes y dejar una base técnica usable para seguimiento, diagnóstico y capacitación."
-    image:
-      src: "/static/media/hero-energy.svg"
-      alt: "Captura e integración de datos energéticos y operativos en entorno industrial"
     responseNote: "Base operativa: Garín (GBA Norte). El alcance se define según tablero, señales disponibles, conectividad, sistema destino y objetivo operativo."
     primaryCta:
       label: "Escribime por WhatsApp"
@@ -31,6 +28,9 @@ content:
         text: "Vinculación con Powermate, dashboards o sistemas de terceros cuando la conectividad y el objetivo lo permiten."
       - title: "Base técnica para análisis"
         text: "Datos ordenados y utilizables para seguimiento operativo, diagnóstico, reportes o formación técnica."
+    image:
+      src: "/static/media/hero-energy.svg"
+      alt: "Captura e integración de datos energéticos y operativos en entorno industrial"
 
   services:
     title: "Servicios técnicos sobre captura, integración y uso de datos"
@@ -80,6 +80,18 @@ content:
         answer: "No. La energía es una de las aplicaciones principales, pero también se pueden implementar soluciones para captura de datos de producción u otras variables operativas relevantes."
       - question: "¿Usás Powermeter y Automate?"
         answer: "Sí. Según el proyecto, la solución puede apoyarse en Powermeter para medición eléctrica y en Automate para captura e integración de señales y datos operativos."
+  
+  about:
+    title: "Sobre DataMaq"
+    paragraphs:
+      - "DataMaq trabaja sobre captura automática de datos operativos, con foco en energía eléctrica, producción y variables críticas de seguimiento."
+      - "El servicio combina relevamiento en campo, implementación técnica, integración inicial y acompañamiento para que los datos capturados puedan usarse con criterio en análisis, seguimiento o capacitación."
+  
+  profile:
+    bullets:
+      - "Relevamiento en sitio y criterio de implementación."
+      - "Instalación, integración y puesta en marcha para captura automática de datos."
+      - "Asesoramiento y capacitaciones sobre Python, datos, bases de datos y APIs en contextos reales."
 
 seo:
   siteDescription: "Instalación e integración de equipos IoT para captura automática de datos de energía y producción, más asesoramiento técnico y capacitaciones aplicadas."
