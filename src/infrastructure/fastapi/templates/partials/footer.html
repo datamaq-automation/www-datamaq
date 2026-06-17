@@ -1,3 +1,18 @@
-<footer>
-    <p>&copy; 2026 {{ negocio.nombre }}. Autorizado según lineamientos AAIERIC.</p>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <strong>{{ brand.brandName }}</strong>
+            <p>{{ brand.baseOperativa }}</p>
+        </div>
+        <div class="footer-technician">
+            <p><strong>{{ brand.technician.name }}</strong></p>
+            <p>{{ brand.technician.role }}</p>
+        </div>
+        <div class="footer-contact">
+            <a href="mailto:{{ brand.contactEmail }}">{{ brand.contactEmail }}</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {{ now().year }} DataMaq. Todos los derechos reservados.</p>
+    </div>
 </footer>

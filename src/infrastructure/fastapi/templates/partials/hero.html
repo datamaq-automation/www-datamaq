@@ -1,7 +1,21 @@
 <section class="hero">
-    <h1>{{ negocio.hero_titulo }}</h1>
-    <p>{{ negocio.descripcion }}</p>
-    <a href="tel:{{ negocio.telefono }}" class="cta-button secondary" aria-label="Llamar por teléfono">
-        {{ negocio.cta_llamada }}
-    </a>
+    <div class="hero-content">
+        <span class="badge">{{ content.hero.badge }}</span>
+        <h1>{{ content.hero.title }}</h1>
+        <p class="subtitle">{{ content.hero.subtitle }}</p>
+        <div class="hero-actions">
+            <a href="{{ content.hero.primaryCta.href }}" class="cta-button primary">{{ content.hero.primaryCta.label }}</a>
+            <a href="{{ content.hero.secondaryCta.href }}" class="cta-button secondary">{{ content.hero.secondaryCta.label }}</a>
+        </div>
+        <p class="response-note">{{ content.hero.responseNote }}</p>
+        
+        <div class="hero-benefits">
+            {% for benefit in content.hero.benefits %}
+            <div class="benefit-item">
+                <h3>{{ benefit.title }}</h3>
+                <p>{{ benefit.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>

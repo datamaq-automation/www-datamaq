@@ -1,33 +1,84 @@
-negocio:
-  nombre: "DataMaq"
-  titulo_pagina: "DataMaq - Soluciones Profesionales"
-  hero_titulo: "Soluciones de automatización y tecnología para tu industria"
-  telefono: "+54 11 5629-7160"
-  whatsapp_link: "https://wa.me/5491156297160"
-  descripcion: "Soluciones de automatización y tecnología para tu industria. Profesional certificado, rápido y seguro. Disponibilidad 24/7."
-  rango_precios: "$$"
-  cta_whatsapp: "¡Solicitar Presupuesto!"
-  cta_llamada: "Llamar Ahora"
-  seo_description: "DataMaq ofrece servicios de reparación e instalación eléctrica profesional 24/7. Rápido, seguro y certificado."
-  og_image: "/static/img/og-image.jpg"
-  chatwoot:
-    base_url: "https://chatwoot.datamaq.com.ar"
+brand:
+  brandName: "DataMaq"
+  brandAriaLabel: "DataMaq, inicio"
+  baseOperativa: "Garín (GBA Norte)"
+  contactEmail: "info@datamaq.com.ar"
+  whatsappUrl: "https://wa.me/5491156297160"
+  technician:
+    name: "Agustin Bustos"
+    role: "Técnico a cargo"
+    photo: "/static/media/tecnico-a-cargo.webp"
 
-servicios:
-  - nombre: "Instalación Eléctrica"
-    descripcion: "Instalación completa de sistemas eléctricos para hogares, comercios e industrias."
-    precio: "Consultar"
-  - nombre: "Reparación de Averías"
-    descripcion: "Solución rápida a cortocircuitos y fallas eléctricas."
-    precio: "Consultar"
-  - nombre: "Mantenimiento"
-    descripcion: "Revisión preventiva de tableros y cableado."
-    precio: "Consultar"
+content:
+  hero:
+    badge: "Captura automática de datos operativos"
+    title: "Instalación e integración de equipos IoT para energía y producción"
+    subtitle: "Implementación de soluciones para medir variables eléctricas y operativas, integrarlas a sistemas existentes y dejar una base técnica usable para seguimiento, diagnóstico y capacitación."
+    responseNote: "Base operativa: Garín (GBA Norte). El alcance se define según tablero, señales disponibles, conectividad, sistema destino y objetivo operativo."
+    primaryCta:
+      label: "Escribime por WhatsApp"
+      href: "https://wa.me/5491156297160"
+    secondaryCta:
+      label: "Ver alcance técnico"
+      href: "#servicios"
+    benefits:
+      - title: "Variables definidas"
+        text: "Captura de kWh, potencia, factor de potencia, armónicas, kilos, unidades, metros, velocidades o estados según el caso."
+      - title: "Integración según alcance"
+        text: "Vinculación con Powermate, dashboards o sistemas de terceros cuando la conectividad y el objetivo lo permiten."
+      - title: "Base técnica para análisis"
+        text: "Datos ordenados y utilizables para seguimiento operativo, diagnóstico, reportes o formación técnica."
 
-faq:
-  - pregunta: "¿Ofrecen servicios de urgencia 24/7?"
-    respuesta: "Sí, estamos disponibles las 24 horas, los 7 días de la semana para atender cualquier emergencia eléctrica."
-  - pregunta: "¿Están certificados?"
-    respuesta: "Absolutamente, contamos con todas las certificaciones y licencias necesarias para realizar trabajos eléctricos seguros y legales."
-  - pregunta: "¿Cubren mi zona?"
-    respuesta: "Atendemos en toda el área metropolitana. Contáctanos para confirmar tu dirección específica."
+  services:
+    title: "Servicios técnicos sobre captura, integración y uso de datos"
+    cards:
+      - id: "iot-installation"
+        title: "Instalación de equipos IoT para captura de datos"
+        description: "Relevamiento, montaje, configuración y puesta en marcha de soluciones para medir variables eléctricas y operativas en tableros, líneas o puntos definidos."
+        key_points:
+          - "Medición de kWh, potencia, factor de potencia y distorsión armónica"
+          - "Captura de kilos, unidades, metros, velocidades o estados"
+          - "Integración inicial con Powermate o sistemas de terceros"
+      - id: "data-advisory"
+        title: "Asesoramiento técnico para análisis de datos"
+        description: "Acompañamiento para estructurar, interpretar y explotar datos ya capturados, con foco en seguimiento operativo, diagnóstico y criterio de decisión."
+        key_points:
+          - "Análisis de consumo energético y comportamiento operativo"
+          - "Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes"
+          - "Soporte para reportes, dashboards y automatizaciones de seguimiento"
+      - id: "training"
+        title: "Capacitaciones aplicadas"
+        description: "Formación técnica orientada a equipos que necesiten trabajar con datos operativos, Python, bases de datos, APIs o integraciones sobre casos reales."
+        key_points:
+          - "Python aplicado con NumPy, pandas y Matplotlib"
+          - "Buenas prácticas para trabajar con bases de datos y APIs"
+          - "Capacitación adaptada al nivel técnico y al caso real del equipo"
+
+  navbar:
+    links:
+      - label: "Solución"
+        href: "#servicios"
+      - label: "Proceso"
+        href: "#proceso"
+      - label: "Alcance"
+        href: "#tarifas"
+      - label: "Cobertura"
+        href: "#cobertura"
+      - label: "FAQ"
+        href: "#faq"
+      - label: "Contacto"
+        href: "#contacto"
+
+  faq:
+    questions:
+      - question: "¿Qué tipo de datos se pueden capturar?"
+        answer: "Según el caso, variables eléctricas como kWh, potencia, factor de potencia y distorsión armónica, o variables operativas como kilos, unidades, metros, velocidades y estados."
+      - question: "¿Trabajás solo con energía eléctrica?"
+        answer: "No. La energía es una de las aplicaciones principales, pero también se pueden implementar soluciones para captura de datos de producción u otras variables operativas relevantes."
+      - question: "¿Usás Powermeter y Automate?"
+        answer: "Sí. Según el proyecto, la solución puede apoyarse en Powermeter para medición eléctrica y en Automate para captura e integración de señales y datos operativos."
+
+seo:
+  siteDescription: "Instalación e integración de equipos IoT para captura automática de datos de energía y producción, más asesoramiento técnico y capacitaciones aplicadas."
+  siteName: "DataMaq"
+  siteUrl: "https://datamaq.com.ar"

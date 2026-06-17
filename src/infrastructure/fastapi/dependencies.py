@@ -8,6 +8,7 @@ import subprocess
 import time
 import logging
 import os
+from datetime import datetime
 
 logger = logging.getLogger(config.LOGGER_NAME)
 
@@ -44,4 +45,5 @@ def get_static_version_hash() -> str:
         return str(int(time.time()))
 
 templates.env.globals["static_version"] = get_static_version_hash # type: ignore
-templates.env.globals["config"] = config # type: ignore
+templates.env.globals["config"] = config
+templates.env.globals["now"] = datetime.now # type: ignore

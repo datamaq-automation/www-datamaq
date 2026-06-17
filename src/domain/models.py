@@ -1,29 +1,79 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 from pydantic import BaseModel
 
-class NegocioModel(BaseModel):
-    nombre: str
-    titulo_pagina: str
-    hero_titulo: str
-    telefono: str
-    whatsapp_link: str
-    descripcion: str
-    rango_precios: str
-    cta_whatsapp: str
-    cta_llamada: str
-    seo_description: str
-    og_image: str
-    chatwoot: Dict[str, str]
+class PhotoModel(BaseModel):
+    src: str
+    alt: str
 
-class ServicioModel(BaseModel):
-    nombre: str
-    descripcion: str
-    precio: str
+class TechnicianModel(BaseModel):
+    name: str
+    role: str
+    photo: str
+
+class BrandModel(BaseModel):
+    brandName: str
+    brandAriaLabel: str
+    baseOperativa: str
+    contactEmail: str
+    whatsappUrl: str
+    technician: Optional[TechnicianModel] = None
+
+class CtaModel(BaseModel):
+    label: str
+    href: str
+
+class BenefitModel(BaseModel):
+    title: str
+    text: str
+
+class HeroModel(BaseModel):
+    badge: str
+    title: str
+    subtitle: str
+    responseNote: str
+    primaryCta: CtaModel
+    secondaryCta: CtaModel
+    benefits: List[BenefitModel]
+
+class ServiceCardModel(BaseModel):
+    id: str
+    title: str
+    description: str
+    key_points: List[str]
+
+class ServicesModel(BaseModel):
+    title: str
+    cards: List[ServiceCardModel]
+
+class NavbarLinkModel(BaseModel):
+    label: str
+    href: str
+
+class NavbarModel(BaseModel):
+    links: List[NavbarLinkModel]
+
+class FaqItemModel(BaseModel):
+    question: str
+    answer: str
+
+class FaqModel(BaseModel):
+    questions: List[FaqItemModel]
+
+class SeoModel(BaseModel):
+    siteDescription: str
+    siteName: str
+    siteUrl: str
+
+class ContentModel(BaseModel):
+    hero: HeroModel
+    services: ServicesModel
+    navbar: NavbarModel
+    faq: FaqModel
 
 class ContenidoModel(BaseModel):
-    negocio: NegocioModel
-    servicios: List[ServicioModel]
-    faq: List[Dict[str, str]]
+    brand: BrandModel
+    content: ContentModel
+    seo: SeoModel
 
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]

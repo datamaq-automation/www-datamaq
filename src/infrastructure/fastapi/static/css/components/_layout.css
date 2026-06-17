@@ -8,3 +8,111 @@
 .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
 
 footer { background: var(--slate-grey); color: var(--white); text-align: center; padding: 2rem; margin-top: 2rem; }
+
+/* Hero Refinement */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.hero .badge {
+    background: rgba(255, 106, 0, 0.1);
+    color: var(--dm-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.hero .subtitle {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+    color: var(--dm-text-muted);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.hero .response-note {
+    font-size: 0.9rem;
+    color: var(--dm-text-muted);
+    margin-bottom: 4rem;
+    font-style: italic;
+}
+
+.hero-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.benefit-item {
+    background: var(--dm-surface);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--dm-border);
+    text-align: left;
+}
+
+.benefit-item h3 {
+    color: var(--dm-primary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.benefit-item p {
+    font-size: 0.95rem;
+    color: var(--dm-text-muted);
+}
+
+/* Footer Refinement */
+.footer {
+    background: var(--dm-surface);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--dm-border);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-bottom {
+    margin-top: 4rem;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--dm-border);
+    color: var(--dm-text-muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions .cta-button { width: 100%; }
+}

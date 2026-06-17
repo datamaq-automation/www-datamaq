@@ -1,11 +1,15 @@
 <section id="faq" class="faq">
-    <h2>Preguntas Frecuentes</h2>
-    {% for item in faq %}
-    <details class="faq-card">
-        <summary>{{ item.pregunta }}</summary>
-        <div class="content-wrapper">
-            <p>{{ item.respuesta }}</p>
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <div class="faq-container">
+        {% for item in content.faq.questions %}
+        <div class="faq-card">
+            <details>
+                <summary>{{ item.question }}</summary>
+                <div class="content-wrapper">
+                    <p>{{ item.answer }}</p>
+                </div>
+            </details>
         </div>
-    </details>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </section>

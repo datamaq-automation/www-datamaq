@@ -1,15 +1,18 @@
 <section id="servicios" class="servicios">
-    <h2>Nuestros Servicios</h2>
+    <h2 class="section-title">{{ content.services.title }}</h2>
     <div class="servicios-grid">
-        {% for servicio in servicios %}
-        <div class="servicio-card">
-            <div class="icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        {% for card in content.services.cards %}
+        <article class="servicio-card" id="{{ card.id }}">
+            <div class="card-content">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+                <ul class="card-items">
+                    {% for point in card.key_points %}
+                    <li><i class="bi bi-check2-circle"></i> {{ point }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-            <h3>{{ servicio.nombre }}</h3>
-            <p>{{ servicio.descripcion }}</p>
-            <p><strong>Precio:</strong> {{ servicio.precio }}</p>
-        </div>
+        </article>
         {% endfor %}
     </div>
 </section>

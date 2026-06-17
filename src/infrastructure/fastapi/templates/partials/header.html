@@ -1,23 +1,24 @@
 <header class="c-home-header" role="banner">
     <div class="c-home-header__inner">
-        <a href="/" class="c-home-header__brand" aria-label="{{ negocio.nombre }}, inicio">
+        <a href="/" class="c-home-header__brand" aria-label="{{ brand.brandAriaLabel }}">
             <span class="c-home-header__brand-icon" aria-hidden="true">
                 <i class="bi bi-terminal-fill"></i>
             </span>
-            <span class="c-home-header__brand-copy">{{ negocio.nombre }}</span>
+            <span class="c-home-header__brand-copy">{{ brand.brandName }}</span>
         </a>
         
         <nav class="c-home-header__nav" aria-label="Navegación principal">
-            <a href="#servicios" class="c-home-header__nav-link">Solución</a>
-            <a href="#faq" class="c-home-header__nav-link">FAQ</a>
+            {% for link in content.navbar.links %}
+            <a href="{{ link.href }}" class="c-home-header__nav-link">{{ link.label }}</a>
+            {% endfor %}
         </nav>
         
         <div class="c-home-header__actions">
-            <a href="{{ negocio.whatsapp_link }}" target="_blank" rel="noopener noreferrer" class="c-home-header__icon-link" aria-label="WhatsApp" title="WhatsApp">
+            <a href="{{ brand.whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="c-home-header__icon-link" aria-label="WhatsApp" title="WhatsApp">
                 <i class="bi bi-whatsapp" aria-hidden="true"></i>
             </a>
-            <a href="{{ negocio.whatsapp_link }}" target="_blank" rel="noopener noreferrer" class="cta-button primary c-home-header__cta">
-                {{ negocio.cta_whatsapp }}
+            <a href="{{ brand.whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="cta-button primary c-home-header__cta">
+                Contactar por WhatsApp
             </a>
         </div>
     </div>

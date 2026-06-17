@@ -22,9 +22,9 @@ async def sitemap(request: Request):
 @router.get("/dev/preview/{partial_name}")
 async def preview(request: Request, partial_name: str, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
     context: Dict[str, Any] = {
-        "negocio": contenido.negocio.model_dump(), 
-        "servicios": [s.model_dump() for s in contenido.servicios],
-        "faq": contenido.faq,
+        "brand": contenido.brand.model_dump(),
+        "content": contenido.content.model_dump(),
+        "seo": contenido.seo.model_dump(),
         "chatwoot_token": chatwoot_token,
         "partial_name": partial_name
     }
@@ -33,9 +33,9 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
 @router.get("/")
 async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
     context: Dict[str, Any] = {
-        "negocio": contenido.negocio.model_dump(), 
-        "servicios": [s.model_dump() for s in contenido.servicios],
-        "faq": contenido.faq,
+        "brand": contenido.brand.model_dump(),
+        "content": contenido.content.model_dump(),
+        "seo": contenido.seo.model_dump(),
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
