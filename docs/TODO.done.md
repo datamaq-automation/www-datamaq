@@ -1,4 +1,4 @@
-# Tareas Completadas - Electricista 380
+# Tareas Completadas - Datamaq
 
 - [x] Configuración inicial de FastAPI.
 - [x] Implementación de SSR con Jinja2.

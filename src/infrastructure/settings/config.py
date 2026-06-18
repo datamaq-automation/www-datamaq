@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-APP_TITLE = "Electricista 380 API"
+APP_TITLE = "Datamaq API"
 STATIC_DIR = "src/infrastructure/fastapi/static"
 STATIC_CACHE_SECONDS = 604800
 TEMPLATES_DIR = "src/infrastructure/fastapi/templates"

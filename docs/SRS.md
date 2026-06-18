@@ -1,4 +1,4 @@
-# Especificación de Requisitos del Sistema (SRS) - Electricista 380
+# Especificación de Requisitos del Sistema (SRS) - Datamaq
 
 ## 1. Funcionalidades Principales
 - **Landing Page Informativa:** Muestra servicios, información de contacto y FAQ.

@@ -1,4 +1,4 @@
-# Arquitectura del Sistema - Electricista 380
+# Arquitectura del Sistema - Datamaq
 
 ## Diagrama Lógico
 1. **Capa de Configuración:** Carga de variables de entorno (.env).

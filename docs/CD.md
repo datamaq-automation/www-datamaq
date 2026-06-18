@@ -39,7 +39,7 @@ Para activar el CD, configura los siguientes secretos en tu repositorio (Setting
 5.  **Configurar Servicio Systemd (`/etc/systemd/system/electricista380.service`):**
      Crea un archivo con el siguiente contenido:
       [Unit]
-      Description=Electricista 380 FastAPI Application
+      Description=Datamaq FastAPI Application
       After=network.target
 
       [Service]

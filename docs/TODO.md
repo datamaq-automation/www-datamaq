@@ -1,4 +1,4 @@
-# Tareas Pendientes (TODO) - Electricista 380
+# Tareas Pendientes (TODO) - Datamaq
 
 - [ ] Implementar Cotizador (Wizard UI) en index.html.
 - [ ] Desarrollar endpoint FastAPI para recepción de datos del Cotizador (Wizard UI).

@@ -1,4 +1,4 @@
-# Guía de Desarrollo - Electricista 380
+# Guía de Desarrollo - Datamaq
 
 ## Estándares
 - Usar FastAPI con Jinja2 para SSR.

@@ -12,7 +12,7 @@ fi
 # Función de log local
 log() { echo "[$(date +"%Y-%m-%dT%H:%M:%S")] $1"; }
 
-log "Iniciando despliegue de Electricista 380 en $DEPLOY_SSH_HOST..."
+log "Iniciando despliegue de Datamaq en $DEPLOY_SSH_HOST..."
 
 # Ejecutamos los comandos remotos uno por uno para evitar problemas de parsing en la cadena
 ssh -p $DEPLOY_SSH_PORT $DEPLOY_SSH_USER@$DEPLOY_SSH_HOST << EOF
