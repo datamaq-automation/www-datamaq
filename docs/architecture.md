@@ -1,21 +1,21 @@
 # Arquitectura del Sistema - Datamaq
 
-## Diagrama Lógico
-1. **Capa de Configuración:** Carga de variables de entorno (.env).
-2. **Capa de Datos:** Carga de archivos YAML desde /data.
-3. **Capa de Aplicación (FastAPI):** Inyección de datos, lógica de negocio y endpoint para RASA Action Server (puerto 5006).
-4. **Capa de Presentación (Jinja2):** Renderizado final de HTML.
-5. **Capa de Comportamiento (Frontend JS):** Inicialización de componentes (Chat) mediante lectura de atributos data-*.
+## Flujo de Datos y Componentización
+Para replicar la modularidad de Vue en un entorno SSR:
 
-## Calidad y Testing
-- Se utiliza *pytest* para la suite de pruebas unitarias e integración.
-- La cobertura se mantiene por encima del 90% (verificado con *pytest-cov*).
-- Se ha implementado un *pre-push hook* (en *scripts/pre-push.sh*) que automatiza la ejecución de pruebas antes de cualquier envío al repositorio.
+1.  **Capa de Datos:** Archivos YAML inyectados en el contexto de FastAPI.
+2.  **Capa de Presentación (Macros):** 
+    - Ubicación: `src/infrastructure/fastapi/templates/partials/macros/`.
+    - Patrón: `{{ macro_name(data) }}`.
+3.  **Capa de Comportamiento (JS):** 
+    - Los componentes de JS en `static/js/` se inicializan buscando elementos con atributos `data-component-name`.
+    - La configuración se extrae de atributos `data-config-*`.
 
-## Optimización
-- Los activos estáticos utilizan cabeceras Cache-Control (7 días).
+## Integración RASA
+- El proyecto actúa como **Action Server**.
+- Endpoint: `/webhook`.
+- Puerto: 5006.
 
-## Despliegue Continuo (CD)
-- El despliegue está automatizado mediante GitHub Actions al hacer push a la rama `main`.
-- El flujo utiliza `scripts/deploy-server.sh` en el VPS para actualizar código, dependencias, aplicar *cache busting* y reiniciar el servicio `systemd`.
-- Requiere los siguientes secretos configurados en GitHub: `SSH_HOST`, `SSH_PRIVATE_KEY`.
+## Infraestructura y CD
+- Despliegue automático vía GitHub Actions.
+- Script de despliegue: `scripts/deploy-server.sh`.

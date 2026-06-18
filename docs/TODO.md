@@ -1,9 +1,15 @@
-# Tareas Pendientes (TODO) - Datamaq
+# Plan de Migración (TODO)
 
-- [ ] Implementar Cotizador (Wizard UI) en index.html.
-- [ ] Desarrollar endpoint FastAPI para recepción de datos del Cotizador (Wizard UI).
-- [ ] Integrar formulario en el flujo de cotización.
-- [ ] Implementar RASA Action Server endpoint.
-- [ ] Refinar UI/UX de la sección de servicios.
-- [ ] Implementar imágenes optimizadas (WebP).
-- [ ] Añadir sección de testimonios y certificaciones.
+## Fase 1: Estructura de Componentes
+- [ ] Crear directorio `templates/partials/macros/`.
+- [ ] Migrar Header y Footer (Fidelidad 100%).
+- [ ] Implementar Macro de Servicios basada en `industrias.yaml`.
+
+## Fase 2: Lógica de Negocio y Wizard
+- [ ] Definir rutas de FastAPI para los pasos del Cotizador.
+- [ ] Implementar lógica de persistencia de estado del Wizard (Session/Cookies).
+- [ ] Replicar UI del Cotizador de Vue.
+
+## Fase 3: Bot e Integración
+- [ ] Implementar endpoint de RASA Action Server.
+- [ ] Validar integración Chatwoot + RASA.
