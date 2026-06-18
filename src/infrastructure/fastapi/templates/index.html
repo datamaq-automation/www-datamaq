@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 {% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
 {{ seo_macro.head_seo(request=request, seo_data=seo) }}
 
 <body>
     <div id="app" data-v-app="">
         <div data-v-236fef00="" id="top" class="app-shell app-shell--home tw:min-h-screen app-shell--variant-direct">
             <a data-v-236fef00="" class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
-            <header data-v-236fef00="" class="c-home-header" role="banner">
-                <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4 c-home-header__inner">
-                    <a data-v-236fef00="" aria-current="page" href="/" class="router-link-active router-link-exact-active tw:flex tw:items-center tw:gap-2 tw:text-dm-text-0 tw:decoration-0" aria-label="DataMaq, inicio">
-                        <span data-v-236fef00="" class="c-home-header__brand-icon" aria-hidden="true">
-                            <i data-v-236fef00="" class="bi bi-terminal-fill"></i></span>
-                        <span data-v-236fef00="" class="c-home-header__brand-copy">DataMaq</span></a>
-                        <nav data-v-236fef00="" class="c-home-header__nav tw:hidden tw:lg:flex" aria-label="Navegación principal">
-                            <a data-v-236fef00="" aria-current="page" href="/#servicios" class="router-link-active router-link-exact-active c-home-header__nav-link">Solución</a>
-                            <a data-v-236fef00="" aria-current="page" href="/#faq" class="router-link-active router-link-exact-active c-home-header__nav-link">FAQ</a></nav>
-                            <div data-v-236fef00="" class="c-home-header__actions">
-                                <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:lg:hidden" aria-label="Contacto" title="Contacto"><i data-v-236fef00="" class="bi bi-telephone-forward-fill" aria-hidden="true"></i></a><button data-v-236fef00="" type="button" class="tw:btn-primary c-home-header__cta tw:hidden tw:lg:inline-flex">Contacto</button></div></div></header><main data-v-236fef00="" id="contenido-principal" class="c-home-main with-floating-cta">
-
+            {{ header_macro.header() }}
+            <main data-v-236fef00="" id="contenido-principal" class="c-home-main with-floating-cta">
                                 <section data-v-236fef00="" class="section-mobile c-home-hero c-home-hero--direct" aria-labelledby="hero-title" style="background-image: linear-gradient(180deg, rgba(var(--dm-surface-0-rgb), 0.42), rgba(var(--dm-bg-0-rgb), 0.96)), url('{{ url_for('static', path='media/hero-energy.svg')}}');">
 
                                     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
