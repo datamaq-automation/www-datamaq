@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
-{% import 'partials/head.html' as seo %}
-{{ seo.head_seo(request=request, seo_data=seo) }}
+{% import 'partials/head.html' as seo_macro %}
+{{ seo_macro.head_seo(request=request, seo_data=seo) }}
 
 <body>
     <div id="app" data-v-app="">

@@ -75,12 +75,13 @@ class ProfileModel(BaseModel):
 class LegalModel(BaseModel):
     text: str
 
+# --- Campos obligatorios para Fail-Fast ---
 class SeoModel(BaseModel):
     title: str
     description: str
     canonical_url: str
     site_name: str
-    og_image: Optional[str] = None
+    og_image: str
 
 # --- Modelos Principales ---
 class ContentModel(BaseModel):
