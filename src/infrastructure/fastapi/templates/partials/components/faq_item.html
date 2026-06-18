@@ -1,0 +1,9 @@
+{% macro faq_item(question, answer, is_open=False) %}
+<details data-v-c938c92c="" class="c-home-faq__item" {% if is_open %}open=""{% endif %}>
+    <summary data-v-c938c92c="" class="c-home-faq__summary">
+        <span data-v-c938c92c="">{{ question }}</span>
+        <span data-v-c938c92c="" class="c-home-faq__toggle" aria-hidden="true"><i data-v-c938c92c="" class="bi bi-plus-lg"></i></span>
+    </summary>
+    <p data-v-c938c92c="" class="c-home-faq__answer">{{ answer }}</p>
+</details>
+{% endmacro %}

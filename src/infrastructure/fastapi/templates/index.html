@@ -4,6 +4,7 @@
 {% import 'partials/components/header.html' as header_macro %}
 {% import 'partials/components/footer.html' as footer_macro %}
 {% import 'partials/components/service_card.html' as service_macro %}
+{% import 'partials/components/faq_item.html' as faq_macro %}
 {{ seo_macro.head_seo(request=request, seo_data=seo) }}
 
 <body>
@@ -46,17 +47,11 @@
                                             <div data-v-236fef00="" class="c-home-section-head">
                                                 <span data-v-236fef00="" class="c-home-eyebrow">Ayuda</span><h2 data-v-236fef00="" id="faq-title" class="c-home-section-title">Preguntas frecuentes</h2></div>
                                         <div data-v-c938c92c="" data-v-236fef00="" class="c-home-faq__stack">
-                                            <details data-v-c938c92c="" class="c-home-faq__item" open="">
-                                            <summary data-v-c938c92c="" class="c-home-faq__summary">
-                                                <span data-v-c938c92c="">¿Qué tipo de datos se pueden capturar?</span>
-                                                <span data-v-c938c92c="" class="c-home-faq__toggle" aria-hidden="true"><i data-v-c938c92c="" class="bi bi-plus-lg"></i></span></summary><p data-v-c938c92c="" class="c-home-faq__answer">Según el caso, variables eléctricas como kWh, potencia, factor de potencia y distorsión armónica, o variables operativas como kilos, unidades, metros, velocidades y estados.</p></details>
-                                            <details data-v-c938c92c="" class="c-home-faq__item">
-                                                <summary data-v-c938c92c="" class="c-home-faq__summary"><span data-v-c938c92c="">¿Trabajás solo con energía eléctrica?</span><span data-v-c938c92c="" class="c-home-faq__toggle" aria-hidden="true"><i data-v-c938c92c="" class="bi bi-plus-lg"></i></span></summary>
-                                    <p data-v-c938c92c="" class="c-home-faq__answer">No. La energía es una de las aplicaciones principales, pero también se pueden implementar soluciones para captura de datos de producción u otras variables operativas relevantes.</p></details>
-                                    <details data-v-c938c92c="" class="c-home-faq__item">
-                                        <summary data-v-c938c92c="" class="c-home-faq__summary"><span data-v-c938c92c="">¿Usás Powermeter y Automate?</span><span data-v-c938c92c="" class="c-home-faq__toggle" aria-hidden="true"><i data-v-c938c92c="" class="bi bi-plus-lg"></i></span></summary><p data-v-c938c92c="" class="c-home-faq__answer">Sí. Según el proyecto, la solución puede apoyarse en Powermeter para medición eléctrica y en Automate para captura e integración de señales y datos operativos.</p></details>
-                                    <details data-v-c938c92c="" class="c-home-faq__item">
-                                        <summary data-v-c938c92c="" class="c-home-faq__summary"><span data-v-c938c92c="">¿También brindás asesoramiento sobre los datos capturados?</span><span data-v-c938c92c="" class="c-home-faq__toggle" aria-hidden="true"><i data-v-c938c92c="" class="bi bi-plus-lg"></i></span></summary><p data-v-c938c92c="" class="c-home-faq__answer">Sí. El acompañamiento puede incluir estructuración, análisis e interpretación técnica de datos operativos y energéticos, según la necesidad del caso.</p></details></div></div></section><section data-v-ab6dacb2="" data-v-236fef00="" id="contacto" class="tw:py-10 tw:bg-dm-bg tw:text-dm-text-0 c-contact" aria-labelledby="contacto-title">
+{{ faq_macro.faq_item('¿Qué tipo de datos se pueden capturar?', 'Según el caso, variables eléctricas como kWh, potencia, factor de potencia y distorsión armónica, o variables operativas como kilos, unidades, metros, velocidades y estados.', True) }}
+{{ faq_macro.faq_item('¿Trabajás solo con energía eléctrica?', 'No. La energía es una de las aplicaciones principales, pero también se pueden implementar soluciones para captura de datos de producción u otras variables operativas relevantes.', False) }}
+{{ faq_macro.faq_item('¿Usás Powermeter y Automate?', 'Sí. Según el proyecto, la solución puede apoyarse en Powermeter para medición eléctrica y en Automate para captura e integración de señales y datos operativos.', False) }}
+{{ faq_macro.faq_item('¿También brindás asesoramiento sobre los datos capturados?', 'Sí. El acompañamiento puede incluir estructuración, análisis e interpretación técnica de datos operativos y energéticos, según la necesidad del caso.', False) }}
+</div></div></section><section data-v-ab6dacb2="" data-v-236fef00="" id="contacto" class="tw:py-10 tw:bg-dm-bg tw:text-dm-text-0 c-contact" aria-labelledby="contacto-title">
                                         <div data-v-ab6dacb2="" class="tw:container tw:mx-auto tw:px-4">
                                             <div data-v-ab6dacb2="" class="tw:flex tw:justify-center">
                                             <div data-v-ab6dacb2="" class="tw:w-full tw:max-w-3xl">
