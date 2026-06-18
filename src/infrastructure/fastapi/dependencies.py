@@ -18,7 +18,11 @@ logger = setup_logger(config.LOGGER_NAME)
 class CachedStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
-        response.headers["Cache-Control"] = f"public, max-age={config.STATIC_CACHE_SECONDS}, immutable"
+        # En desarrollo desactivamos caché inmutable
+        if config.DEBUG:
+             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        else:
+             response.headers["Cache-Control"] = f"public, max-age={config.STATIC_CACHE_SECONDS}, immutable"
         return response
 
 templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
@@ -39,13 +43,16 @@ def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
 
 # --- Configuración Jinja2 ---
-def get_static_version_hash() -> str:
+def get_static_version() -> str:
+    if config.DEBUG:
+        return str(int(time.time()))
+    
     try:
         return subprocess.check_output(["/usr/bin/git", "rev-parse", "--short", "HEAD"]).decode("ascii").strip()
     except Exception as e:
         logger.warning(f"No se pudo obtener el hash de git. Error: {e}. Usando timestamp.")
         return str(int(time.time()))
 
-templates.env.globals["static_version"] = get_static_version_hash  # type: ignore[index]
+templates.env.globals["static_version"] = get_static_version  # type: ignore[index]
 templates.env.globals["config"] = config  # type: ignore[index]
 templates.env.globals["year"] = datetime.now().year

@@ -13,3 +13,4 @@ CHATWOOT_TOKEN = os.getenv("CHATWOOT_WEBSITE_TOKEN")
 GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", None)
 CLARITY_ID = os.environ.get("CLARITY_ID", None)
 ROBOTS_TXT_PATH = "src/infrastructure/fastapi/static/robots.txt"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
