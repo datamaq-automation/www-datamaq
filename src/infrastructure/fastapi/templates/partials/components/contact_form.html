@@ -1,0 +1,71 @@
+{% macro contact_form() %}
+<section data-v-ab6dacb2="" data-v-236fef00="" id="contacto" class="tw:py-10 tw:bg-dm-bg tw:text-dm-text-0 c-contact" aria-labelledby="contacto-title">
+    <div data-v-ab6dacb2="" class="tw:container tw:mx-auto tw:px-4">
+        <div data-v-ab6dacb2="" class="tw:flex tw:justify-center">
+            <div data-v-ab6dacb2="" class="tw:w-full tw:max-w-3xl">
+                <div data-v-ab6dacb2="" class="tw:bg-dm-surface tw:border tw:border-dm-border tw:rounded-2xl tw:shadow-2xl c-contact__card">
+                    <div data-v-ab6dacb2="" class="tw:p-5 tw:lg:p-8">
+                        <h2 data-v-ab6dacb2="" id="contacto-title" class="tw:text-2xl tw:lg:text-3xl tw:font-bold c-contact__title tw:mb-2">Iniciá una consulta técnica</h2>
+                        <p data-v-ab6dacb2="" class="tw:text-dm-text-muted tw:mb-5 c-contact__subtitle">Dejanos el contexto del caso y te respondemos con el siguiente paso.</p>
+                        <ol data-v-4d7c045a="" data-v-ab6dacb2="" class="c-contact__stepper" aria-label="Pasos del formulario">
+                            <li data-v-4d7c045a="" class="c-contact__stepper-item is-active">
+                                <button data-v-4d7c045a="" type="button" class="c-contact__stepper-trigger" aria-current="step" aria-label="Andá al paso 1: Identidad">
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-dot" aria-hidden="true"><span data-v-4d7c045a="">1</span></span>
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-label">Identidad</span>
+                                </button>
+                            </li>
+                            <li data-v-4d7c045a="" class="c-contact__stepper-item">
+                                <button data-v-4d7c045a="" type="button" class="c-contact__stepper-trigger" aria-label="Andá al paso 2: Proyecto">
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-dot" aria-hidden="true"><span data-v-4d7c045a="">2</span></span>
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-label">Proyecto</span>
+                                </button>
+                            </li>
+                            <li data-v-4d7c045a="" class="c-contact__stepper-item">
+                                <button data-v-4d7c045a="" type="button" class="c-contact__stepper-trigger" aria-label="Andá al paso 3: Contacto">
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-dot" aria-hidden="true"><span data-v-4d7c045a="">3</span></span>
+                                    <span data-v-4d7c045a="" class="c-contact__stepper-label">Contacto</span>
+                                </button>
+                            </li>
+                        </ol>
+                        <div data-v-ab6dacb2="" class="c-contact__progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+                            <div data-v-ab6dacb2="" class="c-contact__progress-track">
+                                <div data-v-ab6dacb2="" class="c-contact__progress-fill" style="width: 33%;"></div>
+                            </div>
+                            <p data-v-ab6dacb2="" class="c-contact__progress-text">Paso 1 de 3</p>
+                            <p data-v-ab6dacb2="" class="c-contact__privacy-note">Guardamos un borrador temporal de este formulario por hasta 12 horas en este dispositivo.</p>
+                        </div>
+                        <form data-v-ab6dacb2="" class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
+                            <div data-v-ab6dacb2="">
+                                <div data-v-ab6dacb2="" class="c-contact__step-panel">
+                                    <h3 class="c-contact__step-title">1. Identidad</h3>
+                                    <div>
+                                        <label class="c-contact__label" for="contacto-nombre">Nombre</label>
+                                        <input id="contacto-nombre" type="text" class="c-contact__input" autocomplete="given-name" maxlength="80" disabled="" aria-invalid="false">
+                                        <small class="c-contact__helper">Opcional</small>
+                                    </div>
+                                    <div>
+                                        <label class="c-contact__label" for="contacto-apellido">Apellido</label>
+                                        <input id="contacto-apellido" type="text" class="c-contact__input" autocomplete="family-name" maxlength="80" disabled="" aria-invalid="false">
+                                        <small class="c-contact__helper">Opcional</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-v-ab6dacb2="" class="c-contact__actions">
+                                <button data-v-ab6dacb2="" type="button" class="c-contact__btn c-contact__btn--primary" disabled=""> Continuá </button>
+                            </div>
+                            <div data-v-ab6dacb2="" aria-live="polite" aria-atomic="true">
+                                <p data-v-ab6dacb2="" class="tw:text-orange-200 tw:bg-orange-900/35 tw:border tw:border-orange-600 tw:rounded-xl tw:px-4 tw:py-3 tw:text-sm" role="status">Servicio temporalmente no disponible.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <article data-v-ab6dacb2="" class="c-contact__email-card" aria-label="Contacto alternativo por e-mail">
+                    <p data-v-ab6dacb2="" class="c-contact__email-label">Contacto alternativo</p>
+                    <p data-v-ab6dacb2="" class="c-contact__email-title">Escribinos por e-mail</p>
+                    <a data-v-ab6dacb2="" class="c-contact__email-link" href="mailto:info@datamaq.com.ar">info@datamaq.com.ar</a>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
