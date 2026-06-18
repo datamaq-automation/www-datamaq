@@ -75,6 +75,24 @@ class ProfileModel(BaseModel):
 class LegalModel(BaseModel):
     text: str
 
+class ContactFieldsModel(BaseModel):
+    name: str
+    surname: str
+    optional: str
+
+class AltEmailModel(BaseModel):
+    label: str
+    title: str
+    email: str
+
+class ContactModel(BaseModel):
+    title: str
+    subtitle: str
+    steps: List[str]
+    fields: ContactFieldsModel
+    cta: str
+    alt_email: AltEmailModel
+
 # --- Campos obligatorios para Fail-Fast ---
 class SeoModel(BaseModel):
     title: str
@@ -92,6 +110,7 @@ class ContentModel(BaseModel):
     about: AboutModel
     profile: ProfileModel
     legal: LegalModel
+    contact: ContactModel
 
 class ContenidoModel(BaseModel):
     brand: BrandModel

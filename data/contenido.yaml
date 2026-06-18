@@ -1,82 +1,85 @@
 brand:
-  baseOperativa: Garín (GBA Norte)
+  baseOperativa: "Gar\xEDn (GBA Norte)"
   brandAriaLabel: DataMaq, inicio
   brandName: DataMaq
   contactEmail: info@datamaq.com.ar
   technician:
     name: Agustin Bustos
     photo:
-      alt: Foto del técnico a cargo
+      alt: "Foto del t\xE9cnico a cargo"
       height: 100
       src: /static/media/tecnico-a-cargo.webp
       width: 100
-    role: Técnico a cargo
+    role: "T\xE9cnico a cargo"
   whatsappUrl: https://wa.me/5491156297160
 content:
   about:
     image:
-      alt: Técnico a cargo de la implementación
+      alt: "T\xE9cnico a cargo de la implementaci\xF3n"
       height: 933
       src: /static/media/tecnico-a-cargo.webp
       width: 700
     paragraphs:
-    - DataMaq trabaja sobre captura automática de datos operativos, con foco en energía
-      eléctrica, producción y variables críticas de seguimiento.
-    - El servicio combina relevamiento en campo, implementación técnica, integración
-      inicial y acompañamiento para que los datos capturados puedan usarse con criterio
-      en análisis, seguimiento o capacitación.
+    - "DataMaq trabaja sobre captura autom\xE1tica de datos operativos, con foco en\
+      \ energ\xEDa el\xE9ctrica, producci\xF3n y variables cr\xEDticas de seguimiento."
+    - "El servicio combina relevamiento en campo, implementaci\xF3n t\xE9cnica, integraci\xF3\
+      n inicial y acompa\xF1amiento para que los datos capturados puedan usarse con\
+      \ criterio en an\xE1lisis, seguimiento o capacitaci\xF3n."
     title: Sobre DataMaq
   faq:
     questions:
-    - answer: Según el caso, variables eléctricas como kWh, potencia, factor de potencia
-        y distorsión armónica, o variables operativas como kilos, unidades, metros,
-        velocidades y estados.
-      question: ¿Qué tipo de datos se pueden capturar?
-    - answer: No. La energía es una de las aplicaciones principales, pero también
-        se pueden implementar soluciones para captura de datos de producción u otras
-        variables operativas relevantes.
-      question: ¿Trabajás solo con energía eléctrica?
-    - answer: Sí. Según el proyecto, la solución puede apoyarse en Powermeter para
-        medición eléctrica y en Automate para captura e integración de señales y datos
-        operativos.
-      question: ¿Usás Powermeter y Automate?
+    - answer: "Seg\xFAn el caso, variables el\xE9ctricas como kWh, potencia, factor\
+        \ de potencia y distorsi\xF3n arm\xF3nica, o variables operativas como kilos,\
+        \ unidades, metros, velocidades y estados."
+      question: "\xBFQu\xE9 tipo de datos se pueden capturar?"
+    - answer: "No. La energ\xEDa es una de las aplicaciones principales, pero tambi\xE9\
+        n se pueden implementar soluciones para captura de datos de producci\xF3n\
+        \ u otras variables operativas relevantes."
+      question: "\xBFTrabaj\xE1s solo con energ\xEDa el\xE9ctrica?"
+    - answer: "S\xED. Seg\xFAn el proyecto, la soluci\xF3n puede apoyarse en Powermeter\
+        \ para medici\xF3n el\xE9ctrica y en Automate para captura e integraci\xF3\
+        n de se\xF1ales y datos operativos."
+      question: "\xBFUs\xE1s Powermeter y Automate?"
   hero:
-    badge: Captura automática de datos operativos
+    badge: "Captura autom\xE1tica de datos operativos"
     benefits:
-    - text: Captura de kWh, potencia, factor de potencia, armónicas, kilos, unidades,
-        metros, velocidades o estados según el caso.
+    - text: "Captura de kWh, potencia, factor de potencia, arm\xF3nicas, kilos, unidades,\
+        \ metros, velocidades o estados seg\xFAn el caso."
       title: Variables definidas
-    - text: Vinculación con Powermate, dashboards o sistemas de terceros cuando la
-        conectividad y el objetivo lo permiten.
-      title: Integración según alcance
-    - text: Datos ordenados y utilizables para seguimiento operativo, diagnóstico,
-        reportes o formación técnica.
-      title: Base técnica para análisis
+    - text: "Vinculaci\xF3n con Powermate, dashboards o sistemas de terceros cuando\
+        \ la conectividad y el objetivo lo permiten."
+      title: "Integraci\xF3n seg\xFAn alcance"
+    - text: "Datos ordenados y utilizables para seguimiento operativo, diagn\xF3stico,\
+        \ reportes o formaci\xF3n t\xE9cnica."
+      title: "Base t\xE9cnica para an\xE1lisis"
     image:
-      alt: Captura e integración de datos energéticos y operativos en entorno industrial
+      alt: "Captura e integraci\xF3n de datos energ\xE9ticos y operativos en entorno\
+        \ industrial"
       height: 700
       src: /static/media/hero-energy.svg
       width: 900
     primaryCta:
       href: https://wa.me/5491156297160
       label: Escribime por WhatsApp
-    responseNote: 'Base operativa: Garín (GBA Norte). El alcance se define según tablero,
-      señales disponibles, conectividad, sistema destino y objetivo operativo.'
+    responseNote: "Base operativa: Gar\xEDn (GBA Norte). El alcance se define seg\xFA\
+      n tablero, se\xF1ales disponibles, conectividad, sistema destino y objetivo\
+      \ operativo."
     secondaryCta:
       href: '#servicios'
-      label: Ver alcance técnico
-    subtitle: Implementación de soluciones para medir variables eléctricas y operativas,
-      integrarlas a sistemas existentes y dejar una base técnica usable para seguimiento,
-      diagnóstico y capacitación.
-    title: Instalación e integración de equipos IoT para energía y producción
+      label: "Ver alcance t\xE9cnico"
+    subtitle: "Implementaci\xF3n de soluciones para medir variables el\xE9ctricas\
+      \ y operativas, integrarlas a sistemas existentes y dejar una base t\xE9cnica\
+      \ usable para seguimiento, diagn\xF3stico y capacitaci\xF3n."
+    title: "Instalaci\xF3n e integraci\xF3n de equipos IoT para energ\xEDa y producci\xF3\
+      n"
   legal:
-    text: La información publicada es referencial y puede actualizarse según alcance,
-      tablero, señales disponibles, conectividad, sistema destino y condiciones de
-      implementación.
+    text: "La informaci\xF3n publicada es referencial y puede actualizarse seg\xFA\
+      n alcance, tablero, se\xF1ales disponibles, conectividad, sistema destino y\
+      \ condiciones de implementaci\xF3n."
   navbar:
     links:
     - href: '#servicios'
-      label: Solución
+      label: "Soluci\xF3n"
     - href: '#proceso'
       label: Proceso
     - href: '#tarifas'
@@ -89,43 +92,79 @@ content:
       label: Contacto
   profile:
     bullets:
-    - Relevamiento en sitio y criterio de implementación.
-    - Instalación, integración y puesta en marcha para captura automática de datos.
+    - "Relevamiento en sitio y criterio de implementaci\xF3n."
+    - "Instalaci\xF3n, integraci\xF3n y puesta en marcha para captura autom\xE1tica\
+      \ de datos."
     - Asesoramiento y capacitaciones sobre Python, datos, bases de datos y APIs en
       contextos reales.
   services:
     cards:
-    - description: Relevamiento, montaje, configuración y puesta en marcha de soluciones
-        para medir variables eléctricas y operativas en tableros, líneas o puntos
-        definidos.
+    - description: "Relevamiento, montaje, configuraci\xF3n y puesta en marcha de\
+        \ soluciones para medir variables el\xE9ctricas y operativas en tableros,\
+        \ l\xEDneas o puntos definidos."
       id: iot-installation
       key_points:
-      - Medición de kWh, potencia, factor de potencia y distorsión armónica
+      - "Medici\xF3n de kWh, potencia, factor de potencia y distorsi\xF3n arm\xF3\
+        nica"
       - Captura de kilos, unidades, metros, velocidades o estados
-      - Integración inicial con Powermate o sistemas de terceros
-      title: Instalación de equipos IoT para captura de datos
-    - description: Acompañamiento para estructurar, interpretar y explotar datos ya
-        capturados, con foco en seguimiento operativo, diagnóstico y criterio de decisión.
+      - "Integraci\xF3n inicial con Powermate o sistemas de terceros"
+      title: "Instalaci\xF3n de equipos IoT para captura de datos"
+    - description: "Acompa\xF1amiento para estructurar, interpretar y explotar datos\
+        \ ya capturados, con foco en seguimiento operativo, diagn\xF3stico y criterio\
+        \ de decisi\xF3n."
       id: data-advisory
       key_points:
-      - Análisis de consumo energético y comportamiento operativo
+      - "An\xE1lisis de consumo energ\xE9tico y comportamiento operativo"
       - Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes
       - Soporte para reportes, dashboards y automatizaciones de seguimiento
-      title: Asesoramiento técnico para análisis de datos
-    - description: Formación técnica orientada a equipos que necesiten trabajar con
-        datos operativos, Python, bases de datos, APIs o integraciones sobre casos
-        reales.
+      title: "Asesoramiento t\xE9cnico para an\xE1lisis de datos"
+    - description: "Formaci\xF3n t\xE9cnica orientada a equipos que necesiten trabajar\
+        \ con datos operativos, Python, bases de datos, APIs o integraciones sobre\
+        \ casos reales."
       id: training
       key_points:
       - Python aplicado con NumPy, pandas y Matplotlib
-      - Buenas prácticas para trabajar con bases de datos y APIs
-      - Capacitación adaptada al nivel técnico y al caso real del equipo
+      - "Buenas pr\xE1cticas para trabajar con bases de datos y APIs"
+      - "Capacitaci\xF3n adaptada al nivel t\xE9cnico y al caso real del equipo"
       title: Capacitaciones aplicadas
-    title: Servicios técnicos sobre captura, integración y uso de datos
+    title: "Servicios t\xE9cnicos sobre captura, integraci\xF3n y uso de datos"
+  contact:
+    title: "Inici\xE1 una consulta t\xE9cnica"
+    subtitle: Dejanos el contexto del caso y te respondemos con el siguiente paso.
+    steps:
+    - Identidad
+    - Proyecto
+    - Contacto
+    fields:
+      name: Nombre
+      surname: Apellido
+      optional: Opcional
+    cta: "Continu\xE1"
+    alt_email:
+      label: Contacto alternativo
+      title: Escribinos por e-mail
+      email: info@datamaq.com.ar
 seo:
   canonical_url: https://datamaq.com.ar
-  description: Instalación e integración de equipos IoT para captura automática de
-    datos de energía y producción, más asesoramiento técnico y capacitaciones aplicadas.
+  description: "Instalaci\xF3n e integraci\xF3n de equipos IoT para captura autom\xE1\
+    tica de datos de energ\xEDa y producci\xF3n, m\xE1s asesoramiento t\xE9cnico y\
+    \ capacitaciones aplicadas."
   og_image: https://datamaq.com.ar/og-default.png
   site_name: DataMaq
   title: DataMaq
+  contact:
+    title: "Iniciá una consulta técnica"
+    subtitle: Dejanos el contexto del caso y te respondemos con el siguiente paso.
+    steps:
+    - Identidad
+    - Proyecto
+    - Contacto
+    fields:
+      name: Nombre
+      surname: Apellido
+      optional: Opcional
+    cta: "Continuá"
+    alt_email:
+      label: Contacto alternativo
+      title: Escribinos por e-mail
+      email: info@datamaq.com.ar
