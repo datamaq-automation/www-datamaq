@@ -1,9 +1,0 @@
-/* 
- * Archivo de estilos principal.
- * Importa todos los módulos parciales.
- */
-@import 'components/_variables.css';
-@import 'components/_layout.css';
-@import 'components/_header.css';
-@import 'components/_hero.css';
-@import 'components/_components.css';

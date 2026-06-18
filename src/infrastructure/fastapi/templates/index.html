@@ -21,19 +21,22 @@
     }
     </script>
 </head>
-<body>
-    {% include 'partials/header.html' %}
-    <main>
-        {% include 'partials/hero.html' %}
-        {% include 'partials/servicios.html' %}
-        {% include 'partials/faq.html' %}
-    {% include 'partials/profile.html' %}
-    </main>
-    {% include 'partials/footer.html' %}
+<div id="app" data-v-app="">
+    <div data-v="" id="top" class="app-shell app-shell--home tw:min-h-screen app-shell--variant-direct"></div>
+        {% include 'partials/header.html' %}
+        <main>
+            {% include 'partials/hero.html' %}
+            {% include 'partials/servicios.html' %}
+            {% include 'partials/faq.html' %}
+        {% include 'partials/profile.html' %}
+        </main>
+        {% include 'partials/footer.html' %}
 
-    <script src="/static/js/app.js?v={{ static_version() }}"></script>
-    {% if config.GOOGLE_ANALYTICS_ID or config.CLARITY_ID %}
-        {% include "partials/cookie-banner.html" %}
-    {% endif %}
+        <script src="/static/js/app.js?v={{ static_version() }}"></script>
+        {% if config.GOOGLE_ANALYTICS_ID or config.CLARITY_ID %}
+            {% include "partials/cookie-banner.html" %}
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>
