@@ -85,7 +85,7 @@ class LegalModel(BaseModel):
 class FieldModel(BaseModel):
     id: str
     label: str
-    autocomplete: str
+    autocomplete: Optional[str] = None
 
 class StepModel(BaseModel):
     title: str

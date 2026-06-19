@@ -19,22 +19,24 @@
 <form data-v-ab6dacb2="" class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
     <div data-v-ab6dacb2="">
         {% for step in data.steps %}
-        {% if loop.first %}
-        <div data-v-ab6dacb2="" class="c-contact__step-panel">
+        <div data-v-ab6dacb2="" class="c-contact__step-panel" style="{{ 'display: none' if not loop.first else '' }}">
             <h3 class="c-contact__step-title">{{ loop.index }}. {{ step.title }}</h3>
             {% for field in step.fields %}
             <div>
                 <label class="c-contact__label" for="{{ field.id }}">{{ field.label }}</label>
-                <input id="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" disabled="" aria-invalid="false">
+                {% if field.type == 'textarea' %}
+                <textarea id="{{ field.id }}" class="c-contact__input" rows="4"></textarea>
+                {% else %}
+                <input id="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" aria-invalid="false">
+                {% endif %}
                 <small class="c-contact__helper">{{ data.optional_text }}</small>
             </div>
             {% endfor %}
         </div>
-        {% endif %}
         {% endfor %}
     </div>
     <div data-v-ab6dacb2="" class="c-contact__actions">
-        <button data-v-ab6dacb2="" type="button" class="c-contact__btn c-contact__btn--primary" disabled=""> {{ data.cta }} </button>
+        <button data-v-ab6dacb2="" type="button" class="c-contact__btn c-contact__btn--primary"> {{ data.cta }} </button>
     </div>
     <div data-v-ab6dacb2="" aria-live="polite" aria-atomic="true">
         <p data-v-ab6dacb2="" class="tw:text-orange-200 tw:bg-orange-900/35 tw:border tw:border-orange-600 tw:rounded-xl tw:px-4 tw:py-3 tw:text-sm" role="status">{{ data.error_message }}</p>

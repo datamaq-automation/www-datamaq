@@ -10,7 +10,8 @@
     <script>
         window.APP_CONFIG = {
             gaId: '{{ config.GOOGLE_ANALYTICS_ID }}',
-            clarityId: '{{ config.CLARITY_ID }}'
+            clarityId: '{{ config.CLARITY_ID }}',
+            contactApiUrl: '{{ request.url_for("submit_contact") }}'
         };
     </script>
     

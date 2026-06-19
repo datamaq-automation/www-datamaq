@@ -151,9 +151,18 @@ content:
         label: Apellido
         autocomplete: family-name
     - title: Proyecto
-      fields: []
+      fields:
+      - id: contacto-comentario
+        label: "\xBFEn qu\xE9 consiste tu proyecto o consulta?"
+        type: textarea
     - title: Contacto
-      fields: []
+      fields:
+      - id: contacto-email
+        label: Email
+        autocomplete: email
+      - id: contacto-telefono
+        label: "Tel\xE9fono"
+        autocomplete: tel
 seo:
   canonical_url: https://datamaq.com.ar
   description: "Instalaci\xF3n e integraci\xF3n de equipos IoT para captura autom\xE1\
