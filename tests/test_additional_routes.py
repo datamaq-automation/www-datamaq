@@ -84,3 +84,32 @@ async def test_terms_page_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "T\u00e9rminos y condiciones" in response.text
+
+@pytest.mark.asyncio  # type: ignore
+async def test_contact_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/contact")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Contacto" in response.text
+
+@pytest.mark.asyncio  # type: ignore
+async def test_custom_404_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/pagina-que-no-existe")
+    
+    assert response.status_code == 404
+    assert "text/html" in response.headers["content-type"]
+    assert "P\u00e1gina no encontrada" in response.text
+
+@pytest.mark.asyncio  # type: ignore
+async def test_sitemap_includes_contact():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/sitemap.xml")
+    
+    assert response.status_code == 200
+    assert "https://datamaq.com.ar/contact" in response.text

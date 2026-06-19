@@ -28,7 +28,9 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
         "chatwoot_token": chatwoot_token,
         "partial_name": partial_name
     }
-    return templates.TemplateResponse(request=request, name="preview.html", context=context)
+    response = templates.TemplateResponse(request=request, name="preview.html", context=context)
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response
 
 @router.get("/")
 async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):

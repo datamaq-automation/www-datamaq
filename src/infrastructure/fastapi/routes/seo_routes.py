@@ -18,16 +18,25 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     
     brand_data = contenido.brand.model_dump()
     servicios_data = [s.model_dump() for s in contenido.content.services.cards]
-        
+    municipio_formateado = municipio.replace("-", " ").title()
+
+    seo = {
+        "title": f"Electricista en {nombre_localidad}, {municipio_formateado} - Urgencias 24/7",
+        "description": f"¿Necesit\u00e1s un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio_formateado}. Atenci\u00f3n r\u00e1pida, segura y 24/7.",
+        "canonical_url": str(request.url),
+        "site_name": contenido.brand.brandName,
+        "og_image": contenido.seo.og_image,
+    }
+
     context: Dict[str, Any] = {
         "brand": brand_data,
+        "content": contenido.content.model_dump(),
         "servicios": servicios_data,
         "faq": contenido.content.faq.questions,
         "chatwoot_token": chatwoot_token,
         "localidad_nombre": nombre_localidad,
-        "municipio": municipio.replace("-", " ").title(),
+        "municipio": municipio_formateado,
         "provincia": provincia.replace("-", " ").title(),
-        "seo_titulo": f"Electricista en {nombre_localidad}, {municipio.replace('-', ' ').title()} - Urgencias 24/7",
-        "seo_descripcion": f"¿Necesitas un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio.replace('-', ' ').title()}. Atención rápida, segura y 24/7."
+        "seo": seo,
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

@@ -5,7 +5,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>{{ seo_data.title }}</title>
     
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/index.css') }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/index.css') }}?v={{ static_version() }}'>
     
     <script>
         window.APP_CONFIG = {
@@ -16,11 +16,11 @@
     </script>
     
     
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/WhatsAppFab.css') }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/useContactPageActions.css') }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/HomePage.css') }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/CookieBanner.css') }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/LegalPage.css') }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/WhatsAppFab.css') }}?v={{ static_version() }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/HomePage.css') }}?v={{ static_version() }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/LegalPage.css') }}?v={{ static_version() }}'>
 
     <meta name='description' content='{{ seo_data.description }}'>
     <meta name='robots' content='index,follow'>
@@ -41,11 +41,13 @@
     <link rel='canonical' href='{{ seo_data.canonical_url }}'>
     <link rel='alternate' hreflang='es_AR' href='{{ seo_data.canonical_url }}'>
 
-    <script type='application/ld+json' children='{
+    <script type="application/ld+json">
+    {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "{{ seo_data.site_name }}",
         "url": "{{ seo_data.canonical_url }}"
-    }''></script>
+    }
+    </script>
 </head>
 {% endmacro %}

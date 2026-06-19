@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/contact_form.html' as contact_macro %}
+{% import 'partials/components/contact_section.html' as contact_section_macro %}
+{% import 'partials/components/whatsapp_fab.html' as fab_macro %}
+{% import 'partials/components/chatwoot_fab.html' as chatwoot_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+{% call contact_section_macro.contact_section(content.contact) %}
+{{ contact_macro.contact_form(content.contact) }}
+{% endcall %}
+{% endblock %}
+
+{% block fab %}
+{{ chatwoot_macro.chatwoot_fab(config.CHATWOOT_BASE_URL, config.CHATWOOT_TOKEN) }}
+{{ fab_macro.whatsapp_fab('https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D.', 'Abrir WhatsApp para pedir coordinaci\u00f3n', 'Abrir WhatsApp') }}
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon': 'bi bi-house-door-fill', 'label': 'Inicio'}, {'href': '/contact', 'icon': 'bi bi-telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

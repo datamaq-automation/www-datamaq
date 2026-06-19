@@ -1,10 +1,29 @@
-from fastapi import APIRouter, BackgroundTasks, HTTPException
-from src.domain.models import ContactSubmitPayload
+from typing import Any, Dict
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, Depends
+from src.domain.models import ContactSubmitPayload, ContenidoModel
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
 import json
 import uuid
 import os
 
 router = APIRouter()
+
+@router.get("/contact")
+async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+    base_seo = contenido.seo.model_dump()
+    seo = {
+        **base_seo,
+        "title": f"Contacto | {contenido.brand.brandName}",
+        "description": f"Contact\u00e1 a {contenido.brand.brandName} para una consulta t\u00e9cnica sobre captura de datos operativos, energ\u00eda y producci\u00f3n.",
+        "canonical_url": str(request.url),
+    }
+    context: Dict[str, Any] = {
+        "brand": contenido.brand.model_dump(),
+        "content": contenido.content.model_dump(),
+        "seo": seo,
+        "chatwoot_token": chatwoot_token,
+    }
+    return templates.TemplateResponse(request=request, name="contact.html", context=context)
 
 # TODO: Migrar a PostgreSQL
 DATA_DIR = "data/leads"

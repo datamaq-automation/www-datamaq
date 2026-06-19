@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Preview: {{ partial_name }}</title>
     <!-- CSS Dependencies from head.html -->
-    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/WhatsAppFab.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/useContactPageActions.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/HomePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}?v={{ static_version() }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/WhatsAppFab.css') }}?v={{ static_version() }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/HomePage.css') }}?v={{ static_version() }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/LegalPage.css') }}?v={{ static_version() }}">
 </head>
 <body class="tw:bg-dm-bg">
 <div id="app" data-v-app="">
@@ -43,7 +46,7 @@
             {% endif %}
         </div>
     </div>
-    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+    <script type="module" src="{{ url_for('static', path='js/app.js') }}?v={{ static_version() }}"></script>
 </div>
 </body>
 </html>

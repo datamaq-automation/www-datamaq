@@ -29,7 +29,7 @@
 
 <div data-v-236fef00="" class="c-home-services__grid">
 {% for card in content.services.cards %}
-{{ service_macro.service_card('bi bi-bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta) }}
+{{ service_macro.service_card('bi bi-bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, brand.whatsappUrl + '?text=Hola+DataMaq%2C+consulto+por+' + card.title.replace(' ', '+')) }}
 {% endfor %}
 </div>
 
@@ -66,6 +66,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="module" src="{{ url_for("static", path="js/app.js") }}?v=2"></script>
+    <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
 <!--  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;ab850807b64648da83ecb0cd0263d779&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script -->
 {% endblock %}

@@ -1,4 +1,4 @@
-{% macro service_card(icon_class, title, description, subtitle, items, note, cta_text) %}
+{% macro service_card(icon_class, title, description, subtitle, items, note, cta_text, cta_href='https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica') %}
 <article data-v-236fef00="" class="c-home-service-card">
     <div data-v-236fef00="" class="c-home-service-card__summary">
         <span data-v-236fef00="" class="c-home-service-card__icon" aria-hidden="true"><i data-v-236fef00="" class="{{ icon_class }}"></i></span>
@@ -18,7 +18,7 @@
             {% endfor %}
         </ul>
         <p data-v-236fef00="" class="c-home-service-card__note">{{ note }}</p>
-        <button data-v-236fef00="" type="button" class="tw:btn-outline c-home-service-card__cta">{{ cta_text }}</button>
+        <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}" target="_blank" rel="noopener noreferrer">{{ cta_text }}</a>
     </div>
 </article>
 {% endmacro %}
