@@ -18,12 +18,15 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
     industria_formateada = industria.replace("-", " ").title()
 
     seo = {
-        "title": f"Electricista especializado en {nombre_industria} - Urgencias 24/7",
-        "description": f"\u00bfNecesit\u00e1s un electricista en {nombre_industria}? Servicio profesional certificado en {industria_formateada}. Atenci\u00f3n r\u00e1pida, segura y 24/7.",
+        "title": f"Soluciones IoT para {nombre_industria} | DataMaq",
+        "description": f"Captura e integraci\u00f3n de datos operativos para la {nombre_industria}. Asesoramiento t\u00e9cnico especializado en energ\u00eda y producci\u00f3n.",
         "canonical_url": str(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
     }
+
+    hero_title = f"Captura de datos para {nombre_industria}"
+    hero_subtitle = f"Soluciones de captura autom\u00e1tica de datos operativos, energ\u00eda y producci\u00f3n adaptadas a la {nombre_industria}."
 
     context: Dict[str, Any] = {
         "brand": brand_data,
@@ -33,5 +36,7 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
         "chatwoot_token": chatwoot_token,
         "industria_nombre": nombre_industria,
         "seo": seo,
+        "hero_title": hero_title,
+        "hero_subtitle": hero_subtitle,
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

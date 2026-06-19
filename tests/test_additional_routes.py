@@ -113,3 +113,25 @@ async def test_sitemap_includes_contact():
     
     assert response.status_code == 200
     assert "https://datamaq.com.ar/contact" in response.text
+
+@pytest.mark.asyncio  # type: ignore
+async def test_localidad_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/buenos-aires/escobar/garin.html")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Gar\u00edn" in response.text
+    assert "Captura de datos operativos" in response.text
+
+@pytest.mark.asyncio  # type: ignore
+async def test_industria_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/industria/alimenticia.html")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Industria Alimenticia" in response.text
+    assert "Captura de datos" in response.text

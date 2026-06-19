@@ -1,12 +1,12 @@
-{% macro hero(request, data) %}
+{% macro hero(request, data, title=None, subtitle=None) %}
 <section data-v-236fef00="" class="section-mobile c-home-hero c-home-hero--direct" aria-labelledby="hero-title" style="background-image: linear-gradient(180deg, rgba(var(--dm-surface-0-rgb), 0.42), rgba(var(--dm-bg-0-rgb), 0.96)), url('{{ request.url_for('static', path=data.image.src.replace('/static/', '')) }}');">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
         <div data-v-236fef00="" class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-end">
             <div data-v-236fef00="" class="tw:col-span-1 tw:lg:col-span-7">
                 <div data-v-236fef00="" class="c-home-hero__copy">
                     <span data-v-236fef00="" class="c-home-eyebrow">{{ data.badge }}</span>
-                    <h1 data-v-236fef00="" id="hero-title" class="c-home-hero__title">{{ data.title }}</h1>
-                    <p data-v-236fef00="" class="c-home-hero__subtitle">{{ data.subtitle }}</p>
+                    <h1 data-v-236fef00="" id="hero-title" class="c-home-hero__title">{{ title if title else data.title }}</h1>
+                    <p data-v-236fef00="" class="c-home-hero__subtitle">{{ subtitle if subtitle else data.subtitle }}</p>
                     <div data-v-236fef00="" class="c-home-hero__actions">
                         <a data-v-236fef00="" class="tw:btn-primary c-home-hero__primary" href="{{ data.primaryCta.href }}" target="_blank" rel="noopener noreferrer">{{ data.primaryCta.label }}</a>
                     </div>

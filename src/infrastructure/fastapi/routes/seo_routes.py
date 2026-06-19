@@ -21,12 +21,15 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     municipio_formateado = municipio.replace("-", " ").title()
 
     seo = {
-        "title": f"Electricista en {nombre_localidad}, {municipio_formateado} - Urgencias 24/7",
-        "description": f"¿Necesit\u00e1s un electricista en {nombre_localidad}? Servicio profesional certificado en {municipio_formateado}. Atenci\u00f3n r\u00e1pida, segura y 24/7.",
+        "title": f"Captura de datos operativos en {nombre_localidad}, {municipio_formateado} | DataMaq",
+        "description": f"Soluciones de captura autom\u00e1tica de datos operativos, energ\u00eda y producci\u00f3n en {nombre_localidad}. Asesoramiento t\u00e9cnico e implementaci\u00f3n IoT.",
         "canonical_url": str(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
     }
+
+    hero_title = f"Captura de datos operativos en {nombre_localidad}"
+    hero_subtitle = f"Implementaci\u00f3n t\u00e9cnica de equipos IoT para medir energ\u00eda y variables de producci\u00f3n en {nombre_localidad}, {municipio_formateado}."
 
     context: Dict[str, Any] = {
         "brand": brand_data,
@@ -38,5 +41,7 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "municipio": municipio_formateado,
         "provincia": provincia.replace("-", " ").title(),
         "seo": seo,
+        "hero_title": hero_title,
+        "hero_subtitle": hero_subtitle,
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

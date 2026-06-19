@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block main_content %}
-{{ hero_macro.hero(request, content.hero) }}
+{{ hero_macro.hero(request, content.hero, hero_title, hero_subtitle) }}
 {{ profile_macro.profile(request, brand, content.profile) }}
 {% call section_macro.section_wrapper('servicios', 'Servicios técnicos sobre captura, integración y uso de datos', 'Servicios', 'Servicios orientados a captura automática de datos, integración técnica y formación aplicada sobre casos reales.', 'c-home-services') %}
 
