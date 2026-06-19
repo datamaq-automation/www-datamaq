@@ -28,9 +28,36 @@ async def override_get_contenido():
             "faq": {"questions": []},
             "about": {"title": "Test", "paragraphs": [], "image": {"src": "test.jpg", "alt": "Test"}},
             "profile": {"bullets": []},
-            "legal": {"text": "Test"}
+            "legal": {"text": "Test"},
+            "cookie_banner": {
+                "title": "Test",
+                "text": "Test",
+                "accept_label": "Aceptar",
+                "reject_label": "Rechazar",
+                "more_info_label": "Ver m\u00e1s",
+                "more_info_link": "/terminos-y-condiciones"
+            },
+            "contact": {
+                "title": "Test",
+                "subtitle": "Test",
+                "cta": "Test",
+                "alt_email": {"label": "Test", "title": "Test", "email": "test@test.com"},
+                "progress_text": "Test",
+                "privacy_note": "Test",
+                "error_message": "Test",
+                "optional_text": "Test",
+                "steps": []
+            }
         },
-        seo={"siteDescription": "Test", "siteName": "Test", "siteUrl": "http://test.com"}
+        seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},
+        legal_pages={
+            "terms": {
+                "title": "T\u00e9rminos y condiciones",
+                "last_updated": "2026-06-19",
+                "introduction": "Test",
+                "sections": [{"title": "Test", "paragraphs": ["Test"]}]
+            }
+        }
     )
 
 async def override_get_chatwoot_token():
@@ -47,3 +74,13 @@ async def test_sitemap_rendered():
     
     assert response.status_code == 200
     assert "application/xml" in response.headers["content-type"]
+
+@pytest.mark.asyncio  # type: ignore
+async def test_terms_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/terminos-y-condiciones")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "T\u00e9rminos y condiciones" in response.text

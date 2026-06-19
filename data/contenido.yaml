@@ -163,6 +163,69 @@ content:
       - id: contacto-telefono
         label: "Tel\xE9fono"
         autocomplete: tel
+  cookie_banner:
+    title: "\xBFTe parece si usamos cookies?"
+    text: Usamos cookies propias y de terceros para mejorar la experiencia, analizar
+      el tr\xE1fico y ofrecer comunicaci\xF3n a trav\xE9s de nuestro chat. Pod\xE9s
+      aceptar, rechazar o leer m\xE1s en nuestros t\xE9rminos y condiciones.
+    accept_label: Aceptar
+    reject_label: Rechazar
+    more_info_label: "Ver m\xE1s"
+    more_info_link: /terminos-y-condiciones
+legal_pages:
+  terms:
+    title: T\xE9rminos y condiciones
+    last_updated: "2026-06-19"
+    introduction: "Estos t\xE9rminos y condiciones regulan el uso del sitio web datamaq.com.ar\
+      \ (en adelante, \"el Sitio\"), propiedad de DataMaq. Al acceder y navegar\
+      \ por el Sitio, acept\xE1s estos t\xE9rminos en su totalidad. Si no est\xE1\
+      s de acuerdo, te pedimos que no utilices el Sitio."
+    sections:
+    - title: 1. Informaci\xF3n general
+      paragraphs:
+      - DataMaq ofrece servicios t\xE9cnicos de captura autom\xE1tica de datos operativos,
+        asesoramiento t\xE9cnico y capacitaciones aplicadas. La informaci\xF3n publicada
+        en el Sitio es referencial y puede variar seg\xFAn alcance, tablero, se\xF1
+        ales disponibles, conectividad, sistema destino y condiciones de implementaci\xF3
+        n.
+    - title: 2. Uso del sitio
+      paragraphs:
+      - "El usuario se compromete a utilizar el Sitio de manera l\xEDcita, respetando\
+        \ la legislaci\xF3n vigente y los derechos de terceros. Est\xE1 prohibido\
+        \ el uso del Sitio para actividades fraudulentas, malintencionadas o que\
+        \ puedan da\xF1ar la imagen de DataMaq."
+    - title: 3. Formulario de contacto y datos personales
+      paragraphs:
+      - "Los datos enviados a trav\xE9s del formulario de contacto se utilizan exclusivamente\
+        \ para responder consultas y coordinar servicios. No compartimos tu informaci\xF3\
+        n con terceros sin tu consentimiento, salvo obligaci\xF3n legal."
+    - title: 4. Cookies y tecnolog\xEDas similares
+      paragraphs:
+      - "El Sitio utiliza cookies propias y de terceros para mejorar la navegaci\xF3\
+        n, analizar el tr\xE1fico y habilitar funciones de comunicaci\xF3n. Al aceptar\
+        \ el banner de cookies, prest\xE1s consentimiento para el uso de aquellas\
+        \ que no sean estrictamente necesarias. Pod\xE9s revocar tu consentimiento\
+        \ en cualquier momento eliminando las cookies de tu navegador."
+    - title: 5. Propiedad intelectual
+      paragraphs:
+      - "Todos los contenidos del Sitio, incluyendo textos, im\xE1genes, logotipos\
+        \ y c\xF3digo, son propiedad de DataMaq o de sus respectivos titulares.\
+        \ Queda prohibida su reproducci\xF3n, distribuci\xF3n o modificaci\xF3n\
+        \ sin autorizaci\xF3n expresa."
+    - title: 6. Limitaci\xF3n de responsabilidad
+      paragraphs:
+      - "DataMaq no garantiza la disponibilidad ininterrumpida del Sitio ni la exactitud\
+        \ absoluta de la informaci\xF3n publicada. La contrataci\xF3n de servicios\
+        \ se formaliza mediante propuesta escrita y acuerdo de partes."
+    - title: 7. Modificaciones
+      paragraphs:
+      - "DataMaq se reserva el derecho de modificar estos t\xE9rminos en cualquier\
+        \ momento. Las modificaciones entrar\xE1n en vigor desde su publicaci\xF3\
+        n en el Sitio."
+    - title: 8. Contacto
+      paragraphs:
+      - "Para consultas sobre estos t\xE9rminos, pod\xE9s escribirnos a info@datamaq.com.ar\
+        \ o contactarnos a trav\xE9s de los canales disponibles en el Sitio."
 seo:
   canonical_url: https://datamaq.com.ar
   description: "Instalaci\xF3n e integraci\xF3n de equipos IoT para captura autom\xE1\

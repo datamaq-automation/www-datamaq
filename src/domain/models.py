@@ -81,6 +81,27 @@ class ProfileModel(BaseModel):
 class LegalModel(BaseModel):
     text: str
 
+class CookieBannerModel(BaseModel):
+    title: str
+    text: str
+    accept_label: str
+    reject_label: str
+    more_info_label: str
+    more_info_link: str
+
+class LegalSectionModel(BaseModel):
+    title: str
+    paragraphs: List[str]
+
+class LegalPageModel(BaseModel):
+    title: str
+    last_updated: str
+    introduction: str
+    sections: List[LegalSectionModel]
+
+class LegalPagesModel(BaseModel):
+    terms: LegalPageModel
+
 # --- Nuevos Modelos Contact ---
 class FieldModel(BaseModel):
     id: str
@@ -130,11 +151,13 @@ class ContentModel(BaseModel):
     profile: ProfileModel
     legal: LegalModel
     contact: ContactModel
+    cookie_banner: CookieBannerModel
 
 class ContenidoModel(BaseModel):
     brand: BrandModel
     content: ContentModel
     seo: SeoModel
+    legal_pages: LegalPagesModel
 
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]

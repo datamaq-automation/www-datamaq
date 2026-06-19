@@ -39,3 +39,21 @@ async def root(request: Request, contenido: ContenidoModel = Depends(get_conteni
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
+
+@router.get("/terminos-y-condiciones")
+async def terms(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+    base_seo = contenido.seo.model_dump()
+    seo = {
+        **base_seo,
+        "title": f"{contenido.legal_pages.terms.title} | {contenido.brand.brandName}",
+        "description": f"T\u00e9rminos y condiciones de uso del sitio web de {contenido.brand.brandName}.",
+        "canonical_url": str(request.url),
+    }
+    context: Dict[str, Any] = {
+        "brand": contenido.brand.model_dump(),
+        "terms": contenido.legal_pages.terms.model_dump(),
+        "cookie_banner": contenido.content.cookie_banner.model_dump(),
+        "seo": seo,
+        "chatwoot_token": chatwoot_token
+    }
+    return templates.TemplateResponse(request=request, name="terms.html", context=context)
