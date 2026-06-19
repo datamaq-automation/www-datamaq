@@ -5,8 +5,17 @@ start_time=$(date +%s)
 echo "🚀 Ejecutando tests antes de hacer push... (Iniciado a las $(date +"%H:%M:%S"))"
 export PYTHONPATH=$PYTHONPATH:.
 
-# Ejecutamos pytest con cobertura y generamos un reporte en consola al final
-pytest --cov=src --cov-report=term-missing tests/
+# Preferir pytest del entorno virtual si existe
+if [ -f "venv/bin/pytest" ]; then
+    PYTEST="venv/bin/pytest"
+elif [ -f "./venv/bin/pytest" ]; then
+    PYTEST="./venv/bin/pytest"
+else
+    PYTEST="pytest"
+fi
+
+# Ejecutamos pytest con cobertura, umbral del 85% y generamos un reporte en consola al final
+$PYTEST --cov=src --cov-report=term-missing --cov-fail-under=85 tests/
 status=$?
 
 end_time=$(date +%s)

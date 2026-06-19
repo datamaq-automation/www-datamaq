@@ -18,15 +18,15 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
     industria_formateada = industria.replace("-", " ").title()
 
     seo = {
-        "title": f"Soluciones IoT para {nombre_industria} | DataMaq",
-        "description": f"Captura e integraci\u00f3n de datos operativos para la {nombre_industria}. Asesoramiento t\u00e9cnico especializado en energ\u00eda y producci\u00f3n.",
+        "title": f"IoT industrial para {nombre_industria} | DataMaq",
+        "description": f"Soluciones de captura de datos operativos y monitoreo de energ\u00eda para la {nombre_industria}. Digitalizaci\u00f3n de planta con equipos IoT.",
         "canonical_url": str(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
     }
 
-    hero_title = f"Captura de datos para {nombre_industria}"
-    hero_subtitle = f"Soluciones de captura autom\u00e1tica de datos operativos, energ\u00eda y producci\u00f3n adaptadas a la {nombre_industria}."
+    hero_title = f"IoT industrial para {nombre_industria}"
+    hero_subtitle = f"Captura de datos operativos y monitoreo de energ\u00eda adaptados a la {nombre_industria}. Asesoramiento t\u00e9cnico e implementaci\u00f3n."
 
     context: Dict[str, Any] = {
         "brand": brand_data,

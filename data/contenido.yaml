@@ -67,11 +67,11 @@ content:
     secondaryCta:
       href: '#servicios'
       label: "Ver alcance t\xE9cnico"
-    subtitle: "Implementaci\xF3n de soluciones para medir variables el\xE9ctricas\
-      \ y operativas, integrarlas a sistemas existentes y dejar una base t\xE9cnica\
-      \ usable para seguimiento, diagn\xF3stico y capacitaci\xF3n."
-    title: "Instalaci\xF3n e integraci\xF3n de equipos IoT para energ\xEDa y producci\xF3\
-      n"
+    subtitle: "Implementamos equipos IoT industrial para monitoreo de energ\xEDa\
+      \ y captura autom\xE1tica de datos operativos. Integramos variables el\xE9\
+      ctricas y de producci\xF3n a dashboards o sistemas existentes para mejorar\
+      \ el control de planta."
+    title: "Monitoreo de energ\xEDa industrial y captura de datos operativos"
   legal:
     text: "La informaci\xF3n publicada es referencial y puede actualizarse seg\xFA\
       n alcance, tablero, se\xF1ales disponibles, conectividad, sistema destino y\
@@ -228,9 +228,9 @@ legal_pages:
         \ o contactarnos a trav\xE9s de los canales disponibles en el Sitio."
 seo:
   canonical_url: https://datamaq.com.ar
-  description: "Instalaci\xF3n e integraci\xF3n de equipos IoT para captura autom\xE1\
-    tica de datos de energ\xEDa y producci\xF3n, m\xE1s asesoramiento t\xE9cnico y\
-    \ capacitaciones aplicadas."
+  description: "Soluciones IoT industrial para monitoreo de energ\xEDa y captura autom\xE1\
+    tica de datos operativos. Instalaci\xF3n, integraci\xF3n y asesoramiento t\xE9\
+    cnico en Argentina."
   og_image: https://datamaq.com.ar/static/og-default.png
   site_name: DataMaq
-  title: DataMaq
+  title: "Monitoreo de energ\xEDa industrial y captura de datos operativos | DataMaq"

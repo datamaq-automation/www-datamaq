@@ -13,8 +13,8 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
     base_seo = contenido.seo.model_dump()
     seo = {
         **base_seo,
-        "title": f"Contacto | {contenido.brand.brandName}",
-        "description": f"Contact\u00e1 a {contenido.brand.brandName} para una consulta t\u00e9cnica sobre captura de datos operativos, energ\u00eda y producci\u00f3n.",
+        "title": f"Consultor\u00eda t\u00e9cnica IoT | {contenido.brand.brandName}",
+        "description": f"Contact\u00e1 a {contenido.brand.brandName} para una consultor\u00eda t\u00e9cnica sobre monitoreo de energ\u00eda industrial, captura de datos operativos e IoT industrial.",
         "canonical_url": str(request.url),
     }
     context: Dict[str, Any] = {

@@ -93,7 +93,7 @@ async def test_contact_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Contacto" in response.text
+    assert "Consultor\u00eda t\u00e9cnica IoT" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_custom_404_page_rendered():
