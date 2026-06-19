@@ -131,19 +131,29 @@ content:
   contact:
     title: "Inici\xE1 una consulta t\xE9cnica"
     subtitle: Dejanos el contexto del caso y te respondemos con el siguiente paso.
-    steps:
-    - Identidad
-    - Proyecto
-    - Contacto
-    fields:
-      name: Nombre
-      surname: Apellido
-      optional: Opcional
     cta: "Continu\xE1"
     alt_email:
       label: Contacto alternativo
       title: Escribinos por e-mail
       email: info@datamaq.com.ar
+    progress_text: Paso 1 de 3
+    privacy_note: Guardamos un borrador temporal de este formulario por hasta 12 horas
+      en este dispositivo.
+    error_message: Servicio temporalmente no disponible.
+    optional_text: Opcional
+    steps:
+    - title: Identidad
+      fields:
+      - id: contacto-nombre
+        label: Nombre
+        autocomplete: given-name
+      - id: contacto-apellido
+        label: Apellido
+        autocomplete: family-name
+    - title: Proyecto
+      fields: []
+    - title: Contacto
+      fields: []
 seo:
   canonical_url: https://datamaq.com.ar
   description: "Instalaci\xF3n e integraci\xF3n de equipos IoT para captura autom\xE1\
@@ -152,19 +162,3 @@ seo:
   og_image: https://datamaq.com.ar/og-default.png
   site_name: DataMaq
   title: DataMaq
-  contact:
-    title: "Iniciá una consulta técnica"
-    subtitle: Dejanos el contexto del caso y te respondemos con el siguiente paso.
-    steps:
-    - Identidad
-    - Proyecto
-    - Contacto
-    fields:
-      name: Nombre
-      surname: Apellido
-      optional: Opcional
-    cta: "Continuá"
-    alt_email:
-      label: Contacto alternativo
-      title: Escribinos por e-mail
-      email: info@datamaq.com.ar

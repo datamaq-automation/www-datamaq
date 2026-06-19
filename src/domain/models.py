@@ -75,10 +75,15 @@ class ProfileModel(BaseModel):
 class LegalModel(BaseModel):
     text: str
 
-class ContactFieldsModel(BaseModel):
-    name: str
-    surname: str
-    optional: str
+# --- Nuevos Modelos Contact ---
+class FieldModel(BaseModel):
+    id: str
+    label: str
+    autocomplete: str
+
+class StepModel(BaseModel):
+    title: str
+    fields: List[FieldModel]
 
 class AltEmailModel(BaseModel):
     label: str
@@ -88,10 +93,13 @@ class AltEmailModel(BaseModel):
 class ContactModel(BaseModel):
     title: str
     subtitle: str
-    steps: List[str]
-    fields: ContactFieldsModel
     cta: str
     alt_email: AltEmailModel
+    progress_text: str
+    privacy_note: str
+    error_message: str
+    optional_text: str
+    steps: List[StepModel]
 
 # --- Campos obligatorios para Fail-Fast ---
 class SeoModel(BaseModel):
