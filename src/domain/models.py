@@ -19,6 +19,7 @@ class CtaModel(BaseModel):
 
 class BenefitModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     text: str
 
 class NavbarLinkModel(BaseModel):
@@ -41,7 +42,9 @@ class BrandModel(BaseModel):
 class HeroModel(BaseModel):
     badge: str
     title: str
+    cta: Optional[str] = None
     subtitle: str
+    cta: Optional[str] = None
     responseNote: str
     primaryCta: CtaModel
     secondaryCta: CtaModel
@@ -51,11 +54,13 @@ class HeroModel(BaseModel):
 class ServiceCardModel(BaseModel):
     id: str
     title: str
+    cta: Optional[str] = None
     description: str
     key_points: List[str]
 
 class ServicesModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     cards: List[ServiceCardModel]
 
 class NavbarModel(BaseModel):
@@ -66,6 +71,7 @@ class FaqModel(BaseModel):
 
 class AboutModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     paragraphs: List[str]
     image: PhotoModel
 
@@ -83,16 +89,20 @@ class FieldModel(BaseModel):
 
 class StepModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     fields: List[FieldModel]
 
 class AltEmailModel(BaseModel):
     label: str
     title: str
+    cta: Optional[str] = None
     email: str
 
 class ContactModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     subtitle: str
+    cta: Optional[str] = None
     cta: str
     alt_email: AltEmailModel
     progress_text: str
@@ -104,6 +114,7 @@ class ContactModel(BaseModel):
 # --- Campos obligatorios para Fail-Fast ---
 class SeoModel(BaseModel):
     title: str
+    cta: Optional[str] = None
     description: str
     canonical_url: str
     site_name: str

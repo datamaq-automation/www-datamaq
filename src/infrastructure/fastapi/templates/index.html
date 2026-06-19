@@ -27,7 +27,7 @@
 
 <div data-v-236fef00="" class="c-home-services__grid">
 {% for card in content.services.cards %}
-{{ service_macro.service_card('bi bi-bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', 'Consultá por ' + card.title.split(' ')[0]) }}
+{{ service_macro.service_card('bi bi-bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta) }}
 {% endfor %}
 </div>
 

@@ -11,6 +11,13 @@ class DataService:
     def get_contenido(self) -> ContenidoModel:
         with open(self.content_path, "r", encoding="utf-8") as f:
             raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
+            
+            # Populate calculated fields
+            if 'content' in raw_data and 'services' in raw_data['content'] and 'cards' in raw_data['content']['services']:
+                for card in raw_data['content']['services']['cards']:
+                    if 'title' in card:
+                        card['cta'] = f"Consultá por {card['title'].split(' ')[0]}"
+            
             return ContenidoModel(**raw_data)
 
     def get_geografia(self) -> Dict[str, Any]:
