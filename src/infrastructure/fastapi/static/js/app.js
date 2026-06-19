@@ -1,7 +1,6 @@
 console.log("[App] El script app.js se está ejecutando...");
 import { initChatwoot } from './modules/ChatwootManager.js';
 import { initCookieManager } from './modules/CookieManager.js';
-import { initOffcanvasMenu } from './modules/OffcanvasMenu.js';
 import { loadThirdPartyScripts } from './modules/ThirdPartyScriptsManager.js';
 import { FormManager } from './modules/FormManager.js';
 
@@ -28,16 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     } catch (e) { console.error("[App] Fallo crítico al inicializar CookieManager:", e); }
 
-    // 3. Menu
-    try {
-        initOffcanvasMenu(
-            document.getElementById('mainOffcanvas'),
-            document.querySelector('[data-action="toggle-offcanvas"]'),
-            document.querySelectorAll('[data-action="close-offcanvas"]')
-        );
-    } catch (e) { console.error("[App] Fallo crítico al inicializar OffcanvasMenu:", e); }
-
-    // 4. Contact Form Manager
+    // 3. Contact Form Manager
     try {
         const contactForm = document.querySelector('.c-contact form');
         if (contactForm && APP_CONFIG.apiUrl) {
