@@ -11,3 +11,4 @@
 - [x] Documentación básica inicial y sincronización de arquitectura bot/web.
 - [x] Implementación y testing de Banner de Cookies (consentimiento basado en estado).
 - [x] Implementación de suite de tests (pytest, cobertura >90%, pre-push hook).
+- [x] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh` (2026-06-20).

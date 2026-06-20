@@ -16,11 +16,6 @@
   - **Riesgo si no se hace:** Bloquea toda la migración a CI/CD seguro; el servicio sigue corriendo como `root` o con permisos mixtos.
   - **Criterio de aceptación mínimo:** Existe un usuario `datamaq` con shell `bash`, propietario de `/var/www/www-datamaq`, y el servicio corre con ese usuario.
 
-- [ ] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh`.
-  - **Archivos afectados:** `scripts/deploy-server.sh`
-  - **Riesgo si no se hace:** Un deploy fallado deja el sitio caído sin mecanismo de recuperación automática.
-  - **Criterio de aceptación mínimo:** El script guarda `HEAD` antes del `git pull`, ejecuta health-check HTTP, y en caso de fallo ejecuta `git reset --hard <commit-previo>` y reinicia el servicio.
-
 ### P1 — Necesario
 
 - [ ] **P1-DEV-04** Añadir health-check real al deploy.
