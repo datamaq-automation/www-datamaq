@@ -45,7 +45,7 @@
 
 <div data-v-236fef00="" class="c-home-services__grid">
 {% for card in content.services.cards %}
-{{ service_macro.service_card('bi bi-bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, brand.whatsappUrl + '?text=Hola+DataMaq%2C+consulto+por+' + card.title.replace(' ', '+')) }}
+{{ service_macro.service_card('bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, brand.whatsappUrl + '?text=Hola+DataMaq%2C+consulto+por+' + card.title.replace(' ', '+')) }}
 {% endfor %}
 </div>
 
@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block dock %}
-{{ dock_macro.dock([{'href': '/', 'icon': 'bi bi-house-door-fill', 'label': 'Inicio'}, {'href': '/contact', 'icon': 'bi bi-telephone-forward-fill', 'label': 'Contacto'}]) }}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
 {% endblock %}
 
 {% block footer %}

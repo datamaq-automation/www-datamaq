@@ -1,7 +1,8 @@
-{% macro service_card(icon_class, title, description, subtitle, items, note, cta_text, cta_href='https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica') %}
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro service_card(icon_name, title, description, subtitle, items, note, cta_text, cta_href='https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica') %}
 <article data-v-236fef00="" class="c-home-service-card">
     <div data-v-236fef00="" class="c-home-service-card__summary">
-        <span data-v-236fef00="" class="c-home-service-card__icon" aria-hidden="true"><i data-v-236fef00="" class="{{ icon_class }}"></i></span>
+        <span data-v-236fef00="" class="c-home-service-card__icon" aria-hidden="true">{{ icon_macro.bootstrap_icon(icon_name) }}</span>
         <span data-v-236fef00="" class="c-home-service-card__summary-copy">
             <h3 data-v-236fef00="" class="c-home-service-card__title">{{ title }}</h3>
             <span data-v-236fef00="" class="c-home-service-card__description">{{ description }}</span>
@@ -12,7 +13,7 @@
         <ul data-v-236fef00="" class="c-home-service-card__list">
             {% for item in items %}
             <li data-v-236fef00="">
-                <span data-v-236fef00="" class="c-home-service-card__bullet" aria-hidden="true"><i data-v-236fef00="" class="bi bi-check2-circle"></i></span>
+                <span data-v-236fef00="" class="c-home-service-card__bullet" aria-hidden="true">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
                 <span data-v-236fef00="">{{ item }}</span>
             </li>
             {% endfor %}

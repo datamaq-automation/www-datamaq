@@ -35,7 +35,7 @@
 .c-home-profile__detail-copy[data-v-236fef00],
 .c-home-footer__legal[data-v-236fef00]{color:rgba(var(--dm-text-0-rgb),.72);line-height:1.65}
 .c-home-hero__subtitle[data-v-236fef00]{max-width:48ch;margin:.95rem 0 0}.c-home-hero__actions[data-v-236fef00]{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.5rem}
-.c-home-hero__urgency[data-v-236fef00]{display:inline-flex;align-items:center;gap:.45rem;margin:.95rem 0 0;padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(var(--dm-whatsapp-green-rgb),.45);background:rgba(var(--dm-whatsapp-green-rgb),.18);color:rgba(var(--dm-text-0-rgb),.95);font-size:.8rem;font-weight:700}.c-home-hero__urgency i[data-v-236fef00]{color:rgba(var(--dm-whatsapp-green-rgb),.95)}
+.c-home-hero__urgency[data-v-236fef00]{display:inline-flex;align-items:center;gap:.45rem;margin:.95rem 0 0;padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(var(--dm-whatsapp-green-rgb),.45);background:rgba(var(--dm-whatsapp-green-rgb),.18);color:rgba(var(--dm-text-0-rgb),.95);font-size:.8rem;font-weight:700}.c-home-hero__urgency .bi[data-v-236fef00]{color:rgba(var(--dm-whatsapp-green-rgb),.95)}
 .c-home-hero__prefill[data-v-236fef00]{margin:.55rem 0 0;color:rgba(var(--dm-text-0-rgb),.64);font-size:.82rem}
 .c-home-hero__primary[data-v-236fef00],.c-home-hero__secondary[data-v-236fef00],.c-home-profile__cta[data-v-236fef00],.c-home-service-card__cta[data-v-236fef00]{min-height:3.2rem}.c-home-hero__signals[data-v-236fef00]{display:grid;gap:.7rem;margin:1.5rem 0 0;padding:0;list-style:none}
 .c-home-hero__signals li[data-v-236fef00]{position:relative;padding-left:1.2rem;color:rgba(var(--dm-text-0-rgb),.84)}
@@ -84,7 +84,7 @@
 .c-home-footer__whatsapp[data-v-236fef00]{color:rgb(var(--dm-accent-orange-rgb));text-decoration:none;font-weight:700}
 .c-home-dock[data-v-236fef00]{position:fixed;left:.85rem;right:.85rem;bottom:calc(env(safe-area-inset-bottom,0px) + .75rem);z-index:1045;display:grid;grid-template-columns:repeat(var(--dock-columns, 4),minmax(0,1fr));gap:.35rem;padding:.5rem;border:1px solid rgba(var(--dm-text-0-rgb),.1);border-radius:1.35rem;background:rgba(var(--dm-surface-0-rgb),.9);box-shadow:0 1rem 2rem rgba(var(--dm-shadow-rgb),.35);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.c-home-dock__link[data-v-236fef00]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;min-height:4.2rem;border-radius:.95rem;color:rgba(var(--dm-text-0-rgb),.66);text-decoration:none;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .c-home-dock__link[data-v-236fef00]:hover,.c-home-dock__link[data-v-236fef00]:focus-visible{color:rgb(var(--dm-accent-orange-rgb));background:rgba(var(--dm-accent-orange-rgb),.12)}
-.c-home-dock__link i[data-v-236fef00]{font-size:1.25rem}
+.c-home-dock__link .bi[data-v-236fef00]{font-size:1.25rem}
 .c-home-dock--direct .c-home-dock__link[data-v-236fef00]{min-height:4.35rem}
 .c-home-dock__link--emergency[data-v-236fef00]{color:rgba(var(--dm-whatsapp-green-rgb),.95);background:rgba(var(--dm-whatsapp-green-rgb),.16)}
 .c-home-dock__link--emergency[data-v-236fef00]:hover,.c-home-dock__link--emergency[data-v-236fef00]:focus-visible{color:rgba(var(--dm-whatsapp-green-rgb),.98);background:rgba(var(--dm-whatsapp-green-rgb),.24)}.app-shell--home[data-v-236fef00] 

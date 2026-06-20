@@ -33,10 +33,6 @@
 
 ### P1 — Crítico
 
-- [ ] **P1-SEO-01** Reducir/fragmentar CSS render-blocking de ~159 KB en `<head>`.
-  - *Referencia:* Informe SEO, oportunidad #1.
-  - *Nota:* `index.css` pesa ~122 KB e incluye Bootstrap Icons completos + estilos remanentes. Se cargan 6 hojas CSS en serie en el `<head>`.
-
 - [ ] **P1-SEO-02** Diferenciar contenido de páginas dinámicas (localidad e industria) para mitigar thin content y contenido duplicado.
   - *Referencia:* Informe SEO, oportunidad #2.
   - *Nota:* Home, localidades e industrias comparten el mismo template `index.html` con ~90 % de contenido idéntico.
@@ -46,9 +42,6 @@
   - *Nota:* Actualmente no hay middleware en FastAPI que redirija a la versión canónica.
 
 ### P2 — Mejora
-
-- [ ] **P2-SEO-04** Cambiar `font-display: block` a `swap` (o reemplazar iconos por SVG inline) para eliminar FOIT en Bootstrap Icons.
-  - *Referencia:* Informe SEO, oportunidad #4.
 
 - [ ] **P2-SEO-05** Reemplazar el favicon SVG usado como `logo` en Schema.org por una imagen cuadrada representativa de marca.
   - *Referencia:* Informe SEO, oportunidad #5.

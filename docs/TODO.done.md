@@ -18,3 +18,5 @@
 - [x] **P1-DEV-06** Sincronizar `scripts/.env.deploy.example` con el flujo real (2026-06-20).
 - [x] **P1-GHA-02** Crear workflow de deploy en `.github/workflows/deploy.yml` (2026-06-20).
 - [x] **P2-DEV-07** Estandarizar nombres: `datamaq` en lugar de `electricista380` (2026-06-20).
+- [x] **P1-SEO-01** Reducir CSS render-blocking: reemplazar Bootstrap Icons por SVG inline y eliminar ~76 KB de `index.css` (2026-06-20).
+- [x] **P2-SEO-04** Eliminar FOIT de iconos al migrar de Bootstrap Icons (fuente) a SVG inline (2026-06-20).

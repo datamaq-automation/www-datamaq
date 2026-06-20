@@ -1,3 +1,4 @@
+{% import 'partials/components/icon.html' as icon_macro %}
 {% macro hero(request, data, title=None, subtitle=None) %}
 <section data-v-236fef00="" class="section-mobile c-home-hero c-home-hero--direct" aria-labelledby="hero-title" style="background-image: linear-gradient(180deg, rgba(var(--dm-surface-0-rgb), 0.42), rgba(var(--dm-bg-0-rgb), 0.96));">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
@@ -11,7 +12,7 @@
                         <a data-v-236fef00="" class="tw:btn-primary c-home-hero__primary" href="{{ data.primaryCta.href }}" target="_blank" rel="noopener noreferrer">{{ data.primaryCta.label }}</a>
                     </div>
                     <p data-v-236fef00="" class="c-home-hero__urgency" role="status">
-                        <i data-v-236fef00="" class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+                        {{ icon_macro.bootstrap_icon('lightning-charge-fill') }}
                         <span data-v-236fef00="">{{ data.responseNote }}</span>
                     </p>
                     <div data-v-320ae45d="" data-v-236fef00="" class="c-home-hero__trust-inline" aria-label="Capacidades destacadas">

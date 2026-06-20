@@ -1,3 +1,4 @@
+{% import 'partials/components/icon.html' as icon_macro %}
 {% macro profile(request, brand, profile_data) %}
 <section data-v-236fef00="" id="perfil" class="section-mobile c-home-profile" aria-labelledby="perfil-title">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
@@ -21,7 +22,7 @@
                     <div data-v-236fef00="" class="c-home-profile__benefits-grid">
                         {% for benefit in profile_data.bullets %}
                         <article data-v-236fef00="" class="c-home-profile__benefit-card">
-                            <span data-v-236fef00="" class="c-home-profile__benefit-icon" aria-hidden="true"><i data-v-236fef00="" class="bi bi-check2-circle"></i></span>
+                            <span data-v-236fef00="" class="c-home-profile__benefit-icon" aria-hidden="true">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
                             <p data-v-236fef00="">{{ benefit }}</p>
                         </article>
                         {% endfor %}

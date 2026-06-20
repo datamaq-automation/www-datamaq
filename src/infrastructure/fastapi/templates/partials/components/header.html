@@ -1,9 +1,10 @@
+{% import 'partials/components/icon.html' as icon_macro %}
 {% macro header() %}
 <header data-v-236fef00="" class="c-home-header" role="banner">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4 c-home-header__inner">
         <a data-v-236fef00="" href="/" class="tw:flex tw:items-center tw:gap-2 tw:text-dm-text-0 tw:decoration-0" aria-label="DataMaq, inicio">
             <span data-v-236fef00="" class="c-home-header__brand-icon" aria-hidden="true">
-                <i data-v-236fef00="" class="bi bi-terminal-fill"></i>
+                {{ icon_macro.bootstrap_icon('terminal-fill') }}
             </span>
             <span data-v-236fef00="" class="c-home-header__brand-copy">DataMaq</span>
         </a>
@@ -14,7 +15,7 @@
         </nav>
         <div data-v-236fef00="" class="c-home-header__actions">
             <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:lg:hidden" aria-label="Contacto" title="Contacto">
-                <i data-v-236fef00="" class="bi bi-telephone-forward-fill" aria-hidden="true"></i>
+                {{ icon_macro.bootstrap_icon('telephone-forward-fill') }}
             </a>
             <a data-v-236fef00="" href="/contact" class="tw:btn-primary c-home-header__cta tw:hidden tw:lg:inline-flex">Contacto</a>
         </div>
