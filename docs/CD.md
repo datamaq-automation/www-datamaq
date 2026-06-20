@@ -170,11 +170,11 @@ Desde la máquina del desarrollador:
 
 ```bash
 ssh-keygen -t ed25519 -C "deploy@datamaq" -f ~/.ssh/datamaq_deploy
-ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 electricista380@168.181.184.103
+ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 datamaq@168.181.184.103
 ```
 
 Luego probar:
 
 ```bash
-ssh -p 5932 -i ~/.ssh/datamaq_deploy electricista380@168.181.184.103
+ssh -p 5932 -i ~/.ssh/datamaq_deploy datamaq@168.181.184.103
 ```
