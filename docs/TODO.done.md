@@ -11,6 +11,10 @@
 - [x] Documentación básica inicial y sincronización de arquitectura bot/web.
 - [x] Implementación y testing de Banner de Cookies (consentimiento basado en estado).
 - [x] Implementación de suite de tests (pytest, cobertura >90%, pre-push hook).
-- [x] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh` (2026-06-20).
-- [x] **P1-GHA-02** Crear workflow de deploy en `.github/workflows/deploy.yml` (2026-06-20).
+- [x] **P0-DEV-01** Eliminar/rotar credenciales hardcodeadas en `scripts/.env.deploy` y prohibir deploy como `root` (2026-06-20).
+- [x] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app (2026-06-20).
 - [x] **P1-DEV-04** Añadir health-check real al deploy (2026-06-20).
+- [x] **P1-DEV-05** Sincronizar `docs/CD.md` con la realidad del repositorio (2026-06-20).
+- [x] **P1-DEV-06** Sincronizar `scripts/.env.deploy.example` con el flujo real (2026-06-20).
+- [x] **P1-GHA-02** Crear workflow de deploy en `.github/workflows/deploy.yml` (2026-06-20).
+- [x] **P2-DEV-07** Estandarizar nombres: `datamaq` en lugar de `electricista380` (2026-06-20).
