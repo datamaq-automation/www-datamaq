@@ -1,19 +1,17 @@
 #!/bin/bash
 set -e
 
-# Cargar configuración desde .env.deploy
+# Cargar configuración desde .env.deploy si existe. Si no, se espera que las
+# variables estén definidas como entorno (por ejemplo, en GitHub Actions).
 if [ -f "scripts/.env.deploy" ]; then
     source scripts/.env.deploy
-else
-    echo "Error: scripts/.env.deploy no encontrado."
-    echo "Copiá scripts/.env.deploy.example a scripts/.env.deploy y completá los valores."
-    exit 1
 fi
 
 # Validaciones mínimas
 if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_USER" ] || [ -z "$DEPLOY_REMOTE_DIR" ] || [ -z "$DEPLOY_SERVICE_NAME" ]; then
-    echo "Error: faltan variables en scripts/.env.deploy."
-    echo "Copiá scripts/.env.deploy.example a scripts/.env.deploy y completá los valores."
+    echo "Error: faltan variables de configuración del deploy."
+    echo "Definilas en scripts/.env.deploy o como variables de entorno:"
+    echo "  DEPLOY_SSH_HOST, DEPLOY_SSH_PORT, DEPLOY_SSH_USER, DEPLOY_REMOTE_DIR, DEPLOY_SERVICE_NAME"
     exit 1
 fi
 

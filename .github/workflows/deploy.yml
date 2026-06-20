@@ -1,0 +1,33 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+          log-public-key: false
+
+      - name: Add known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p ${{ secrets.DEPLOY_SSH_PORT }} -H ${{ secrets.DEPLOY_SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        env:
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          DEPLOY_SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+          DEPLOY_SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          DEPLOY_REMOTE_DIR: ${{ vars.DEPLOY_REMOTE_DIR || '/var/www/www-datamaq' }}
+          DEPLOY_SERVICE_NAME: ${{ vars.DEPLOY_SERVICE_NAME || 'datamaq.service' }}
+        run: ./scripts/deploy-server.sh

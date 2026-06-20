@@ -53,11 +53,6 @@
 
 ### P1 — Necesario
 
-- [ ] **P1-GHA-02** Crear workflow de deploy en `.github/workflows/deploy.yml`.
-  - **Archivos afectados:** `.github/workflows/deploy.yml`, `scripts/deploy-server.sh`
-  - **Riesgo si no se hace:** El deploy sigue siendo manual y depende de un archivo local con credenciales.
-  - **Criterio de aceptación mínimo:** El workflow usa GitHub Secrets, se conecta por SSH con clave privada y ejecuta `scripts/deploy-server.sh` en el VPS.
-
 - [ ] **P1-GHA-03** Migrar secrets de `scripts/.env.deploy` a GitHub Secrets.
   - **Archivos afectados:** Configuración del repositorio en GitHub
   - **Riesgo si no se hace:** Las credenciales permanecen en el disco local del desarrollador.
@@ -135,11 +130,10 @@
 
 ## Bloqueos
 
-> Actualizado: los bloqueos de la Etapa 1 ya están resueltos. El deploy manual es funcional.
+> Actualizado: el deploy manual es funcional y el workflow de CD en GitHub Actions está implementado. Queda pendiente configurar los secrets en GitHub.
 
-1. **P1-GHA-02** depende de **P0-GHA-01**: el workflow de deploy debe ejecutarse solo si el workflow de CI pasa.
-2. **P1-GHA-03** debe hacerse junto con **P1-GHA-02**: los secrets de GitHub deben estar configurados antes de activar el deploy automático.
-3. **P2-GHA-04** depende de **P0-DEV-03**: el rollback automático en GitHub Actions requiere que `scripts/deploy-server.sh` ya tenga rollback implementado.
+1. **P1-GHA-03** debe completarse antes de que el workflow de deploy funcione: los secrets de GitHub (`DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER`, `DEPLOY_SSH_KEY`) deben estar configurados.
+2. **P2-GHA-04** depende de **P0-DEV-03**: el rollback automático en GitHub Actions requiere que `scripts/deploy-server.sh` ya tenga rollback implementado.
 
 ---
 

@@ -12,3 +12,4 @@
 - [x] Implementación y testing de Banner de Cookies (consentimiento basado en estado).
 - [x] Implementación de suite de tests (pytest, cobertura >90%, pre-push hook).
 - [x] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh` (2026-06-20).
+- [x] **P1-GHA-02** Crear workflow de deploy en `.github/workflows/deploy.yml` (2026-06-20).
