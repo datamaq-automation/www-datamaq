@@ -92,9 +92,20 @@ Copiar el template y completar con los datos del VPS:
 
 ```bash
 cp scripts/.env.deploy.example scripts/.env.deploy
+# Editá scripts/.env.deploy con los valores reales
 ```
 
+Variables obligatorias:
+
+- `DEPLOY_SSH_HOST` — IP o hostname del VPS.
+- `DEPLOY_SSH_PORT` — puerto SSH del VPS.
+- `DEPLOY_SSH_USER` — usuario dedicado en el VPS (nunca `root`).
+- `DEPLOY_REMOTE_DIR` — ruta absoluta del proyecto en el VPS.
+- `DEPLOY_SERVICE_NAME` — nombre del servicio systemd (ejemplo: `electricista380.service`).
+
 `scripts/.env.deploy` está en `.gitignore` y **nunca debe commitearse**.
+
+> Nota: `scripts/setup-vps-user.sh` también lee `scripts/.env.deploy` cuando se ejecuta en el VPS. Si el archivo no está presente, usa los valores por defecto (`electricista380`, `/var/www/electricista380`, `electricista380.service`).
 
 ## Scripts de deploy
 
