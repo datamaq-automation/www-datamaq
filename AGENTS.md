@@ -175,10 +175,10 @@ python3 -m uvicorn src.infrastructure.fastapi.app:app --reload
 
 ### 6.3. Ejecutar en Producción
 
-El servicio `electricista380.service` ejecuta Uvicorn con el entorno virtual del VPS:
+El servicio `datamaq.service` ejecuta Uvicorn con el entorno virtual del VPS:
 
 ```bash
-/var/www/electricista380/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
+/var/www/datamaq/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
 ```
 
 Ver configuración completa del servicio en `docs/CD.md`.
@@ -270,10 +270,10 @@ El despliegue es hacia un VPS propio mediante un flujo de CD documentado en `doc
 
 ### 11.1. Servidor de Producción
 
-- Usuario dedicado sin privilegios: `electricista380`.
-- Directorio del proyecto: `/var/www/electricista380`.
-- Servicio systemd: `electricista380.service`.
-- Logs: `journalctl -u electricista380.service` (también disponible vía `scripts/view_logs.sh`).
+- Usuario dedicado sin privilegios: `datamaq`.
+- Directorio del proyecto: `/var/www/datamaq`.
+- Servicio systemd: `datamaq.service`.
+- Logs: `journalctl -u datamaq.service` (también disponible vía `scripts/view_logs.sh`).
 
 ### 11.2. Configuración de Despliegue
 
@@ -301,7 +301,7 @@ El diseño objetivo es:
    - Guarda el commit actual para posible rollback.
    - Hace `git pull`.
    - Instala dependencias con `./.venv/bin/pip install -r requirements.txt`.
-   - Reinicia el servicio `electricista380.service`.
+   - Reinicia el servicio `datamaq.service`.
    - Ejecuta un health-check HTTP a `http://localhost:8000/`.
    - En caso de fallo, revierte al commit anterior y reinicia el servicio.
 
@@ -314,7 +314,7 @@ El diseño objetivo es:
 ## 12. Consideraciones de Seguridad
 
 - **Nunca commitear secretos:** `.env`, `scripts/.env.deploy` y `data/leads/` están en `.gitignore`.
-- **Ejecutar la app con usuario no privilegiado** en producción (`electricista380`), nunca como `root`.
+- **Ejecutar la app con usuario no privilegiado** en producción (`datamaq`), nunca como `root`.
 - **Validación de datos:** todos los payloads de entrada usan modelos Pydantic.
 - **Caché:** estáticos se sirven con caché agresiva en producción; en desarrollo se desactiva.
 - **Persistencia de leads:** actualmente los leads se escriben en disco. Asegurar permisos adecuados y planificar migración a base de datos.

@@ -19,5 +19,5 @@ fi
 
 echo "Consultando logs remotos en $DEPLOY_SSH_HOST..."
 
-SERVICE="${DEPLOY_SERVICE_NAME:-electricista380.service}"
+SERVICE="${DEPLOY_SERVICE_NAME:-datamaq.service}"
 ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" "journalctl -u $SERVICE -n 20 --no-pager"

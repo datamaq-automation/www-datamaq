@@ -10,9 +10,9 @@
   - **Criterio de aceptación mínimo:** `scripts/.env.deploy` no contiene usuario `root` ni IP/puerto SSH en texto plano; el deploy se ejecuta con un usuario dedicado no privilegiado.
 
 - [~] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app.
-  - **Archivos afectados:** Configuración del VPS (fuera del repo), `/etc/systemd/system/electricista380.service`, `scripts/deploy-server.sh`, `scripts/setup-vps-user.sh`
+  - **Archivos afectados:** Configuración del VPS (fuera del repo), `/etc/systemd/system/datamaq.service`, `scripts/deploy-server.sh`, `scripts/setup-vps-user.sh`
   - **Riesgo si no se hace:** Bloquea toda la migración a CI/CD seguro; el servicio sigue corriendo como `root` o con permisos mixtos.
-  - **Criterio de aceptación mínimo:** Existe un usuario `electricista380` (o `datamaq`) con shell restringida, propietario de `/var/www/electricista380`, y el servicio corre con ese usuario.
+  - **Criterio de aceptación mínimo:** Existe un usuario `datamaq` (o `datamaq`) con shell restringida, propietario de `/var/www/datamaq`, y el servicio corre con ese usuario.
   - **Estado:** Script `scripts/setup-vps-user.sh` creado. Requiere ejecución manual en el VPS como `root`.
 
 - [ ] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh`.
@@ -35,11 +35,11 @@
 - [ ] **P1-DEV-06** Sincronizar `scripts/.env.deploy.example` con el flujo real.
   - **Archivos afectados:** `scripts/.env.deploy.example`
   - **Riesgo si no se hace:** Un nuevo desarrollador no sabe qué variables son obligatorias ni cuáles son los valores esperados.
-  - **Criterio de aceptación mínimo:** El template documenta cada variable, su ejemplo seguro, el nombre del servicio (`electricista380.service`) y una advertencia explícita de no usar `root`.
+  - **Criterio de aceptación mínimo:** El template documenta cada variable, su ejemplo seguro, el nombre del servicio (`datamaq.service`) y una advertencia explícita de no usar `root`.
 
 ### P2 — Deseable
 
-- [ ] **P2-DEV-07** Estandarizar nombres: `datamaq` vs `electricista380`.
+- [ ] **P2-DEV-07** Estandarizar nombres: `datamaq` vs `datamaq`.
   - **Archivos afectados:** `docs/CD.md`, `AGENTS.md`, `scripts/deploy-server.sh`, `scripts/view_logs.sh`, servicio systemd
   - **Riesgo si no se hace:** Deuda técnica y confusión operativa entre el nombre del proyecto, del dominio y del servicio.
   - **Criterio de aceptación mínimo:** Decisión documentada y nombres consistentes en todo el repositorio y el VPS.
@@ -141,4 +141,4 @@
 
 1. **P0-GHA-01 y P1-GHA-02** están bloqueados por **P0-DEV-02**: no se puede configurar GitHub Actions hasta que no exista el usuario deploy en la VPS y esté configurado `sudoers` para reiniciar el servicio.
 2. **P0-DEV-01** está bloqueado parcialmente por **P1-GHA-03**: no se puede eliminar `scripts/.env.deploy` hasta que los secrets estén migrados a GitHub Secrets y el workflow esté probado.
-3. **P2-DEV-07** está bloqueado por una decisión de negocio: mantener `electricista380` como nombre de usuario/servicio o estandarizar todo a `datamaq`.
+3. **P2-DEV-07** está bloqueado por una decisión de negocio: mantener `datamaq` como nombre de usuario/servicio o estandarizar todo a `datamaq`.

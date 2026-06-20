@@ -15,9 +15,9 @@ if [ -f "scripts/.env.deploy" ]; then
     source scripts/.env.deploy
 fi
 
-APP_USER="${DEPLOY_SSH_USER:-electricista380}"
-APP_DIR="${DEPLOY_REMOTE_DIR:-/var/www/electricista380}"
-SERVICE="${DEPLOY_SERVICE_NAME:-electricista380.service}"
+APP_USER="${DEPLOY_SSH_USER:-datamaq}"
+APP_DIR="${DEPLOY_REMOTE_DIR:-/var/www/datamaq}"
+SERVICE="${DEPLOY_SERVICE_NAME:-datamaq.service}"
 
 echo "==> Configuración: usuario=$APP_USER, directorio=$APP_DIR, servicio=$SERVICE"
 
