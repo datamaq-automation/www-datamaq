@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+# Script de bootstrap para ejecutar en el VPS como root.
+# Crea el usuario dedicado, configura sudoers y ajusta permisos.
+
+APP_USER="electricista380"
+APP_DIR="/var/www/electricista380"
+SERVICE="electricista380.service"
+
+echo "==> Creando usuario $APP_USER..."
+if id "$APP_USER" &>/dev/null; then
+    echo "El usuario $APP_USER ya existe."
+else
+    adduser --system --group --home "$APP_DIR" "$APP_USER"
+fi
+
+echo "==> Asegurando permisos de $APP_DIR..."
+mkdir -p "$APP_DIR"
+chown -R "$APP_USER:$APP_USER" "$APP_DIR"
+
+echo "==> Configurando sudoers para reiniciar el servicio..."
+cat > "/etc/sudoers.d/$APP_USER-deploy" <<EOF
+$APP_USER ALL=(ALL) NOPASSWD: /bin/systemctl restart $SERVICE
+$APP_USER ALL=(ALL) NOPASSWD: /bin/systemctl is-active $SERVICE
+$APP_USER ALL=(ALL) NOPASSWD: /bin/systemctl status $SERVICE
+EOF
+chmod 440 "/etc/sudoers.d/$APP_USER-deploy"
+
+echo "==> Asegurando que el servicio $SERVICE use el usuario $APP_USER..."
+if [ -f "/etc/systemd/system/$SERVICE" ]; then
+    sed -i "s/^User=.*/User=$APP_USER/" "/etc/systemd/system/$SERVICE"
+    sed -i "s/^Group=.*/Group=$APP_USER/" "/etc/systemd/system/$SERVICE"
+    systemctl daemon-reload
+    systemctl restart "$SERVICE"
+else
+    echo "ADVERTENCIA: No se encontró /etc/systemd/system/$SERVICE"
+    echo "Creá el archivo manualmente según docs/CD.md"
+fi
+
+echo "==> Configuración completada."
+echo "Verificá que el servicio esté activo con: sudo systemctl is-active $SERVICE"

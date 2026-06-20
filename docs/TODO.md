@@ -9,10 +9,11 @@
   - **Riesgo si no se hace:** Exposición total del VPS, ejecución de la app con privilegios de root e incumplimiento de `AGENTS.md`.
   - **Criterio de aceptación mínimo:** `scripts/.env.deploy` no contiene usuario `root` ni IP/puerto SSH en texto plano; el deploy se ejecuta con un usuario dedicado no privilegiado.
 
-- [ ] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app.
-  - **Archivos afectados:** Configuración del VPS (fuera del repo), `/etc/systemd/system/electricista380.service`, `scripts/deploy-server.sh`
+- [~] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app.
+  - **Archivos afectados:** Configuración del VPS (fuera del repo), `/etc/systemd/system/electricista380.service`, `scripts/deploy-server.sh`, `scripts/setup-vps-user.sh`
   - **Riesgo si no se hace:** Bloquea toda la migración a CI/CD seguro; el servicio sigue corriendo como `root` o con permisos mixtos.
   - **Criterio de aceptación mínimo:** Existe un usuario `electricista380` (o `datamaq`) con shell restringida, propietario de `/var/www/electricista380`, y el servicio corre con ese usuario.
+  - **Estado:** Script `scripts/setup-vps-user.sh` creado. Requiere ejecución manual en el VPS como `root`.
 
 - [ ] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh`.
   - **Archivos afectados:** `scripts/deploy-server.sh`

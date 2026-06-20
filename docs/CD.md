@@ -6,6 +6,15 @@ El despliegue es **manual** mediante `scripts/deploy-server.sh`. No existe aún 
 
 ## Configuración del VPS
 
+Se puede automatizar la configuración inicial ejecutando `scripts/setup-vps-user.sh` en el VPS como `root`:
+
+```bash
+chmod +x /var/www/electricista380/scripts/setup-vps-user.sh
+/var/www/electricista380/scripts/setup-vps-user.sh
+```
+
+O seguir los pasos manuales a continuación.
+
 ### 1. Usuario dedicado
 
 La aplicación **NO** debe ejecutarse como `root`. Crear un usuario dedicado:
