@@ -18,11 +18,6 @@
 
 ### P1 — Necesario
 
-- [ ] **P1-DEV-04** Añadir health-check real al deploy.
-  - **Archivos afectados:** `scripts/deploy-server.sh`, posiblemente `src/infrastructure/fastapi/routes/main_routes.py`
-  - **Riesgo si no se hace:** `systemctl is-active` solo verifica el proceso, no que la app responda correctamente.
-  - **Criterio de aceptación mínimo:** Después del restart, el script hace una petición HTTP a `http://localhost:8000/` y valida status `200`.
-
 - [x] **P1-DEV-05** Sincronizar `docs/CD.md` con la realidad del repositorio.
   - **Archivos afectados:** `docs/CD.md`
   - **Riesgo si no se hace:** La documentación miente sobre el estado del CI/CD y causa errores al seguirla.
