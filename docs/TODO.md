@@ -4,16 +4,15 @@
 
 ### P0 — Crítico
 
-- [ ] **P0-DEV-01** Eliminar/rotar credenciales hardcodeadas en `scripts/.env.deploy` y prohibir deploy como `root`.
+- [x] **P0-DEV-01** Eliminar/rotar credenciales hardcodeadas en `scripts/.env.deploy` y prohibir deploy como `root`.
   - **Archivos afectados:** `scripts/.env.deploy`, `scripts/deploy-server.sh`, `scripts/view_logs.sh`
   - **Riesgo si no se hace:** Exposición total del VPS, ejecución de la app con privilegios de root e incumplimiento de `AGENTS.md`.
   - **Criterio de aceptación mínimo:** `scripts/.env.deploy` no contiene usuario `root` ni IP/puerto SSH en texto plano; el deploy se ejecuta con un usuario dedicado no privilegiado.
 
-- [~] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app.
+- [x] **P0-DEV-02** Crear usuario dedicado en el VPS para deploy y ejecución de la app.
   - **Archivos afectados:** Configuración del VPS (fuera del repo), `/etc/systemd/system/datamaq.service`, `scripts/deploy-server.sh`, `scripts/setup-vps-user.sh`
   - **Riesgo si no se hace:** Bloquea toda la migración a CI/CD seguro; el servicio sigue corriendo como `root` o con permisos mixtos.
-  - **Criterio de aceptación mínimo:** Existe un usuario `datamaq` (o `datamaq`) con shell restringida, propietario de `/var/www/datamaq`, y el servicio corre con ese usuario.
-  - **Estado:** Script `scripts/setup-vps-user.sh` creado. Requiere ejecución manual en el VPS como `root`.
+  - **Criterio de aceptación mínimo:** Existe un usuario `datamaq` con shell `bash`, propietario de `/var/www/www-datamaq`, y el servicio corre con ese usuario.
 
 - [ ] **P0-DEV-03** Implementar rollback en `scripts/deploy-server.sh`.
   - **Archivos afectados:** `scripts/deploy-server.sh`
@@ -27,20 +26,20 @@
   - **Riesgo si no se hace:** `systemctl is-active` solo verifica el proceso, no que la app responda correctamente.
   - **Criterio de aceptación mínimo:** Después del restart, el script hace una petición HTTP a `http://localhost:8000/` y valida status `200`.
 
-- [ ] **P1-DEV-05** Sincronizar `docs/CD.md` con la realidad del repositorio.
+- [x] **P1-DEV-05** Sincronizar `docs/CD.md` con la realidad del repositorio.
   - **Archivos afectados:** `docs/CD.md`
   - **Riesgo si no se hace:** La documentación miente sobre el estado del CI/CD y causa errores al seguirla.
   - **Criterio de aceptación mínimo:** `docs/CD.md` no menciona `backend/requirements.txt` ni asume que existe un workflow de GitHub Actions.
 
-- [ ] **P1-DEV-06** Sincronizar `scripts/.env.deploy.example` con el flujo real.
+- [x] **P1-DEV-06** Sincronizar `scripts/.env.deploy.example` con el flujo real.
   - **Archivos afectados:** `scripts/.env.deploy.example`
   - **Riesgo si no se hace:** Un nuevo desarrollador no sabe qué variables son obligatorias ni cuáles son los valores esperados.
   - **Criterio de aceptación mínimo:** El template documenta cada variable, su ejemplo seguro, el nombre del servicio (`datamaq.service`) y una advertencia explícita de no usar `root`.
 
 ### P2 — Deseable
 
-- [ ] **P2-DEV-07** Estandarizar nombres: `datamaq` vs `datamaq`.
-  - **Archivos afectados:** `docs/CD.md`, `AGENTS.md`, `scripts/deploy-server.sh`, `scripts/view_logs.sh`, servicio systemd
+- [x] **P2-DEV-07** Estandarizar nombres: `datamaq` en lugar de `electricista380`.
+  - **Archivos afectados:** `docs/CD.md`, `AGENTS.md`, `scripts/deploy-server.sh`, `scripts/view_logs.sh`, `scripts/setup-vps-user.sh`, servicio systemd
   - **Riesgo si no se hace:** Deuda técnica y confusión operativa entre el nombre del proyecto, del dominio y del servicio.
   - **Criterio de aceptación mínimo:** Decisión documentada y nombres consistentes en todo el repositorio y el VPS.
 
