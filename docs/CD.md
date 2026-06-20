@@ -17,12 +17,14 @@ O seguir los pasos manuales a continuación.
 
 ### 1. Usuario dedicado
 
-La aplicación **NO** debe ejecutarse como `root`. Crear un usuario dedicado:
+La aplicación **NO** debe ejecutarse como `root`. Crear un usuario dedicado con shell `bash` y sin contraseña (acceso solo por clave SSH):
 
 ```bash
-sudo adduser --system --group --home /var/www/datamaq datamaq
+sudo adduser --disabled-password --gecos "" --home /var/www/datamaq datamaq
 sudo chown -R datamaq:datamaq /var/www/datamaq
 ```
+
+> Nota: `setup-vps-user.sh` automatiza este paso y también configura `sudoers`.
 
 ### 2. Clonar repositorio
 
@@ -86,6 +88,8 @@ echo "datamaq ALL=(ALL) NOPASSWD: /bin/systemctl restart datamaq.service, /bin/s
 sudo chmod 440 /etc/sudoers.d/datamaq-deploy
 ```
 
+> `setup-vps-user.sh` automatiza este paso.
+
 ## Configuración local del desarrollador
 
 Copiar el template y completar con los datos del VPS:
@@ -142,3 +146,35 @@ Implementar en `scripts/deploy-server.sh`:
 - Rotar credenciales SSH si alguna vez estuvieron en un archivo local no cifrado.
 - Configurar `PermitRootLogin no` en `/etc/ssh/sshd_config`.
 - Mantener `scripts/.env.deploy` fuera del control de versiones.
+- Usar autenticación por clave SSH sin frase de paso para CI/CD.
+
+### Configurar acceso SSH por clave
+
+Desde la máquina del desarrollador:
+
+```bash
+ssh-keygen -t ed25519 -C "deploy@datamaq" -f ~/.ssh/datamaq_deploy
+ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 datamaq@168.181.184.103
+```
+
+Luego probar:
+
+```bash
+ssh -p 5932 -i ~/.ssh/datamaq_deploy datamaq@168.181.184.103
+```
+- Usar autenticación por clave SSH sin frase de paso para CI/CD.
+
+### Configurar acceso SSH por clave
+
+Desde la máquina del desarrollador:
+
+```bash
+ssh-keygen -t ed25519 -C "deploy@datamaq" -f ~/.ssh/datamaq_deploy
+ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 electricista380@168.181.184.103
+```
+
+Luego probar:
+
+```bash
+ssh -p 5932 -i ~/.ssh/datamaq_deploy electricista380@168.181.184.103
+```

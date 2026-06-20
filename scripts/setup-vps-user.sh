@@ -15,17 +15,19 @@ if [ -f "scripts/.env.deploy" ]; then
     source scripts/.env.deploy
 fi
 
-APP_USER="${DEPLOY_SSH_USER:-datamaq}"
-APP_DIR="${DEPLOY_REMOTE_DIR:-/var/www/datamaq}"
-SERVICE="${DEPLOY_SERVICE_NAME:-datamaq.service}"
+APP_USER="${DEPLOY_SSH_USER:-electricista380}"
+APP_DIR="${DEPLOY_REMOTE_DIR:-/var/www/electricista380}"
+SERVICE="${DEPLOY_SERVICE_NAME:-electricista380.service}"
 
 echo "==> Configuración: usuario=$APP_USER, directorio=$APP_DIR, servicio=$SERVICE"
 
 echo "==> Creando usuario $APP_USER..."
 if id "$APP_USER" &>/dev/null; then
-    echo "El usuario $APP_USER ya existe."
+    echo "El usuario $APP_USER ya existe. Asegurando shell y home..."
+    usermod -s /bin/bash "$APP_USER"
 else
-    adduser --system --group --home "$APP_DIR" "$APP_USER"
+    # Usuario normal con home y shell bash, sin contraseña (login solo por SSH key).
+    adduser --disabled-password --gecos "" --home "$APP_DIR" "$APP_USER"
 fi
 
 echo "==> Asegurando permisos de $APP_DIR..."
@@ -53,3 +55,6 @@ fi
 
 echo "==> Configuración completada."
 echo "Verificá que el servicio esté activo con: sudo systemctl is-active $SERVICE"
+echo ""
+echo "Para habilitar deploy por SSH, agregá la clave pública del desarrollador a:"
+echo "  $APP_DIR/.ssh/authorized_keys"
