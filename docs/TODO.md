@@ -1,5 +1,7 @@
 # Tareas pendientes — Datamaq
 
+> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy manual funciona con usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. La Etapa 2 (GitHub Actions) está lista para iniciar.
+
 ## DevOps / CI-CD — Estabilización del deploy actual
 
 ### P0 — Crítico
@@ -138,6 +140,17 @@
 
 ## Bloqueos
 
-1. **P0-GHA-01 y P1-GHA-02** están bloqueados por **P0-DEV-02**: no se puede configurar GitHub Actions hasta que no exista el usuario deploy en la VPS y esté configurado `sudoers` para reiniciar el servicio.
-2. **P0-DEV-01** está bloqueado parcialmente por **P1-GHA-03**: no se puede eliminar `scripts/.env.deploy` hasta que los secrets estén migrados a GitHub Secrets y el workflow esté probado.
-3. **P2-DEV-07** está bloqueado por una decisión de negocio: mantener `datamaq` como nombre de usuario/servicio o estandarizar todo a `datamaq`.
+> Actualizado: los bloqueos de la Etapa 1 ya están resueltos. El deploy manual es funcional.
+
+1. **P1-GHA-02** depende de **P0-GHA-01**: el workflow de deploy debe ejecutarse solo si el workflow de CI pasa.
+2. **P1-GHA-03** debe hacerse junto con **P1-GHA-02**: los secrets de GitHub deben estar configurados antes de activar el deploy automático.
+3. **P2-GHA-04** depende de **P0-DEV-03**: el rollback automático en GitHub Actions requiere que `scripts/deploy-server.sh` ya tenga rollback implementado.
+
+---
+
+## Notas de implementación
+
+- El entorno de producción ahora usa Python 3.12 compilado en `/usr/local/bin/python3.12`.
+- El entorno virtual de producción está en `/var/www/www-datamaq/.venv`.
+- El servicio systemd es `datamaq.service`.
+- La clave SSH para deploy está en `~/.ssh/datamaq_deploy` (local) y `/home/datamaq/.ssh/authorized_keys` (VPS).
