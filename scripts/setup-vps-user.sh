@@ -1,8 +1,14 @@
 #!/bin/bash
 set -e
 
-# Script de bootstrap para ejecutar en el VPS como root.
-# Crea el usuario dedicado, configura sudoers y ajusta permisos.
+# Script de bootstrap para ejecutar EN EL VPS como root.
+# No ejecutar en la máquina de desarrollo local.
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Error: este script debe ejecutarse como root en el VPS."
+    echo "En tu máquina local no tenés permisos para crear usuarios del sistema."
+    exit 1
+fi
 
 APP_USER="electricista380"
 APP_DIR="/var/www/electricista380"
