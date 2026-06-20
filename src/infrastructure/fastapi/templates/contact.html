@@ -10,7 +10,7 @@
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
 {% block head %}
-{{ seo_macro.head_seo(request=request, seo_data=seo) }}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
 {% endblock %}
 
 {% block header %}
@@ -18,6 +18,12 @@
 {% endblock %}
 
 {% block main_content %}
+<section class="c-contact-hero" aria-labelledby="contact-hero-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-8 tw:lg:py-12">
+        <h1 id="contact-hero-title" class="c-contact-hero__title">{{ contact_hero.title }}</h1>
+        <p class="c-contact-hero__subtitle">{{ contact_hero.subtitle }}</p>
+    </div>
+</section>
 {% call contact_section_macro.contact_section(content.contact) %}
 {{ contact_macro.contact_form(content.contact) }}
 {% endcall %}
@@ -25,7 +31,7 @@
 
 {% block fab %}
 {{ chatwoot_macro.chatwoot_fab(config.CHATWOOT_BASE_URL, config.CHATWOOT_TOKEN) }}
-{{ fab_macro.whatsapp_fab('https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D.', 'Abrir WhatsApp para pedir coordinaci\u00f3n', 'Abrir WhatsApp') }}
+{{ fab_macro.whatsapp_fab('https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D.', 'Abrir WhatsApp para pedir coordinación', 'Abrir WhatsApp') }}
 {% endblock %}
 
 {% block dock %}

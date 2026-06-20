@@ -1,7 +1,7 @@
 {% macro dock(links) %}
 <nav data-v-236fef00="" class="c-home-dock tw:lg:hidden c-home-dock--direct" aria-label="Navegación rápida" style="--dock-columns: {{ links|length }};">
     {% for link in links %}
-    <a data-v-236fef00="" aria-current="page" href="{{ link.href }}" class="router-link-active router-link-exact-active c-home-dock__link">
+    <a data-v-236fef00="" href="{{ link.href }}" class="c-home-dock__link">
         <i data-v-236fef00="" class="{{ link.icon }}" aria-hidden="true"></i>
         <span data-v-236fef00="">{{ link.label }}</span>
     </a>

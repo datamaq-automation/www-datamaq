@@ -1,9 +1,11 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import FileResponse
+from datetime import datetime
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
-from src.domain.models import ContenidoModel
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_chatwoot_token
+from src.infrastructure.fastapi.utils.seo import canonical_url
+from src.domain.models import ContenidoModel, IndustriaModel
 
 router = APIRouter()
 
@@ -12,10 +14,39 @@ async def robots():
     return FileResponse(config.ROBOTS_TXT_PATH)
 
 @router.get("/sitemap.xml")
-async def sitemap(request: Request):
+async def sitemap(request: Request, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), industrias_data: IndustriaModel = Depends(get_industrias)):
+    base_url = "https://datamaq.com.ar"
+    lastmod = datetime.now().strftime("%Y-%m-%d")
+
+    urls = [
+        {"loc": f"{base_url}/", "lastmod": lastmod, "changefreq": "monthly", "priority": "1.0"},
+        {"loc": f"{base_url}/contact", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.6"},
+        {"loc": f"{base_url}/terminos-y-condiciones", "lastmod": lastmod, "changefreq": "yearly", "priority": "0.3"},
+    ]
+
+    localidades = geografia.get("localidades", {})
+    for provincia_key, provincia in localidades.items():
+        for municipio_key, municipio in provincia.items():
+            for localidad_key in municipio.keys():
+                urls.append({
+                    "loc": f"{base_url}/{provincia_key}/{municipio_key}/{localidad_key}.html",
+                    "lastmod": lastmod,
+                    "changefreq": "monthly",
+                    "priority": "0.7",
+                })
+
+    for industria_key in industrias_data.industrias.keys():
+        urls.append({
+            "loc": f"{base_url}/industria/{industria_key}.html",
+            "lastmod": lastmod,
+            "changefreq": "monthly",
+            "priority": "0.7",
+        })
+
     return templates.TemplateResponse(
-        request=request, 
-        name="sitemap.xml", 
+        request=request,
+        name="sitemap.xml",
+        context={"urls": urls},
         media_type="application/xml"
     )
 
@@ -34,10 +65,17 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
 
 @router.get("/")
 async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+    base_seo = contenido.seo.model_dump()
+    seo = {
+        **base_seo,
+        "canonical_url": canonical_url(request.url),
+        "og_image_width": 1200,
+        "og_image_height": 630,
+    }
     context: Dict[str, Any] = {
         "brand": contenido.brand.model_dump(),
         "content": contenido.content.model_dump(),
-        "seo": contenido.seo.model_dump(),
+        "seo": seo,
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
@@ -49,7 +87,9 @@ async def terms(request: Request, contenido: ContenidoModel = Depends(get_conten
         **base_seo,
         "title": f"{contenido.legal_pages.terms.title} | {contenido.brand.brandName}",
         "description": f"T\u00e9rminos y condiciones de uso del sitio web de {contenido.brand.brandName}.",
-        "canonical_url": str(request.url),
+        "canonical_url": canonical_url(request.url),
+        "og_image_width": 1200,
+        "og_image_height": 630,
     }
     context: Dict[str, Any] = {
         "brand": contenido.brand.model_dump(),

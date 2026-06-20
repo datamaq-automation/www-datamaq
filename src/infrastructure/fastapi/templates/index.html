@@ -15,7 +15,7 @@
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
 {% block head %}
-{{ seo_macro.head_seo(request=request, seo_data=seo) }}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
 {% endblock %}
 
 {% block header %}
@@ -24,6 +24,22 @@
 
 {% block main_content %}
 {{ hero_macro.hero(request, content.hero, hero_title, hero_subtitle) }}
+{% if localidad_nombre %}
+<section class="c-context-section" aria-labelledby="contexto-localidad-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        <h2 id="contexto-localidad-title" class="c-context-section__title">Cobertura técnica en {{ localidad_nombre }}</h2>
+        <p class="c-context-section__text">En {{ localidad_nombre }}, {{ municipio }}, {{ provincia }}, implementamos equipos IoT para medición de energía y captura de datos operativos. Trabajamos con industrias de la zona que buscan reducir consumos, detectar anomalías y digitalizar información de planta sin reemplazar sus tableros actuales.</p>
+    </div>
+</section>
+{% endif %}
+{% if industria_nombre %}
+<section class="c-context-section" aria-labelledby="contexto-industria-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        <h2 id="contexto-industria-title" class="c-context-section__title">Soluciones para {{ industria_nombre }}</h2>
+        <p class="c-context-section__text">La {{ industria_nombre }} puede aprovechar el monitoreo de energía industrial y la captura automática de datos operativos para mejorar la eficiencia, anticipar fallas y cumplir con requisitos de trazabilidad. Diseñamos cada implementación según los equipos y procesos propios del sector.</p>
+    </div>
+</section>
+{% endif %}
 {{ profile_macro.profile(request, brand, content.profile) }}
 {% call section_macro.section_wrapper('servicios', 'Servicios técnicos sobre captura, integración y uso de datos', 'Servicios', 'Servicios orientados a captura automática de datos, integración técnica y formación aplicada sobre casos reales.', 'c-home-services') %}
 

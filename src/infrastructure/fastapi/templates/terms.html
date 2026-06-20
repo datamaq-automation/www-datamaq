@@ -5,7 +5,7 @@
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
 {% block head %}
-{{ seo_macro.head_seo(request=request, seo_data=seo) }}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
 {% endblock %}
 
 {% block header %}

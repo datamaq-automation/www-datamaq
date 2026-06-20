@@ -113,3 +113,7 @@
 .c-home-hero__media-card[data-v-236fef00],.c-home-panel[data-v-236fef00]{border-radius:1.2rem}
 .c-home-service-card__summary[data-v-236fef00],
 .c-home-service-card__content[data-v-236fef00]{padding-inline:1rem}}
+
+.c-home-footer__legal-links[data-v-236fef00]{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center}.c-home-footer__legal-links[data-v-236fef00] a{color:rgba(var(--dm-text-0-rgb),.78);text-decoration:none;font-size:.85rem}.c-home-footer__legal-links[data-v-236fef00] a:hover{color:rgb(var(--dm-accent-orange-rgb));text-decoration:underline}
+
+.c-context-section{background:rgba(var(--dm-surface-0-rgb),.45);border-block:1px solid rgba(var(--dm-text-0-rgb),.08)}.c-context-section__title{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:700;color:var(--dm-text-0);margin:0 0 .75rem}.c-context-section__text{font-size:clamp(.95rem,1.8vw,1.05rem);line-height:1.65;color:rgba(var(--dm-text-0-rgb),.82);margin:0;max-width:72ch}

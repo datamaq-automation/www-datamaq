@@ -2,6 +2,7 @@ from typing import Any, Dict
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, Depends
 from src.domain.models import ContactSubmitPayload, ContenidoModel
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
+from src.infrastructure.fastapi.utils.seo import canonical_url
 import json
 import uuid
 import os
@@ -15,13 +16,19 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
         **base_seo,
         "title": f"Consultor\u00eda t\u00e9cnica IoT | {contenido.brand.brandName}",
         "description": f"Contact\u00e1 a {contenido.brand.brandName} para una consultor\u00eda t\u00e9cnica sobre monitoreo de energ\u00eda industrial, captura de datos operativos e IoT industrial.",
-        "canonical_url": str(request.url),
+        "canonical_url": canonical_url(request.url),
+        "og_image_width": 1200,
+        "og_image_height": 630,
     }
     context: Dict[str, Any] = {
         "brand": contenido.brand.model_dump(),
         "content": contenido.content.model_dump(),
         "seo": seo,
         "chatwoot_token": chatwoot_token,
+        "contact_hero": {
+            "title": f"Consultor\u00eda t\u00e9cnica IoT con {contenido.brand.brandName}",
+            "subtitle": "Escribinos para evaluar tu proyecto de monitoreo de energ\u00eda industrial, captura de datos operativos o equipos IoT.",
+        },
     }
     return templates.TemplateResponse(request=request, name="contact.html", context=context)
 
@@ -42,9 +49,9 @@ async def submit_contact(payload: ContactSubmitPayload, background_tasks: Backgr
     try:
         submission_id = f"lead_{uuid.uuid4().hex[:8]}"
         request_id = f"req_{uuid.uuid4().hex[:8]}"
-        
+
         background_tasks.add_task(persist_lead_task, payload, submission_id)
-        
+
         return {
             "requestId": request_id,
             "submissionId": submission_id,

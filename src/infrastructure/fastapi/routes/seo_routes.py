@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_chatwoot_token
+from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel
 
 router = APIRouter()
@@ -12,10 +13,10 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     prov = locs.get(provincia, {})
     mun = prov.get(municipio, {})
     nombre_localidad = mun.get(localidad)
-    
+
     if not nombre_localidad:
         raise HTTPException(status_code=404, detail="Localidad no encontrada")
-    
+
     brand_data = contenido.brand.model_dump()
     servicios_data = [s.model_dump() for s in contenido.content.services.cards]
     municipio_formateado = municipio.replace("-", " ").title()
@@ -23,9 +24,11 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     seo = {
         "title": f"Monitoreo de energ\u00eda industrial en {nombre_localidad}, {municipio_formateado} | DataMaq",
         "description": f"Captura de datos operativos y monitoreo de energ\u00eda industrial en {nombre_localidad}. Soluciones IoT para plantas y procesos productivos.",
-        "canonical_url": str(request.url),
+        "canonical_url": canonical_url(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
+        "og_image_width": 1200,
+        "og_image_height": 630,
     }
 
     hero_title = f"Monitoreo de energ\u00eda industrial en {nombre_localidad}"
