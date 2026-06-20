@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-El despliegue es **manual** mediante `scripts/deploy-server.sh`. No existe aún un workflow de GitHub Actions en `.github/workflows/`; su creación está documentada como roadmap en `docs/TODO.md`.
+El despliegue es **automático** mediante el workflow `.github/workflows/deploy.yml`, que se conecta por SSH al VPS y ejecuta `scripts/deploy-server.sh`. El CI corre **localmente** a través del hook `scripts/pre-push.sh`; no existe `.github/workflows/ci.yml`.
 
 ## Configuración del VPS
 
@@ -127,10 +127,10 @@ Configurar en GitHub: **Settings > Secrets and variables > Actions**.
 - `DEPLOY_SSH_USER` — usuario dedicado en el VPS.
 - `DEPLOY_SSH_KEY` — clave privada SSH (se recomienda sin frase de paso para CI).
 
-### Workflows planificados
+### Workflows
 
-1. `.github/workflows/ci.yml` — ejecutar tests con `pytest` en cada push/PR a `main`.
-2. `.github/workflows/deploy.yml` — deploy automático solo si CI pasa, conectándose por SSH al VPS y ejecutando `scripts/deploy-server.sh`.
+1. **CI local:** `scripts/pre-push.sh` ejecuta `pytest` con cobertura mínima del `85 %` antes de cada push.
+2. `.github/workflows/deploy.yml` — deploy automático en cada push a `main`, conectándose por SSH al VPS y ejecutando `scripts/deploy-server.sh`.
 
 ### Rollback
 

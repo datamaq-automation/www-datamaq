@@ -1,15 +1,12 @@
 # Tareas pendientes — Datamaq
 
-> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy manual funciona con usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. La Etapa 2 (GitHub Actions) está lista para iniciar.
+> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy automático funciona con el workflow `.github/workflows/deploy.yml`, usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. El CI corre localmente mediante `scripts/pre-push.sh`. La Etapa 2 (GitHub Actions) está en progreso: falta configurar los secrets en GitHub e implementar rollback automático.
 
 ## DevOps / CI-CD — Migración a GitHub Actions
 
 ### P0 — Crítico
 
-- [ ] **P0-GHA-01** Crear workflow de CI (test) en `.github/workflows/ci.yml`.
-  - **Archivos afectados:** `.github/workflows/ci.yml`
-  - **Riesgo si no se hace:** No hay validación automática antes del deploy.
-  - **Criterio de aceptación mínimo:** Cada push/PR a `main` ejecuta `pytest` con cobertura mínima del `85 %`.
+_Completado: ver `docs/TODO.done.md`._
 
 ### P1 — Necesario
 

@@ -20,3 +20,4 @@
 - [x] **P2-DEV-07** Estandarizar nombres: `datamaq` en lugar de `electricista380` (2026-06-20).
 - [x] **P1-SEO-01** Reducir CSS render-blocking: reemplazar Bootstrap Icons por SVG inline y eliminar ~76 KB de `index.css` (2026-06-20).
 - [x] **P2-SEO-04** Eliminar FOIT de iconos al migrar de Bootstrap Icons (fuente) a SVG inline (2026-06-20).
+- [x] **P0-GHA-01** Decidido no crear workflow de CI en GitHub Actions; el CI se ejecuta localmente mediante `scripts/pre-push.sh` para evitar duplicación y gasto de minutos de runner (2026-06-20).

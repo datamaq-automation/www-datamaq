@@ -290,9 +290,9 @@ Plantilla disponible en `scripts/.env.deploy.example`.
 
 ### 11.3. Flujo Automatizado (GitHub Actions)
 
-> **Estado actual:** el workflow de GitHub Actions aún no existe. El despliegue es manual mediante `scripts/deploy-server.sh`. La migración a CI/CD está planificada en `docs/TODO.md`.
+> **Estado actual:** el CI se ejecuta localmente a través de `scripts/pre-push.sh`. Existe un workflow de deploy en `.github/workflows/deploy.yml` que se dispara en push a `main`; requiere que los secrets de GitHub (`DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER`, `DEPLOY_SSH_KEY`) estén configurados.
 
-El diseño objetivo es:
+El flujo de deploy es:
 
 1. Push a `main` dispara el workflow de GitHub Actions.
 2. Se conecta por SSH al VPS usando los secrets `DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER` y `DEPLOY_SSH_KEY`.
@@ -323,7 +323,7 @@ El diseño objetivo es:
 
 - La migración está en progreso. `docs/TODO.md` lista tareas pendientes como completar la estructura HTML semántica, acondicionar variables CSS, implementar el wizard completo y validar la integración RASA.
 - `docs/TODO.done.md` lista lo ya logrado: configuración FastAPI, SSR, modelos YAML, SEO, logger, caché, Chatwoot, .env, tests con cobertura y pre-push hook.
-- El repositorio no incluye actualmente un workflow de GitHub Actions en `.github/workflows/`; la guía de CD documenta el roadmap para implementarlo.
+- El repositorio incluye el workflow de deploy `deploy.yml` en `.github/workflows/`; el CI corre localmente mediante `scripts/pre-push.sh`.
 - El entorno virtual `venv/` del repositorio ya tiene las dependencias de `requirements.txt` instaladas.
 - El hook `pre-push` está activo como symlink a `scripts/pre-push.sh`.
 
