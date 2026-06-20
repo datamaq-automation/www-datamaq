@@ -11,7 +11,7 @@ else
 fi
 
 # Validaciones mínimas
-if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_USER" ]; then
+if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_USER" ] || [ -z "$DEPLOY_SERVICE_NAME" ]; then
     echo "Error: faltan variables en scripts/.env.deploy."
     echo "Copiá scripts/.env.deploy.example a scripts/.env.deploy y completá los valores."
     exit 1
@@ -19,4 +19,5 @@ fi
 
 echo "Consultando logs remotos en $DEPLOY_SSH_HOST..."
 
-ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" "journalctl -u electricista380.service -n 20 --no-pager"
+SERVICE="${DEPLOY_SERVICE_NAME:-electricista380.service}"
+ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" "journalctl -u $SERVICE -n 20 --no-pager"

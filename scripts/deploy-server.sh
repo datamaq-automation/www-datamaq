@@ -11,7 +11,7 @@ else
 fi
 
 # Validaciones mínimas
-if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_USER" ] || [ -z "$DEPLOY_REMOTE_DIR" ]; then
+if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_USER" ] || [ -z "$DEPLOY_REMOTE_DIR" ] || [ -z "$DEPLOY_SERVICE_NAME" ]; then
     echo "Error: faltan variables en scripts/.env.deploy."
     echo "Copiá scripts/.env.deploy.example a scripts/.env.deploy y completá los valores."
     exit 1
@@ -33,8 +33,8 @@ ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" << EOF
     cd "$DEPLOY_REMOTE_DIR"
     echo "Actualizando código..." && git pull
     echo "Instalando dependencias..." && ./.venv/bin/pip install -r requirements.txt
-    echo "Reiniciando servicio..." && sudo systemctl restart electricista380.service
-    echo "Verificando salud del servicio..." && sleep 2 && sudo systemctl is-active electricista380.service
+    echo "Reiniciando servicio..." && sudo systemctl restart "$DEPLOY_SERVICE_NAME"
+    echo "Verificando salud del servicio..." && sleep 2 && sudo systemctl is-active "$DEPLOY_SERVICE_NAME"
 EOF
 
 if [ $? -eq 0 ]; then

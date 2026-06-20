@@ -10,9 +10,16 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-APP_USER="electricista380"
-APP_DIR="/var/www/electricista380"
-SERVICE="electricista380.service"
+# Cargar configuración desde .env.deploy si existe; usar defaults seguros si no.
+if [ -f "scripts/.env.deploy" ]; then
+    source scripts/.env.deploy
+fi
+
+APP_USER="${DEPLOY_SSH_USER:-electricista380}"
+APP_DIR="${DEPLOY_REMOTE_DIR:-/var/www/electricista380}"
+SERVICE="${DEPLOY_SERVICE_NAME:-electricista380.service}"
+
+echo "==> Configuración: usuario=$APP_USER, directorio=$APP_DIR, servicio=$SERVICE"
 
 echo "==> Creando usuario $APP_USER..."
 if id "$APP_USER" &>/dev/null; then
