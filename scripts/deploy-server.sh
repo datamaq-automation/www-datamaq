@@ -28,13 +28,23 @@ log() { echo "[$(date +"%Y-%m-%dT%H:%M:%S")] $1"; }
 log "Iniciando despliegue de Datamaq en $DEPLOY_SSH_HOST..."
 
 # Ejecutamos los comandos remotos uno por uno para evitar problemas de parsing en la cadena
-ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" << EOF
+ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" << EOF
     set -e
-    cd "$DEPLOY_REMOTE_DIR"
-    echo "Actualizando código..." && git pull
-    echo "Instalando dependencias..." && ./.venv/bin/pip install -r requirements.txt
-    echo "Reiniciando servicio..." && sudo systemctl restart "$DEPLOY_SERVICE_NAME"
-    echo "Verificando salud del servicio..." && sleep 2 && sudo systemctl is-active "$DEPLOY_SERVICE_NAME"
+    echo "==> Cambiando a $DEPLOY_REMOTE_DIR"
+    cd "$DEPLOY_REMOTE_DIR" || { echo "Error: no se pudo entrar a $DEPLOY_REMOTE_DIR"; exit 1; }
+
+    echo "==> Actualizando código..."
+    git pull
+
+    echo "==> Instalando dependencias..."
+    ./.venv/bin/pip install -r requirements.txt
+
+    echo "==> Reiniciando servicio $DEPLOY_SERVICE_NAME..."
+    sudo systemctl restart "$DEPLOY_SERVICE_NAME"
+
+    echo "==> Verificando salud del servicio..."
+    sleep 2
+    sudo systemctl is-active "$DEPLOY_SERVICE_NAME"
 EOF
 
 if [ $? -eq 0 ]; then
