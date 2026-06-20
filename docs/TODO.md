@@ -1,6 +1,6 @@
 # Tareas pendientes — Datamaq
 
-> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy automático funciona con el workflow `.github/workflows/deploy.yml`, usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. El CI corre localmente mediante `scripts/pre-push.sh`. La Etapa 2 (GitHub Actions) está en progreso: falta configurar los secrets en GitHub e implementar rollback automático.
+> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy automático funciona con el workflow `.github/workflows/deploy.yml`, usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. El CI corre localmente mediante `scripts/pre-push.sh`. La Etapa 2 (GitHub Actions) está completada: secrets configurados y rollback implementado.
 
 ## DevOps / CI-CD — Migración a GitHub Actions
 
@@ -10,17 +10,11 @@ _Completado: ver `docs/TODO.done.md`._
 
 ### P1 — Necesario
 
-- [ ] **P1-GHA-03** Migrar secrets de `scripts/.env.deploy` a GitHub Secrets.
-  - **Archivos afectados:** Configuración del repositorio en GitHub
-  - **Riesgo si no se hace:** Las credenciales permanecen en el disco local del desarrollador.
-  - **Criterio de aceptación mínimo:** Los workflows leen `DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER` y `DEPLOY_SSH_KEY` desde GitHub Secrets.
+_Completado: ver `docs/TODO.done.md`._
 
 ### P2 — Deseable
 
-- [ ] **P2-GHA-04** Implementar rollback automático en el workflow de deploy.
-  - **Archivos afectados:** `.github/workflows/deploy.yml`, `scripts/deploy-server.sh`
-  - **Riesgo si no se hace:** Un deploy fallido requiere intervención manual.
-  - **Criterio de aceptación mínimo:** Si el health-check falla, el workflow ejecuta rollback y notifica el fallo.
+_Completado: ver `docs/TODO.done.md`._
 
 ---
 
@@ -34,9 +28,9 @@ _Completado: ver `docs/TODO.done.md`._
   - *Referencia:* Informe SEO, oportunidad #2.
   - *Nota:* Home, localidades e industrias comparten el mismo template `index.html` con ~90 % de contenido idéntico.
 
-- [ ] **P1-SEO-03** Implementar normalización de URLs en la aplicación (HTTP→HTTPS, trailing slash, www/no-www) o validar que el reverse proxy ya la realice.
+- [x] **P1-SEO-03** Implementar normalización de URLs en la aplicación (HTTP→HTTPS, trailing slash, www/no-www) o validar que el reverse proxy ya la realice.
   - *Referencia:* Informe SEO, oportunidad #3.
-  - *Nota:* Actualmente no hay middleware en FastAPI que redirija a la versión canónica.
+  - *Nota:* Middleware `canonical_redirect_middleware` agregado en `src/infrastructure/fastapi/middleware.py`. Normaliza www→no-www, trailing slash y HTTP→HTTPS cuando el reverse proxy envía `X-Forwarded-Proto: http`.
 
 ### P2 — Mejora
 
@@ -80,10 +74,9 @@ _Completado: ver `docs/TODO.done.md`._
 
 ## Bloqueos
 
-> Actualizado: el deploy manual es funcional y el workflow de CD en GitHub Actions está implementado. Queda pendiente configurar los secrets en GitHub.
+> Actualizado: la Etapa 2 (GitHub Actions) está completada. No hay bloqueos activos.
 
-1. **P1-GHA-03** debe completarse antes de que el workflow de deploy funcione: los secrets de GitHub (`DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER`, `DEPLOY_SSH_KEY`) deben estar configurados.
-2. **P2-GHA-04** depende de **P0-DEV-03**: el rollback automático en GitHub Actions requiere que `scripts/deploy-server.sh` ya tenga rollback implementado.
+_No hay bloqueos activos._
 
 ---
 

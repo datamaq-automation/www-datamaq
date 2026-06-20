@@ -21,3 +21,6 @@
 - [x] **P1-SEO-01** Reducir CSS render-blocking: reemplazar Bootstrap Icons por SVG inline y eliminar ~76 KB de `index.css` (2026-06-20).
 - [x] **P2-SEO-04** Eliminar FOIT de iconos al migrar de Bootstrap Icons (fuente) a SVG inline (2026-06-20).
 - [x] **P0-GHA-01** Decidido no crear workflow de CI en GitHub Actions; el CI se ejecuta localmente mediante `scripts/pre-push.sh` para evitar duplicación y gasto de minutos de runner (2026-06-20).
+- [x] **P1-GHA-03** Migrar secrets de `scripts/.env.deploy` a GitHub Secrets (2026-06-20).
+- [x] **P2-GHA-04** Rollback automático ya implementado en `scripts/deploy-server.sh`; no se agregaron notificaciones externas por decisión de evitar sobreingeniería (2026-06-20).
+- [x] **P1-SEO-03** Implementar middleware de normalización de URLs (`canonical_redirect_middleware`) para www→no-www, trailing slash y HTTP→HTTPS vía `X-Forwarded-Proto` (2026-06-20).

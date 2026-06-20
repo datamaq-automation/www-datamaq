@@ -4,11 +4,13 @@ from starlette.exceptions import HTTPException
 from src.infrastructure.settings import config
 from src.infrastructure.fastapi.dependencies import CachedStaticFiles, templates, get_contenido
 from src.infrastructure.fastapi.utils.seo import canonical_url
+from src.infrastructure.fastapi.middleware import canonical_redirect_middleware
 
 # --- Inicialización de FastAPI ---
 
 app = FastAPI(title=config.APP_TITLE)
 app.state.config = config
+app.middleware("http")(canonical_redirect_middleware)
 app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="static")
 
 # --- Manejadores de error ---
