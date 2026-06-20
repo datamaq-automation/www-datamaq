@@ -1,68 +1,124 @@
 # Guía de Despliegue Continuo (CD)
 
-El proyecto cuenta con un flujo de despliegue automático hacia el VPS.
+## Estado actual
 
-## Configuración de GitHub Secrets
-Para activar el CD, configura los siguientes secretos en tu repositorio (Settings > Secrets and variables > Actions):
- - `SSH_HOST`: IP de tu VPS.
- - `SSH_PRIVATE_KEY`: Llave privada SSH (con acceso `root` al VPS, necesaria para los comandos de `systemctl` y `chown` iniciales, aunque la aplicación se ejecuta con un usuario sin
-      privilegios).
+El despliegue es **manual** mediante `scripts/deploy-server.sh`. No existe aún un workflow de GitHub Actions en `.github/workflows/`; su creación está documentada como roadmap en `docs/TODO.md`.
 
- ## Configuración Inicial en el VPS (PASOS MANUALES OBLIGATORIOS, UNA SOLA VEZ)
+## Configuración del VPS
 
- **¡IMPORTANTE!: La aplicación NO debe ejecutarse como usuario `root`. Debemos crear un usuario dedicado sin privilegios para mayor seguridad.**
+### 1. Usuario dedicado
 
- 1.  **Crear Usuario Dedicado para la Aplicación (ej. `electricista380`):**
-      sudo adduser --system --no-create-home electricista380
-  Si prefieres un usuario con shell y directorio home para depuración, usa:
-  sudo adduser electricista380_user
+La aplicación **NO** debe ejecutarse como `root`. Crear un usuario dedicado:
 
-2.  **Crear Directorio del Proyecto y Clonar Repositorio:**
-      sudo mkdir -p /var/www/electricista380
-      sudo chown -R electricista380:electricista380 /var/www/electricista380
-      cd /var/www/electricista380
-      git clone {URL_DEL_REPOSITORIO_GIT_DE_ESTE_PROYECTO} .
+```bash
+sudo adduser --system --group --home /var/www/electricista380 electricista380
+sudo chown -R electricista380:electricista380 /var/www/electricista380
+```
 
-     *(Reemplaza `{URL_DEL_REPOSITORIO_GIT_DE_ESTE_PROYECTO}` con la URL real de tu repositorio).*
+### 2. Clonar repositorio
 
-3.  **Crear Entorno Virtual e Instalar Dependencias:**
-      python3 -m venv .venv
-      /var/www/electricista380/.venv/bin/pip install -r backend/requirements.txt # Ajusta la ruta si requirements.txt no está en 'backend/'
+```bash
+sudo -u electricista380 git clone <URL_DEL_REPOSITORIO> /var/www/electricista380
+```
 
+### 3. Entorno virtual e instalación de dependencias
 
-4.  **Crear y Configurar Archivo `.env` (SECRETS):**
-      touch /var/www/electricista380/.env
-  Luego edita este archivo con tus variables de entorno y secretos.
+```bash
+sudo -u electricista380 python3 -m venv /var/www/electricista380/.venv
+sudo -u electricista380 /var/www/electricista380/.venv/bin/pip install -r /var/www/electricista380/requirements.txt
+```
 
-     **Este archivo NO debe ser versionado en Git.**
+> Nota: el archivo `requirements.txt` está en la raíz del proyecto, no en `backend/`.
 
-5.  **Configurar Servicio Systemd (`/etc/systemd/system/electricista380.service`):**
-     Crea un archivo con el siguiente contenido:
-      [Unit]
-      Description=Datamaq FastAPI Application
-      After=network.target
+### 4. Variables de entorno de la aplicación
 
-      [Service]
-      User=electricista380  # El usuario sin privilegios creado
-      Group=electricista380 # El grupo sin privilegios
-      WorkingDirectory=/var/www/electricista380
-      ExecStart=/var/www/electricista380/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
-      Restart=always
-      EnvironmentFile=/var/www/electricista380/.env
+Crear `/var/www/electricista380/.env` con los secretos de la app (tokens, IDs de analytics, etc.). Este archivo **no debe versionarse**.
 
-      [Install]
-      WantedBy=multi-user.target
-     Después de crear este archivo, ejecuta los siguientes comandos para habilitar y arrancar el servicio:
-      sudo systemctl enable electricista380.service
-      sudo systemctl start electricista380.service
+```bash
+sudo -u electricista380 touch /var/www/electricista380/.env
+sudo chmod 600 /var/www/electricista380/.env
+```
 
+### 5. Servicio systemd
 
-## Flujo de Despliegue Automatizado
-1.  El despliegue se dispara automáticamente al hacer push a la rama `main`.
-2.  GitHub Actions se conecta vía SSH al VPS usando las credenciales configuradas.
-3.  Se ejecuta `scripts/deploy-server.sh` en el servidor (ubicado en `/var/www/electricista380`).
-4.  El script se encarga de:
-     *   Hacer `git pull origin main` para obtener los últimos cambios.
-     *   Actualizar las dependencias de Python si es necesario.
-     *   Realizar el "cache busting" del frontend.
-     *   Reiniciar el servicio `electricista380.service` para aplicar los cambios.
+Crear `/etc/systemd/system/electricista380.service`:
+
+```ini
+[Unit]
+Description=Datamaq FastAPI Application
+After=network.target
+
+[Service]
+User=electricista380
+Group=electricista380
+WorkingDirectory=/var/www/electricista380
+ExecStart=/var/www/electricista380/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
+Restart=always
+EnvironmentFile=/var/www/electricista380/.env
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Habilitar y arrancar:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable electricista380.service
+sudo systemctl start electricista380.service
+```
+
+### 6. Permisos para reiniciar el servicio (deploy)
+
+El usuario que realiza el deploy necesita reiniciar el servicio. Configurar `sudoers` para que no requiera contraseña:
+
+```bash
+echo "electricista380 ALL=(ALL) NOPASSWD: /bin/systemctl restart electricista380.service, /bin/systemctl is-active electricista380.service" | sudo tee /etc/sudoers.d/electricista380-deploy
+sudo chmod 440 /etc/sudoers.d/electricista380-deploy
+```
+
+## Configuración local del desarrollador
+
+Copiar el template y completar con los datos del VPS:
+
+```bash
+cp scripts/.env.deploy.example scripts/.env.deploy
+```
+
+`scripts/.env.deploy` está en `.gitignore` y **nunca debe commitearse**.
+
+## Scripts de deploy
+
+- `scripts/deploy-server.sh` — conecta por SSH al VPS, hace `git pull`, instala dependencias y reinicia el servicio.
+- `scripts/view_logs.sh` — muestra los últimos logs del servicio.
+
+## Roadmap hacia GitHub Actions
+
+### Secrets necesarios en el repositorio
+
+Configurar en GitHub: **Settings > Secrets and variables > Actions**.
+
+- `DEPLOY_SSH_HOST` — IP o hostname del VPS.
+- `DEPLOY_SSH_PORT` — puerto SSH del VPS.
+- `DEPLOY_SSH_USER` — usuario dedicado en el VPS.
+- `DEPLOY_SSH_KEY` — clave privada SSH (se recomienda sin frase de paso para CI).
+
+### Workflows planificados
+
+1. `.github/workflows/ci.yml` — ejecutar tests con `pytest` en cada push/PR a `main`.
+2. `.github/workflows/deploy.yml` — deploy automático solo si CI pasa, conectándose por SSH al VPS y ejecutando `scripts/deploy-server.sh`.
+
+### Rollback
+
+Implementar en `scripts/deploy-server.sh`:
+
+1. Guardar el commit actual (`HEAD`) antes del `git pull`.
+2. Ejecutar health-check HTTP a `http://localhost:8000/` después del reinicio.
+3. Si el health-check falla, ejecutar `git reset --hard <commit-previo>` y reiniciar el servicio.
+
+## Notas de seguridad
+
+- No usar `root` para deploy ni ejecución.
+- Rotar credenciales SSH si alguna vez estuvieron en un archivo local no cifrado.
+- Configurar `PermitRootLogin no` en `/etc/ssh/sshd_config`.
+- Mantener `scripts/.env.deploy` fuera del control de versiones.

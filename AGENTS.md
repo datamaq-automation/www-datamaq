@@ -175,11 +175,13 @@ python3 -m uvicorn src.infrastructure.fastapi.app:app --reload
 
 ### 6.3. Ejecutar en Producción
 
-El servicio systemd ejecuta directamente Uvicorn:
+El servicio `electricista380.service` ejecuta Uvicorn con el entorno virtual del VPS:
 
 ```bash
 /var/www/electricista380/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
 ```
+
+Ver configuración completa del servicio en `docs/CD.md`.
 
 ### 6.4. Tests
 
@@ -288,14 +290,20 @@ Plantilla disponible en `scripts/.env.deploy.example`.
 
 ### 11.3. Flujo Automatizado (GitHub Actions)
 
+> **Estado actual:** el workflow de GitHub Actions aún no existe. El despliegue es manual mediante `scripts/deploy-server.sh`. La migración a CI/CD está planificada en `docs/TODO.md`.
+
+El diseño objetivo es:
+
 1. Push a `main` dispara el workflow de GitHub Actions.
-2. Se conecta por SSH al VPS usando `SSH_HOST` y `SSH_PRIVATE_KEY` configurados como secrets.
+2. Se conecta por SSH al VPS usando los secrets `DEPLOY_SSH_HOST`, `DEPLOY_SSH_PORT`, `DEPLOY_SSH_USER` y `DEPLOY_SSH_KEY`.
 3. Ejecuta `scripts/deploy-server.sh` en el servidor remoto.
 4. El script:
+   - Guarda el commit actual para posible rollback.
    - Hace `git pull`.
-   - Instala dependencias con `./venv/bin/pip install -r requirements.txt`.
+   - Instala dependencias con `./.venv/bin/pip install -r requirements.txt`.
    - Reinicia el servicio `electricista380.service`.
-   - Verifica que el servicio esté activo.
+   - Ejecuta un health-check HTTP a `http://localhost:8000/`.
+   - En caso de fallo, revierte al commit anterior y reinicia el servicio.
 
 ### 11.4. Scripts Útiles
 
@@ -315,8 +323,9 @@ Plantilla disponible en `scripts/.env.deploy.example`.
 
 - La migración está en progreso. `docs/TODO.md` lista tareas pendientes como completar la estructura HTML semántica, acondicionar variables CSS, implementar el wizard completo y validar la integración RASA.
 - `docs/TODO.done.md` lista lo ya logrado: configuración FastAPI, SSR, modelos YAML, SEO, logger, caché, Chatwoot, .env, tests con cobertura y pre-push hook.
-- El repositorio no incluye actualmente un workflow de GitHub Actions en `.github/workflows/`, aunque la guía de CD asume que existe.
-- El entorno virtual `venv/` del repositorio está prácticamente vacío (solo `pip`). Para desarrollar o testear, instalar dependencias primero.
+- El repositorio no incluye actualmente un workflow de GitHub Actions en `.github/workflows/`; la guía de CD documenta el roadmap para implementarlo.
+- El entorno virtual `venv/` del repositorio ya tiene las dependencias de `requirements.txt` instaladas.
+- El hook `pre-push` está activo como symlink a `scripts/pre-push.sh`.
 
 ## 14. Referencias Rápidas
 
