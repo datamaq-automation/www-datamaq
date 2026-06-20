@@ -42,10 +42,13 @@ $APP_USER ALL=(ALL) NOPASSWD: /bin/systemctl status $SERVICE
 EOF
 chmod 440 "/etc/sudoers.d/$APP_USER-deploy"
 
-echo "==> Asegurando que el servicio $SERVICE use el usuario $APP_USER..."
+echo "==> Configurando servicio $SERVICE..."
 if [ -f "/etc/systemd/system/$SERVICE" ]; then
-    sed -i "s/^User=.*/User=$APP_USER/" "/etc/systemd/system/$SERVICE"
-    sed -i "s/^Group=.*/Group=$APP_USER/" "/etc/systemd/system/$SERVICE"
+    sed -i "s|^User=.*|User=$APP_USER|" "/etc/systemd/system/$SERVICE"
+    sed -i "s|^Group=.*|Group=$APP_USER|" "/etc/systemd/system/$SERVICE"
+    sed -i "s|^WorkingDirectory=.*|WorkingDirectory=$APP_DIR|" "/etc/systemd/system/$SERVICE"
+    sed -i "s|^ExecStart=.*|ExecStart=$APP_DIR/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 127.0.0.1 --port 8000|" "/etc/systemd/system/$SERVICE"
+    sed -i "s|^EnvironmentFile=.*|EnvironmentFile=$APP_DIR/.env|" "/etc/systemd/system/$SERVICE"
     systemctl daemon-reload
     systemctl restart "$SERVICE"
 else
