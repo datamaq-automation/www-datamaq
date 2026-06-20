@@ -14,8 +14,8 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
     base_seo = contenido.seo.model_dump()
     seo = {
         **base_seo,
-        "title": f"Consultor\u00eda t\u00e9cnica IoT | {contenido.brand.brandName}",
-        "description": f"Contact\u00e1 a {contenido.brand.brandName} para una consultor\u00eda t\u00e9cnica sobre monitoreo de energ\u00eda industrial, captura de datos operativos e IoT industrial.",
+        "title": f"Consultoría técnica IoT | {contenido.brand.brandName}",
+        "description": f"Contactá a {contenido.brand.brandName} para una consultoría técnica sobre monitoreo de energía industrial, captura de datos operativos e IoT industrial.",
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
         "og_image_height": 630,
@@ -26,8 +26,8 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
         "seo": seo,
         "chatwoot_token": chatwoot_token,
         "contact_hero": {
-            "title": f"Consultor\u00eda t\u00e9cnica IoT con {contenido.brand.brandName}",
-            "subtitle": "Escribinos para evaluar tu proyecto de monitoreo de energ\u00eda industrial, captura de datos operativos o equipos IoT.",
+            "title": f"Consultoría técnica IoT con {contenido.brand.brandName}",
+            "subtitle": "Escribinos para evaluar tu proyecto de monitoreo de energía industrial, captura de datos operativos o equipos IoT.",
         },
     }
     return templates.TemplateResponse(request=request, name="contact.html", context=context)

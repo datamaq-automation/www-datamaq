@@ -34,7 +34,7 @@ async def override_get_contenido():
                 "text": "Test",
                 "accept_label": "Aceptar",
                 "reject_label": "Rechazar",
-                "more_info_label": "Ver m\u00e1s",
+                "more_info_label": "Ver más",
                 "more_info_link": "/terminos-y-condiciones"
             },
             "contact": {
@@ -52,7 +52,7 @@ async def override_get_contenido():
         seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},
         legal_pages={
             "terms": {
-                "title": "T\u00e9rminos y condiciones",
+                "title": "Términos y condiciones",
                 "last_updated": "2026-06-19",
                 "introduction": "Test",
                 "sections": [{"title": "Test", "paragraphs": ["Test"]}]
@@ -83,7 +83,7 @@ async def test_terms_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "T\u00e9rminos y condiciones" in response.text
+    assert "Términos y condiciones" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_contact_page_rendered():
@@ -93,7 +93,7 @@ async def test_contact_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Consultor\u00eda t\u00e9cnica IoT" in response.text
+    assert "Consultoría técnica IoT" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_custom_404_page_rendered():
@@ -103,7 +103,7 @@ async def test_custom_404_page_rendered():
     
     assert response.status_code == 404
     assert "text/html" in response.headers["content-type"]
-    assert "P\u00e1gina no encontrada" in response.text
+    assert "Página no encontrada" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_sitemap_includes_contact():
@@ -122,7 +122,7 @@ async def test_localidad_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Gar\u00edn" in response.text
+    assert "Garín" in response.text
     assert "Captura de datos operativos" in response.text
 
 @pytest.mark.asyncio  # type: ignore

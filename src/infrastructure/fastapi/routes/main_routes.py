@@ -86,7 +86,7 @@ async def terms(request: Request, contenido: ContenidoModel = Depends(get_conten
     seo = {
         **base_seo,
         "title": f"{contenido.legal_pages.terms.title} | {contenido.brand.brandName}",
-        "description": f"T\u00e9rminos y condiciones de uso del sitio web de {contenido.brand.brandName}.",
+        "description": f"Términos y condiciones de uso del sitio web de {contenido.brand.brandName}.",
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
         "og_image_height": 630,

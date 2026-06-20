@@ -20,7 +20,7 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
 
     seo = {
         "title": f"IoT industrial para {nombre_industria} | DataMaq",
-        "description": f"Soluciones de captura de datos operativos y monitoreo de energ\u00eda para la {nombre_industria}. Digitalizaci\u00f3n de planta con equipos IoT.",
+        "description": f"Soluciones de captura de datos operativos y monitoreo de energía para la {nombre_industria}. Digitalizaci\u00f3n de planta con equipos IoT.",
         "canonical_url": canonical_url(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
@@ -29,7 +29,7 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
     }
 
     hero_title = f"IoT industrial para {nombre_industria}"
-    hero_subtitle = f"Captura de datos operativos y monitoreo de energ\u00eda adaptados a la {nombre_industria}. Asesoramiento t\u00e9cnico e implementaci\u00f3n."
+    hero_subtitle = f"Captura de datos operativos y monitoreo de energía adaptados a la {nombre_industria}. Asesoramiento técnico e implementaci\u00f3n."
 
     context: Dict[str, Any] = {
         "brand": brand_data,

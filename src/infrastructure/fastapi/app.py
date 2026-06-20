@@ -18,8 +18,8 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == 404:
         contenido = get_contenido()
         seo = {
-            "title": f"P\u00e1gina no encontrada | {contenido.brand.brandName}",
-            "description": "La p\u00e1gina solicitada no existe.",
+            "title": f"Página no encontrada | {contenido.brand.brandName}",
+            "description": "La página solicitada no existe.",
             "canonical_url": canonical_url(request.url),
             "site_name": contenido.brand.brandName,
             "og_image": contenido.seo.og_image,

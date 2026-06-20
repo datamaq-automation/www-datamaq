@@ -22,8 +22,8 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     municipio_formateado = municipio.replace("-", " ").title()
 
     seo = {
-        "title": f"Monitoreo de energ\u00eda industrial en {nombre_localidad}, {municipio_formateado} | DataMaq",
-        "description": f"Captura de datos operativos y monitoreo de energ\u00eda industrial en {nombre_localidad}. Soluciones IoT para plantas y procesos productivos.",
+        "title": f"Monitoreo de energía industrial en {nombre_localidad}, {municipio_formateado} | DataMaq",
+        "description": f"Captura de datos operativos y monitoreo de energía industrial en {nombre_localidad}. Soluciones IoT para plantas y procesos productivos.",
         "canonical_url": canonical_url(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
@@ -31,8 +31,8 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "og_image_height": 630,
     }
 
-    hero_title = f"Monitoreo de energ\u00eda industrial en {nombre_localidad}"
-    hero_subtitle = f"Implementaci\u00f3n de equipos IoT para medici\u00f3n de energ\u00eda y captura de datos operativos en {nombre_localidad}, {municipio_formateado}."
+    hero_title = f"Monitoreo de energía industrial en {nombre_localidad}"
+    hero_subtitle = f"Implementaci\u00f3n de equipos IoT para medici\u00f3n de energía y captura de datos operativos en {nombre_localidad}, {municipio_formateado}."
 
     context: Dict[str, Any] = {
         "brand": brand_data,
