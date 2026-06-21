@@ -1,25 +1,25 @@
 {% macro contact_form(data) %}
-<ol data-v-4d7c045a="" data-v-ab6dacb2="" class="c-contact__stepper" aria-label="Pasos del formulario">
+<ol class="c-contact__stepper" aria-label="Pasos del formulario">
     {% for step in data.steps %}
-    <li data-v-4d7c045a="" class="c-contact__stepper-item {{ 'is-active' if loop.first else '' }}">
-        <button data-v-4d7c045a="" type="button" class="c-contact__stepper-trigger" {% if loop.first %}aria-current="step"{% endif %} aria-label="Andá al paso {{ loop.index }}: {{ step.title }}">
-            <span data-v-4d7c045a="" class="c-contact__stepper-dot" aria-hidden="true"><span data-v-4d7c045a="">{{ loop.index }}</span></span>
-            <span data-v-4d7c045a="" class="c-contact__stepper-label">{{ step.title }}</span>
+    <li class="c-contact__stepper-item {{ 'is-active' if loop.first else '' }}">
+        <button type="button" class="c-contact__stepper-trigger" {% if loop.first %}aria-current="step"{% endif %} aria-label="Andá al paso {{ loop.index }}: {{ step.title }}">
+            <span class="c-contact__stepper-dot" aria-hidden="true"><span>{{ loop.index }}</span></span>
+            <span class="c-contact__stepper-label">{{ step.title }}</span>
         </button>
     </li>
     {% endfor %}
 </ol>
-<div data-v-ab6dacb2="" class="c-contact__progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
-    <div data-v-ab6dacb2="" class="c-contact__progress-track">
-        <div data-v-ab6dacb2="" class="c-contact__progress-fill" style="width: 33%;"></div>
+<div class="c-contact__progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+    <div class="c-contact__progress-track">
+        <div class="c-contact__progress-fill" style="width: 33%;"></div>
     </div>
-    <p data-v-ab6dacb2="" class="c-contact__progress-text">{{ data.progress_text }}</p>
-    <p data-v-ab6dacb2="" class="c-contact__privacy-note">{{ data.privacy_note }}</p>
+    <p class="c-contact__progress-text">{{ data.progress_text }}</p>
+    <p class="c-contact__privacy-note">{{ data.privacy_note }}</p>
 </div>
-<form data-v-ab6dacb2="" class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
-    <div data-v-ab6dacb2="">
+<form class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
+    <div>
         {% for step in data.steps %}
-        <div data-v-ab6dacb2="" class="c-contact__step-panel" style="{{ 'display: none' if not loop.first else '' }}">
+        <div class="c-contact__step-panel" style="{{ 'display: none' if not loop.first else '' }}">
             <h3 class="c-contact__step-title">{{ loop.index }}. {{ step.title }}</h3>
             {% for field in step.fields %}
             <div>
@@ -35,13 +35,13 @@
         </div>
         {% endfor %}
     </div>
-    <div data-v-ab6dacb2="" class="c-contact__actions">
-        <button data-v-ab6dacb2="" type="button" class="c-contact__btn c-contact__btn--primary"> {{ data.cta }} </button>
+    <div class="c-contact__actions">
+        <button type="button" class="c-contact__btn c-contact__btn--primary"> {{ data.cta }} </button>
     </div>
 </form>
-<article data-v-ab6dacb2="" class="c-contact__email-card" aria-label="Contacto alternativo por e-mail">
-    <p data-v-ab6dacb2="" class="c-contact__email-label">{{ data.alt_email.label }}</p>
-    <p data-v-ab6dacb2="" class="c-contact__email-title">{{ data.alt_email.title }}</p>
-    <a data-v-ab6dacb2="" class="c-contact__email-link" href="mailto:{{ data.alt_email.email }}">{{ data.alt_email.email }}</a>
+<article class="c-contact__email-card" aria-label="Contacto alternativo por e-mail">
+    <p class="c-contact__email-label">{{ data.alt_email.label }}</p>
+    <p class="c-contact__email-title">{{ data.alt_email.title }}</p>
+    <a class="c-contact__email-link" href="mailto:{{ data.alt_email.email }}">{{ data.alt_email.email }}</a>
 </article>
 {% endmacro %}
