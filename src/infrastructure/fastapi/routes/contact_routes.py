@@ -11,9 +11,12 @@ from src.infrastructure.fastapi.dependencies import (
     get_chatwoot_gateway,
 )
 from src.infrastructure.fastapi.utils.seo import canonical_url
+from src.infrastructure.settings import config
+from src.infrastructure.settings.logger import setup_logger
 from src.application.use_cases.submit_lead import SubmitLeadUseCase
 
 router = APIRouter()
+logger = setup_logger(config.LOGGER_NAME)
 
 
 @router.get("/contact")
@@ -46,9 +49,15 @@ async def submit_contact(
     repository: LeadRepository = Depends(get_lead_repository),
     chatwoot_gateway: ChatwootGateway = Depends(get_chatwoot_gateway),
 ):
+    logger.info("[submit_contact] Recibiendo POST /api/v1/contact")
+    logger.debug("[submit_contact] Payload validado: name presente=%s, email presente=%s, phone presente=%s",
+                 bool(payload.name), bool(payload.email), bool(payload.phone))
+
     try:
         use_case = SubmitLeadUseCase(repository=repository, chatwoot_gateway=chatwoot_gateway)
         result = await use_case.execute(payload)
+        logger.info("[submit_contact] Lead procesado: submission_id=%s, status=%s", result.submission_id, result.submit_status)
         return use_case.to_http_response(result)
     except Exception as e:
+        logger.error("[submit_contact] Error inesperado al procesar lead: %s", e)
         raise HTTPException(status_code=500, detail=str(e))

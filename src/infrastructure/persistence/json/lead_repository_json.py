@@ -5,6 +5,10 @@ from typing import Any, Dict
 
 from src.domain.entities.lead import Lead
 from src.domain.repositories.lead_repository import LeadRepository
+from src.infrastructure.settings import config
+from src.infrastructure.settings.logger import setup_logger
+
+logger = setup_logger(config.LOGGER_NAME)
 
 
 DATA_DIR = "data/leads"
@@ -25,5 +29,13 @@ class LeadRepositoryJson(LeadRepository):
     async def save(self, lead: Lead) -> None:
         submission_id = str(lead.id)
         lead_path = os.path.join(DATA_DIR, f"{submission_id}.json")
-        with open(lead_path, "w", encoding="utf-8") as f:
-            json.dump(_lead_to_dict(lead), f, indent=2, ensure_ascii=False)
+
+        logger.debug("[LeadRepositoryJson] Guardando lead %s en %s", submission_id, lead_path)
+
+        try:
+            with open(lead_path, "w", encoding="utf-8") as f:
+                json.dump(_lead_to_dict(lead), f, indent=2, ensure_ascii=False)
+            logger.info("[LeadRepositoryJson] Lead %s guardado en %s", submission_id, lead_path)
+        except Exception as e:
+            logger.error("[LeadRepositoryJson] Fallo al guardar lead %s: %s", submission_id, e)
+            raise

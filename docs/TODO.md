@@ -1,57 +1,38 @@
-# TODO - Adopción DDD / Arquitectura Limpia
+# TODO.md — Datamaq
 
-## Tabla de contenidos
-
-1. [Tareas prioritarias](#tareas-prioritarias)
-2. [Próximas iteraciones](#próximas-iteraciones)
-
-## Tareas prioritarias
-
-_No hay tareas prioritarias activas. El backlog DDD inicial está completado. Ver próximas iteraciones._
-
-## Próximas iteraciones
-
-1. **Eventos de dominio (`LeadSubmitted`):** publicar un evento al guardar un lead y que Chatwoot se suscriba.
-2. **Validaciones de dominio en `Lead`:** mover reglas como "email o teléfono requerido" desde Pydantic hacia la entidad.
-3. **Caché de contenido estático:** aplicar un Repository en `DataService` para evitar leer YAML en cada request.
-
-
-# Tareas pendientes — Datamaq
-
-> Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy automático funciona con el workflow `.github/workflows/deploy.yml`, usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. El CI corre localmente mediante `scripts/pre-push.sh`. La Etapa 2 (GitHub Actions) está completada: secrets configurados y rollback implementado.
-
-## DevOps / CI-CD — Migración a GitHub Actions
-
-### P0 — Crítico
-
-_Completado: ver `docs/TODO.done.md`._
-
-### P1 — Necesario
-
-_Completado: ver `docs/TODO.done.md`._
-
-### P2 — Deseable
-
-_Completado: ver `docs/TODO.done.md`._
+**Estado del proyecto:** Etapa 1 (Estabilización del deploy) ✅ completada.  
+ Etapa 2 (GitHub Actions) ✅ completada. Deploy automático activo con usuario `datamaq`, SSH por clave, Python 3.12 y rollback implementado.  
+ **Iteración actual:** SEO técnico + adopción de DDD / Arquitectura Limpia.  
+ **Bloqueos activos:** Ninguno.
 
 ---
 
-## SEO — Iteración actual
+## 🔥 P0 — Crítico / Bloqueante
 
-> Basado en el informe de auditoría SEO técnica. Cada ítem referencia el hallazgo correspondiente del informe.
+_Ninguno. El pipeline de deploy y la infraestructura base están estables._
 
-### P1 — Crítico
+---
 
-- [ ] **P1-SEO-02** Diferenciar contenido de páginas dinámicas (localidad e industria) para mitigar thin content y contenido duplicado.
+## 📌 P1 — Crítico (Implementación requerida)
+
+### SEO
+- [ ] **P1-SEO-02** Diferenciar contenido de páginas dinámicas (localidad e industria) para mitigar *thin content* y contenido duplicado.
   - *Referencia:* Informe SEO, oportunidad #2.
   - *Nota:* Home, localidades e industrias comparten el mismo template `index.html` con ~90 % de contenido idéntico.
 
-- [x] **P1-SEO-03** Implementar normalización de URLs en la aplicación (HTTP→HTTPS, trailing slash, www/no-www) o validar que el reverse proxy ya la realice.
+- [x] **P1-SEO-03** Normalizar URLs (HTTP→HTTPS, trailing slash, www/no-www).
   - *Referencia:* Informe SEO, oportunidad #3.
-  - *Nota:* Middleware `canonical_redirect_middleware` agregado en `src/infrastructure/fastapi/middleware.py`. Normaliza www→no-www, trailing slash y HTTP→HTTPS cuando el reverse proxy envía `X-Forwarded-Proto: http`.
+  - *Estado:* Completado. Middleware `canonical_redirect_middleware` en `src/infrastructure/fastapi/middleware.py`. Actúa como respaldo cuando el reverse proxy envía `X-Forwarded-Proto: http`.
 
-### P2 — Mejora
+### DDD / Arquitectura Limpia
+- [ ] **P1-DDD-01** Publicar evento de dominio `LeadSubmitted` al persistir un lead, y suscribir a Chatwoot como consumidor.
+- [ ] **P1-DDD-02** Mover reglas de validación de negocio ("email o teléfono requerido") desde el schema Pydantic hacia la entidad de dominio `Lead`.
 
+---
+
+## 📋 P2 — Mejora (Backlog inmediato)
+
+### SEO
 - [ ] **P2-SEO-05** Reemplazar el favicon SVG usado como `logo` en Schema.org por una imagen cuadrada representativa de marca.
   - *Referencia:* Informe SEO, oportunidad #5.
 
@@ -61,8 +42,14 @@ _Completado: ver `docs/TODO.done.md`._
 - [ ] **P2-SEO-07** Agregar `hreflang="x-default"` junto al `hreflang="es_AR"` existente.
   - *Referencia:* Informe SEO, oportunidad #8.
 
-### P3 — Optimización futura
+### DDD / Arquitectura Limpia
+- [ ] **P2-DDD-03** Aplicar patrón Repository en `DataService` para evitar lectura de YAML en cada request (caché de contenido estático).
 
+---
+
+## 🔮 P3 — Optimización futura
+
+### SEO
 - [ ] **P3-SEO-09** Eliminar preconnects a Google Fonts si no se cargan fuentes, o agregar la hoja de estilos correspondiente.
   - *Referencia:* Informe SEO, oportunidad #9.
 
@@ -74,24 +61,21 @@ _Completado: ver `docs/TODO.done.md`._
 
 ---
 
-## Pendientes de decisión
+## ❓ Decisiones estratégicas pendientes
 
-> Items cuya certeza en el informe es "Duda" o "Requiere validación". Requieren una decisión estratégica antes de convertirse en tareas de implementación.
+Items que requieren una decisión de negocio antes de convertirse en tareas técnicas.
 
 - [ ] **DEC-SEO-01** Definir si `/terminos-y-condiciones` debe permanecer indexable (`index,follow`) o pasar a `noindex,follow`.
   - *Referencia:* Informe SEO, oportunidad #7.
-  - *Certeza:* Requiere validación.
-  - *Pendiente:* Decisión de estrategia de contenido legal.
+  - *Bloqueado por:* Estrategia de contenido legal.
 
 - [ ] **DEC-SEO-02** Confirmar si el reverse proxy de producción (Nginx/Cloudflare) ya realiza redirecciones HTTP→HTTPS y normalización de trailing slash/www.
   - *Referencia:* Informe SEO, oportunidad #3.
-  - *Certeza:* Requiere validación.
-  - *Pendiente:* Validación de infraestructura antes de implementar middleware de respaldo en FastAPI.
+  - *Bloqueado por:* Validación de infraestructura. El middleware de respaldo ya está implementado, pero se debe verificar si es redundante.
 
 ---
 
-## Bloqueos
+## ✅ Completado (resumen)
 
-> Actualizado: la Etapa 2 (GitHub Actions) está completada. No hay bloqueos activos.
-
-_No hay bloqueos activos._
+- **DevOps / CI-CD:** Etapa 1 y 2 finalizadas. Ver detalles en `docs/TODO.done.md`.
+- **P1-SEO-03:** Middleware de normalización de URLs implementado.
