@@ -7,15 +7,7 @@
 
 ## Tareas prioritarias
 
-## [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot
-
-- **Severidad:** medium
-- **Archivo(s):** `src/domain/models.py`, nuevos mappers
-- **Problema:** No hay mapper explícito; el controller usaría directamente el payload Pydantic.
-- **Oportunidad:** Mapper/Translator para mantener al dominio libre de formatos externos.
-- **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_contact_mapper.py`.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** S
+_No hay tareas prioritarias activas. El backlog DDD inicial está completado. Ver próximas iteraciones._
 
 ## Próximas iteraciones
 

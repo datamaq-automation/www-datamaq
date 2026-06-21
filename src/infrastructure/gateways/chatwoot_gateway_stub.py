@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
+from src.application.dtos.chatwoot_contact_dto import ChatwootContactDto
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
-from src.domain.entities.lead import Lead
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
 
@@ -11,11 +11,11 @@ logger = setup_logger(config.LOGGER_NAME)
 class ChatwootGatewayStub(ChatwootGateway):
     """Stub del gateway de Chatwoot: no realiza llamadas HTTP."""
 
-    async def create_contact(self, lead: Lead) -> Dict[str, Any]:
+    async def create_contact(self, contact: ChatwootContactDto) -> Dict[str, Any]:
         logger.info(
-            "[ChatwootGatewayStub] Simulando creación de contacto para lead %s (%s)",
-            str(lead.id),
-            lead.contact.email or lead.contact.phone or "sin contacto directo",
+            "[ChatwootGatewayStub] Simulando creación de contacto para %s (%s)",
+            contact.name,
+            contact.email or contact.phone_number or "sin contacto directo",
         )
         return {
             "contact_id": "stub_contact_id",

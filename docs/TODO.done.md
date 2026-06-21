@@ -1,5 +1,6 @@
 # Tareas Completadas - Datamaq
 
+- [x] [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot: crear `src/application/mappers/lead_mapper.py`, `src/application/mappers/chatwoot_contact_mapper.py`, `src/application/dtos/chatwoot_contact_dto.py`, y usar los mappers en `SubmitLeadUseCase` (2026-06-20).
 - [x] [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`: agregar `get_lead_repository()` y `get_chatwoot_gateway()`, e inyectarlos en `contact_routes.py` mediante `Depends()` (2026-06-20).
 - [x] [Manejo de errores entre capas] Definir política de fallo parcial: crear `LeadSubmissionResult`, hacer `SubmitLeadUseCase` async con try/except por capa, devolver éxito parcial si Chatwoot falla, y agregar test de éxito parcial (2026-06-20).
 - [x] [Caso de Uso] Implementar `SubmitLeadUseCase`: crear `src/application/use_cases/submit_lead.py` que orquesta `LeadRepository` + `ChatwootGateway` (2026-06-20).
