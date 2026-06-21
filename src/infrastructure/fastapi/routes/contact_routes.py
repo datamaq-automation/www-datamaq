@@ -4,10 +4,14 @@ from src.domain.models import ContactSubmitPayload, ContenidoModel
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.application.use_cases.submit_lead import SubmitLeadUseCase
+from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
 from src.infrastructure.persistence.json.lead_repository_json import LeadRepositoryJson
 
 router = APIRouter()
-submit_lead_use_case = SubmitLeadUseCase(repository=LeadRepositoryJson())
+submit_lead_use_case = SubmitLeadUseCase(
+    repository=LeadRepositoryJson(),
+    chatwoot_gateway=ChatwootGatewayStub(),
+)
 
 @router.get("/contact")
 async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):

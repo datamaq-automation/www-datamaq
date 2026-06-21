@@ -7,16 +7,6 @@
 
 ## Tareas prioritarias
 
-## [Gateway externo] Crear adaptador para Chatwoot Application API
-
-- **Severidad:** medium
-- **Archivo(s):** Nuevo adaptador
-- **Problema:** No existe integración con Chatwoot Application API; solo hay SDK de widget en frontend.
-- **Oportunidad:** Gateway pattern: aísla el cliente HTTP de Chatwoot del resto de la aplicación.
-- **Acción:** Crear `src/application/gateways/chatwoot_gateway.py` (interfaz) y `src/infrastructure/gateways/chatwoot_gateway_http.py`.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** M
-
 ## [Caso de Uso] Implementar `SubmitLeadUseCase`
 
 - **Severidad:** high
@@ -24,7 +14,7 @@
 - **Problema:** No hay un único punto que orqueste guardar lead + crear contacto/conversación.
 - **Oportunidad:** Application Service que coordina Repository + Gateway sin reglas de negocio complejas.
 - **Acción:** Crear `src/application/use_cases/submit_lead.py` con `execute(payload) -> LeadSubmissionResult`.
-- **Bloqueado por:** Tarea 4.
+- **Bloqueado por:** Ninguna.
 - **Estimación:** M
 
 ## [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`
@@ -34,7 +24,7 @@
 - **Problema:** Solo provee `DataService`; no inyecta repositorios ni gateways.
 - **Oportunidad:** Extender el contenedor ligero de FastAPI para inyectar implementaciones de infraestructura.
 - **Acción:** Agregar `get_lead_repository()` y `get_chatwoot_gateway()`; usarlos en `contact_routes.py`.
-- **Bloqueado por:** Tarea 4.
+- **Bloqueado por:** Ninguna.
 - **Estimación:** XS
 
 ## [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot
@@ -54,7 +44,7 @@
 - **Problema:** Si Chatwoot falla después de guardar el lead, perdemos trazabilidad o confundimos al usuario.
 - **Oportunidad:** Domain Event o registro de estado de sincronización; nunca perder el lead por fallo externo.
 - **Acción:** Crear `LeadSubmissionResult` con `lead_saved` y `chatwoot_synced`; si Chatwoot falla, devolver éxito parcial y loggear reintento.
-- **Bloqueado por:** Tarea 5.
+- **Bloqueado por:** Ninguna.
 - **Estimación:** M
 
 ## Próximas iteraciones

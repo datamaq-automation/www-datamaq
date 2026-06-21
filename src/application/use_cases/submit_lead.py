@@ -1,5 +1,6 @@
 from typing import Any, Dict
 from fastapi import BackgroundTasks
+from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.domain.models import ContactSubmitPayload
 from src.domain.entities.lead import Lead, LeadId
 from src.domain.repositories.lead_repository import LeadRepository
@@ -31,10 +32,11 @@ def _map_payload_to_lead(payload: ContactSubmitPayload) -> Lead:
 
 
 class SubmitLeadUseCase:
-    """Caso de uso que orquesta la recepción y persistencia de un lead."""
+    """Caso de uso que orquesta la recepción, persistencia y sincronización de un lead."""
 
-    def __init__(self, repository: LeadRepository):
+    def __init__(self, repository: LeadRepository, chatwoot_gateway: ChatwootGateway):
         self._repository = repository
+        self._chatwoot_gateway = chatwoot_gateway
 
     def execute(self, payload: ContactSubmitPayload, background_tasks: BackgroundTasks) -> Dict[str, Any]:
         lead = _map_payload_to_lead(payload)
@@ -42,6 +44,7 @@ class SubmitLeadUseCase:
         request_id = f"req_{uuid.uuid4().hex[:8]}"
 
         background_tasks.add_task(self._repository.save, lead)
+        background_tasks.add_task(self._chatwoot_gateway.create_contact_and_conversation, lead)
 
         return {
             "requestId": request_id,

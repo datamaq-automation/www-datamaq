@@ -16,3 +16,6 @@ ROBOTS_TXT_PATH = "src/infrastructure/fastapi/static/robots.txt"
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 CHATWOOT_BASE_URL = os.getenv("CHATWOOT_BASE_URL", "https://app.chatwoot.com")
+CHATWOOT_ACCOUNT_ID = os.getenv("CHATWOOT_ACCOUNT_ID")
+CHATWOOT_INBOX_ID = os.getenv("CHATWOOT_INBOX_ID")
+CHATWOOT_API_TOKEN = os.getenv("CHATWOOT_API_TOKEN")
