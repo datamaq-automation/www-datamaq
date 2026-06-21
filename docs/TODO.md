@@ -7,16 +7,6 @@
 
 ## Tareas prioritarias
 
-## [Modelado del dominio] Definir `Lead` como Entity y `ContactInfo` como Value Object
-
-- **Severidad:** high
-- **Archivo(s):** `src/domain/models.py`
-- **Problema:** `ContactSubmitPayload` es un DTO plano; no expresa identidad ni comportamiento de dominio.
-- **Oportunidad:** Convertir el payload en `Lead` (Entity con `LeadId`) y `ContactInfo` (Value Object inmutable), manteniendo Pydantic.
-- **Acción:** Crear `src/domain/entities/lead.py` y `src/domain/value_objects/contact_info.py`.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** S
-
 ## [Repository pattern] Extraer persistencia JSON a interfaz + implementación
 
 - **Severidad:** high
@@ -24,7 +14,7 @@
 - **Problema:** `persist_lead_task` abre archivos directamente dentro del router.
 - **Oportunidad:** Repository pattern: el dominio define el puerto, la infraestructura provee la implementación JSON.
 - **Acción:** Crear `src/domain/repositories/lead_repository.py` y `src/infrastructure/persistence/json/lead_repository_json.py`.
-- **Bloqueado por:** Tarea 2.
+- **Bloqueado por:** Ninguna.
 - **Estimación:** S
 
 ## [Gateway externo] Crear adaptador para Chatwoot Application API
@@ -64,7 +54,7 @@
 - **Problema:** No hay mapper explícito; el controller usaría directamente el payload Pydantic.
 - **Oportunidad:** Mapper/Translator para mantener al dominio libre de formatos externos.
 - **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_conversation_mapper.py`.
-- **Bloqueado por:** Tarea 2.
+- **Bloqueado por:** Ninguna.
 - **Estimación:** S
 
 ## [Manejo de errores entre capas] Definir política de fallo parcial
