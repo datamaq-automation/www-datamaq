@@ -7,16 +7,6 @@
 
 ## Tareas prioritarias
 
-## [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`
-
-- **Severidad:** medium
-- **Archivo(s):** `src/infrastructure/fastapi/dependencies.py`
-- **Problema:** Solo provee `DataService`; no inyecta repositorios ni gateways.
-- **Oportunidad:** Extender el contenedor ligero de FastAPI para inyectar implementaciones de infraestructura.
-- **Acción:** Agregar `get_lead_repository()` y `get_chatwoot_gateway()`; usarlos en `contact_routes.py`.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** XS
-
 ## [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot
 
 - **Severidad:** medium

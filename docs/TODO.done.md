@@ -1,5 +1,6 @@
 # Tareas Completadas - Datamaq
 
+- [x] [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`: agregar `get_lead_repository()` y `get_chatwoot_gateway()`, e inyectarlos en `contact_routes.py` mediante `Depends()` (2026-06-20).
 - [x] [Manejo de errores entre capas] Definir política de fallo parcial: crear `LeadSubmissionResult`, hacer `SubmitLeadUseCase` async con try/except por capa, devolver éxito parcial si Chatwoot falla, y agregar test de éxito parcial (2026-06-20).
 - [x] [Caso de Uso] Implementar `SubmitLeadUseCase`: crear `src/application/use_cases/submit_lead.py` que orquesta `LeadRepository` + `ChatwootGateway` (2026-06-20).
 - [x] [Gateway externo] Crear adaptador para Chatwoot Application API: crear interfaz `ChatwootGateway`, stub `ChatwootGatewayStub`, agregar variables de entorno y conectar el gateway en `SubmitLeadUseCase` (2026-06-20).

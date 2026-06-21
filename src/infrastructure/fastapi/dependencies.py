@@ -6,6 +6,10 @@ from starlette.types import Scope
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
 from src.application.data_service import DataService
+from src.application.gateways.chatwoot_gateway import ChatwootGateway
+from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
+from src.domain.repositories.lead_repository import LeadRepository
+from src.infrastructure.persistence.json.lead_repository_json import LeadRepositoryJson
 import subprocess
 import time
 import os
@@ -41,6 +45,13 @@ def get_geografia(): return data_service.get_geografia()
 def get_industrias(): return data_service.get_industrias()
 def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
+
+# --- Dependencias de Infraestructura (Repository + Gateway) ---
+def get_lead_repository() -> LeadRepository:
+    return LeadRepositoryJson()
+
+def get_chatwoot_gateway() -> ChatwootGateway:
+    return ChatwootGatewayStub()
 
 # --- Configuración Jinja2 ---
 def get_static_version() -> str:

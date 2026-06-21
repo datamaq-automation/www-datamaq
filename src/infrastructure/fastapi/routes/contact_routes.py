@@ -1,17 +1,20 @@
 from typing import Any, Dict
 from fastapi import APIRouter, HTTPException, Request, Depends
 from src.domain.models import ContactSubmitPayload, ContenidoModel
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
+from src.domain.repositories.lead_repository import LeadRepository
+from src.application.gateways.chatwoot_gateway import ChatwootGateway
+from src.infrastructure.fastapi.dependencies import (
+    templates,
+    get_contenido,
+    get_chatwoot_token,
+    get_lead_repository,
+    get_chatwoot_gateway,
+)
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.application.use_cases.submit_lead import SubmitLeadUseCase
-from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
-from src.infrastructure.persistence.json.lead_repository_json import LeadRepositoryJson
 
 router = APIRouter()
-submit_lead_use_case = SubmitLeadUseCase(
-    repository=LeadRepositoryJson(),
-    chatwoot_gateway=ChatwootGatewayStub(),
-)
+
 
 @router.get("/contact")
 async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
@@ -36,10 +39,16 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
     }
     return templates.TemplateResponse(request=request, name="contact.html", context=context)
 
+
 @router.post("/api/v1/contact", status_code=201)
-async def submit_contact(payload: ContactSubmitPayload):
+async def submit_contact(
+    payload: ContactSubmitPayload,
+    repository: LeadRepository = Depends(get_lead_repository),
+    chatwoot_gateway: ChatwootGateway = Depends(get_chatwoot_gateway),
+):
     try:
-        result = await submit_lead_use_case.execute(payload)
-        return submit_lead_use_case.to_http_response(result)
+        use_case = SubmitLeadUseCase(repository=repository, chatwoot_gateway=chatwoot_gateway)
+        result = await use_case.execute(payload)
+        return use_case.to_http_response(result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
