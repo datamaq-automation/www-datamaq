@@ -8,6 +8,7 @@ from src.infrastructure.settings.logger import setup_logger
 from src.application.data_service import DataService
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
+from src.infrastructure.gateways.chatwoot_gateway_http import ChatwootGatewayHttp
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.persistence.json.lead_repository_json import LeadRepositoryJson
 import subprocess
@@ -51,6 +52,13 @@ def get_lead_repository() -> LeadRepository:
     return LeadRepositoryJson()
 
 def get_chatwoot_gateway() -> ChatwootGateway:
+    if config.CHATWOOT_ACCOUNT_ID and config.CHATWOOT_API_TOKEN:
+        return ChatwootGatewayHttp(
+            base_url=config.CHATWOOT_BASE_URL,
+            account_id=config.CHATWOOT_ACCOUNT_ID,
+            api_token=config.CHATWOOT_API_TOKEN,
+        )
+    logger.warning("[dependencies] CHATWOOT_ACCOUNT_ID o CHATWOOT_API_TOKEN no configurados; usando ChatwootGatewayStub")
     return ChatwootGatewayStub()
 
 # --- Configuración Jinja2 ---
