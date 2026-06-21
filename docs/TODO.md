@@ -7,13 +7,13 @@
 
 ## Tareas prioritarias
 
-## [Caso de Uso] Implementar `SubmitLeadUseCase`
+## [Manejo de errores entre capas] Definir política de fallo parcial
 
-- **Severidad:** high
-- **Archivo(s):** Nuevo use case
-- **Problema:** No hay un único punto que orqueste guardar lead + crear contacto en Chatwoot.
-- **Oportunidad:** Application Service que coordina Repository + Gateway sin reglas de negocio complejas.
-- **Acción:** Crear `src/application/use_cases/submit_lead.py` con `execute(payload) -> LeadSubmissionResult`.
+- **Severidad:** critical
+- **Archivo(s):** `src/application/use_cases/submit_lead.py`, gateway Chatwoot
+- **Problema:** Si Chatwoot falla después de guardar el lead, perdemos trazabilidad o confundimos al usuario.
+- **Oportunidad:** Domain Event o registro de estado de sincronización; nunca perder el lead por fallo externo.
+- **Acción:** Crear `LeadSubmissionResult` con `lead_saved` y `chatwoot_synced`; si Chatwoot falla, devolver éxito parcial y loggear reintento.
 - **Bloqueado por:** Ninguna.
 - **Estimación:** M
 
@@ -36,16 +36,6 @@
 - **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_contact_mapper.py`.
 - **Bloqueado por:** Ninguna.
 - **Estimación:** S
-
-## [Manejo de errores entre capas] Definir política de fallo parcial
-
-- **Severidad:** critical
-- **Archivo(s):** `src/application/use_cases/submit_lead.py`, gateway Chatwoot
-- **Problema:** Si Chatwoot falla después de guardar el lead, perdemos trazabilidad o confundimos al usuario.
-- **Oportunidad:** Domain Event o registro de estado de sincronización; nunca perder el lead por fallo externo.
-- **Acción:** Crear `LeadSubmissionResult` con `lead_saved` y `chatwoot_synced`; si Chatwoot falla, devolver éxito parcial y loggear reintento.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** M
 
 ## Próximas iteraciones
 

@@ -1,5 +1,6 @@
 # Tareas Completadas - Datamaq
 
+- [x] [Caso de Uso] Implementar `SubmitLeadUseCase`: crear `src/application/use_cases/submit_lead.py` que orquesta `LeadRepository` + `ChatwootGateway` (2026-06-20).
 - [x] [Gateway externo] Crear adaptador para Chatwoot Application API: crear interfaz `ChatwootGateway`, stub `ChatwootGatewayStub`, agregar variables de entorno y conectar el gateway en `SubmitLeadUseCase` (2026-06-20).
 - [x] [Repository pattern] Extraer persistencia JSON a interfaz + implementación: crear `src/domain/repositories/lead_repository.py`, `src/infrastructure/persistence/json/lead_repository_json.py` e inyectar el repository en `SubmitLeadUseCase` (2026-06-20).
 - [x] [Modelado del dominio] Definir `Lead` como Entity y `ContactInfo` como Value Object: crear `src/domain/entities/lead.py` y `src/domain/value_objects/contact_info.py`, y actualizar `SubmitLeadUseCase` para trabajar con la entidad (2026-06-20).
