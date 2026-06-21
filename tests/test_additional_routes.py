@@ -151,7 +151,7 @@ async def test_submit_contact_returns_201():
     }
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        with patch("src.application.use_cases.submit_lead.DATA_DIR", tmpdir):
+        with patch("src.infrastructure.persistence.json.lead_repository_json.DATA_DIR", tmpdir):
             async with AsyncClient(transport=transport, base_url="http://test") as ac:
                 response = await ac.post("/api/v1/contact", json=payload)
 

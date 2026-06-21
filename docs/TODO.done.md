@@ -1,5 +1,6 @@
 # Tareas Completadas - Datamaq
 
+- [x] [Repository pattern] Extraer persistencia JSON a interfaz + implementación: crear `src/domain/repositories/lead_repository.py`, `src/infrastructure/persistence/json/lead_repository_json.py` e inyectar el repository en `SubmitLeadUseCase` (2026-06-20).
 - [x] [Modelado del dominio] Definir `Lead` como Entity y `ContactInfo` como Value Object: crear `src/domain/entities/lead.py` y `src/domain/value_objects/contact_info.py`, y actualizar `SubmitLeadUseCase` para trabajar con la entidad (2026-06-20).
 - [x] [Separación de responsabilidades] Extraer lógica de `contact_routes.py`: crear `SubmitLeadUseCase` en `src/application/use_cases/submit_lead.py` y delegar desde el router (2026-06-20).
 - [x] Configuración inicial de FastAPI.

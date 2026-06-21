@@ -7,16 +7,6 @@
 
 ## Tareas prioritarias
 
-## [Repository pattern] Extraer persistencia JSON a interfaz + implementación
-
-- **Severidad:** high
-- **Archivo(s):** `src/infrastructure/fastapi/routes/contact_routes.py`
-- **Problema:** `persist_lead_task` abre archivos directamente dentro del router.
-- **Oportunidad:** Repository pattern: el dominio define el puerto, la infraestructura provee la implementación JSON.
-- **Acción:** Crear `src/domain/repositories/lead_repository.py` y `src/infrastructure/persistence/json/lead_repository_json.py`.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** S
-
 ## [Gateway externo] Crear adaptador para Chatwoot Application API
 
 - **Severidad:** medium
@@ -34,7 +24,7 @@
 - **Problema:** No hay un único punto que orqueste guardar lead + crear contacto/conversación.
 - **Oportunidad:** Application Service que coordina Repository + Gateway sin reglas de negocio complejas.
 - **Acción:** Crear `src/application/use_cases/submit_lead.py` con `execute(payload) -> LeadSubmissionResult`.
-- **Bloqueado por:** Tareas 2, 3 y 4.
+- **Bloqueado por:** Tarea 4.
 - **Estimación:** M
 
 ## [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`
@@ -44,7 +34,7 @@
 - **Problema:** Solo provee `DataService`; no inyecta repositorios ni gateways.
 - **Oportunidad:** Extender el contenedor ligero de FastAPI para inyectar implementaciones de infraestructura.
 - **Acción:** Agregar `get_lead_repository()` y `get_chatwoot_gateway()`; usarlos en `contact_routes.py`.
-- **Bloqueado por:** Tareas 3 y 4.
+- **Bloqueado por:** Tarea 4.
 - **Estimación:** XS
 
 ## [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot
