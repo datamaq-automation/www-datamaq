@@ -36,9 +36,18 @@ class ChatwootGatewayHttp(ChatwootGateway):
         logger.debug("[ChatwootGatewayHttp] POST %s", url)
 
         async with httpx.AsyncClient(timeout=self._timeout) as client:
-            response = await client.post(url, headers=headers, json=payload)
-            response.raise_for_status()
-            data = response.json()
+            try:
+                response = await client.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+            except httpx.HTTPStatusError as e:
+                logger.error(
+                    "[ChatwootGatewayHttp] Error HTTP %s al crear contacto: %s",
+                    e.response.status_code,
+                    e.response.text,
+                )
+                raise
 
-        logger.info("[ChatwootGatewayHttp] Contacto creado: response=%s", data.get("payload", {}).get("contact", {}).get("id"))
+        data = response.json()
+        contact_id = data.get("payload", {}).get("contact", {}).get("id")
+        logger.info("[ChatwootGatewayHttp] Contacto creado: id=%s", contact_id)
         return data

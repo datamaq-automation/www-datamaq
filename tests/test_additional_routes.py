@@ -3,8 +3,9 @@ import tempfile
 from unittest.mock import patch
 from httpx import AsyncClient, ASGITransport # type: ignore
 from src.infrastructure.fastapi.app import app
-from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token
+from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token, get_chatwoot_gateway
 from src.domain.models import ContenidoModel
+from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
 
 # Mock data actualizado a la nueva estructura
 async def override_get_contenido():
@@ -65,8 +66,12 @@ async def override_get_contenido():
 async def override_get_chatwoot_token():
     return "test_token"
 
+async def override_get_chatwoot_gateway():
+    return ChatwootGatewayStub()
+
 app.dependency_overrides[get_contenido] = override_get_contenido
 app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
+app.dependency_overrides[get_chatwoot_gateway] = override_get_chatwoot_gateway
 
 @pytest.mark.asyncio  # type: ignore
 async def test_sitemap_rendered():
