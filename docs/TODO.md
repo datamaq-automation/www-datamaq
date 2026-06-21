@@ -1,3 +1,89 @@
+# TODO - Adopción DDD / Arquitectura Limpia
+
+## Tabla de contenidos
+
+1. [Tareas prioritarias](#tareas-prioritarias)
+2. [Próximas iteraciones](#próximas-iteraciones)
+
+## Tareas prioritarias
+
+## [Modelado del dominio] Definir `Lead` como Entity y `ContactInfo` como Value Object
+
+- **Severidad:** high
+- **Archivo(s):** `src/domain/models.py`
+- **Problema:** `ContactSubmitPayload` es un DTO plano; no expresa identidad ni comportamiento de dominio.
+- **Oportunidad:** Convertir el payload en `Lead` (Entity con `LeadId`) y `ContactInfo` (Value Object inmutable), manteniendo Pydantic.
+- **Acción:** Crear `src/domain/entities/lead.py` y `src/domain/value_objects/contact_info.py`.
+- **Bloqueado por:** Ninguna.
+- **Estimación:** S
+
+## [Repository pattern] Extraer persistencia JSON a interfaz + implementación
+
+- **Severidad:** high
+- **Archivo(s):** `src/infrastructure/fastapi/routes/contact_routes.py`
+- **Problema:** `persist_lead_task` abre archivos directamente dentro del router.
+- **Oportunidad:** Repository pattern: el dominio define el puerto, la infraestructura provee la implementación JSON.
+- **Acción:** Crear `src/domain/repositories/lead_repository.py` y `src/infrastructure/persistence/json/lead_repository_json.py`.
+- **Bloqueado por:** Tarea 2.
+- **Estimación:** S
+
+## [Gateway externo] Crear adaptador para Chatwoot Application API
+
+- **Severidad:** medium
+- **Archivo(s):** Nuevo adaptador
+- **Problema:** No existe integración con Chatwoot Application API; solo hay SDK de widget en frontend.
+- **Oportunidad:** Gateway pattern: aísla el cliente HTTP de Chatwoot del resto de la aplicación.
+- **Acción:** Crear `src/application/gateways/chatwoot_gateway.py` (interfaz) y `src/infrastructure/gateways/chatwoot_gateway_http.py`.
+- **Bloqueado por:** Ninguna.
+- **Estimación:** M
+
+## [Caso de Uso] Implementar `SubmitLeadUseCase`
+
+- **Severidad:** high
+- **Archivo(s):** Nuevo use case
+- **Problema:** No hay un único punto que orqueste guardar lead + crear contacto/conversación.
+- **Oportunidad:** Application Service que coordina Repository + Gateway sin reglas de negocio complejas.
+- **Acción:** Crear `src/application/use_cases/submit_lead.py` con `execute(payload) -> LeadSubmissionResult`.
+- **Bloqueado por:** Tareas 2, 3 y 4.
+- **Estimación:** M
+
+## [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`
+
+- **Severidad:** medium
+- **Archivo(s):** `src/infrastructure/fastapi/dependencies.py`
+- **Problema:** Solo provee `DataService`; no inyecta repositorios ni gateways.
+- **Oportunidad:** Extender el contenedor ligero de FastAPI para inyectar implementaciones de infraestructura.
+- **Acción:** Agregar `get_lead_repository()` y `get_chatwoot_gateway()`; usarlos en `contact_routes.py`.
+- **Bloqueado por:** Tareas 3 y 4.
+- **Estimación:** XS
+
+## [Mapeo entre capas] Definir traducción Pydantic payload → Entity → DTO Chatwoot
+
+- **Severidad:** medium
+- **Archivo(s):** `src/domain/models.py`, nuevos mappers
+- **Problema:** No hay mapper explícito; el controller usaría directamente el payload Pydantic.
+- **Oportunidad:** Mapper/Translator para mantener al dominio libre de formatos externos.
+- **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_conversation_mapper.py`.
+- **Bloqueado por:** Tarea 2.
+- **Estimación:** S
+
+## [Manejo de errores entre capas] Definir política de fallo parcial
+
+- **Severidad:** critical
+- **Archivo(s):** `src/application/use_cases/submit_lead.py`, gateway Chatwoot
+- **Problema:** Si Chatwoot falla después de guardar el lead, perdemos trazabilidad o confundimos al usuario.
+- **Oportunidad:** Domain Event o registro de estado de sincronización; nunca perder el lead por fallo externo.
+- **Acción:** Crear `LeadSubmissionResult` con `lead_saved` y `chatwoot_synced`; si Chatwoot falla, devolver éxito parcial y loggear reintento.
+- **Bloqueado por:** Tarea 5.
+- **Estimación:** M
+
+## Próximas iteraciones
+
+1. **Eventos de dominio (`LeadSubmitted`):** publicar un evento al guardar un lead y que Chatwoot se suscriba.
+2. **Validaciones de dominio en `Lead`:** mover reglas como "email o teléfono requerido" desde Pydantic hacia la entidad.
+3. **Caché de contenido estático:** aplicar un Repository en `DataService` para evitar leer YAML en cada request.
+
+
 # Tareas pendientes — Datamaq
 
 > Estado actual: Etapa 1 (Estabilización del deploy) completada. El deploy automático funciona con el workflow `.github/workflows/deploy.yml`, usuario `datamaq` no privilegiado, SSH por clave y Python 3.12. El CI corre localmente mediante `scripts/pre-push.sh`. La Etapa 2 (GitHub Actions) está completada: secrets configurados y rollback implementado.
@@ -77,12 +163,3 @@ _Completado: ver `docs/TODO.done.md`._
 > Actualizado: la Etapa 2 (GitHub Actions) está completada. No hay bloqueos activos.
 
 _No hay bloqueos activos._
-
----
-
-## Notas de implementación
-
-- El entorno de producción ahora usa Python 3.12 compilado en `/usr/local/bin/python3.12`.
-- El entorno virtual de producción está en `/var/www/www-datamaq/.venv`.
-- El servicio systemd es `datamaq.service`.
-- La clave SSH para deploy está en `~/.ssh/datamaq_deploy` (local) y `/home/datamaq/.ssh/authorized_keys` (VPS).

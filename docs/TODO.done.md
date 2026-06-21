@@ -1,5 +1,6 @@
 # Tareas Completadas - Datamaq
 
+- [x] [Separación de responsabilidades] Extraer lógica de `contact_routes.py`: crear `SubmitLeadUseCase` en `src/application/use_cases/submit_lead.py` y delegar desde el router (2026-06-20).
 - [x] Configuración inicial de FastAPI.
 - [x] Implementación de SSR con Jinja2.
 - [x] Estructura de datos basada en YAML (movido a /data).

@@ -1,4 +1,6 @@
 import pytest
+import tempfile
+from unittest.mock import patch
 from httpx import AsyncClient, ASGITransport # type: ignore
 from src.infrastructure.fastapi.app import app
 from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token
@@ -135,3 +137,27 @@ async def test_industria_page_rendered():
     assert "text/html" in response.headers["content-type"]
     assert "Industria Alimenticia" in response.text
     assert "Captura de datos" in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_submit_contact_returns_201():
+    transport = ASGITransport(app=app)
+    payload = {
+        "name": "Test User",
+        "comment": "Test comment",
+        "email": "test@example.com",
+        "createdAt": "2026-06-20T00:00:00Z",
+        "pageLocation": "http://test/contact"
+    }
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with patch("src.application.use_cases.submit_lead.DATA_DIR", tmpdir):
+            async with AsyncClient(transport=transport, base_url="http://test") as ac:
+                response = await ac.post("/api/v1/contact", json=payload)
+
+    assert response.status_code == 201
+    data = response.json()
+    assert data["submitStatus"] == "success"
+    assert "requestId" in data
+    assert "submissionId" in data
+    assert data["submissionId"].startswith("lead_")
