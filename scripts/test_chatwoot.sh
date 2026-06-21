@@ -24,8 +24,9 @@ fi
 URL="$BASE_URL/api/v1/accounts/$ACCOUNT_ID/contacts"
 
 echo "🔍 Probando Chatwoot Application API"
-echo "   URL:    $URL"
-echo "   Cuenta: $ACCOUNT_ID"
+echo "   API_TOKEN: $API_TOKEN"
+echo "   URL:       $URL"
+echo "   Cuenta:    $ACCOUNT_ID"
 
 RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$URL" \
     -H "Authorization: Bearer $API_TOKEN" \

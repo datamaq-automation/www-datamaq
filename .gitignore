@@ -4,3 +4,5 @@ __pycache__/
 .coverage
 scripts/.env.deploy
 data/leads/
+.ssh/
+.venv/
