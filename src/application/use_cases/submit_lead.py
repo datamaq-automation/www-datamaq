@@ -44,7 +44,7 @@ class SubmitLeadUseCase:
         request_id = f"req_{uuid.uuid4().hex[:8]}"
 
         background_tasks.add_task(self._repository.save, lead)
-        background_tasks.add_task(self._chatwoot_gateway.create_contact_and_conversation, lead)
+        background_tasks.add_task(self._chatwoot_gateway.create_contact, lead)
 
         return {
             "requestId": request_id,

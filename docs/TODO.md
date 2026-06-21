@@ -11,7 +11,7 @@
 
 - **Severidad:** high
 - **Archivo(s):** Nuevo use case
-- **Problema:** No hay un único punto que orqueste guardar lead + crear contacto/conversación.
+- **Problema:** No hay un único punto que orqueste guardar lead + crear contacto en Chatwoot.
 - **Oportunidad:** Application Service que coordina Repository + Gateway sin reglas de negocio complejas.
 - **Acción:** Crear `src/application/use_cases/submit_lead.py` con `execute(payload) -> LeadSubmissionResult`.
 - **Bloqueado por:** Ninguna.
@@ -33,7 +33,7 @@
 - **Archivo(s):** `src/domain/models.py`, nuevos mappers
 - **Problema:** No hay mapper explícito; el controller usaría directamente el payload Pydantic.
 - **Oportunidad:** Mapper/Translator para mantener al dominio libre de formatos externos.
-- **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_conversation_mapper.py`.
+- **Acción:** Crear `src/application/mappers/lead_mapper.py` y `chatwoot_contact_mapper.py`.
 - **Bloqueado por:** Ninguna.
 - **Estimación:** S
 
