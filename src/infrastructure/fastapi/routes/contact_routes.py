@@ -1,5 +1,5 @@
 from typing import Any, Dict
-from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, Depends
+from fastapi import APIRouter, HTTPException, Request, Depends
 from src.domain.models import ContactSubmitPayload, ContenidoModel
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token
 from src.infrastructure.fastapi.utils.seo import canonical_url
@@ -37,8 +37,9 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
     return templates.TemplateResponse(request=request, name="contact.html", context=context)
 
 @router.post("/api/v1/contact", status_code=201)
-async def submit_contact(payload: ContactSubmitPayload, background_tasks: BackgroundTasks):
+async def submit_contact(payload: ContactSubmitPayload):
     try:
-        return submit_lead_use_case.execute(payload, background_tasks)
+        result = await submit_lead_use_case.execute(payload)
+        return submit_lead_use_case.to_http_response(result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

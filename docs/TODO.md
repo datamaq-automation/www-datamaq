@@ -7,16 +7,6 @@
 
 ## Tareas prioritarias
 
-## [Manejo de errores entre capas] Definir política de fallo parcial
-
-- **Severidad:** critical
-- **Archivo(s):** `src/application/use_cases/submit_lead.py`, gateway Chatwoot
-- **Problema:** Si Chatwoot falla después de guardar el lead, perdemos trazabilidad o confundimos al usuario.
-- **Oportunidad:** Domain Event o registro de estado de sincronización; nunca perder el lead por fallo externo.
-- **Acción:** Crear `LeadSubmissionResult` con `lead_saved` y `chatwoot_synced`; si Chatwoot falla, devolver éxito parcial y loggear reintento.
-- **Bloqueado por:** Ninguna.
-- **Estimación:** M
-
 ## [Inyección de dependencias] Proveer repository y gateway desde `dependencies.py`
 
 - **Severidad:** medium

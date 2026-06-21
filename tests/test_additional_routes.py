@@ -140,7 +140,7 @@ async def test_industria_page_rendered():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_submit_contact_returns_201():
+async def test_submit_contact_returns_success():
     transport = ASGITransport(app=app)
     payload = {
         "name": "Test User",
@@ -158,6 +158,31 @@ async def test_submit_contact_returns_201():
     assert response.status_code == 201
     data = response.json()
     assert data["submitStatus"] == "success"
+    assert "requestId" in data
+    assert "submissionId" in data
+    assert data["submissionId"].startswith("lead_")
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_submit_contact_returns_partial_success_when_chatwoot_fails():
+    transport = ASGITransport(app=app)
+    payload = {
+        "name": "Test User",
+        "comment": "Test comment",
+        "email": "test@example.com",
+        "createdAt": "2026-06-20T00:00:00Z",
+        "pageLocation": "http://test/contact"
+    }
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with patch("src.infrastructure.persistence.json.lead_repository_json.DATA_DIR", tmpdir):
+            with patch("src.infrastructure.gateways.chatwoot_gateway_stub.ChatwootGatewayStub.create_contact", side_effect=Exception("Chatwoot down")):
+                async with AsyncClient(transport=transport, base_url="http://test") as ac:
+                    response = await ac.post("/api/v1/contact", json=payload)
+
+    assert response.status_code == 201
+    data = response.json()
+    assert data["submitStatus"] == "partial_success"
     assert "requestId" in data
     assert "submissionId" in data
     assert data["submissionId"].startswith("lead_")
