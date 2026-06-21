@@ -22,7 +22,7 @@ class ChatwootGatewayHttp(ChatwootGateway):
     async def create_contact(self, contact: ChatwootContactDto) -> Dict[str, Any]:
         url = f"{self._base_url}/api/v1/accounts/{self._account_id}/contacts"
         headers = {
-            "Authorization": f"Bearer {self._api_token}",
+            "api_access_token": self._api_token,
             "Content-Type": "application/json",
         }
         payload = {

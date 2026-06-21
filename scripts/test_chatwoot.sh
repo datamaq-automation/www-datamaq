@@ -28,10 +28,14 @@ echo "   API_TOKEN: $API_TOKEN"
 echo "   URL:       $URL"
 echo "   Cuenta:    $ACCOUNT_ID"
 
+UNIQUE_SUFFIX=$(date +%s)
+TEST_EMAIL="test${UNIQUE_SUFFIX}@datamaq.com"
+TEST_PHONE="+549${UNIQUE_SUFFIX}"
+
 RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$URL" \
-    -H "Authorization: Bearer $API_TOKEN" \
+    -H "api_access_token: $API_TOKEN" \
     -H "Content-Type: application/json" \
-    -d '{"email":"test@datamaq.com","name":"Test User","phone_number":"+54900000000"}')
+    -d "{\"email\":\"$TEST_EMAIL\",\"name\":\"Test User\",\"phone_number\":\"$TEST_PHONE\"}")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
 BODY=$(echo "$RESPONSE" | sed '$d')
