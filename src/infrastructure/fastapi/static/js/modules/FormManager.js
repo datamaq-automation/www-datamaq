@@ -3,7 +3,6 @@ export class FormManager {
         this.form = formElement;
         this.apiUrl = apiUrl;
         this.steps = Array.from(this.form.querySelectorAll('.c-contact__step-panel'));
-        this.errorMsg = this.form.querySelector('#error-message');
         this.currentStep = 0;
         this.init();
     }
@@ -13,7 +12,6 @@ export class FormManager {
     }
 
     handleNextOrSubmit() {
-        this.hideError();
         if (this.currentStep < this.steps.length - 1) {
             this.showStep(this.currentStep + 1);
         } else {
@@ -25,19 +23,6 @@ export class FormManager {
         this.steps[this.currentStep].style.display = 'none';
         this.steps[index].style.display = 'block';
         this.currentStep = index;
-    }
-
-    showError(msg) {
-        if (this.errorMsg) {
-            this.errorMsg.textContent = msg;
-            this.errorMsg.classList.remove('hidden');
-        }
-    }
-
-    hideError() {
-        if (this.errorMsg) {
-            this.errorMsg.classList.add('hidden');
-        }
     }
 
     collectData() {
@@ -69,12 +54,10 @@ export class FormManager {
                 console.info('Formulario enviado con éxito.');
                 this.form.innerHTML = '<p class="tw:text-green-500">¡Gracias! Tu consulta ha sido recibida correctamente.</p>';
             } else {
-                this.showError('Error al enviar el formulario. Por favor, intenta de nuevo.');
-                throw new Error('Error al enviar el formulario');
+                throw new Error(`Error del servidor: ${response.status}`);
             }
         } catch (error) {
             console.error('Error:', error);
-            this.showError('Servicio temporalmente no disponible.');
         }
     }
 }
