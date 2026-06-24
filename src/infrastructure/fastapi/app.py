@@ -1,3 +1,4 @@
+from typing import Dict, Any
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from starlette.exceptions import HTTPException
@@ -5,6 +6,7 @@ from src.infrastructure.settings import config
 from src.infrastructure.fastapi.dependencies import CachedStaticFiles, templates, get_contenido
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.fastapi.middleware import canonical_redirect_middleware
+from src.domain.models import ContenidoModel
 
 # --- Inicialización de FastAPI ---
 
@@ -18,8 +20,8 @@ app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="stati
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == 404:
-        contenido = get_contenido()
-        seo = {
+        contenido: ContenidoModel = get_contenido()
+        seo: Dict[str, Any] = {
             "title": f"Página no encontrada | {contenido.brand.brandName}",
             "description": "La página solicitada no existe.",
             "canonical_url": canonical_url(request.url),
@@ -28,7 +30,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             "og_image_width": 1200,
             "og_image_height": 630,
         }
-        context = {
+        context: Dict[str, Any] = {
             "request": request,
             "brand": contenido.brand.model_dump(),
             "content": contenido.content.model_dump(),

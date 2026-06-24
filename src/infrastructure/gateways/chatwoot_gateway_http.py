@@ -25,7 +25,7 @@ class ChatwootGatewayHttp(ChatwootGateway):
             "api_access_token": self._api_token,
             "Content-Type": "application/json",
         }
-        payload = {
+        payload: Dict[str, Any] = {
             "email": contact.email,
             "phone_number": contact.phone_number,
             "name": contact.name,

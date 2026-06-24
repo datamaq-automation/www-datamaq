@@ -1,6 +1,8 @@
-from fastapi import Request
+from typing import Any
+from fastapi import Request, Response
 from fastapi.responses import RedirectResponse
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urlunsplit
+from starlette.middleware.base import RequestResponseEndpoint
 
 
 def _canonical_parts(request: Request) -> tuple[str, str, str]:
@@ -33,7 +35,7 @@ def _canonical_parts(request: Request) -> tuple[str, str, str]:
     return scheme, host, path
 
 
-async def canonical_redirect_middleware(request: Request, call_next):
+async def canonical_redirect_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
     """
     Middleware que redirige con HTTP 308 a la URL canónica cuando sea necesario.
 

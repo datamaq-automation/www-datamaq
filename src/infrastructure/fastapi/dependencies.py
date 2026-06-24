@@ -5,6 +5,7 @@ from fastapi.responses import Response
 from starlette.types import Scope
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
+from src.domain.models import ContenidoModel
 from src.application.data_service import DataService
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
@@ -42,10 +43,10 @@ data_service = DataService(
 )
 
 # --- Dependencias de Datos ---
-def get_contenido(): return data_service.get_contenido()
+def get_contenido() -> ContenidoModel: return data_service.get_contenido()
 def get_geografia(): return data_service.get_geografia()
 def get_industrias(): return data_service.get_industrias()
-def get_cursos_service(): return data_service
+def get_cursos_service() -> DataService: return data_service
 def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
 

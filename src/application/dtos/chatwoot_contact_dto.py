@@ -1,5 +1,9 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Dict, Any
+
+
+def _dict_factory() -> Dict[str, Any]:
+    return {}
 
 
 @dataclass(frozen=True)
@@ -8,5 +12,5 @@ class ChatwootContactDto:
     email: Optional[str]
     phone_number: Optional[str]
     name: str
-    additional_attributes: dict = field(default_factory=dict)
-    custom_attributes: dict = field(default_factory=dict)
+    additional_attributes: Dict[str, Any] = field(default_factory=_dict_factory)
+    custom_attributes: Dict[str, Any] = field(default_factory=_dict_factory)

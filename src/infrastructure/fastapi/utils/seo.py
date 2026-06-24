@@ -1,7 +1,8 @@
-from urllib.parse import urlencode, urlsplit, urlunsplit
+from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 
-def canonical_url(request_url, force_https: bool = True, strip_query: bool = True) -> str:
+def canonical_url(request_url: Any, force_https: bool = True, strip_query: bool = True) -> str:
     """
     Build a canonical URL from a request URL.
 

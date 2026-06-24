@@ -1,5 +1,4 @@
 from typing import Dict
-from src.application.dtos.chatwoot_contact_dto import ChatwootContactDto
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.application.mappers.chatwoot_contact_mapper import lead_to_chatwoot_contact
 from src.application.mappers.lead_mapper import payload_to_lead

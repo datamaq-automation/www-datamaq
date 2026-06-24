@@ -22,7 +22,7 @@ def payload_to_lead(payload: ContactSubmitPayload) -> Lead:
             company=payload.company,
         ),
         comment=payload.comment,
-        preferred_contact_channel=payload.preferredContactChannel,
+        preferred_contact_channel=payload.preferredContactChannel or "whatsapp",
         page_location=payload.pageLocation,
         traffic_source=payload.trafficSource,
         user_agent=payload.userAgent,

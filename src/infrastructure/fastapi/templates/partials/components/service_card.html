@@ -19,7 +19,11 @@
             {% endfor %}
         </ul>
         <p data-v-236fef00="" class="c-home-service-card__note">{{ note }}</p>
+        {% if title == "Capacitaciones aplicadas" %}
+        <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="/cursos">Ir a cursos</a>
+        {% else %}
         <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}" target="_blank" rel="noopener noreferrer">{{ cta_text }}</a>
+        {% endif %}
     </div>
 </article>
 {% endmacro %}
