@@ -3,9 +3,9 @@ cursos:
     slug: "fastapi-data-science"
     title: "Construyendo Aplicaciones de Ciencia de Datos con FastAPI"
     description_short: "Desarrollá, gestioná y desplegá aplicaciones eficientes de machine learning con Python."
-    description_long: "Este curso práctico, basado en el libro 'Building Data Science Applications with FastAPI', te guiará en el desarrollo de APIs robustas de machine learning utilizando Python, FastAPI y Pydantic."
-    duration: "30 horas de cursada"
-    level: "Intermedio"
+    description_long: "Este curso práctico, basado en el libro 'Building Data Science Applications with FastAPI', te guiará en el desarrollo de APIs robustas de machine learning utilizando Python, FastAPI y Pydantic, cubriendo desde la configuración inicial hasta el despliegue en producción y el procesamiento en tiempo real."
+    duration: "45 horas de cursada"
+    level: "Avanzado"
     language: "Español"
     price: 0.0
     og_image: "/static/media/cursos/og-fastapi-data-science.webp"
@@ -15,12 +15,13 @@ cursos:
       photo: "/static/media/tecnico-a-cargo.webp"
       bio: "Especialista en captura automática de datos operativos e integración de modelos de ciencia de datos con APIs FastAPI."
     sections:
+      # --- SECCIÓN 1 ---
       - id: "sec-introduccion-fastapi"
         title: "Sección 1: Introducción a Python y FastAPI"
-        description: "Configuración de entorno, sintaxis de Python, desarrollo básico de endpoints y validación de datos con Pydantic."
+        description: "Configuración de entorno, sintaxis de Python, desarrollo de endpoints, inyección de dependencias y validación con Pydantic."
         items:
           - type: "lesson"
-            id: "les-config-entorno"
+            id: "les-cap-1"
             slug: "configuracion-entorno-desarrollo"
             title: "Cap 1: Configuración del Entorno de Desarrollo de Python"
             duration: "25 min"
@@ -39,7 +40,7 @@ cursos:
                  ```
               4. **Instalación de Dependencias Clave**: Instalaremos FastAPI, Uvicorn, Pydantic y bibliotecas de ciencia de datos como NumPy y Pandas.
           - type: "lesson"
-            id: "les-especificidades-python"
+            id: "les-cap-2"
             slug: "especificidades-programacion-python"
             title: "Cap 2: Especificidades de la Programación en Python"
             duration: "35 min"
@@ -52,7 +53,7 @@ cursos:
               - **Programación Asíncrona (`async` y `await`)**: FastAPI permite definir endpoints asíncronos para operaciones de entrada/salida (I/O) no bloqueantes, ideal para consultar bases de datos o llamar a APIs externas de modelos de Machine Learning.
               - **List Comprehensions y Generadores**: Técnicas eficientes para manipulación de vectores y sets de datos en memoria.
           - type: "lesson"
-            id: "les-api-fastapi"
+            id: "les-cap-3"
             slug: "desarrollo-api-restful-fastapi"
             title: "Cap 3: Desarrollo de una API RESTful con FastAPI"
             duration: "45 min"
@@ -60,7 +61,7 @@ cursos:
             video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             content: "En este videotutorial crearemos nuestra primera API RESTful real con FastAPI. Aprenderemos sobre la creación de la instancia app, definición de rutas HTTP mediante decoradores (@app.get, @app.post), parámetros de ruta y de consulta, y cómo correr el servidor de desarrollo con recarga automática usando Uvicorn."
           - type: "lesson"
-            id: "les-modelos-pydantic"
+            id: "les-cap-4"
             slug: "gestion-modelos-pydantic-fastapi"
             title: "Cap 4: Gestión de Modelos de Datos de Pydantic en FastAPI"
             duration: "40 min"
@@ -73,8 +74,21 @@ cursos:
               - **Validación Automática**: Cómo FastAPI devuelve automáticamente un error HTTP 422 si los datos del cliente no se ajustan al tipo esperado.
               - **Tipos de Datos Avanzados**: Uso de `EmailStr`, `HttpUrl`, listas tipadas y restricciones de rango (por ejemplo, valores numéricos mayores a cero).
               - **Configuración de Schemas**: Personalización del comportamiento de serialización mediante la clase `ConfigDict`.
+          - type: "lesson"
+            id: "les-cap-5"
+            slug: "inyeccion-dependencias-fastapi"
+            title: "Cap 5: Inyección de Dependencias en FastAPI"
+            duration: "35 min"
+            content_type: "markdown"
+            content: |
+              ### Inyección de Dependencias
+              La inyección de dependencias es un patrón de diseño que FastAPI implementa de forma nativa mediante la función `Depends`. Permite:
+              
+              - **Reutilización de Lógica**: Compartir lógica común de autenticación, bases de datos o validación en múltiples endpoints.
+              - **Modularidad**: Desacoplar la creación de recursos de la lógica de procesamiento del endpoint.
+              - **Facilidad de Pruebas**: Reemplazar dependencias por stubs o mocks fácilmente durante los tests de integración.
           - type: "quiz"
-            id: "quiz-introduccion-fastapi"
+            id: "quiz-sec-1"
             slug: "cuestionario-introduccion-fastapi"
             title: "Cuestionario de Introducción a Python y FastAPI"
             duration: "10 min"
@@ -96,3 +110,168 @@ cursos:
                   - "Falso"
                 correct_option: 0
                 explanation: "El uso de async def en FastAPI permite ejecutar llamadas de entrada/salida (I/O) no bloqueantes en el event loop principal."
+
+      # --- SECCIÓN 2 ---
+      - id: "sec-web-backend-fastapi"
+        title: "Sección 2: Construir y Desplegar un Backend Web Completo con FastAPI"
+        description: "Integración con bases de datos asíncronas, seguridad, autenticación, comunicación en tiempo real y despliegue continuo."
+        items:
+          - type: "lesson"
+            id: "les-cap-6"
+            slug: "bases-datos-orms-asincronos"
+            title: "Cap 6: Bases de Datos y ORMs Asíncronos"
+            duration: "50 min"
+            content_type: "markdown"
+            content: |
+              ### Conectividad Asíncrona con Base de Datos
+              Para no bloquear el Event Loop al hacer consultas de datos, aprenderemos a configurar conexiones asíncronas:
+              
+              - **SQLAlchemy Asíncrono**: Uso de `create_async_engine` y `AsyncSession`.
+              - **ORMs Alternativos**: Configuración de herramientas modernas como Tortoise ORM o SQLModel.
+              - **Migraciones con Alembic**: Manejo del ciclo de vida y la evolución de las tablas de la base de datos de forma segura.
+          - type: "lesson"
+            id: "les-cap-7"
+            slug: "autenticacion-seguridad-fastapi"
+            title: "Cap 7: Gestión de Autenticación y Seguridad en FastAPI"
+            duration: "45 min"
+            content_type: "markdown"
+            content: |
+              ### Seguridad y Autenticación con OAuth2 y JWT
+              Implementación de flujos robustos de autenticación para proteger endpoints:
+              
+              - **JSON Web Tokens (JWT)**: Generación, firma y verificación de tokens encriptados.
+              - **OAuth2 con Contraseñas**: Integración del flujo de login estándar de OAuth2 mediante `OAuth2PasswordBearer` y hashing de contraseñas con Passlib e bcrypt.
+              - **CORS y Middlewares**: Configuración de restricciones de dominios para consumo seguro de la API desde frontends web independientes.
+          - type: "lesson"
+            id: "les-cap-8"
+            slug: "websockets-comunicacion-bidireccional"
+            title: "Cap 8: Definición de WebSockets para Comunicación Interactiva Bidireccional en FastAPI"
+            duration: "40 min"
+            content_type: "video"
+            video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            content: "En este videotutorial aprenderemos a implementar WebSockets en FastAPI para habilitar conexiones de tiempo real de baja latencia. Veremos cómo estructurar un gestor de conexiones activas (ConnectionManager) y enviar mensajes de forma bidireccional en formato JSON."
+          - type: "lesson"
+            id: "les-cap-9"
+            slug: "pruebas-asincronas-pytest-httpx"
+            title: "Cap 9: Pruebas de una API de Forma Asíncrona con pytest y HTTPX"
+            duration: "45 min"
+            content_type: "markdown"
+            content: |
+              ### Tests Asíncronos Automatizados
+              Desarrollar una estrategia de testing sólida para verificar el comportamiento de la API:
+              
+              - **Estructuración con pytest**: Configuración de fixtures asíncronos.
+              - **Cliente HTTPX**: Uso de `AsyncClient` de HTTPX para realizar peticiones de prueba a la aplicación FastAPI sin levantar un servidor físico.
+              - **Aislamiento y Mocks**: Uso de bases de datos temporales (SQLite en memoria) y stubs de llamadas de red de APIs externas.
+          - type: "lesson"
+            id: "les-cap-10"
+            slug: "despliegue-proyecto-fastapi"
+            title: "Cap 10: Despliegue de un Proyecto FastAPI"
+            duration: "40 min"
+            content_type: "markdown"
+            content: |
+              ### Estrategias de Despliegue en Producción
+              Llevar nuestra aplicación local a servidores accesibles por internet:
+              
+              - **Dockerización**: Creación de `Dockerfile` optimizados para FastAPI usando compilaciones multi-etapa (multi-stage builds).
+              - **Servidores de Producción**: Configuración de Gunicorn como manejador de procesos y Uvicorn como trabajador ASGI.
+              - **Servidores VPS & Reverse Proxy**: Puesta a punto con Nginx como proxy reverso, Let's Encrypt para HTTPS/SSL gratuito y automatización de despliegue continuo (CI/CD) con GitHub Actions.
+          - type: "quiz"
+            id: "quiz-sec-2"
+            slug: "cuestionario-web-backend"
+            title: "Cuestionario de Bases de Datos, Seguridad y Despliegue"
+            duration: "10 min"
+            questions:
+              - id: "q-async-db"
+                question: "¿Por qué se recomienda utilizar un ORM asíncrono en FastAPI?"
+                type: "single_choice"
+                options:
+                  - "Porque permite conectarse a bases de datos relacionales sin usar SQL."
+                  - "Para evitar bloquear el event loop principal de FastAPI mientras se ejecutan operaciones de consulta lentas."
+                  - "Porque aumenta la seguridad de los tokens JWT."
+                correct_option: 1
+                explanation: "Las llamadas de E/S a bases de datos bloquean el flujo de ejecución principal. El uso de llamadas asíncronas cede el control del event loop a otras peticiones pendientes de resolver."
+              - id: "q-websockets"
+                question: "Los WebSockets son un protocolo que permite exclusivamente la comunicación del servidor hacia el cliente en una sola dirección."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 1
+                explanation: "Los WebSockets proveen una comunicación full-duplex bidireccional en tiempo real a través de una única conexión TCP de larga duración."
+
+      # --- SECCIÓN 3 ---
+      - id: "sec-data-science-api"
+        title: "Sección 3: Construir una API de Ciencia de Datos con Python y FastAPI"
+        description: "Manipulación de datos, entrenamiento de modelos con scikit-learn, APIs de predicción eficientes y streaming de video en tiempo real con OpenCV."
+        items:
+          - type: "lesson"
+            id: "les-cap-11"
+            slug: "introduccion-numpy-pandas"
+            title: "Cap 11: Introducción a Numpy y Pandas"
+            duration: "40 min"
+            content_type: "markdown"
+            content: |
+              ### Análisis y Preparación de Datos con Pandas y NumPy
+              Antes de entrenar un modelo, debemos poder importar y transformar los datos brutos de forma eficiente:
+              
+              - **Estructuras Fundamentales**: Uso de Arrays de NumPy para cálculo numérico rápido y DataFrames de Pandas para manipulación tabular.
+              - **Limpieza de Datos**: Tratamiento de valores faltantes (nulls), normalización de características y codificación de variables categóricas (one-hot encoding).
+              - **Optimización de Memoria**: Tipos de datos óptimos para manejar sets de datos de gran escala en memoria.
+          - type: "lesson"
+            id: "les-cap-12"
+            slug: "entrenamiento-modelos-scikit-learn"
+            title: "Cap 12: Entrenamiento de Modelos de Machine Learning con scikit-learn"
+            duration: "50 min"
+            content_type: "markdown"
+            content: |
+              ### Ciclo de Entrenamiento del Modelo
+              Construir, evaluar y exportar un modelo de predicción:
+              
+              - **Modelos Comunes**: Implementación de regresiones, árboles de decisión y clasificadores (ej: regresión logística, random forests).
+              - **Validación del Modelo**: División de datos en conjuntos de entrenamiento y prueba (train/test split), validación cruzada y métricas de desempeño (precisión, recall, F1-score).
+              - **Exportación con Joblib/Pickle**: Guardado de los pesos del modelo entrenado a un archivo serializado para su posterior uso en producción.
+          - type: "lesson"
+            id: "les-cap-13"
+            slug: "creacion-endpoint-prediccion-fastapi"
+            title: "Cap 13: Creación de un Endpoint de API de Predicción Eficiente con FastAPI"
+            duration: "45 min"
+            content_type: "video"
+            video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            content: "En este videotutorial cargaremos el modelo de Machine Learning exportado con Joblib al arrancar la aplicación de FastAPI y expondremos un endpoint POST '/predict'. El endpoint recibirá datos formateados en un schema Pydantic, ejecutará la predicción del modelo y devolverá los resultados de forma eficiente."
+          - type: "lesson"
+            id: "les-cap-14"
+            slug: "sistema-deteccion-rostros-websockets"
+            title: "Cap 14: Implementar un Sistema de Detección de Rostros en Tiempo Real Usando Websockets con FastAPI y OpenCV"
+            duration: "55 min"
+            content_type: "markdown"
+            content: |
+              ### Streaming y Procesamiento de Imagen en Tiempo Real
+              Construcción de un caso de uso avanzado integrando procesamiento multimedia y WebSockets:
+              
+              - **Configuración de OpenCV**: Carga de clasificadores en cascada de Haar o modelos de deep learning para detección de rostros.
+              - **Procesamiento de Cuadros (Frames)**: Decodificación en el servidor de imágenes en formato base64 recibidas a través de una conexión WebSocket.
+              - **Streaming de Resultados**: Procesamiento de la imagen, dibujo de rectángulos en las caras detectadas y retransmisión del frame modificado al cliente en tiempo real con latencia mínima.
+          - type: "quiz"
+            id: "quiz-sec-3"
+            slug: "cuestionario-ciencia-datos"
+            title: "Cuestionario de Ciencia de Datos y Modelos Predictivos"
+            duration: "10 min"
+            questions:
+              - id: "q-joblib"
+                question: "¿Cuál es la mejor práctica para servir un modelo de machine learning en FastAPI de forma que no afecte el rendimiento de la API?"
+                type: "single_choice"
+                options:
+                  - "Entrenar el modelo de nuevo en cada petición POST recibida del cliente."
+                  - "Cargar el modelo serializado (joblib/pickle) una sola vez al arrancar la aplicación (en el evento startup o lifespan) y reutilizarlo en cada petición."
+                  - "Guardar el modelo en una base de datos relacional y consultarlo en cada llamada."
+                correct_option: 1
+                explanation: "Cargar los pesos del modelo en memoria es una operación costosa. Al cargarlo una única vez durante la inicialización del ciclo de vida (lifespan) de la app, las llamadas de predicción individuales se resuelven en milisegundos."
+              - id: "q-pandas"
+                question: "Pandas es la herramienta principal utilizada para optimizar cálculos de matrices multidimensionales a bajo nivel."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 1
+                explanation: "NumPy es la librería base que optimiza los cálculos matriciales a bajo nivel, mientras que Pandas se construye sobre ella para proveer manipulación tabular y análisis de alto nivel a través de DataFrames."
