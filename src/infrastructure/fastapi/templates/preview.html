@@ -32,7 +32,7 @@
             {% if 'header.html' in partial_name %}
                 {{ header_macro.header() }}
             {% elif 'footer.html' in partial_name %}
-                {{ footer_macro.footer(brand, content.legal.text) }}
+                {{ footer_macro.footer(brand, content.legal.text, footer) }}
             {% elif 'contact_form.html' in partial_name or 'contact_section.html' in partial_name %}
                 {% call contact_section_macro.contact_section(content.contact) %}
                     {{ contact_macro.contact_form(content.contact) }}

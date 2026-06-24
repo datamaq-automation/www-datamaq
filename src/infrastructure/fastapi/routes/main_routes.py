@@ -71,6 +71,7 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
         "brand": contenido.brand.model_dump(),
         "content": contenido.content.model_dump(),
         "seo": contenido.seo.model_dump(),
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
         "partial_name": partial_name
     }
@@ -91,6 +92,7 @@ async def root(request: Request, contenido: ContenidoModel = Depends(get_conteni
         "brand": contenido.brand.model_dump(),
         "content": contenido.content.model_dump(),
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
@@ -112,6 +114,7 @@ async def terms(request: Request, contenido: ContenidoModel = Depends(get_conten
         "terms": contenido.legal_pages.terms.model_dump(),
         "cookie_banner": contenido.content.cookie_banner.model_dump(),
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="terms.html", context=context)

@@ -35,6 +35,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             "brand": contenido.brand.model_dump(),
             "content": contenido.content.model_dump(),
             "seo": seo,
+            "footer": contenido.footer.model_dump() if contenido.footer else None,
             "chatwoot_token": config.CHATWOOT_TOKEN or "",
             "page_robots": "noindex,follow",
         }

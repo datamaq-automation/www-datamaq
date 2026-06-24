@@ -39,6 +39,7 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
         "chatwoot_token": chatwoot_token,
         "industria_nombre": nombre_industria,
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "hero_title": hero_title,
         "hero_subtitle": hero_subtitle,
     }

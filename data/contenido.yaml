@@ -231,7 +231,30 @@ seo:
   canonical_url: https://datamaq.com.ar
   description: "Soluciones IoT industrial para monitoreo de energía y captura automá\
     tica de datos operativos. Instalación, integración y asesoramiento té\
-    cnico en Argentina."
+    nico en Argentina."
   og_image: https://datamaq.com.ar/static/og-default.jpg
   site_name: DataMaq
   title: "Monitoreo de energía industrial y captura de datos operativos | DataMaq"
+
+footer:
+  navigation_groups:
+    - title: "Navegación"
+      links:
+        - label: "Inicio"
+          href: "/"
+        - label: "Cursos"
+          href: "/cursos"
+        - label: "Contacto"
+          href: "/contact"
+    - title: "SEO & Cobertura"
+      links:
+        - label: "Garín"
+          href: "/buenos-aires/escobar/garin.html"
+        - label: "Alimenticia"
+          href: "/industria/alimenticia.html"
+  cta_title: "¿Tenés dudas técnicas?"
+  cta_label: "Escribime por WhatsApp"
+  whatsapp_text: "Hola DataMaq, necesito asistencia técnica para [Tipo de Maquina]."
+  terms_label: "Términos y condiciones"
+  terms_href: "/terminos-y-condiciones"
+  copyright_suffix: "Todos los derechos reservados."

@@ -13,7 +13,8 @@ async def override_get_contenido():
             "baseOperativa": "Test",
             "contactEmail": "test@test.com",
             "whatsappUrl": "http://test.com",
-            "technician": {"name": "Test", "role": "Test", "photo": {"src": "test.jpg", "alt": "Test"}}
+            "technician": {"name": "Test", "role": "Test", "photo": {"src": "test.jpg", "alt": "Test"}},
+            "footerDescription": "Test footer description"
         },
         content={
             "hero": {
@@ -67,8 +68,31 @@ async def override_get_contenido():
                 "introduction": "Test",
                 "sections": [{"title": "Test", "paragraphs": ["Test"]}]
             }
+        },
+        footer={
+            "navigation_groups": [
+                {
+                    "title": "Navegación",
+                    "links": [
+                        {"label": "Inicio", "href": "/"},
+                        {"label": "Cursos", "href": "/cursos"},
+                        {"label": "Contacto", "href": "/contact"}
+                    ]
+                }
+            ],
+            "cta_title": "Test CTA Title",
+            "cta_label": "Test CTA Label",
+            "whatsapp_text": "Test WhatsApp text",
+            "terms_label": "Test Terms Label",
+            "terms_href": "/terminos-y-condiciones",
+            "copyright_suffix": "Test copyright suffix"
         }
     )
+
+@pytest.fixture(autouse=True)
+def clean_dependency_overrides():
+    yield
+    app.dependency_overrides.clear()
 
 
 async def override_get_chatwoot_token():

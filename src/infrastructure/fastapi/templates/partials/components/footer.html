@@ -1,4 +1,4 @@
-{% macro footer(brand, legal_text, cookie_banner=None) %}
+{% macro footer(brand, legal_text, footer, cookie_banner=None) %}
 {% import 'partials/components/icon.html' as icon_macro %}
 <footer data-v-236fef00="" class="c-home-footer" role="contentinfo">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
@@ -7,7 +7,7 @@
             <!-- Columna 1: Marca y Contacto -->
             <div data-v-236fef00="" class="c-home-footer__col-brand">
                 <p data-v-236fef00="" class="c-home-footer__brand">{{ brand.brandName }}</p>
-                <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription or 'Monitoreo de energía y captura de datos operativos para la industria.' }}</p>
+                <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription }}</p>
                 <div data-v-236fef00="" class="c-home-footer__contact-info">
                     <span data-v-236fef00="" class="c-home-footer__contact-item">
                         {{ icon_macro.bootstrap_icon('geo-alt-fill') }} {{ brand.baseOperativa }}
@@ -20,24 +20,21 @@
             
             <!-- Columna 2: Navegación Central -->
             <div data-v-236fef00="" class="c-home-footer__col-nav">
+                {% for group in footer.navigation_groups %}
                 <div data-v-236fef00="" class="c-home-footer__nav-group">
-                    <p data-v-236fef00="" class="c-home-footer__nav-title">Navegación</p>
-                    <a href="/">Inicio</a>
-                    <a href="/cursos">Cursos</a>
-                    <a href="/contact">Contacto</a>
+                    <p data-v-236fef00="" class="c-home-footer__nav-title">{{ group.title }}</p>
+                    {% for link in group.links %}
+                    <a href="{{ link.href }}">{{ link.label }}</a>
+                    {% endfor %}
                 </div>
-                <div data-v-236fef00="" class="c-home-footer__nav-group">
-                    <p data-v-236fef00="" class="c-home-footer__nav-title">SEO & Cobertura</p>
-                    <a href="/buenos-aires/escobar/garin.html">Garín</a>
-                    <a href="/industria/alimenticia.html">Alimenticia</a>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Columna 3: WhatsApp CTA -->
             <div data-v-236fef00="" class="c-home-footer__col-cta">
-                <p data-v-236fef00="" class="c-home-footer__cta-title">¿Tenés dudas técnicas?</p>
-                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="{{ brand.whatsappUrl }}?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D." target="_blank" rel="noopener noreferrer">
-                    {{ icon_macro.bootstrap_icon('whatsapp') }} Escribime por WhatsApp
+                <p data-v-236fef00="" class="c-home-footer__cta-title">{{ footer.cta_title }}</p>
+                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="{{ brand.whatsappUrl }}?text={{ footer.whatsapp_text | urlencode }}" target="_blank" rel="noopener noreferrer">
+                    {{ icon_macro.bootstrap_icon('whatsapp') }} {{ footer.cta_label }}
                 </a>
             </div>
         </div>
@@ -48,8 +45,8 @@
         <div data-v-236fef00="" class="c-home-footer__lower">
             <p data-v-236fef00="" class="c-home-footer__legal">{{ legal_text }}</p>
             <div data-v-236fef00="" class="c-home-footer__lower-links">
-                <a href="/terminos-y-condiciones">Términos y condiciones</a>
-                <p data-v-236fef00="" class="c-home-footer__note">&copy; {{ year }} {{ brand.brandName }}. Todos los derechos reservados.</p>
+                <a href="{{ footer.terms_href }}">{{ footer.terms_label }}</a>
+                <p data-v-236fef00="" class="c-home-footer__note">&copy; {{ year }} {{ brand.brandName }}. {{ footer.copyright_suffix }}</p>
             </div>
         </div>
     </div>

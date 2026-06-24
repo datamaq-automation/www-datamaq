@@ -34,6 +34,7 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
         "brand": contenido.brand.model_dump(),
         "content": contenido.content.model_dump(),
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
         "contact_hero": {
             "title": f"Consultoría técnica IoT con {contenido.brand.brandName}",

@@ -44,6 +44,7 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "municipio": municipio_formateado,
         "provincia": provincia.replace("-", " ").title(),
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "hero_title": hero_title,
         "hero_subtitle": hero_subtitle,
     }

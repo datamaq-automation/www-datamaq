@@ -38,7 +38,7 @@ class BrandModel(BaseModel):
     contactEmail: str
     whatsappUrl: str
     technician: TechnicianModel
-    footerDescription: Optional[str] = None
+    footerDescription: str
 
 class HeroModel(BaseModel):
     badge: str
@@ -152,11 +152,29 @@ class ContentModel(BaseModel):
     contact: ContactModel
     cookie_banner: CookieBannerModel
 
+class FooterLinkModel(BaseModel):
+    label: str
+    href: str
+
+class FooterGroupModel(BaseModel):
+    title: str
+    links: List[FooterLinkModel]
+
+class FooterModel(BaseModel):
+    navigation_groups: List[FooterGroupModel]
+    cta_title: str
+    cta_label: str
+    whatsapp_text: str
+    terms_label: str
+    terms_href: str
+    copyright_suffix: str
+
 class ContenidoModel(BaseModel):
     brand: BrandModel
     content: ContentModel
     seo: SeoModel
     legal_pages: LegalPagesModel
+    footer: FooterModel
 
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]

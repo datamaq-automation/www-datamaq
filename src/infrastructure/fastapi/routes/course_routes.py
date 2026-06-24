@@ -32,6 +32,7 @@ async def listado_cursos(
         "content": contenido.content.model_dump(),
         "cursos": [c.model_dump() for c in cursos],
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/list.html", context=context)
@@ -65,6 +66,7 @@ async def detalle_curso(
         "content": contenido.content.model_dump(),
         "curso": curso.model_dump(),
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/detail.html", context=context)
@@ -123,6 +125,7 @@ async def vista_leccion(
         "prev_lesson": prev_lesson.model_dump() if prev_lesson else None,
         "next_lesson": next_lesson.model_dump() if next_lesson else None,
         "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/lesson.html", context=context)
