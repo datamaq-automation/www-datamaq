@@ -1,20 +1,56 @@
 {% macro footer(cookie_banner=None) %}
+{% import 'partials/components/icon.html' as icon_macro %}
 <footer data-v-236fef00="" class="c-home-footer" role="contentinfo">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
-        <div data-v-236fef00="" class="c-home-footer__shell">
-            <div data-v-236fef00="">
+        <!-- Fila Superior: Info, Links y CTA -->
+        <div data-v-236fef00="" class="c-home-footer__upper">
+            <!-- Columna 1: Marca y Contacto -->
+            <div data-v-236fef00="" class="c-home-footer__col-brand">
                 <p data-v-236fef00="" class="c-home-footer__brand">DataMaq</p>
-                <p data-v-236fef00="" class="c-home-footer__note">(c) 2026 DataMaq | Garín (GBA Norte)</p>
+                <p data-v-236fef00="" class="c-home-footer__description">Monitoreo de energía y captura de datos operativos para la industria.</p>
+                <div data-v-236fef00="" class="c-home-footer__contact-info">
+                    <span data-v-236fef00="" class="c-home-footer__contact-item">
+                        {{ icon_macro.bootstrap_icon('geo-alt-fill') }} Garín (GBA Norte)
+                    </span>
+                    <a data-v-236fef00="" href="mailto:info@datamaq.com.ar" class="c-home-footer__contact-item c-home-footer__link-email">
+                        {{ icon_macro.bootstrap_icon('envelope-fill') }} info@datamaq.com.ar
+                    </a>
+                </div>
             </div>
+            
+            <!-- Columna 2: Navegación Central -->
+            <div data-v-236fef00="" class="c-home-footer__col-nav">
+                <div data-v-236fef00="" class="c-home-footer__nav-group">
+                    <p data-v-236fef00="" class="c-home-footer__nav-title">Navegación</p>
+                    <a href="/">Inicio</a>
+                    <a href="/cursos">Cursos</a>
+                    <a href="/contact">Contacto</a>
+                </div>
+                <div data-v-236fef00="" class="c-home-footer__nav-group">
+                    <p data-v-236fef00="" class="c-home-footer__nav-title">SEO & Cobertura</p>
+                    <a href="/buenos-aires/escobar/garin.html">Garín</a>
+                    <a href="/industria/alimenticia.html">Alimenticia</a>
+                </div>
+            </div>
+
+            <!-- Columna 3: WhatsApp CTA -->
+            <div data-v-236fef00="" class="c-home-footer__col-cta">
+                <p data-v-236fef00="" class="c-home-footer__cta-title">¿Tenés dudas técnicas?</p>
+                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D." target="_blank" rel="noopener noreferrer">
+                    {{ icon_macro.bootstrap_icon('whatsapp') }} Escribime por WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <hr data-v-236fef00="" class="c-home-footer__divider" />
+
+        <!-- Fila Inferior: Legal y Copyright -->
+        <div data-v-236fef00="" class="c-home-footer__lower">
             <p data-v-236fef00="" class="c-home-footer__legal">La información publicada es referencial y puede actualizarse según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación.</p>
-            <div data-v-236fef00="" class="c-home-footer__legal-links">
-                <a href="/">Inicio</a>
-                <a href="/contact">Contacto</a>
-                <a href="/buenos-aires/escobar/garin.html">Cobertura en Garín</a>
-                <a href="/industria/alimenticia.html">IoT para Alimenticia</a>
+            <div data-v-236fef00="" class="c-home-footer__lower-links">
                 <a href="/terminos-y-condiciones">Términos y condiciones</a>
+                <p data-v-236fef00="" class="c-home-footer__note">&copy; 2026 DataMaq. Todos los derechos reservados.</p>
             </div>
-            <a data-v-236fef00="" class="c-home-footer__whatsapp" href="https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D." target="_blank" rel="noopener noreferrer">Escribime</a>
         </div>
     </div>
 </footer>
