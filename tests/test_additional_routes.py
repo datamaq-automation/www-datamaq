@@ -165,7 +165,7 @@ async def test_industria_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Industria Alimenticia" in response.text
+    assert "Industria Gráfica" in response.text
     assert "Captura de datos" in response.text
 
 
