@@ -17,7 +17,7 @@ cursos:
     sections:
       # --- SECCIÓN 1 ---
       - id: "sec-introduccion-fastapi"
-        title: "Sección 1: Introducción a Python y FastAPI"
+        title: "Sección A: Introducción a Python y FastAPI"
         description: "Configuración de entorno, sintaxis de Python, desarrollo de endpoints, inyección de dependencias y validación con Pydantic."
         items:
           - type: "lesson"
@@ -27,18 +27,48 @@ cursos:
             duration: "25 min"
             content_type: "markdown"
             content: |
-              ### Configuración del Entorno de Desarrollo
-              Para desarrollar aplicaciones de Ciencia de Datos eficientes con FastAPI, necesitamos establecer un entorno de desarrollo profesional:
+              ### Configuración del Entorno de Desarrollo de Python
+              En este capítulo aprenderemos a configurar un entorno de desarrollo profesional para construir y ejecutar las aplicaciones de Ciencia de Datos del libro.
+
+              #### 1.1 Requisitos técnicos
+              Para seguir este curso necesitarás una computadora con sistema operativo Linux, macOS o Windows, acceso a una terminal de comandos y conexión a internet.
+
+              #### 1.2 Instalación de una distribución de Python usando pyenv
+              Utilizaremos **pyenv** para gestionar múltiples versiones de Python de manera aislada en nuestro sistema:
+              ```bash
+              # Instalar la versión recomendada
+              pyenv install 3.12.0
+              pyenv global 3.12.0
+              ```
+
+              #### 1.3 Creación de un entorno virtual de Python
+              Para evitar conflictos de dependencias entre proyectos, creamos un entorno virtual (`venv`):
+              ```bash
+              python -m venv .venv
+              source .venv/bin/activate  # En Linux/macOS
+              .venv\Scripts\activate     # En Windows
+              ```
+
+              #### 1.4 Instalación de paquetes de Python con pip
+              Con el entorno virtual activo, instalamos los paquetes necesarios mediante `pip`:
+              ```bash
+              pip install fastapi uvicorn pydantic
+              ```
+
+              #### 1.5 Instalación de la utilidad de línea de comandos HTTPie
+              **HTTPie** es una alternativa amigable a `curl` para enviar peticiones HTTP a nuestra API de FastAPI desde la terminal:
+              ```bash
+              # En macOS usando Homebrew
+              brew install httpie
+              # En Ubuntu/Debian
+              sudo apt install httpie
               
-              1. **Instalación de Python 3.12** o superior desde el sitio oficial.
-              2. **Configuración de un Editor de Código**: Se recomienda utilizar VS Code con extensiones como Pylance, Python y Ruff para linting y formateo.
-              3. **Gestión de Entornos Virtuales**: Creación y activación de un entorno aislado para proteger las dependencias de nuestro proyecto:
-                 ```bash
-                 python -m venv .venv
-                 source .venv/bin/activate  # En Linux/macOS
-                 .venv\Scripts\activate     # En Windows
-                 ```
-              4. **Instalación de Dependencias Clave**: Instalaremos FastAPI, Uvicorn, Pydantic y bibliotecas de ciencia de datos como NumPy y Pandas.
+              # Probar enviando una petición GET a un endpoint local
+              http GET http://127.0.0.1:8000/
+              ```
+
+              #### 1.6 Resumen
+              Hemos configurado con éxito un entorno de desarrollo de Python aislado mediante pyenv y venv, instalado las dependencias base de FastAPI y la herramienta HTTPie para probar nuestros endpoints.
           - type: "lesson"
             id: "les-cap-2"
             slug: "especificidades-programacion-python"
@@ -113,7 +143,7 @@ cursos:
 
       # --- SECCIÓN 2 ---
       - id: "sec-web-backend-fastapi"
-        title: "Sección 2: Construir y Desplegar un Backend Web Completo con FastAPI"
+        title: "Sección B: Construir y Desplegar un Backend Web Completo con FastAPI"
         description: "Integración con bases de datos asíncronas, seguridad, autenticación, comunicación en tiempo real y despliegue continuo."
         items:
           - type: "lesson"
@@ -200,9 +230,9 @@ cursos:
                 correct_option: 1
                 explanation: "Los WebSockets proveen una comunicación full-duplex bidireccional en tiempo real a través de una única conexión TCP de larga duración."
 
-      # --- SECCIÓN 3 ---
+      # --- SECCIÓN C ---
       - id: "sec-data-science-api"
-        title: "Sección 3: Construir una API de Ciencia de Datos con Python y FastAPI"
+        title: "Sección C: Construir una API de Ciencia de Datos con Python y FastAPI"
         description: "Manipulación de datos, entrenamiento de modelos con scikit-learn, APIs de predicción eficientes y streaming de video en tiempo real con OpenCV."
         items:
           - type: "lesson"

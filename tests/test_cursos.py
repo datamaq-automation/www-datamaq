@@ -22,7 +22,7 @@ async def test_curso_detail_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
-    assert "Sección 1: Introducción a Python y FastAPI" in response.text
+    assert "Sección A: Introducción a Python y FastAPI" in response.text
     assert "Cap 1: Configuración del Entorno de Desarrollo de Python" in response.text
 
 @pytest.mark.asyncio
@@ -34,7 +34,7 @@ async def test_lesson_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Cap 1: Configuración del Entorno de Desarrollo de Python" in response.text
-    assert "Para desarrollar aplicaciones de Ciencia de Datos eficientes con FastAPI" in response.text
+    assert "En este capítulo aprenderemos a configurar un entorno de desarrollo profesional" in response.text
 
 @pytest.mark.asyncio
 async def test_invalid_course_returns_404():
