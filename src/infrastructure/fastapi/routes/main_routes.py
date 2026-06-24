@@ -108,6 +108,7 @@ async def terms(request: Request, contenido: ContenidoModel = Depends(get_conten
     }
     context: Dict[str, Any] = {
         "brand": contenido.brand.model_dump(),
+        "content": contenido.content.model_dump(),
         "terms": contenido.legal_pages.terms.model_dump(),
         "cookie_banner": contenido.content.cookie_banner.model_dump(),
         "seo": seo,

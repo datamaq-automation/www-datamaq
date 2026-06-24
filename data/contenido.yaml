@@ -12,6 +12,7 @@ brand:
       width: 100
     role: "Técnico a cargo"
   whatsappUrl: https://wa.me/5491156297160
+  footerDescription: "Monitoreo de energía y captura de datos operativos para la industria."
 content:
   about:
     image:

@@ -1,4 +1,4 @@
-{% macro footer(cookie_banner=None) %}
+{% macro footer(brand, legal_text, cookie_banner=None) %}
 {% import 'partials/components/icon.html' as icon_macro %}
 <footer data-v-236fef00="" class="c-home-footer" role="contentinfo">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
@@ -6,14 +6,14 @@
         <div data-v-236fef00="" class="c-home-footer__upper">
             <!-- Columna 1: Marca y Contacto -->
             <div data-v-236fef00="" class="c-home-footer__col-brand">
-                <p data-v-236fef00="" class="c-home-footer__brand">DataMaq</p>
-                <p data-v-236fef00="" class="c-home-footer__description">Monitoreo de energía y captura de datos operativos para la industria.</p>
+                <p data-v-236fef00="" class="c-home-footer__brand">{{ brand.brandName }}</p>
+                <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription or 'Monitoreo de energía y captura de datos operativos para la industria.' }}</p>
                 <div data-v-236fef00="" class="c-home-footer__contact-info">
                     <span data-v-236fef00="" class="c-home-footer__contact-item">
-                        {{ icon_macro.bootstrap_icon('geo-alt-fill') }} Garín (GBA Norte)
+                        {{ icon_macro.bootstrap_icon('geo-alt-fill') }} {{ brand.baseOperativa }}
                     </span>
-                    <a data-v-236fef00="" href="mailto:info@datamaq.com.ar" class="c-home-footer__contact-item c-home-footer__link-email">
-                        {{ icon_macro.bootstrap_icon('envelope-fill') }} info@datamaq.com.ar
+                    <a data-v-236fef00="" href="mailto:{{ brand.contactEmail }}" class="c-home-footer__contact-item c-home-footer__link-email">
+                        {{ icon_macro.bootstrap_icon('envelope-fill') }} {{ brand.contactEmail }}
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <!-- Columna 3: WhatsApp CTA -->
             <div data-v-236fef00="" class="c-home-footer__col-cta">
                 <p data-v-236fef00="" class="c-home-footer__cta-title">¿Tenés dudas técnicas?</p>
-                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D." target="_blank" rel="noopener noreferrer">
+                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="{{ brand.whatsappUrl }}?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D." target="_blank" rel="noopener noreferrer">
                     {{ icon_macro.bootstrap_icon('whatsapp') }} Escribime por WhatsApp
                 </a>
             </div>
@@ -46,10 +46,10 @@
 
         <!-- Fila Inferior: Legal y Copyright -->
         <div data-v-236fef00="" class="c-home-footer__lower">
-            <p data-v-236fef00="" class="c-home-footer__legal">La información publicada es referencial y puede actualizarse según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación.</p>
+            <p data-v-236fef00="" class="c-home-footer__legal">{{ legal_text }}</p>
             <div data-v-236fef00="" class="c-home-footer__lower-links">
                 <a href="/terminos-y-condiciones">Términos y condiciones</a>
-                <p data-v-236fef00="" class="c-home-footer__note">&copy; 2026 DataMaq. Todos los derechos reservados.</p>
+                <p data-v-236fef00="" class="c-home-footer__note">&copy; {{ year }} {{ brand.brandName }}. Todos los derechos reservados.</p>
             </div>
         </div>
     </div>

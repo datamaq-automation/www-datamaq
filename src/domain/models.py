@@ -38,6 +38,7 @@ class BrandModel(BaseModel):
     contactEmail: str
     whatsappUrl: str
     technician: TechnicianModel
+    footerDescription: Optional[str] = None
 
 class HeroModel(BaseModel):
     badge: str
