@@ -152,7 +152,7 @@ async def test_sitemap_includes_dynamic_urls():
     assert response.status_code == 200
     text = response.text
     assert "https://datamaq.com.ar/buenos-aires/escobar/garin.html" in text
-    assert "https://datamaq.com.ar/industria/alimenticia.html" in text
+    assert "https://datamaq.com.ar/industria/grafica.html" in text
 
 
 @pytest.mark.asyncio  # type: ignore
