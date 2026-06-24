@@ -30,76 +30,42 @@ cursos:
                 title: "1.1 Requisitos técnicos"
                 duration: "5 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.1 Requisitos técnicos
-                  Para seguir este curso necesitarás una computadora con sistema operativo Linux, macOS o Windows, acceso a una terminal de comandos y conexión a internet.
+                content_file: "fastapi-data-science/cap-1-1-requisitos-tecnicos.md"
               - type: "lesson"
                 id: "les-cap-1-2"
                 slug: "instalacion-python-pyenv"
                 title: "1.2 Instalación de una distribución de Python usando pyenv"
                 duration: "8 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.2 Instalación de una distribución de Python usando pyenv
-                  Utilizaremos **pyenv** para gestionar múltiples versiones de Python de manera aislada en nuestro sistema:
-                  ```bash
-                  # Instalar la versión recomendada
-                  pyenv install 3.12.0
-                  pyenv global 3.12.0
-                  ```
+                content_file: "fastapi-data-science/cap-1-2-instalacion-python.md"
               - type: "lesson"
                 id: "les-cap-1-3"
                 slug: "creacion-entorno-virtual-python"
                 title: "1.3 Creación de un entorno virtual de Python"
                 duration: "5 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.3 Creación de un entorno virtual de Python
-                  Para evitar conflictos de dependencias entre proyectos, creamos un entorno virtual (`venv`):
-                  ```bash
-                  python -m venv .venv
-                  source .venv/bin/activate  # En Linux/macOS
-                  .venv\Scripts\activate     # En Windows
-                  ```
+                content_file: "fastapi-data-science/cap-1-3-creacion-entorno.md"
               - type: "lesson"
                 id: "les-cap-1-4"
                 slug: "instalacion-paquetes-pip"
                 title: "1.4 Instalación de paquetes de Python con pip"
                 duration: "5 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.4 Instalación de paquetes de Python con pip
-                  Con el entorno virtual activo, instalamos los paquetes necesarios mediante `pip`:
-                  ```bash
-                  pip install fastapi uvicorn pydantic
-                  ```
+                content_file: "fastapi-data-science/cap-1-4-instalacion-paquetes.md"
               - type: "lesson"
                 id: "les-cap-1-5"
                 slug: "instalacion-httpie-consola"
                 title: "1.5 Instalación de la utilidad de línea de comandos HTTPie"
                 duration: "7 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.5 Instalación de la utilidad de línea de comandos HTTPie
-                  **HTTPie** es una alternativa amigable a `curl` para enviar peticiones HTTP a nuestra API de FastAPI desde la terminal:
-                  ```bash
-                  # En macOS usando Homebrew
-                  brew install httpie
-                  # En Ubuntu/Debian
-                  sudo apt install httpie
-                  
-                  # Probar enviando una petición GET a un endpoint local
-                  http GET http://127.0.0.1:8000/
-                  ```
+                content_file: "fastapi-data-science/cap-1-5-instalacion-httpie.md"
               - type: "lesson"
                 id: "les-cap-1-6"
                 slug: "resumen-cap-1"
                 title: "1.6 Resumen"
                 duration: "5 min"
                 content_type: "markdown"
-                content: |
-                  ### 1.6 Resumen
-                  Hemos configurado con éxito un entorno de desarrollo de Python aislado mediante pyenv y venv, instalado las dependencias base de FastAPI y la herramienta HTTPie para probar nuestros endpoints.
+                content_file: "fastapi-data-science/cap-1-6-resumen.md"
 
           - id: "chap-cap-2"
             title: "Cap 2: Especificidades de la Programación en Python"
@@ -111,13 +77,7 @@ cursos:
                 title: "Clase Completa: Programación Avanzada en Python"
                 duration: "35 min"
                 content_type: "markdown"
-                content: |
-                  ### Conceptos Avanzados de Python para APIs
-                  FastAPI se apoya en características modernas de Python. Es fundamental comprender:
-                  
-                  - **Tipado Estático (Type Hints)**: El uso de anotaciones de tipo (`name: str`, `age: int`) que permiten a FastAPI y Pydantic realizar validación automática de datos en tiempo de ejecución.
-                  - **Programación Asíncrona (`async` y `await`)**: FastAPI permite definir endpoints asíncronos para operaciones de entrada/salida (I/O) no bloqueantes, ideal para consultar bases de datos o llamar a APIs externas de modelos de Machine Learning.
-                  - **List Comprehensions y Generadores**: Técnicas eficientes para manipulación de vectores y sets de datos en memoria.
+                content_file: "fastapi-data-science/cap-2-programacion-python.md"
 
           - id: "chap-cap-3"
             title: "Cap 3: Desarrollo de una API RESTful con FastAPI"
@@ -142,14 +102,7 @@ cursos:
                 title: "Clase Completa: Validación de Datos con Pydantic"
                 duration: "40 min"
                 content_type: "markdown"
-                content: |
-                  ### Validación de Datos con Pydantic
-                  Pydantic es la librería que FastAPI utiliza para la serialización y validación de datos. Aprenderemos:
-                  
-                  - **Definición de Schemas**: Creación de clases que heredan de `BaseModel` para representar los datos de entrada de los modelos de Machine Learning.
-                  - **Validación Automática**: Cómo FastAPI devuelve automáticamente un error HTTP 422 si los datos del cliente no se ajustan al tipo esperado.
-                  - **Tipos de Datos Avanzados**: Uso de `EmailStr`, `HttpUrl`, listas tipadas y restricciones de rango (por ejemplo, valores numéricos mayores a cero).
-                  - **Configuración de Schemas**: Personalización del comportamiento de serialización mediante la clase `ConfigDict`.
+                content_file: "fastapi-data-science/cap-4-pydantic-models.md"
 
           - id: "chap-cap-5"
             title: "Cap 5: Inyección de Dependencias en FastAPI"
@@ -161,13 +114,7 @@ cursos:
                 title: "Clase Completa: Inyección de Dependencias"
                 duration: "35 min"
                 content_type: "markdown"
-                content: |
-                  ### Inyección de Dependencias
-                  La inyección de dependencias es un patrón de diseño que FastAPI implementa de forma nativa mediante la función `Depends`. Permite:
-                  
-                  - **Reutilización de Lógica**: Compartir lógica común de autenticación, bases de datos o validación en múltiples endpoints.
-                  - **Modularidad**: Desacoplar la creación de recursos de la lógica de procesamiento del endpoint.
-                  - **Facilidad de Pruebas**: Reemplazar dependencias por stubs o mocks fácilmente durante los tests de integración.
+                content_file: "fastapi-data-science/cap-5-dependency-injections.md"
 
           - id: "chap-eval-sec-a"
             title: "Evaluación de la Sección A"
@@ -212,13 +159,7 @@ cursos:
                 title: "Clase Completa: Conectividad Asíncrona con BD"
                 duration: "50 min"
                 content_type: "markdown"
-                content: |
-                  ### Conectividad Asíncrona con Base de Datos
-                  Para no bloquear el Event Loop al hacer consultas de datos, aprenderemos a configurar conexiones asíncronas:
-                  
-                  - **SQLAlchemy Asíncrono**: Uso de `create_async_engine` y `AsyncSession`.
-                  - **ORMs Alternativos**: Configuración de herramientas modernas como Tortoise ORM o SQLModel.
-                  - **Migraciones con Alembic**: Manejo del ciclo de vida y la evolución de las tablas de la base de datos de forma segura.
+                content_file: "fastapi-data-science/cap-6-databases-orms.md"
 
           - id: "chap-cap-7"
             title: "Cap 7: Gestión de Autenticación y Seguridad en FastAPI"
@@ -230,13 +171,7 @@ cursos:
                 title: "Clase Completa: Seguridad con JWT y OAuth2"
                 duration: "45 min"
                 content_type: "markdown"
-                content: |
-                  ### Seguridad y Autenticación con OAuth2 y JWT
-                  Implementación de flujos robustos de autenticación para proteger endpoints:
-                  
-                  - **JSON Web Tokens (JWT)**: Generación, firma y verificación de tokens encriptados.
-                  - **OAuth2 con Contraseñas**: Integración del flujo de login estándar de OAuth2 mediante `OAuth2PasswordBearer` y hashing de contraseñas con Passlib e bcrypt.
-                  - **CORS y Middlewares**: Configuración de restricciones de dominios para consumo seguro de la API desde frontends web independientes.
+                content_file: "fastapi-data-science/cap-7-authentication-security.md"
 
           - id: "chap-cap-8"
             title: "Cap 8: Definición de WebSockets para Comunicación Interactiva Bidireccional en FastAPI"
@@ -261,13 +196,7 @@ cursos:
                 title: "Clase Completa: Testing Asíncrono"
                 duration: "45 min"
                 content_type: "markdown"
-                content: |
-                  ### Tests Asíncronos Automatizados
-                  Desarrollar una estrategia de testing sólida para verificar el comportamiento de la API:
-                  
-                  - **Estructuración con pytest**: Configuración de fixtures asíncronos.
-                  - **Cliente HTTPX**: Uso de `AsyncClient` de HTTPX para realizar peticiones de prueba a la aplicación FastAPI sin levantar un servidor físico.
-                  - **Aislamiento y Mocks**: Uso de bases de datos temporales (SQLite en memoria) y stubs de llamadas de red de APIs externas.
+                content_file: "fastapi-data-science/cap-9-testing-pytest.md"
 
           - id: "chap-cap-10"
             title: "Cap 10: Despliegue de un Proyecto FastAPI"
@@ -279,13 +208,7 @@ cursos:
                 title: "Clase Completa: Despliegue y CI/CD"
                 duration: "40 min"
                 content_type: "markdown"
-                content: |
-                  ### Estrategias de Despliegue en Producción
-                  Llevar nuestra aplicación local a servidores accesibles por internet:
-                  
-                  - **Dockerización**: Creación de `Dockerfile` optimizados para FastAPI usando compilaciones multi-etapa (multi-stage builds).
-                  - **Servidores de Producción**: Configuración de Gunicorn como manejador de procesos y Uvicorn como trabajador ASGI.
-                  - **Servidores VPS & Reverse Proxy**: Puesta a punto con Nginx como proxy reverso, Let's Encrypt para HTTPS/SSL gratuito y automatización de despliegue continuo (CI/CD) con GitHub Actions.
+                content_file: "fastapi-data-science/cap-10-deploy-project.md"
 
           - id: "chap-eval-sec-b"
             title: "Evaluación de la Sección B"
@@ -330,13 +253,7 @@ cursos:
                 title: "Clase Completa: Análisis de Datos"
                 duration: "40 min"
                 content_type: "markdown"
-                content: |
-                  ### Análisis y Preparación de Datos con Pandas y NumPy
-                  Antes de entrenar un modelo, debemos poder importar y transformar los datos brutos de forma eficiente:
-                  
-                  - **Estructuras Fundamentales**: Uso de Arrays de NumPy para cálculo numérico rápido y DataFrames de Pandas para manipulación tabular.
-                  - **Limpieza de Datos**: Tratamiento de valores faltantes (nulls), normalización de características y codificación de variables categóricas (one-hot encoding).
-                  - **Optimización de Memoria**: Tipos de datos óptimos para manejar sets de datos de gran escala en memoria.
+                content_file: "fastapi-data-science/cap-11-numpy-pandas.md"
 
           - id: "chap-cap-12"
             title: "Cap 12: Entrenamiento de Modelos de Machine Learning con scikit-learn"
@@ -348,13 +265,7 @@ cursos:
                 title: "Clase Completa: Entrenamiento de Modelos"
                 duration: "50 min"
                 content_type: "markdown"
-                content: |
-                  ### Ciclo de Entrenamiento del Modelo
-                  Construir, evaluar y exportar un modelo de predicción:
-                  
-                  - **Modelos Comunes**: Implementación de regresiones, árboles de decisión y clasificadores (ej: regresión logística, random forests).
-                  - **Validación del Modelo**: División de datos en conjuntos de entrenamiento y prueba (train/test split), validación cruzada y métricas de desempeño (precisión, recall, F1-score).
-                  - **Exportación con Joblib/Pickle**: Guardado de los pesos del modelo entrenado a un archivo serializado para su posterior uso en producción.
+                content_file: "fastapi-data-science/cap-12-scikit-learn.md"
 
           - id: "chap-cap-13"
             title: "Cap 13: Creación de un Endpoint de API de Predicción Eficiente con FastAPI"
@@ -379,13 +290,7 @@ cursos:
                 title: "Clase Completa: Detección en Tiempo Real"
                 duration: "55 min"
                 content_type: "markdown"
-                content: |
-                  ### Streaming y Procesamiento de Imagen en Tiempo Real
-                  Construcción de un caso de uso avanzado integrando procesamiento multimedia y WebSockets:
-                  
-                  - **Configuración de OpenCV**: Carga de clasificadores en cascada de Haar o modelos de deep learning para detección de rostros.
-                  - **Procesamiento de Cuadros (Frames)**: Decodificación en el servidor de imágenes en formato base64 recibidas a través de una conexión WebSocket.
-                  - **Streaming de Resultados**: Procesamiento de la imagen, dibujo de rectángulos en las caras detectadas y retransmisión del frame modificado al cliente en tiempo real con latencia mínima.
+                content_file: "fastapi-data-science/cap-14-face-detection.md"
 
           - id: "chap-eval-sec-c"
             title: "Evaluación de la Sección C"

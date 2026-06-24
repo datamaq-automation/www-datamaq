@@ -35,6 +35,26 @@ class DataService:
         if self._cached_cursos is None:
             with open(self.courses_path, "r", encoding="utf-8") as f:
                 raw_data: Dict[str, Any] = yaml.safe_load(f) or {"cursos": []} # type: ignore
+                
+                import os
+                courses_dir = os.path.dirname(self.courses_path)
+                
+                if "cursos" in raw_data:
+                    for curso in raw_data["cursos"]:
+                        if "sections" in curso:
+                            for seccion in curso["sections"]:
+                                if "chapters" in seccion:
+                                    for chapter in seccion["chapters"]:
+                                        if "items" in chapter:
+                                            for item in chapter["items"]:
+                                                if item.get("type") == "lesson" and item.get("content_file"):
+                                                    file_path = os.path.join(courses_dir, "cursos_contenido", item["content_file"])
+                                                    if os.path.exists(file_path):
+                                                        with open(file_path, "r", encoding="utf-8") as cf:
+                                                            item["content"] = cf.read()
+                                                    else:
+                                                        item["content"] = f"Error: No se encontró el archivo de contenido en {file_path}"
+                
                 self._cached_cursos = CursosContainerModel(**raw_data)
         return self._cached_cursos
 

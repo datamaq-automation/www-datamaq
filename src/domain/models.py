@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional, Union, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 # --- Modelos Base ---
 class PhotoModel(BaseModel):
@@ -121,9 +121,7 @@ class AltEmailModel(BaseModel):
 
 class ContactModel(BaseModel):
     title: str
-    cta: Optional[str] = None
     subtitle: str
-    cta: Optional[str] = None
     cta: str
     alt_email: AltEmailModel
     progress_text: str
@@ -177,7 +175,8 @@ class LessonModel(BaseModel):
     duration: str
     content_type: str  # "markdown" | "video"
     video_url: Optional[str] = None
-    content: str
+    content: Optional[str] = None
+    content_file: Optional[str] = None
 
 class QuestionModel(BaseModel):
     id: str
