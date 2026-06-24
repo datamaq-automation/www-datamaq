@@ -161,7 +161,7 @@ async def test_localidad_page_rendered():
 async def test_industria_page_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/alimenticia.html")
+        response = await ac.get("/industria/grafica.html")
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
