@@ -45,6 +45,17 @@ _Ninguno. El pipeline de deploy y la infraestructura base están estables._
 ### DDD / Arquitectura Limpia
 - [ ] **P2-DDD-03** Aplicar patrón Repository en `DataService` para evitar lectura de YAML en cada request (caché de contenido estático).
 
+### Cursos (LMS - LearnPress-like)
+- [x] **P2-LMS-01** Crear archivo de datos `data/cursos.yaml` con la estructura de cursos, secciones y lecciones.
+- [x] **P2-LMS-02** Implementar modelos de validación Pydantic para Cursos en `src/domain/models.py`.
+- [x] **P2-LMS-03** Modificar `DataService` en `src/application/data_service.py` para soportar la carga y obtención de cursos con caché.
+- [x] **P2-LMS-04** Desarrollar las rutas de cursos (`/cursos`, `/cursos/{curso_slug}`, `/cursos/{curso_slug}/{leccion_slug}`) en `src/infrastructure/fastapi/routes/course_routes.py`.
+- [x] **P2-LMS-05** Diseñar las plantillas Jinja2 (`list.html`, `detail.html`, `lesson.html`) en `src/infrastructure/fastapi/templates/cursos/`.
+- [x] **P2-LMS-06** Crear hoja de estilos CSS nativos `static/css/cursos.css` para el catálogo y el reproductor de lecciones.
+- [x] **P2-LMS-07** Implementar interactividad opcional (marcar lección completada, sidebar colapsable, barra de progreso) en `static/js/modules/CourseManager.js`.
+- [x] **P2-LMS-08** Agregar marcado estructurado Schema.org (`Course` JSON-LD) e integrar las rutas de cursos al generador dinámico de `sitemap.xml`.
+- [x] **P2-LMS-09** Escribir tests unitarios en `tests/test_cursos.py` para validar la carga de YAML, respuestas de endpoints y sitemap.
+
 ---
 
 ## 🔮 P3 — Optimización futura

@@ -37,13 +37,15 @@ templates.env.globals = cast(Dict[str, Any], templates.env.globals)  # type: ign
 data_service = DataService(
     content_path=config.CONTENT_DATA_PATH,
     geography_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml"),
-    industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml")
+    industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml"),
+    courses_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos.yaml")
 )
 
 # --- Dependencias de Datos ---
 def get_contenido(): return data_service.get_contenido()
 def get_geografia(): return data_service.get_geografia()
 def get_industrias(): return data_service.get_industrias()
+def get_cursos_service(): return data_service
 def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
 

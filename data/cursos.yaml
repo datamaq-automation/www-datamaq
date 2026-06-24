@@ -1,0 +1,98 @@
+cursos:
+  - id: "curso-fastapi-data-science"
+    slug: "fastapi-data-science"
+    title: "Construyendo Aplicaciones de Ciencia de Datos con FastAPI"
+    description_short: "Desarrollá, gestioná y desplegá aplicaciones eficientes de machine learning con Python."
+    description_long: "Este curso práctico, basado en el libro 'Building Data Science Applications with FastAPI', te guiará en el desarrollo de APIs robustas de machine learning utilizando Python, FastAPI y Pydantic."
+    duration: "30 horas de cursada"
+    level: "Intermedio"
+    language: "Español"
+    price: 0.0
+    og_image: "/static/media/cursos/og-fastapi-data-science.webp"
+    instructor:
+      name: "Agustin Bustos"
+      role: "Técnico en Captura de Datos & Programador"
+      photo: "/static/media/tecnico-a-cargo.webp"
+      bio: "Especialista en captura automática de datos operativos e integración de modelos de ciencia de datos con APIs FastAPI."
+    sections:
+      - id: "sec-introduccion-fastapi"
+        title: "Sección 1: Introducción a Python y FastAPI"
+        description: "Configuración de entorno, sintaxis de Python, desarrollo básico de endpoints y validación de datos con Pydantic."
+        items:
+          - type: "lesson"
+            id: "les-config-entorno"
+            slug: "configuracion-entorno-desarrollo"
+            title: "Cap 1: Configuración del Entorno de Desarrollo de Python"
+            duration: "25 min"
+            content_type: "markdown"
+            content: |
+              ### Configuración del Entorno de Desarrollo
+              Para desarrollar aplicaciones de Ciencia de Datos eficientes con FastAPI, necesitamos establecer un entorno de desarrollo profesional:
+              
+              1. **Instalación de Python 3.12** o superior desde el sitio oficial.
+              2. **Configuración de un Editor de Código**: Se recomienda utilizar VS Code con extensiones como Pylance, Python y Ruff para linting y formateo.
+              3. **Gestión de Entornos Virtuales**: Creación y activación de un entorno aislado para proteger las dependencias de nuestro proyecto:
+                 ```bash
+                 python -m venv .venv
+                 source .venv/bin/activate  # En Linux/macOS
+                 .venv\Scripts\activate     # En Windows
+                 ```
+              4. **Instalación de Dependencias Clave**: Instalaremos FastAPI, Uvicorn, Pydantic y bibliotecas de ciencia de datos como NumPy y Pandas.
+          - type: "lesson"
+            id: "les-especificidades-python"
+            slug: "especificidades-programacion-python"
+            title: "Cap 2: Especificidades de la Programación en Python"
+            duration: "35 min"
+            content_type: "markdown"
+            content: |
+              ### Conceptos Avanzados de Python para APIs
+              FastAPI se apoya en características modernas de Python. Es fundamental comprender:
+              
+              - **Tipado Estático (Type Hints)**: El uso de anotaciones de tipo (`name: str`, `age: int`) que permiten a FastAPI y Pydantic realizar validación automática de datos en tiempo de ejecución.
+              - **Programación Asíncrona (`async` y `await`)**: FastAPI permite definir endpoints asíncronos para operaciones de entrada/salida (I/O) no bloqueantes, ideal para consultar bases de datos o llamar a APIs externas de modelos de Machine Learning.
+              - **List Comprehensions y Generadores**: Técnicas eficientes para manipulación de vectores y sets de datos en memoria.
+          - type: "lesson"
+            id: "les-api-fastapi"
+            slug: "desarrollo-api-restful-fastapi"
+            title: "Cap 3: Desarrollo de una API RESTful con FastAPI"
+            duration: "45 min"
+            content_type: "video"
+            video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            content: "En este videotutorial crearemos nuestra primera API RESTful real con FastAPI. Aprenderemos sobre la creación de la instancia app, definición de rutas HTTP mediante decoradores (@app.get, @app.post), parámetros de ruta y de consulta, y cómo correr el servidor de desarrollo con recarga automática usando Uvicorn."
+          - type: "lesson"
+            id: "les-modelos-pydantic"
+            slug: "gestion-modelos-pydantic-fastapi"
+            title: "Cap 4: Gestión de Modelos de Datos de Pydantic en FastAPI"
+            duration: "40 min"
+            content_type: "markdown"
+            content: |
+              ### Validación de Datos con Pydantic
+              Pydantic es la librería que FastAPI utiliza para la serialización y validación de datos. Aprenderemos:
+              
+              - **Definición de Schemas**: Creación de clases que heredan de `BaseModel` para representar los datos de entrada de los modelos de Machine Learning.
+              - **Validación Automática**: Cómo FastAPI devuelve automáticamente un error HTTP 422 si los datos del cliente no se ajustan al tipo esperado.
+              - **Tipos de Datos Avanzados**: Uso de `EmailStr`, `HttpUrl`, listas tipadas y restricciones de rango (por ejemplo, valores numéricos mayores a cero).
+              - **Configuración de Schemas**: Personalización del comportamiento de serialización mediante la clase `ConfigDict`.
+          - type: "quiz"
+            id: "quiz-introduccion-fastapi"
+            slug: "cuestionario-introduccion-fastapi"
+            title: "Cuestionario de Introducción a Python y FastAPI"
+            duration: "10 min"
+            questions:
+              - id: "q-hints"
+                question: "¿Cuál de las siguientes es una característica que FastAPI utiliza para realizar validación automática de datos en tiempo de ejecución?"
+                type: "single_choice"
+                options:
+                  - "Uvicorn"
+                  - "Type Hints (Anotaciones de tipo de Python)"
+                  - "Jinja2"
+                correct_option: 1
+                explanation: "FastAPI aprovecha las anotaciones de tipo nativas de Python para realizar la validación automática mediante Pydantic."
+              - id: "q-async"
+                question: "FastAPI permite definir endpoints asíncronos utilizando async def para operaciones de entrada/salida no bloqueantes."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "El uso de async def en FastAPI permite ejecutar llamadas de entrada/salida (I/O) no bloqueantes en el event loop principal."

@@ -47,9 +47,11 @@ from src.infrastructure.fastapi.routes.main_routes import router as main_router
 from src.infrastructure.fastapi.routes.seo_routes import router as seo_router
 from src.infrastructure.fastapi.routes.industry_routes import router as industry_router
 from src.infrastructure.fastapi.routes.contact_routes import router as contact_router
+from src.infrastructure.fastapi.routes.course_routes import router as course_router
 
 # Eliminamos el prefijo para respetar la estructura de URLs solicitada
 app.include_router(seo_router)
 app.include_router(main_router)
 app.include_router(industry_router)
 app.include_router(contact_router)
+app.include_router(course_router)

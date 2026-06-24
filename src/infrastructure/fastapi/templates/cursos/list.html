@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+<link rel="stylesheet" href="{{ url_for('static', path='css/cursos.css') }}?v={{ static_version() }}">
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">Formación Técnica Gratuita</span>
+        <h1 class="c-cursos-hero__title">Catálogo de Cursos de Capacitación</h1>
+        <p class="c-cursos-hero__subtitle">Desarrollá habilidades reales sobre Python, IoT industrial y adquisición de datos operativos aplicados a entornos reales.</p>
+    </div>
+</section>
+
+<section class="c-cursos-grid-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        {% if cursos %}
+            <div class="c-cursos-grid">
+                {% for curso in cursos %}
+                    <article class="c-curso-card">
+                        {% if curso.og_image %}
+                            <div class="c-curso-card__media">
+                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy">
+                            </div>
+                        {% endif %}
+                        <div class="c-curso-card__content">
+                            <div class="c-curso-card__meta">
+                                <span class="c-curso-card__badge c-curso-card__badge--{{ curso.level | lower }}">{{ curso.level }}</span>
+                                <span class="c-curso-card__meta-item">
+                                    <i class="bi bi-clock"></i> {{ curso.duration }}
+                                </span>
+                            </div>
+                            <h2 class="c-curso-card__title">
+                                <a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}">{{ curso.title }}</a>
+                            </h2>
+                            <p class="c-curso-card__description">{{ curso.description_short }}</p>
+                            
+                            <div class="c-curso-card__footer">
+                                <div class="c-curso-card__instructor">
+                                    <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo">
+                                    <div class="c-curso-card__instructor-info">
+                                        <span class="c-curso-card__instructor-name">{{ curso.instructor.name }}</span>
+                                        <span class="c-curso-card__instructor-role">{{ curso.instructor.role }}</span>
+                                    </div>
+                                </div>
+                                <a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}" class="c-curso-card__cta">Ver Temario</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="c-cursos-empty">
+                <p>Próximamente se publicarán los primeros cursos del catálogo técnico.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

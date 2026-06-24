@@ -3,7 +3,7 @@ from fastapi import APIRouter, Request, Depends
 from fastapi.responses import FileResponse
 from datetime import datetime
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_chatwoot_token
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_chatwoot_token, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel
 
@@ -14,7 +14,13 @@ async def robots():
     return FileResponse(config.ROBOTS_TXT_PATH)
 
 @router.get("/sitemap.xml")
-async def sitemap(request: Request, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), industrias_data: IndustriaModel = Depends(get_industrias)):
+async def sitemap(
+    request: Request,
+    contenido: ContenidoModel = Depends(get_contenido),
+    geografia: Dict[str, Any] = Depends(get_geografia),
+    industrias_data: IndustriaModel = Depends(get_industrias),
+    cursos_service = Depends(get_cursos_service)
+):
     base_url = "https://datamaq.com.ar"
     lastmod = datetime.now().strftime("%Y-%m-%d")
 
@@ -22,6 +28,7 @@ async def sitemap(request: Request, contenido: ContenidoModel = Depends(get_cont
         {"loc": f"{base_url}/", "lastmod": lastmod, "changefreq": "monthly", "priority": "1.0"},
         {"loc": f"{base_url}/contact", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.6"},
         {"loc": f"{base_url}/terminos-y-condiciones", "lastmod": lastmod, "changefreq": "yearly", "priority": "0.3"},
+        {"loc": f"{base_url}/cursos", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.8"},
     ]
 
     localidades = geografia.get("localidades", {})
@@ -41,6 +48,14 @@ async def sitemap(request: Request, contenido: ContenidoModel = Depends(get_cont
             "lastmod": lastmod,
             "changefreq": "monthly",
             "priority": "0.7",
+        })
+
+    for curso in cursos_service.get_cursos():
+        urls.append({
+            "loc": f"{base_url}/cursos/{curso.slug}",
+            "lastmod": lastmod,
+            "changefreq": "monthly",
+            "priority": "0.8",
         })
 
     return templates.TemplateResponse(

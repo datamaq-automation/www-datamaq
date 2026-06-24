@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 
@@ -8,4 +8,5 @@ class ChatwootContactDto:
     email: Optional[str]
     phone_number: Optional[str]
     name: str
-    additional_attributes: dict
+    additional_attributes: dict = field(default_factory=dict)
+    custom_attributes: dict = field(default_factory=dict)

@@ -32,6 +32,7 @@ Migración de SPA (Vue.js) a SSR (FastAPI + Jinja2) priorizando SEO, performance
 - **Rutas dinámicas SEO:**
   - `/{provincia}/{municipio}/{localidad}.html` → `seo_routes.py`.
   - `/industria/{industria}.html` → `industry_routes.py`.
+  - `/cursos`, `/cursos/{curso_slug}`, `/cursos/{curso_slug}/{leccion_slug}` → `course_routes.py` (Planificado, ver [cursos_architecture.md](file:///home/agustin/proyectos_software/www-datamaq/docs/cursos_architecture.md) y `data/cursos.yaml`).
 - **Generación de metadatos:** macro `head_seo` en `templates/partials/head.html` inyecta title, description, Open Graph, Twitter Cards, canonical, hreflang y JSON-LD.
 - **Canonicalización:** función `canonical_url()` en `src/infrastructure/fastapi/utils/seo.py` fuerza HTTPS y elimina query params.
 - **Sitemap dinámico:** generado en `main_routes.py` a partir de `data/geografia.yaml` e `industrias.yaml`.

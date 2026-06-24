@@ -16,13 +16,17 @@ def lead_to_chatwoot_contact(lead: Lead) -> ChatwootContactDto:
         name=lead.contact.name,
         additional_attributes={
             "company_name": lead.contact.company,
-            "comment": lead.comment,
             "page_location": lead.page_location,
             "traffic_source": lead.traffic_source,
             "preferred_contact_channel": lead.preferred_contact_channel,
         },
+        custom_attributes={
+            "description": lead.comment,
+        },
     )
 
-    logger.debug("[chatwoot_contact_mapper] DTO generado: name=%s, email=%s, phone=%s",
-                 contact.name, bool(contact.email), bool(contact.phone_number))
+    logger.debug(
+        "[chatwoot_contact_mapper] DTO generado: name=%s, email=%s, phone=%s, custom_attrs=%s",
+        contact.name, bool(contact.email), bool(contact.phone_number), contact.custom_attributes
+    )
     return contact

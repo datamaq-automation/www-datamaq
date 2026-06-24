@@ -9,6 +9,10 @@ Replicar la UI/UX de la versión legacy (Vue.js) bajo arquitectura SSR para opti
     - **Estrategia:** Multi-paso basado en rutas/parámetros (SSR) para mantener estado y SEO en cada etapa.
     - **UX:** Uso de transiciones CSS para emular la fluidez de Vue.
 - **RASA Action Server:** Soporte para lógica de negocio del bot.
+- **LMS de Cursos (tipo LearnPress):**
+    - **Estructura:** Cursos, secciones (módulos) y lecciones (video y markdown/texto).
+    - **SEO Técnico:** URLs amigables, marcado estructurado JSON-LD tipo `Course` de Schema.org, e integración con sitemap.
+    - **Progressive Enhancement:** Reproductor interactivo y persistencia local de avance (`localStorage`) sin romper la visualización y navegabilidad SSR base.
 
 ## 2. Requisitos No Funcionales
 - **Performance:** LCP < 2.5s.

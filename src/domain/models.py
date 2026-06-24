@@ -1,5 +1,5 @@
-from typing import Dict, List, Optional
-from pydantic import BaseModel
+from typing import Dict, List, Optional, Union, Literal
+from pydantic import BaseModel, Field
 
 # --- Modelos Base ---
 class PhotoModel(BaseModel):
@@ -161,6 +161,62 @@ class ContenidoModel(BaseModel):
 
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]
+
+# --- Modelos de Cursos (LMS) ---
+class InstructorModel(BaseModel):
+    name: str
+    role: str
+    photo: str
+    bio: str
+
+class LessonModel(BaseModel):
+    type: Literal["lesson"] = "lesson"
+    id: str
+    slug: str
+    title: str
+    duration: str
+    content_type: str  # "markdown" | "video"
+    video_url: Optional[str] = None
+    content: str
+
+class QuestionModel(BaseModel):
+    id: str
+    question: str
+    type: str  # "single_choice" | "true_false"
+    options: List[str]
+    correct_option: int  # Índice de la opción correcta (0-indexed)
+    explanation: Optional[str] = None
+
+class QuizModel(BaseModel):
+    type: Literal["quiz"] = "quiz"
+    id: str
+    slug: str
+    title: str
+    duration: str
+    questions: List[QuestionModel]
+
+class CourseSectionModel(BaseModel):
+    id: str
+    title: str
+    description: Optional[str] = None
+    items: List[Union[LessonModel, QuizModel]]
+
+class CourseModel(BaseModel):
+    id: str
+    slug: str
+    title: str
+    description_short: str
+    description_long: str
+    duration: str
+    level: str
+    language: str
+    price: float
+    og_image: Optional[str] = None
+    instructor: InstructorModel
+    sections: List[CourseSectionModel]
+
+class CursosContainerModel(BaseModel):
+    cursos: List[CourseModel]
 
 class ContactSubmitPayload(BaseModel):
     name: str

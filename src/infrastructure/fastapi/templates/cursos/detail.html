@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+<link rel="stylesheet" href="{{ url_for('static', path='css/cursos.css') }}?v={{ static_version() }}">
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<div class="c-curso-detalle-header">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12">
+        <nav class="c-breadcrumbs" aria-label="Breadcrumb">
+            <ol class="c-breadcrumbs__list">
+                <li class="c-breadcrumbs__item"><a href="/">Inicio</a></li>
+                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Cursos</a></li>
+                <li class="c-breadcrumbs__item aria-current-page" aria-current="page">{{ curso.title }}</li>
+            </ol>
+        </nav>
+        
+        <div class="c-curso-header-layout">
+            <div class="c-curso-header-layout__main">
+                <span class="c-curso-detalle-header__badge">{{ curso.level }}</span>
+                <h1 class="c-curso-detalle-header__title">{{ curso.title }}</h1>
+                <p class="c-curso-detalle-header__subtitle">{{ curso.description_short }}</p>
+                
+                <div class="c-curso-detalle-header__meta">
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-clock"></i> {{ curso.duration }}</span>
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-translate"></i> {{ curso.language }}</span>
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-tag-fill"></i> Acceso Gratuito y Libre</span>
+                </div>
+            </div>
+            
+            {% if curso.og_image %}
+                <div class="c-curso-header-layout__side">
+                    <div class="c-curso-detalle-card">
+                        <img src="{{ curso.og_image }}" alt="{{ curso.title }}" class="c-curso-detalle-card__img">
+                        <div class="c-curso-detalle-card__content">
+                            {% set first_section = curso.sections | first %}
+                            {% if first_section and first_section['items'] %}
+                                {% set first_lesson = first_section['items'] | first %}
+                                <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=first_lesson.slug) }}" class="c-curso-detalle-card__btn">Comenzar Curso</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="tw:container tw:mx-auto tw:px-4 tw:py-12">
+    <div class="c-curso-body-layout">
+        <main class="c-curso-body-layout__content">
+            <section class="c-curso-section" aria-labelledby="desc-title">
+                <h2 id="desc-title" class="c-curso-section__title">Descripción del Curso</h2>
+                <div class="c-curso-section__text">
+                    <p>{{ curso.description_long }}</p>
+                </div>
+            </section>
+
+            <section class="c-curso-section" aria-labelledby="curriculum-title">
+                <h2 id="curriculum-title" class="c-curso-section__title">Temario del Curso</h2>
+                <div class="c-curriculum">
+                    {% for seccion in curso.sections %}
+                        <details class="c-curriculum-seccion" {% if loop.first %}open{% endif %}>
+                            <summary class="c-curriculum-seccion__header">
+                                <div class="c-curriculum-seccion__info">
+                                    <h3 class="c-curriculum-seccion__title">{{ seccion.title }}</h3>
+                                    {% if seccion.description %}
+                                        <p class="c-curriculum-seccion__desc">{{ seccion.description }}</p>
+                                    {% endif %}
+                                </div>
+                                <span class="c-curriculum-seccion__toggle-icon"><i class="bi bi-chevron-down"></i></span>
+                            </summary>
+                            
+                            <div class="c-curriculum-seccion__body">
+                                <ul class="c-curriculum-lecciones">
+                                    {% for item in seccion['items'] %}
+                                        <li class="c-curriculum-leccion-item">
+                                            <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-curriculum-leccion-link">
+                                                <span class="c-curriculum-leccion-title">
+                                                    {% if item.content_type == 'video' %}
+                                                        <i class="bi bi-play-circle-fill"></i>
+                                                    {% else %}
+                                                        <i class="bi bi-file-text-fill"></i>
+                                                    {% endif %}
+                                                    {{ item.title }}
+                                                </span>
+                                                <span class="c-curriculum-leccion-duration">{{ item.duration }}</span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </details>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="c-curso-section" aria-labelledby="instructor-title">
+                <h2 id="instructor-title" class="c-curso-section__title">Instructor del Curso</h2>
+                <div class="c-instructor-perfil">
+                    <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo">
+                    <div class="c-instructor-perfil__info">
+                        <h3 class="c-instructor-perfil__name">{{ curso.instructor.name }}</h3>
+                        <p class="c-instructor-perfil__role">{{ curso.instructor.role }}</p>
+                        <p class="c-instructor-perfil__bio">{{ curso.instructor.bio }}</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "{{ curso.title }}",
+  "description": "{{ curso.description_short }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ brand.brandName }}",
+    "sameAs": "{{ seo.canonical_url }}"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT{{ curso.duration.split(' ')[0] }}H",
+    "instructor": {
+      "@type": "Person",
+      "name": "{{ curso.instructor.name }}",
+      "jobTitle": "{{ curso.instructor.role }}",
+      "image": "{{ request.url_for('static', path=curso.instructor.photo.replace('/static/', '')) }}"
+    }
+  }
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}
