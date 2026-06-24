@@ -90,17 +90,15 @@ async def override_get_contenido():
     )
 
 @pytest.fixture(autouse=True)
-def clean_dependency_overrides():
+def setup_dependency_overrides():
+    app.dependency_overrides[get_contenido] = override_get_contenido
+    app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
     yield
     app.dependency_overrides.clear()
 
 
 async def override_get_chatwoot_token():
     return "test_token"
-
-
-app.dependency_overrides[get_contenido] = override_get_contenido
-app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
 
 
 @pytest.mark.asyncio  # type: ignore

@@ -84,7 +84,10 @@ async def override_get_contenido():
     )
 
 @pytest.fixture(autouse=True)
-def clean_dependency_overrides():
+def setup_dependency_overrides():
+    app.dependency_overrides[get_contenido] = override_get_contenido
+    app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
+    app.dependency_overrides[get_chatwoot_gateway] = override_get_chatwoot_gateway
     yield
     app.dependency_overrides.clear()
 
@@ -93,10 +96,6 @@ async def override_get_chatwoot_token():
 
 async def override_get_chatwoot_gateway():
     return ChatwootGatewayStub()
-
-app.dependency_overrides[get_contenido] = override_get_contenido
-app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
-app.dependency_overrides[get_chatwoot_gateway] = override_get_chatwoot_gateway
 
 @pytest.mark.asyncio  # type: ignore
 async def test_sitemap_rendered():
