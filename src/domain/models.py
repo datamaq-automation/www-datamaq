@@ -195,11 +195,17 @@ class QuizModel(BaseModel):
     duration: str
     questions: List[QuestionModel]
 
-class CourseSectionModel(BaseModel):
+class CourseChapterModel(BaseModel):
     id: str
     title: str
     description: Optional[str] = None
     items: List[Union[LessonModel, QuizModel]]
+
+class CourseSectionModel(BaseModel):
+    id: str
+    title: str
+    description: Optional[str] = None
+    chapters: List[CourseChapterModel]
 
 class CourseModel(BaseModel):
     id: str

@@ -44,9 +44,12 @@
                         <img src="{{ curso.og_image }}" alt="{{ curso.title }}" class="c-curso-detalle-card__img">
                         <div class="c-curso-detalle-card__content">
                             {% set first_section = curso.sections | first %}
-                            {% if first_section and first_section['items'] %}
-                                {% set first_lesson = first_section['items'] | first %}
-                                <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=first_lesson.slug) }}" class="c-curso-detalle-card__btn">Comenzar Curso</a>
+                            {% if first_section and first_section.chapters %}
+                                {% set first_chapter = first_section.chapters | first %}
+                                {% if first_chapter and first_chapter['items'] %}
+                                    {% set first_lesson = first_chapter['items'] | first %}
+                                    <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=first_lesson.slug) }}" class="c-curso-detalle-card__btn">Comenzar Curso</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -68,39 +71,55 @@
 
             <section class="c-curso-section" aria-labelledby="curriculum-title">
                 <h2 id="curriculum-title" class="c-curso-section__title">Temario del Curso</h2>
-                <div class="c-curriculum">
+                <div class="c-curriculum" style="display: flex; flex-direction: column; gap: 2rem;">
                     {% for seccion in curso.sections %}
-                        <details class="c-curriculum-seccion" {% if loop.first %}open{% endif %}>
-                            <summary class="c-curriculum-seccion__header">
-                                <div class="c-curriculum-seccion__info">
-                                    <h3 class="c-curriculum-seccion__title">{{ seccion.title }}</h3>
-                                    {% if seccion.description %}
-                                        <p class="c-curriculum-seccion__desc">{{ seccion.description }}</p>
-                                    {% endif %}
-                                </div>
-                                <span class="c-curriculum-seccion__toggle-icon"><i class="bi bi-chevron-down"></i></span>
-                            </summary>
-                            
-                            <div class="c-curriculum-seccion__body">
-                                <ul class="c-curriculum-lecciones">
-                                    {% for item in seccion['items'] %}
-                                        <li class="c-curriculum-leccion-item">
-                                            <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-curriculum-leccion-link">
-                                                <span class="c-curriculum-leccion-title">
-                                                    {% if item.content_type == 'video' %}
-                                                        <i class="bi bi-play-circle-fill"></i>
-                                                    {% else %}
-                                                        <i class="bi bi-file-text-fill"></i>
-                                                    {% endif %}
-                                                    {{ item.title }}
-                                                </span>
-                                                <span class="c-curriculum-leccion-duration">{{ item.duration }}</span>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                        {% set seccion_loop = loop %}
+                        <div class="c-curriculum-seccion-group" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="c-curriculum-seccion-header-block" style="border-bottom: 2px solid var(--dm-data-cyan); padding-bottom: 0.5rem; margin-top: 1rem;">
+                                <h3 class="c-curriculum-seccion__title" style="font-size: 1.3rem; color: var(--dm-data-cyan);">{{ seccion.title }}</h3>
+                                {% if seccion.description %}
+                                    <p class="c-curriculum-seccion__desc" style="margin: 0.25rem 0 0 0;">{{ seccion.description }}</p>
+                                {% endif %}
                             </div>
-                        </details>
+                            
+                            <div class="c-curriculum-chapters-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                {% for chapter in seccion.chapters %}
+                                    <details class="c-curriculum-seccion" {% if loop.first and seccion_loop.first %}open{% endif %}>
+                                        <summary class="c-curriculum-seccion__header" style="background-color: var(--dm-surface-1);">
+                                            <div class="c-curriculum-seccion__info">
+                                                <h4 class="c-curriculum-seccion__title" style="font-size: 1.05rem; font-weight: 700; color: var(--dm-text-0);">{{ chapter.title }}</h4>
+                                                {% if chapter.description %}
+                                                    <p class="c-curriculum-seccion__desc">{{ chapter.description }}</p>
+                                                {% endif %}
+                                            </div>
+                                            <span class="c-curriculum-seccion__toggle-icon"><i class="bi bi-chevron-down"></i></span>
+                                        </summary>
+                                        
+                                        <div class="c-curriculum-seccion__body">
+                                            <ul class="c-curriculum-lecciones">
+                                                {% for item in chapter['items'] %}
+                                                    <li class="c-curriculum-leccion-item">
+                                                        <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-curriculum-leccion-link">
+                                                            <span class="c-curriculum-leccion-title">
+                                                                {% if item.type == 'quiz' %}
+                                                                    <i class="bi bi-question-circle-fill"></i>
+                                                                {% elif item.content_type == 'video' %}
+                                                                    <i class="bi bi-play-circle-fill"></i>
+                                                                {% else %}
+                                                                    <i class="bi bi-file-text-fill"></i>
+                                                                {% endif %}
+                                                                {{ item.title }}
+                                                            </span>
+                                                            <span class="c-curriculum-leccion-duration">{{ item.duration }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </details>
+                                {% endfor %}
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
             </section>

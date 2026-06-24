@@ -52,7 +52,8 @@ class DataService:
         if not curso:
             return None
         for seccion in curso.sections:
-            for item in seccion.items:
-                if item.slug == leccion_slug:
-                    return curso, item
+            for chapter in seccion.chapters:
+                for item in chapter.items:
+                    if item.slug == leccion_slug:
+                        return curso, item
         return None

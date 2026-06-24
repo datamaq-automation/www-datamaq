@@ -102,8 +102,9 @@ async def vista_leccion(
     all_lessons = []
     
     for section in curso.sections:
-        for item in section.items:
-            all_lessons.append(item)
+        for chapter in section.chapters:
+            for item in chapter.items:
+                all_lessons.append(item)
             
     for i, item in enumerate(all_lessons):
         if item.id == leccion.id:

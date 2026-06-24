@@ -29,27 +29,41 @@
             </div>
         </div>
         
-        <nav class="c-lesson-sidebar__nav" aria-label="Temario del curso">
+        <nav class="c-lesson-sidebar__nav" aria-label="Temario del curso" style="display: flex; flex-direction: column; gap: 0.5rem;">
             {% for seccion in curso.sections %}
-                <details class="c-lesson-sidebar-section" open>
-                    <summary class="c-lesson-sidebar-section__header">
-                        <span class="c-lesson-sidebar-section__title">{{ seccion.title }}</span>
-                        <span class="c-lesson-sidebar-section__icon"><i class="bi bi-chevron-down"></i></span>
-                    </summary>
-                    <ul class="c-lesson-sidebar-lessons">
-                        {% for item in seccion['items'] %}
-                            <li class="c-lesson-sidebar-lesson-item {% if item.slug == leccion.slug %}is-active{% endif %}" data-lesson-id="{{ item.id }}">
-                                <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-lesson-sidebar-lesson-link">
-                                    <span class="c-lesson-sidebar-lesson-status">
-                                        <i class="bi bi-circle lesson-status-icon-pending"></i>
-                                        <i class="bi bi-check-circle-fill lesson-status-icon-completed"></i>
-                                    </span>
-                                    <span class="c-lesson-sidebar-lesson-title-text">{{ item.title }}</span>
-                                </a>
-                            </li>
+                {% set seccion_loop = loop %}
+                <div class="c-lesson-sidebar-section-group" style="display: flex; flex-direction: column;">
+                    <div class="c-lesson-sidebar-section-title" style="padding: 0.75rem 1.25rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--dm-data-cyan); background-color: rgba(var(--dm-bg-1-rgb), 0.15); border-bottom: 1px solid var(--dm-border-0);">
+                        {{ seccion.title }}
+                    </div>
+                    {% for chapter in seccion.chapters %}
+                        {% set ns = namespace(is_active=false) %}
+                        {% for item in chapter['items'] %}
+                            {% if item.slug == leccion.slug %}
+                                {% set ns.is_active = true %}
+                            {% endif %}
                         {% endfor %}
-                    </ul>
-                </details>
+                        <details class="c-lesson-sidebar-section" {% if ns.is_active or (loop.first and seccion_loop.first) %}open{% endif %}>
+                            <summary class="c-lesson-sidebar-section__header" style="background-color: var(--dm-surface-0);">
+                                <span class="c-lesson-sidebar-section__title" style="font-size: 0.8rem; font-weight: 700; color: var(--dm-text-0);">{{ chapter.title }}</span>
+                                <span class="c-lesson-sidebar-section__icon"><i class="bi bi-chevron-down"></i></span>
+                            </summary>
+                            <ul class="c-lesson-sidebar-lessons">
+                                {% for item in chapter['items'] %}
+                                    <li class="c-lesson-sidebar-lesson-item {% if item.slug == leccion.slug %}is-active{% endif %}" data-lesson-id="{{ item.id }}">
+                                        <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-lesson-sidebar-lesson-link">
+                                            <span class="c-lesson-sidebar-lesson-status">
+                                                <i class="bi bi-circle lesson-status-icon-pending"></i>
+                                                <i class="bi bi-check-circle-fill lesson-status-icon-completed"></i>
+                                            </span>
+                                            <span class="c-lesson-sidebar-lesson-title-text">{{ item.title }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                    {% endfor %}
+                </div>
             {% endfor %}
         </nav>
     </aside>

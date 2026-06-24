@@ -29,12 +29,12 @@ async def test_curso_detail_rendered():
 async def test_lesson_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science/configuracion-entorno-desarrollo")
+        response = await ac.get("/cursos/fastapi-data-science/requisitos-tecnicos")
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Cap 1: Configuración del Entorno de Desarrollo de Python" in response.text
-    assert "En este capítulo aprenderemos a configurar un entorno de desarrollo profesional" in response.text
+    assert "1.1 Requisitos técnicos" in response.text
+    assert "Para seguir este curso necesitarás una computadora" in response.text
 
 @pytest.mark.asyncio
 async def test_invalid_course_returns_404():
