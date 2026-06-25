@@ -4,20 +4,6 @@
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
         <!-- Fila Superior: Info, Links y CTA -->
         <div data-v-236fef00="" class="c-home-footer__upper">
-            <!-- Columna 1: Marca y Contacto -->
-            <div data-v-236fef00="" class="c-home-footer__col-brand">
-                <p data-v-236fef00="" class="c-home-footer__brand">{{ brand.brandName }}</p>
-                <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription }}</p>
-                <div data-v-236fef00="" class="c-home-footer__contact-info">
-                    <span data-v-236fef00="" class="c-home-footer__contact-item">
-                        {{ icon_macro.bootstrap_icon('geo-alt-fill') }} {{ brand.baseOperativa }}
-                    </span>
-                    <a data-v-236fef00="" href="mailto:{{ brand.contactEmail }}" class="c-home-footer__contact-item c-home-footer__link-email">
-                        {{ icon_macro.bootstrap_icon('envelope-fill') }} {{ brand.contactEmail }}
-                    </a>
-                </div>
-            </div>
-            
             <!-- Columna 2: Navegación Central -->
             <div data-v-236fef00="" class="c-home-footer__col-nav">
                 {% for group in footer.navigation_groups %}
@@ -28,14 +14,6 @@
                     {% endfor %}
                 </div>
                 {% endfor %}
-            </div>
-
-            <!-- Columna 3: WhatsApp CTA -->
-            <div data-v-236fef00="" class="c-home-footer__col-cta">
-                <p data-v-236fef00="" class="c-home-footer__cta-title">{{ footer.cta_title }}</p>
-                <a data-v-236fef00="" class="c-home-footer__btn-whatsapp" href="{{ brand.whatsappUrl }}?text={{ footer.whatsapp_text | urlencode }}" target="_blank" rel="noopener noreferrer">
-                    {{ icon_macro.bootstrap_icon('whatsapp') }} {{ footer.cta_label }}
-                </a>
             </div>
         </div>
 
