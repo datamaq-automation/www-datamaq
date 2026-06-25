@@ -4,15 +4,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 APP_TITLE = "Datamaq API"
-STATIC_DIR = "src/infrastructure/fastapi/static"
+STATIC_DIR = "static"
 STATIC_CACHE_SECONDS = 604800
-TEMPLATES_DIR = "src/infrastructure/fastapi/templates"
+TEMPLATES_DIR = "templates"
 CONTENT_DATA_PATH = "data/contenido.yaml"
 LOGGER_NAME = "app"
 CHATWOOT_TOKEN = os.getenv("CHATWOOT_WEBSITE_TOKEN")
 GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", None)
 CLARITY_ID = os.environ.get("CLARITY_ID", None)
-ROBOTS_TXT_PATH = "src/infrastructure/fastapi/static/robots.txt"
+ROBOTS_TXT_PATH = "static/robots.txt"
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 CHATWOOT_BASE_URL = os.getenv("CHATWOOT_BASE_URL", "https://app.chatwoot.com")
