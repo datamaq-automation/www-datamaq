@@ -51,6 +51,10 @@ class DataService:
                             with open(curso_yaml_path, "r", encoding="utf-8") as f:
                                 curso_data: Dict[str, Any] = yaml.safe_load(f) or {}
                                 
+                                # Resolución por defecto de og_image si no viene definida
+                                if not curso_data.get("og_image") and "slug" in curso_data:
+                                    curso_data["og_image"] = f"/static/media/cursos/og-{curso_data['slug']}.webp"
+                                
                                 # Popular instructor desde el repositorio de instructores
                                 instructor_id = curso_data.get("instructor_id")
                                 if instructor_id in instructores:

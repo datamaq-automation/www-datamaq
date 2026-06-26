@@ -245,7 +245,7 @@ class CourseModel(BaseModel):
     duration: str
     level: str
     language: str
-    price: float
+    price: float = 0.0
     og_image: Optional[str] = None
     instructor: InstructorModel
     sections: List[CourseSectionModel]

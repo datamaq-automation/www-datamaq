@@ -6,8 +6,6 @@ description_long: "Este curso práctico e integral te guiará a través del dise
 duration: "144 horas de cursada"
 level: "Avanzado"
 language: "Español"
-price: 0.0
-og_image: "/static/media/cursos/og-instalaciones-aplicaciones-energia.webp"
 instructor_id: "agustin-bustos"
 sections:
   # --- SECCIÓN A ---
