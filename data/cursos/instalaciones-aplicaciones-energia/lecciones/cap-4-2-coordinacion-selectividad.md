@@ -1,4 +1,4 @@
-### 3.3 Coordinación de Protecciones y Selectividad
+### 4.2 Coordinación de Protecciones y Selectividad
 
 Un diseño adecuado de protecciones eléctricas garantiza que, ante una falla (sobrecarga o cortocircuito), únicamente se desconecte el dispositivo de protección aguas arriba más cercano al punto de la falla, minimizando la interrupción del servicio en el resto de la instalación.
 

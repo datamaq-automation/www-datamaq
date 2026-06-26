@@ -1,4 +1,4 @@
-### 3.4 Ensayos de Campo y Mantenimiento Predictivo
+### 6.1 Ensayos de Campo y Mantenimiento Predictivo
 
 El mantenimiento preventivo y predictivo de transformadores de potencia y cables de Media Tensión es vital para evitar salidas de servicio imprevistas y extender la vida útil de los activos más costosos del sistema.
 

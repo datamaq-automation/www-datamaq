@@ -1,4 +1,4 @@
-### 2.1 Tipos de subestaciones eléctricas
+### 3.1 Tipos de subestaciones eléctricas
 
 Las subestaciones eléctricas son nodos de la red donde se transforma el nivel de tensión, se controlan flujos de energía y se interconectan diferentes circuitos de potencia. El diseño integral de estas instalaciones, las distancias dieléctricas mínimas en el aire y la seguridad perimetral están normados por **AEA 95403** e **IEC 61936-1**.
 

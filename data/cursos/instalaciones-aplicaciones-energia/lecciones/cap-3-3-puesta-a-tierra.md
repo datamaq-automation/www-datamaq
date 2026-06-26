@@ -1,4 +1,4 @@
-### 2.3 Diseño de Puesta a Tierra y Seguridad en Subestaciones
+### 3.3 Diseño de Puesta a Tierra y Seguridad en Subestaciones
 
 El sistema de puesta a tierra (PAT) es el pilar fundamental de la seguridad en subestaciones y redes eléctricas, garantizando la correcta actuación de las protecciones y limitando los gradientes de potencial superficial a valores seguros para las personas y equipos.
 

@@ -1,4 +1,4 @@
-### 4.2 Sistemas Eléctricos Auxiliares y de Seguridad
+### 5.4 Sistemas Eléctricos Auxiliares y de Seguridad
 
 Los sistemas auxiliares de una subestación o planta industrial son aquellas instalaciones que garantizan la operación segura de los equipos de potencia principales y la salvaguarda de vidas ante emergencias. Las exigencias para sistemas de seguridad eléctrica se estructuran bajo **AEA 90364-5-56** (Servicios de seguridad) e **IEC 60364-5-55 / 5-56**.
 

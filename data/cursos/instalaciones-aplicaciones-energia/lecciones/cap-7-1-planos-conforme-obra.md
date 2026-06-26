@@ -1,4 +1,4 @@
-### 6.1 Planos e Ingeniería Conforme a Obra
+### 7.1 Planos e Ingeniería Conforme a Obra
 
 La documentación conforme a obra (As-Built) constituye el registro final de ingeniería de una instalación eléctrica, detallando exactamente cómo fue construida físicamente e interconectada en la realidad. Además de ser el manual operativo para mantenimiento, es un requisito legal normado por **AEA 90364-6** e **IEC 60364-6** para la habilitación de la obra.
 

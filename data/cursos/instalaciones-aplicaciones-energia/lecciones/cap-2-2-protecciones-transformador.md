@@ -1,4 +1,4 @@
-### 3.2 Relé Buchholz y termómetro de contacto
+### 2.2 Relé Buchholz y termómetro de contacto
 
 Para proteger el transformador de potencia contra fallas mecánicas e internas graves que pongan en peligro la máquina y la seguridad de la instalación, se utilizan sistemas de protección física directos.
 

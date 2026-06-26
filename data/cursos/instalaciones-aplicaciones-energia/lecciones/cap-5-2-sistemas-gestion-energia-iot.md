@@ -1,4 +1,4 @@
-### 4.4 Sistemas de Gestión de Energía (SGE) e IoT
+### 5.2 Sistemas de Gestión de Energía (SGE) e IoT
 
 La digitalización de las instalaciones eléctricas permite realizar una gestión energética activa, capturando datos de consumo y variables eléctricas en tiempo real para optimizar procesos y reducir la huella de carbono. Esto representa una sinergia directa con el núcleo operativo de captura de datos de **Datamaq**.
 

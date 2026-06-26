@@ -1,4 +1,4 @@
-### 4.3 Calidad de Energía y Compensación de Reactiva
+### 5.1 Calidad de Energía y Compensación de Reactiva
 
 En las industrias modernas, las cargas no lineales introducen perturbaciones en la red eléctrica. Entender el comportamiento del factor de potencia y la distorsión armónica es crucial para optimizar el consumo de energía y evitar penalidades de la distribuidora.
 

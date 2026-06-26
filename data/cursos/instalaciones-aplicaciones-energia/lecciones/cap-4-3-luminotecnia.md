@@ -1,4 +1,4 @@
-### 5.1 Fundamentos de Luminotecnia y diseño lumínico
+### 4.3 Fundamentos de Luminotecnia y diseño lumínico
 
 La luminotecnia aplicada al ámbito industrial y comercial busca proveer niveles de iluminación adecuados para asegurar el confort visual, aumentar la productividad y reducir la tasa de accidentes de trabajo.
 

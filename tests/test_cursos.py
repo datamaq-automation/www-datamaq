@@ -151,7 +151,7 @@ async def test_energia_course_detail_rendered():
     
     assert response.status_code == 200
     assert "Instalaciones y Aplicaciones de la Energía" in response.text
-    assert "Sección A: Media Tensión y Cámaras de Transformación" in response.text
+    assert "Sección A: Media Tensión y Conversión de Energía" in response.text
     assert "Líneas de Distribución en 13.2 kV" in response.text
 
 

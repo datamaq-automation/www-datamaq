@@ -1,4 +1,4 @@
-### 2.2 Celdas de Media Tensión: características y tipos
+### 3.2 Celdas de Media Tensión: características y tipos
 
 Las celdas de Media Tensión (MT) son conjuntos modulares de aparamenta de maniobra, control, medición y protección bajo cubierta metálica que integran los circuitos de distribución primaria. Su fabricación y clasificación se rigen internacionalmente por la norma **IEC 62271-200** (Aparamenta bajo envolvente metálica para tensiones alternativas superiores a 1 kV y hasta 52 kV).
 

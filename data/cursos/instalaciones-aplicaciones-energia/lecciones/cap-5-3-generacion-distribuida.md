@@ -1,4 +1,4 @@
-### 4.5 Transición Energética y Generación Distribuida
+### 5.3 Transición Energética y Generación Distribuida
 
 Las redes industriales están evolucionando de un modelo de consumo unidireccional pasivo a microredes activas que integran generación propia a partir de fuentes renovables y almacenamiento inteligente de energía.
 

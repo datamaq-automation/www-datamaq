@@ -1,4 +1,4 @@
-### 3.1 Principios y componentes del transformador de potencia
+### 2.1 Principios y componentes del transformador de potencia
 
 El transformador de potencia es la máquina eléctrica estática fundamental que permite acoplar las redes de distribución de media tensión (13,2 kV) con los consumos industriales de baja tensión (380 V / 220 V) mediante inducción electromagnética.
 
