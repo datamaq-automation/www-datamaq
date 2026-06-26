@@ -5,10 +5,9 @@ from typing import Any, Dict
 
 from src.domain.entities.lead import Lead
 from src.domain.repositories.lead_repository import LeadRepository
-from src.infrastructure.settings import config
-from src.infrastructure.settings.logger import setup_logger
+import logging
 
-logger = setup_logger(config.LOGGER_NAME)
+logger = logging.getLogger(__name__)
 
 
 DATA_DIR = "data/leads"

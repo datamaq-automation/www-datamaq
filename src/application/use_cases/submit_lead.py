@@ -1,4 +1,4 @@
-from typing import Dict
+
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.application.mappers.chatwoot_contact_mapper import lead_to_chatwoot_contact
 from src.application.mappers.lead_mapper import payload_to_lead
@@ -65,10 +65,3 @@ class SubmitLeadUseCase:
             chatwoot_synced=True,
         )
 
-    def to_http_response(self, result: LeadSubmissionResult) -> Dict[str, str]:
-        """Mapea el resultado de dominio al contrato HTTP actual."""
-        return {
-            "requestId": result.request_id,
-            "submissionId": result.submission_id,
-            "submitStatus": result.submit_status,
-        }

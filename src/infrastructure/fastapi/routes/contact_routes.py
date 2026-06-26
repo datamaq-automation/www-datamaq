@@ -58,7 +58,11 @@ async def submit_contact(
         use_case = SubmitLeadUseCase(repository=repository, chatwoot_gateway=chatwoot_gateway)
         result = await use_case.execute(payload)
         logger.info("[submit_contact] Lead procesado: submission_id=%s, status=%s", result.submission_id, result.submit_status)
-        return use_case.to_http_response(result)
+        return {
+            "requestId": result.request_id,
+            "submissionId": result.submission_id,
+            "submitStatus": result.submit_status,
+        }
     except Exception as e:
         logger.error("[submit_contact] Error inesperado al procesar lead: %s", e)
         raise HTTPException(status_code=500, detail=str(e))
