@@ -624,6 +624,45 @@
     color: var(--dm-text-muted);
 }
 
+.c-instructor-perfil__socials {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+@media(min-width: 576px) {
+    .c-instructor-perfil__socials {
+        justify-content: flex-start;
+    }
+}
+
+.c-instructor-perfil__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background-color: var(--dm-surface-1);
+    border: 1px solid var(--dm-border-0);
+    color: var(--dm-text-muted);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.c-instructor-perfil__social-link:hover {
+    background-color: rgba(var(--dm-data-cyan-rgb), 0.1);
+    border-color: rgba(var(--dm-data-cyan-rgb), 0.45);
+    color: var(--dm-data-cyan);
+    transform: translateY(-2px);
+}
+
+.c-instructor-perfil__social-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: currentColor;
+}
+
 /* ==========================================================================
    Layout del Reproductor de Lecciones (Pantalla Completa Split)
    ========================================================================== */

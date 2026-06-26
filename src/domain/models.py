@@ -180,11 +180,22 @@ class IndustriaModel(BaseModel):
     industrias: Dict[str, str]
 
 # --- Modelos de Cursos (LMS) ---
+class InstructorSocialLinksModel(BaseModel):
+    linkedin: Optional[str] = None
+    github: Optional[str] = None
+    twitter: Optional[str] = None
+    website: Optional[str] = None
+
 class InstructorModel(BaseModel):
+    id: str
     name: str
     role: str
     photo: str
     bio: str
+    social_links: Optional[InstructorSocialLinksModel] = None
+
+class InstructoresContainerModel(BaseModel):
+    instructores: List[InstructorModel]
 
 class LessonModel(BaseModel):
     type: Literal["lesson"] = "lesson"

@@ -8,11 +8,7 @@ level: "Avanzado"
 language: "Inglés/Español"
 price: 0.0
 og_image: "/static/media/cursos/og-conversation-ai-with-rasa.webp"
-instructor:
-  name: "Agustin Bustos"
-  role: "Técnico en Captura de Datos & Programador"
-  photo: "/static/media/tecnico-a-cargo.webp"
-  bio: "Especialista en captura automática de datos operativos e integración de modelos conversacionales y APIs en entornos industriales."
+instructor_id: "agustin-bustos"
 sections:
   # --- SECCIÓN A ---
   - id: "sec-rasa-a"

@@ -1,0 +1,9 @@
+instructores:
+  - id: "agustin-bustos"
+    name: "Agustin Bustos"
+    role: "Técnico en Captura de Datos & Programador"
+    photo: "/static/media/tecnico-a-cargo.webp"
+    bio: "Especialista en captura automática de datos operativos e integración de sistemas industriales con Python."
+    social_links:
+      linkedin: "https://www.linkedin.com/in/agustin-bustos"
+      github: "https://github.com/agustin-bustos"

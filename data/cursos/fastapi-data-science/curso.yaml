@@ -8,11 +8,7 @@ level: "Avanzado"
 language: "Español"
 price: 0.0
 og_image: "/static/media/cursos/og-fastapi-data-science.webp"
-instructor:
-  name: "Agustin Bustos"
-  role: "Técnico en Captura de Datos & Programador"
-  photo: "/static/media/tecnico-a-cargo.webp"
-  bio: "Especialista en captura automática de datos operativos e integración de modelos de ciencia de datos con APIs FastAPI."
+instructor_id: "agustin-bustos"
 sections:
   # --- SECCIÓN A ---
   - id: "sec-introduccion-fastapi"
