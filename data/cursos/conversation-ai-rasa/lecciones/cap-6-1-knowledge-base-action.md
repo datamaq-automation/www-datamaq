@@ -1,17 +1,81 @@
-### 6.1 Consultas a bases de conocimiento en Rasa
+### 6.1 Knowledge Base Action to Handle Question Answering
 
-Cuando un chatbot necesita interactuar con información detallada de productos, inventarios o servicios que cambian constantemente, escribir respuestas estáticas en el archivo de dominio es ineficiente.
+Cuando un chatbot necesita interactuar con información detallada de productos, servicios o normativas que cambian con frecuencia, escribir respuestas estáticas en el dominio se vuelve ineficiente. En nuestro cotizador, una base de conocimiento nos permitirá responder preguntas sobre tipos de instalación, materiales y normativas eléctricas sin hardcodear cada respuesta.
 
-#### Acciones de Base de Conocimiento (Knowledge Base Actions)
-Rasa ofrece una integración nativa mediante la clase `ActionQueryKnowledgeBase`. Esto permite que el chatbot responda preguntas contextuales sobre datos estructurados (generalmente provistos en archivos JSON o bases de datos de grafos/relacionales) sin definir cientos de historias redundantes.
+#### Objetivos de aprendizaje
+- Entender qué es una base de conocimiento y cuándo usarla.
+- Crear una base de datos JSON con información del dominio eléctrico.
+- Implementar una acción que herede de `ActionQueryKnowledgeBase`.
 
-#### Casos de Uso Comunes:
-- Responder atributos de un objeto: *"¿Qué precio tiene el sensor de energía trifásico?"*.
-- Listar objetos filtrados: *"Muéstrame los sensores que sean aptos para intemperie"*.
-- Desambiguación y comparación: *"¿Cuál es la diferencia de especificaciones entre el modelo A y el modelo B?"*.
+#### Acciones de base de conocimiento
 
-#### Cómo Funciona:
-1. El usuario hace una consulta sobre una entidad.
-2. El NLU extrae la entidad y el atributo deseado.
+Rasa ofrece una integración nativa mediante la clase `ActionQueryKnowledgeBase`. Esto permite que el chatbot responda preguntas contextuales sobre datos estructurados sin definir cientos de historias redundantes.
+
+#### Casos de uso en el cotizador eléctrico
+
+- Responder atributos de un objeto: *"¿Cuánto dura una instalación residencial?"*
+- Listar objetos filtrados: *"¿Qué tipos de instalación hacen para locales comerciales?"*
+- Desambiguación y comparación: *"¿Cuál es la diferencia entre una instalación residencial y una comercial?"*
+
+#### Ejemplo de base de conocimiento
+
+Archivo `data/knowledge_base.json`:
+```json
+{
+  "instalacion": [
+    {
+      "id": "residencial",
+      "nombre": "Instalación residencial",
+      "descripcion": "Cableado general para viviendas unifamiliares y departamentos.",
+      "tiempo_estimado": "3 a 5 días",
+      "garantia_meses": 12
+    },
+    {
+      "id": "comercial",
+      "nombre": "Instalación comercial",
+      "descripcion": "Cableado para locales, oficinas y comercios con mayor demanda energética.",
+      "tiempo_estimado": "5 a 10 días",
+      "garantia_meses": 12
+    },
+    {
+      "id": "industrial",
+      "nombre": "Instalación industrial",
+      "descripcion": "Cableado para plantas, depósitos y grandes superficies con alta tensión.",
+      "tiempo_estimado": "10 a 20 días",
+      "garantia_meses": 18
+    }
+  ]
+}
+```
+
+#### Cómo funciona
+
+1. El usuario hace una consulta sobre una entidad: *"¿Cuánto tarda una instalación comercial?"*
+2. El NLU extrae la entidad (`instalacion=comercial`) y el atributo deseado (`tiempo_estimado`).
 3. Rasa ejecuta la acción personalizada que hereda de `ActionQueryKnowledgeBase`.
-4. El Action SDK consulta el backend de datos, extrae la información en tiempo real y la formatea dinámicamente como mensaje de respuesta para el usuario.
+4. El Action SDK consulta el archivo JSON, extrae la información y la formatea como respuesta.
+
+#### Acción personalizada
+
+```python
+from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
+from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
+
+class ActionMyKB(ActionQueryKnowledgeBase):
+    def __init__(self):
+        knowledge_base = InMemoryKnowledgeBase("data/knowledge_base.json")
+        super().__init__(knowledge_base)
+```
+
+#### Ejercicio práctico
+
+1. Crea el archivo `data/knowledge_base.json` con información sobre al menos tres tipos de instalación eléctrica.
+2. Implementa una acción personalizada que herede de `ActionQueryKnowledgeBase` y apunte al archivo JSON.
+3. Registra la acción en `domain.yml` como `action_query_knowledge_base`.
+4. Añade al menos una story o rule que dispare la acción ante la intención `consultar_base_conocimiento`.
+5. Entrena el modelo y prueba preguntas como:
+   - *"¿Qué es una instalación industrial?"*
+   - *"¿Cuánto dura una instalación comercial?"*
+
+#### Resumen
+Las acciones de base de conocimiento permiten responder preguntas dinámicas sobre datos estructurados. En nuestro cotizador, esto evita tener que escribir una respuesta estática por cada posible consulta técnica. En el próximo capítulo veremos cómo desambiguar entidades complejas usando roles y grupos.
