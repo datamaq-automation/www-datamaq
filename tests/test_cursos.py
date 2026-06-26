@@ -133,3 +133,37 @@ async def test_invalid_instructor_returns_404():
     assert "Página no encontrada" in response.text
 
 
+@pytest.mark.asyncio
+async def test_energia_course_catalog_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos")
+    
+    assert response.status_code == 200
+    assert "Instalaciones y Aplicaciones de la Energía" in response.text
+
+
+@pytest.mark.asyncio
+async def test_energia_course_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia")
+    
+    assert response.status_code == 200
+    assert "Instalaciones y Aplicaciones de la Energía" in response.text
+    assert "Sección A: Media Tensión y Cámaras de Transformación" in response.text
+    assert "Líneas de Distribución en 13.2 kV" in response.text
+
+
+@pytest.mark.asyncio
+async def test_energia_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/lineas-13-2kv")
+    
+    assert response.status_code == 200
+    assert "Características y tipos de líneas de 13.2 kV" in response.text
+    assert "Conductores Desnudos" in response.text
+
+
+
