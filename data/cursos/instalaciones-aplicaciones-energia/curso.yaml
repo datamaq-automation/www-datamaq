@@ -248,11 +248,11 @@ sections:
                 correct_option: 1
                 explanation: "La norma AEA 90364-6 establece que para tensiones de circuito de hasta 500 V, la tensión de ensayo debe ser de 500 Vcc, y la resistencia de aislamiento mínima admisible es de 1.0 MΩ."
               - id: "q-rpat-desconexion"
-                question: "En un esquema TT, el valor de resistencia de puesta a tierra de protección ($R_{\\text{pat}}$) está directamente condicionado a:"
+                question: "En un esquema TT, el valor de resistencia de puesta a tierra de protección (R<sub>pat</sub>) está directamente condicionado a:"
                 type: "single_choice"
                 options:
-                  - "La sensibilidad de la protección diferencial ($I_{\\Delta n}$) para limitar la tensión de contacto a valores seguros."
+                  - "La sensibilidad de la protección diferencial (I<sub>Δn</sub>) para limitar la tensión de contacto a valores seguros."
                   - "El calibre del interruptor magnético principal del TGBT."
                   - "La impedancia del conductor neutro de la distribuidora."
                 correct_option: 0
-                explanation: "Para garantizar la seguridad contra choques eléctricos en sistemas TT, la resistencia de puesta a tierra debe satisfacer que $R_{\\text{pat}} \\times I_{\\Delta n} \\le U_L$ (donde $U_L$ es la tensión límite de seguridad de 24 V o 50 V)."
+                explanation: "Para garantizar la seguridad contra choques eléctricos en sistemas TT, la resistencia de puesta a tierra debe satisfacer que R<sub>pat</sub> × I<sub>Δn</sub> ≤ U<sub>L</sub> (donde U<sub>L</sub> es la tensión límite de seguridad de 24 V o 50 V)."

@@ -11,7 +11,7 @@ Es el sistema más crítico para la protección de la subestación, alimentando 
 #### 2. Alimentación de Servicios de Seguridad (Generadores y UPS)
 Según **IEC 60364-5-55 / 5-56**, las fuentes de seguridad para alimentación de emergencia se clasifican por su tiempo de conmutación y deben garantizar autonomía suficiente ante cortes:
 - **Sistemas de Alimentación Ininterrumpida (UPS)**: Clasificados como fuentes de corte nulo (0 ms). Basados en rectificador, banco de baterías y un inversor de estática que alimenta cargas críticas de control y sistemas informáticos industriales. Ante fallas internas del inversor, conmutan a un bypass estático rápido sin interrupción.
-- **Grupos Electrógenos de Emergencia**: Clasificados como fuentes de corte medio (conmutación en $< 15$ segundos). Equipados con un Tablero de Transferencia Automática (TTA) que supervisa la tensión de red externa, arranca el motor diésel y realiza la conmutación de cargas prioritarias (bombas de incendio, iluminación de escape, sistemas de extracción de gases).
+- **Grupos Electrógenos de Emergencia**: Clasificados como fuentes de corte medio (conmutación en < 15 segundos). Equipados con un Tablero de Transferencia Automática (TTA) que supervisa la tensión de red externa, arranca el motor diésel y realiza la conmutación de cargas prioritarias (bombas de incendio, iluminación de escape, sistemas de extracción de gases).
 
 #### 3. Canalizaciones Seguras para Emergencias
 Para asegurar que los servicios de seguridad sigan operativos en presencia de fuego directo (según **AEA 90364-5-56**):

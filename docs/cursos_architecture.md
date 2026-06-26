@@ -324,6 +324,21 @@ Implementaremos hojas de estilo con CSS nativo que sigan las convenciones premiu
 - **Sidebar de Navegación:** Fijado en pantallas grandes (`position: sticky`), colapsable en pantallas pequeñas (mobile drawer) para una experiencia óptima de aprendizaje en dispositivos móviles.
 - **Colores y Estética:** Mantener el tema oscuro/claro armonioso de DataMaq, utilizando variables personalizadas.
 
+### 5.3 Notación Matemática y Técnica en Lecciones
+
+Para mantener la arquitectura **SSR-first** y evitar cargar motores de renderizado matemático en el cliente, las lecciones no utilizan sintaxis LaTeX ni bibliotecas como KaTeX. En su lugar, se emplea:
+
+- **HTML nativo** permitido por el parser Markdown: `<sub>` para subíndices, `<sup>` para superíndices.
+- **Caracteres Unicode** para símbolos técnicos: Ω (ohmios), δ (delta), Φ (flujo luminoso), ≤ (menor o igual), × (multiplicación), ² (superíndice dos).
+
+Ejemplos:
+- `U<sub>m</sub> = 17.5 kV`
+- `tan δ`
+- `1 lx = 1 lm/m²`
+- `R<sub>pat</sub> × I<sub>Δn</sub> ≤ U<sub>L</sub>`
+
+Esta decisión garantiza que el contenido se renderice completamente en el HTML inicial, sin dependencias de JavaScript adicionales, y respeta los principios de Progressive Enhancement del proyecto. Si en el futuro se requieren fórmulas complejas (integrales, matrices, fracciones apiladas), se evaluará entonces la integración de un motor de renderizado matemático.
+
 ---
 
 ## 6. Estrategia SEO Técnica
