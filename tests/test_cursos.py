@@ -95,8 +95,8 @@ async def test_rasa_lesson_rendered():
         response = await ac.get("/cursos/conversation-ai-rasa/technical-requirements")
     
     assert response.status_code == 200
-    assert "<h3>1.1 Requisitos técnicos para Rasa</h3>" in response.text
-    assert "Rasa requiere versiones específicas de Python" in response.text
+    assert "<h3>1.1 Technical requirements</h3>" in response.text
+    assert "Rasa 2.x requiere versiones específicas de Python" in response.text
     assert "### 1.1" not in response.text
 
 
