@@ -39,7 +39,7 @@ data_service = DataService(
     content_path=config.CONTENT_DATA_PATH,
     geography_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml"),
     industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml"),
-    courses_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos.yaml")
+    courses_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos")
 )
 
 # --- Dependencias de Datos ---
