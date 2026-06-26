@@ -329,7 +329,7 @@ cursos:
     level: "Avanzado"
     language: "Inglés/Español"
     price: 0.0
-    og_image: "/static/media/cursos/og-fastapi-data-science.webp"
+    og_image: "/static/media/cursos/og-conversation-ai-with-rasa.webp"
     instructor:
       name: "Agustin Bustos"
       role: "Técnico en Captura de Datos & Programador"
