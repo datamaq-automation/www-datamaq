@@ -4,13 +4,13 @@ La luminotecnia aplicada al ámbito industrial y comercial busca proveer niveles
 
 #### Magnitudes Luminotécnicas Fundamentales
 
-1. **Flujo Luminoso ($\Phi$)**:
+1. **Flujo Luminoso (Φ)**:
    - Cantidad de luz emitida por una fuente luminosa en todas las direcciones. Se mide en **Lúmenes (lm)**.
-2. **Intensidad Luminosa ($I$)**:
+2. **Intensidad Luminosa (I)**:
    - Flujo luminoso emitido en una dirección determinada por unidad de ángulo sólido. Se mide en **Candelas (cd)**.
-3. **Iluminancia o Nivel de Iluminación ($E$)**:
-   - Flujo luminoso que incide sobre una superficie. Se mide en **Lux (lx)** ($1\text{ lx} = 1\text{ lm/m}^2$). Es el parámetro de control normativo directo (ej. normas IRAM en Argentina).
-4. **Luminancia ($L$)**:
+3. **Iluminancia o Nivel de Iluminación (E)**:
+   - Flujo luminoso que incide sobre una superficie. Se mide en **Lux (lx)** (1 lx = 1 lm/m²). Es el parámetro de control normativo directo (ej. normas IRAM en Argentina).
+4. **Luminancia (L)**:
    - Intensidad luminosa reflejada o emitida por una superficie en dirección al observador (brillo percibido). Se mide en **cd/m²**.
 
 #### Métodos de Cálculo Lumínico

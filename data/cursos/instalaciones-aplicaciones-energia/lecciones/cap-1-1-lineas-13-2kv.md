@@ -13,7 +13,7 @@ Las líneas de distribución de Media Tensión (MT) operando en 13,2 kV constitu
    - Se instalan directamente enterrados en zanjas bajo lecho de arena con ladrillos/placas de protección y cinta de advertencia (según especificaciones de profundidad y tendido de **IEC 61936-1**), o bien canalizados en ductos de PVC/PEAD.
 
 #### Características Técnicas Principales
-- **Tensión de Operación**: 13,2 kV de tensión nominal entre fases (Tensión máxima de equipo $U_m = 17.5\text{ kV}$).
+- **Tensión de Operación**: 13,2 kV de tensión nominal entre fases (Tensión máxima de equipo U<sub>m</sub> = 17.5 kV).
 - **Corriente de Cortocircuito**: Parámetro de diseño fundamental para dimensionar la resistencia mecánica ante esfuerzos electrodinámicos de conductores, aisladores y soportes estructurales.
 - **Accesorios**: Terminales contráctiles en frío o calor, empalmes de transición y descargadores de sobretensión (descargadores de óxido de zinc - ZnO) para proteger la línea contra sobretensiones atmosféricas y de maniobra.
 

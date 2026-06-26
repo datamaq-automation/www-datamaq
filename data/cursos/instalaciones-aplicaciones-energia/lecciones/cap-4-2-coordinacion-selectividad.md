@@ -11,11 +11,11 @@ En las celdas de MT que alimentan transformadores se utilizan relés electrónic
 #### 2. Selectividad en Baja Tensión (BT)
 En el Tablero General de Distribución (TGBT) se debe garantizar la selectividad entre los interruptores de cabecera (usualmente interruptores abiertos o de bastidor - **ACB**) y los interruptores de los circuitos de salida (generalmente de caja moldeada - **MCCB**):
 - **Selectividad Amperométrica**: Basada en la diferencia entre los umbrales de corriente de disparo instantáneo. Es efectiva para fallas de baja magnitud alejadas del tablero.
-- **Selectividad Cronométrica**: Se introduce un retraso temporal intencional (retardo de tiempo corto, $t_{\text{sd}}$) en el interruptor de cabecera aguas arriba para permitir que el de salida actúe primero.
-- **Selectividad Energética**: Utiliza la capacidad de limitación de corriente del interruptor aguas abajo. Ante cortocircuitos severos, el interruptor rápido limita la energía específica letal de paso ($I^2t$), extinguiendo el arco antes de que el de cabecera empiece a abrirse.
+- **Selectividad Cronométrica**: Se introduce un retraso temporal intencional (retardo de tiempo corto, t<sub>sd</sub>) en el interruptor de cabecera aguas arriba para permitir que el de salida actúe primero.
+- **Selectividad Energética**: Utiliza la capacidad de limitación de corriente del interruptor aguas abajo. Ante cortocircuitos severos, el interruptor rápido limita la energía específica letal de paso (I²t), extinguiendo el arco antes de que el de cabecera empiece a abrirse.
 
 #### 3. Estudios de Arco Eléctrico (Arc Flash) y NFPA 70E
 La velocidad y selectividad del despeje de fallas tienen un impacto directo en la seguridad de los operarios:
 - **Arc Flash**: Liberación violenta de energía térmica y mecánica provocada por un arco eléctrico en el aire.
-- **Cálculo de Energía Incidente**: Se determina en calorías por centímetro cuadrado ($\text{cal/cm}^2$) y depende de la corriente de cortocircuito y del tiempo de despeje de la protección.
+- **Cálculo de Energía Incidente**: Se determina en calorías por centímetro cuadrado (cal/cm²) y depende de la corriente de cortocircuito y del tiempo de despeje de la protección.
 - **NFPA 70E**: Norma que define las distancias de seguridad contra arco y los niveles de Equipo de Protección Personal (EPP o PPE, Categorías de 1 a 4) requeridos para realizar tareas de mantenimiento en tableros energizados. A menor tiempo de disparo de las protecciones, menor será el riesgo de arco eléctrico, aunque esto a veces entra en compromiso con los tiempos exigidos por la selectividad cronométrica.
