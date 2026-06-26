@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% import 'partials/head.html' as seo_macro %}
 {% import 'partials/components/header.html' as header_macro %}
-{% import 'partials/components/footer.html' as footer_macro %}
 {% import 'partials/components/dock.html' as dock_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 {% import 'partials/components/chatwoot_fab.html' as chatwoot_macro %}
@@ -186,10 +185,6 @@
 
 {% block dock %}
 {{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
-{% endblock %}
-
-{% block footer %}
-{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
 {% endblock %}
 
 {% block cookie_banner %}
