@@ -114,3 +114,7 @@ class DataService:
                     if item.slug == leccion_slug:
                         return curso, item
         return None
+
+    def get_instructor_por_id(self, instructor_id: str) -> Optional[InstructorModel]:
+        return self.get_instructores_dict().get(instructor_id)
+

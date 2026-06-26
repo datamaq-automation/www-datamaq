@@ -99,3 +99,37 @@ async def test_rasa_lesson_rendered():
     assert "Rasa requiere versiones específicas de Python" in response.text
     assert "### 1.1" not in response.text
 
+
+@pytest.mark.asyncio
+async def test_default_instructor_redirects():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/instructor", follow_redirects=False)
+    
+    assert response.status_code == 307
+    assert response.headers["location"] == "/cursos/instructor/agustin-bustos"
+
+
+@pytest.mark.asyncio
+async def test_instructor_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/instructor/agustin-bustos")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Agustin Bustos" in response.text
+    assert "Mantenimiento Industrial" in response.text
+    assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
+
+
+@pytest.mark.asyncio
+async def test_invalid_instructor_returns_404():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/instructor/inexistente")
+    
+    assert response.status_code == 404
+    assert "Página no encontrada" in response.text
+
+

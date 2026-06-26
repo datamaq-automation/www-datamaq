@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Union
 from fastapi import APIRouter, Request, HTTPException, Depends
+from fastapi.responses import RedirectResponse
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, LessonModel, QuizModel
@@ -36,6 +37,56 @@ async def listado_cursos(
         "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/list.html", context=context)
+
+
+@router.get("/instructor")
+@router.get("/instructor/")
+async def redireccionar_instructor_por_defecto(
+    cursos_service: DataService = Depends(get_cursos_service)
+):
+    instructores = list(cursos_service.get_instructores_dict().values())
+    if not instructores:
+        raise HTTPException(status_code=404, detail="No se encontraron instructores")
+    default_id = instructores[0].id
+    return RedirectResponse(url=f"/cursos/instructor/{default_id}", status_code=307)
+
+
+@router.get("/instructor/{instructor_id}")
+async def detalle_instructor(
+    request: Request,
+    instructor_id: str,
+    contenido: ContenidoModel = Depends(get_contenido),
+    cursos_service: DataService = Depends(get_cursos_service),
+    chatwoot_token: str = Depends(get_chatwoot_token)
+):
+    instructor = cursos_service.get_instructor_por_id(instructor_id)
+    if not instructor:
+        raise HTTPException(status_code=404, detail="Instructor no encontrado")
+
+    # Obtener cursos dictados por este instructor
+    cursos = [c for c in cursos_service.get_cursos() if c.instructor.id == instructor_id]
+    brand_data = contenido.brand.model_dump()
+
+    seo: Dict[str, Any] = {
+        "title": f"Instructor: {instructor.name} | DataMaq",
+        "description": instructor.bio[:150],
+        "canonical_url": canonical_url(request.url),
+        "site_name": contenido.brand.brandName,
+        "og_image": instructor.photo,
+        "og_image_width": 1200,
+        "og_image_height": 630,
+    }
+
+    context: Dict[str, Any] = {
+        "brand": brand_data,
+        "content": contenido.content.model_dump(),
+        "instructor": instructor.model_dump(),
+        "cursos": [c.model_dump() for c in cursos],
+        "seo": seo,
+        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "chatwoot_token": chatwoot_token,
+    }
+    return templates.TemplateResponse(request=request, name="cursos/instructor.html", context=context)
 
 
 @router.get("/{curso_slug}")
@@ -96,7 +147,7 @@ async def vista_leccion(
         "og_image": curso.og_image or contenido.seo.og_image,
         "og_image_width": 1200,
         "og_image_height": 630,
-        "meta_robots": "noindex, follow",  # Evita duplicación y canibalización de SEO interno
+        "meta_robots": "noindex, follow",
     }
 
     # Determinamos lección anterior y siguiente para facilitar la navegación fluida
@@ -129,3 +180,4 @@ async def vista_leccion(
         "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/lesson.html", context=context)
+
