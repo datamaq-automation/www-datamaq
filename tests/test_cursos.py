@@ -33,8 +33,9 @@ async def test_lesson_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "1.1 Requisitos técnicos" in response.text
+    assert "<h3>1.1 Requisitos técnicos</h3>" in response.text
     assert "Para seguir este curso necesitarás una computadora" in response.text
+    assert "### 1.1" not in response.text
 
 @pytest.mark.asyncio
 async def test_invalid_course_returns_404():
@@ -94,6 +95,7 @@ async def test_rasa_lesson_rendered():
         response = await ac.get("/cursos/conversation-ai-rasa/technical-requirements")
     
     assert response.status_code == 200
-    assert "1.1 Technical requirements" in response.text
-    assert "Requisitos técnicos para Rasa" in response.text
+    assert "<h3>1.1 Requisitos técnicos para Rasa</h3>" in response.text
+    assert "Rasa requiere versiones específicas de Python" in response.text
+    assert "### 1.1" not in response.text
 

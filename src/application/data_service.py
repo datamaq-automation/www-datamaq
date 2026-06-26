@@ -37,7 +37,9 @@ class DataService:
                 raw_data: Dict[str, Any] = yaml.safe_load(f) or {"cursos": []} # type: ignore
                 
                 import os
+                import markdown
                 courses_dir = os.path.dirname(self.courses_path)
+                md_extensions = ["fenced_code", "tables"]
                 
                 if "cursos" in raw_data:
                     for curso in raw_data["cursos"]:
@@ -51,9 +53,10 @@ class DataService:
                                                     file_path = os.path.join(courses_dir, "cursos_contenido", item["content_file"])
                                                     if os.path.exists(file_path):
                                                         with open(file_path, "r", encoding="utf-8") as cf:
-                                                            item["content"] = cf.read()
+                                                            raw_markdown = cf.read()
+                                                            item["content"] = markdown.markdown(raw_markdown, extensions=md_extensions)
                                                     else:
-                                                        item["content"] = f"Error: No se encontró el archivo de contenido en {file_path}"
+                                                        item["content"] = f"<p class='error'>Error: No se encontró el archivo de contenido en {file_path}</p>"
                 
                 self._cached_cursos = CursosContainerModel(**raw_data)
         return self._cached_cursos

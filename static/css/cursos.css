@@ -938,12 +938,11 @@
     height: 100%;
 }
 
-/* --- Estilos de Contenido (Markdown Simple) --- */
+/* --- Estilos de Contenido (Markdown Renderizado a HTML) --- */
 .c-lesson-body {
     font-size: 1.05rem;
     line-height: 1.7;
     color: rgba(var(--dm-text-0-rgb), 0.9);
-    white-space: pre-line; /* Renderiza saltos de línea del YAML de forma nativa */
 }
 
 .c-lesson-body h3 {
@@ -958,9 +957,16 @@
     margin-bottom: 1.25rem;
 }
 
-.c-lesson-body ul, .c-lesson-body ol {
+.c-lesson-body ul {
     margin-bottom: 1.5rem;
     padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.c-lesson-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
 }
 
 .c-lesson-body li {
@@ -979,6 +985,45 @@
     padding: 0.15rem 0.35rem;
     font-size: 0.9em;
     color: var(--dm-accent-orange);
+}
+
+.c-lesson-body pre {
+    background-color: var(--dm-surface-1);
+    border: 1px solid var(--dm-border-0);
+    padding: 1rem;
+    border-radius: var(--ui-radius-md);
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.c-lesson-body pre code {
+    background-color: transparent;
+    color: var(--dm-text-0);
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.c-lesson-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.c-lesson-body th, .c-lesson-body td {
+    border: 1px solid var(--dm-border-0);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.c-lesson-body th {
+    background-color: var(--dm-surface-1);
+    font-weight: 700;
+    color: var(--dm-text-0);
+}
+
+.c-lesson-body tr:nth-child(even) {
+    background-color: rgba(var(--dm-surface-1-rgb), 0.3);
 }
 
 /* --- Barra de Navegación de Lecciones --- */
