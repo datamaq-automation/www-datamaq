@@ -15,12 +15,29 @@ export class CourseManager {
         this.progressFill = document.getElementById('course-progress-fill');
         this.progressText = document.getElementById('course-progress-text');
         this.sidebarLessons = document.querySelectorAll('.c-lesson-sidebar-lesson-item');
+        
+        // Elementos del sidebar móvil
+        this.sidebar = document.getElementById('lesson-sidebar');
+        this.sidebarBackdrop = document.getElementById('sidebar-backdrop');
+        this.toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+        this.closeSidebarBtn = document.getElementById('close-sidebar-btn');
 
         this.completedLessons = this.loadProgress();
         this.init();
     }
 
     init() {
+        // Inicializar barra lateral móvil
+        if (this.sidebar && this.toggleSidebarBtn) {
+            this.toggleSidebarBtn.addEventListener('click', () => this.openSidebar());
+        }
+        if (this.closeSidebarBtn) {
+            this.closeSidebarBtn.addEventListener('click', () => this.closeSidebar());
+        }
+        if (this.sidebarBackdrop) {
+            this.sidebarBackdrop.addEventListener('click', () => this.closeSidebar());
+        }
+
         // Inicializar clases de completado en el sidebar según el localStorage
         this.sidebarLessons.forEach(item => {
             const lessonId = item.getAttribute('data-lesson-id');
@@ -231,7 +248,18 @@ export class CourseManager {
 
         if (this.progressText) {
             this.progressText.textContent = `${percentage}% completado`;
-        }
+    }
+
+    openSidebar() {
+        if (this.sidebar) this.sidebar.classList.add('is-open');
+        if (this.sidebarBackdrop) this.sidebarBackdrop.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeSidebar() {
+        if (this.sidebar) this.sidebar.classList.remove('is-open');
+        if (this.sidebarBackdrop) this.sidebarBackdrop.classList.remove('is-open');
+        document.body.style.overflow = '';
     }
 }
 

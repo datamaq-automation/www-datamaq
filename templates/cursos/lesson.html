@@ -17,10 +17,18 @@
 
 {% block main_content %}
 <div class="c-lesson-layout" data-config-course-id="{{ curso.id }}">
+    <!-- Backdrop del Sidebar en móviles -->
+    <div class="c-lesson-sidebar-backdrop" id="sidebar-backdrop"></div>
+    
     <!-- Sidebar: Currículum del Curso -->
     <aside class="c-lesson-sidebar" id="lesson-sidebar">
         <div class="c-lesson-sidebar__header">
-            <h2 class="c-lesson-sidebar__course-title"><a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}">{{ curso.title }}</a></h2>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem;">
+                <h2 class="c-lesson-sidebar__course-title" style="margin: 0;"><a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}">{{ curso.title }}</a></h2>
+                <button id="close-sidebar-btn" class="c-lesson-sidebar__close-btn" aria-label="Cerrar temario">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
             <div class="c-lesson-sidebar__progress">
                 <div class="c-lesson-sidebar__progress-bar">
                     <div class="c-lesson-sidebar__progress-bar-fill" id="course-progress-fill" style="width: 0%;"></div>
@@ -70,6 +78,16 @@
 
     <!-- Área de Contenido Principal -->
     <main class="c-lesson-content" id="lesson-content-area">
+        <!-- Cabecera Móvil Minimalista -->
+        <div class="c-lesson-mobile-header">
+            <a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}" class="c-lesson-mobile-header__back">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <button id="toggle-sidebar-btn" class="c-lesson-mobile-header__toggle">
+                <i class="bi bi-list"></i> Temario
+            </button>
+        </div>
+        
         <div class="c-lesson-content__inner">
             <nav class="c-breadcrumbs" aria-label="Breadcrumb">
                 <ol class="c-breadcrumbs__list">

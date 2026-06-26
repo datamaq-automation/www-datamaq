@@ -1049,3 +1049,126 @@
 .c-lesson-nav-link--next:hover .c-lesson-nav-link__title {
     color: rgba(var(--dm-data-cyan-rgb), 0.85);
 }
+
+/* ==========================================================================
+   Modo Enfoque (LMS Minimalista para Móviles)
+   ========================================================================== */
+
+.c-lesson-mobile-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    background-color: var(--dm-surface-0);
+    border-bottom: 1px solid var(--dm-border-0);
+}
+
+@media(max-width: 991.98px) {
+    .c-lesson-mobile-header {
+        display: flex;
+    }
+}
+
+.c-lesson-mobile-header__back {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dm-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.c-lesson-mobile-header__back:hover {
+    color: var(--dm-text-0);
+}
+
+.c-lesson-mobile-header__toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dm-data-cyan);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.c-lesson-sidebar__close-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--dm-text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.c-lesson-sidebar__close-btn:hover {
+    color: var(--dm-text-0);
+}
+
+@media(max-width: 991.98px) {
+    /* Ocultar elementos del sitio principal para evitar distracciones en móviles */
+    body:has(.c-lesson-layout) .c-home-header,
+    body:has(.c-lesson-layout) .c-home-footer,
+    body:has(.c-lesson-layout) .c-home-dock {
+        display: none !important;
+    }
+
+    /* Mostrar botón de cerrar temario */
+    .c-lesson-sidebar__close-btn {
+        display: block;
+    }
+
+    /* Temario como cajón lateral deslizante (Drawer) */
+    .c-lesson-sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        height: 100vh;
+        z-index: 1060;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 2rem rgba(var(--dm-shadow-rgb), 0.5);
+        background-color: var(--dm-surface-0);
+    }
+
+    .c-lesson-sidebar.is-open {
+        left: 0;
+    }
+
+    /* Fondo oscuro semi-transparente (Backdrop) */
+    .c-lesson-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(var(--dm-bg-0-rgb), 0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 1050;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .c-lesson-sidebar-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Quitar breadcrumbs redundantes en móviles */
+    .c-lesson-content .c-breadcrumbs {
+        display: none;
+    }
+
+    /* Optimizar el padding lateral para mejorar lectura en celulares */
+    .c-lesson-content__inner {
+        padding: 1.25rem 1.05rem 3.5rem;
+    }
+}
+
