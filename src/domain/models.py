@@ -203,7 +203,7 @@ class LessonModel(BaseModel):
     slug: str
     title: str
     duration: str
-    content_type: str  # "markdown" | "video"
+    content_type: str = "markdown"
     video_url: Optional[str] = None
     content: Optional[str] = None
     content_file: Optional[str] = None
@@ -244,7 +244,7 @@ class CourseModel(BaseModel):
     description_long: str
     duration: str
     level: str
-    language: str
+    language: str = "Español"
     price: float = 0.0
     og_image: Optional[str] = None
     instructor: InstructorModel
