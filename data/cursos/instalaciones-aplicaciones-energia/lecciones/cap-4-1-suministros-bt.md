@@ -5,7 +5,7 @@ El suministro en Baja Tensión (BT) representa la interfaz final de entrega de l
 #### 1. Esquemas de Conexión a Tierra (ECT)
 Establecidos por **AEA 90364-3** e **IEC 60364-1**, definen la conexión del neutro de la fuente y de las masas metálicas de la instalación a tierra:
 - **Esquema TT**: Neutro del distribuidor directamente a tierra; masas del usuario a una tierra local independiente. Obliga al uso de interruptores diferenciales (RCD) en el usuario para asegurar la desconexión ante fallas de baja corriente.
-- **Esquema TN (TN-S, TN-C)**: Neutro a tierra; masas conectadas al conductor de protección (PE) que se une al neutro (TN-S separa neutro y PE; TN-C los combina en un conductor PEN). Las fallas a masa se convierten en cortocircuitos fase-neutro, despejados rápidamente por protecciones magnéticas.
+- **Esquema TN (TN-S, TN-C)**: Neutro a tierra; masas conectadas al conductor de protección (PE) que se une al neutro. TN-S mantiene el Neutro (N) y el conductor de protección (PE) separados en toda la instalación. TN-C los combina en un único conductor PEN. **Regla Crítica de Seguridad (AEA 90364-3):** Se permite la transición de TN-C a TN-S aguas abajo, pero está terminantemente prohibido volver a unir el PE y el Neutro (pasar de TN-S a TN-C) en ningún punto posterior de la instalación, ya que esto provocaría corrientes de retorno indeseadas por las masas metálicas de la planta, disparos erráticos de RCDs y graves problemas de Compatibilidad Electromagnética (CEM).
 - **Esquema IT**: Neutro aislado de tierra (o conectado mediante alta impedancia); masas a tierra local. La primera falla a masa genera una corriente de falla despreciable, permitiendo mantener la continuidad del servicio. Obligatorio en quirófanos e industrias de proceso continuo, requiriendo un Vigilador de Aislamiento (monitor de aislamiento continuo).
 
 #### 2. Dimensionamiento de Conductores (AEA 90364-5-52 / IEC 60364-5-52)
@@ -22,6 +22,9 @@ Para asegurar que los conductores estén totalmente protegidos, los dispositivos
 - **Protección contra Cortocircuitos**: Se debe verificar que la protección despeje el cortocircuito antes de que el cable alcance su temperatura límite admisible de cortocircuito (ej. 160 °C para PVC, 250 °C para XLPE). Esto se expresa mediante la fórmula de la energía específica letal:
   $$I^2t \le k^2 S^2$$
   Donde $I$ es la corriente de cortocircuito eficaz, $t$ el tiempo de despeje, $S$ la sección del conductor en $\text{mm}^2$, y $k$ un factor constante del material conductor y aislante (ej. $k=115$ para cobre con aislamiento PVC).
+- **Cálculo de la Corriente de Cortocircuito Presunta ($I_{cc}$)**: En bornes del secundario del transformador (cabecera del TGBT), la corriente de cortocircuito trifásico presunta se calcula de forma conservadora a partir de la potencia nominal del transformador ($S_n$ en kVA) y su tensión de cortocircuito porcentual ($U_{cc}\%$):
+  $$I_{cc} = \frac{S_n}{\sqrt{3} \cdot U_n \cdot \left(\frac{U_{cc}\%}{100}\right)}$$
+  Donde $U_n$ es la tensión nominal entre fases (ej. 380 V). Este valor define el **poder de corte mínimo** (en kA) que deben poseer los interruptores automáticos del TGBT para despejar fallas de forma segura sin destruirse.
 
 #### Aisladores de Baja Tensión
 Para canalizaciones y barras del Tablero General de Distribución (TGBT) se emplean soportes aisladores mecánicos de resina epoxi o poliéster cargado con fibra de vidrio. Estos aisladores deben estar dimensionados no solo para resistir el esfuerzo dieléctrico, sino fundamentalmente para soportar las fuerzas electrodinámicas de repulsión mecánica que se manifiestan entre barras de cobre durante un cortocircuito severo.

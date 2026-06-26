@@ -24,3 +24,10 @@ La norma define parámetros fundamentales para garantizar la seguridad de los op
 - **Tipo de Tabique de Separación**: **PM** (particiones metálicas puestas a tierra entre compartimentos) o **PI** (particiones de material aislante).
 - **Clasificación de Arco Interno (IAC - Internal Arc Classified)**: Certifica que la celda resiste los efectos térmicos y mecánicos de un arco interno durante un tiempo determinado (ej. 1s a 25 kA), protegiendo al personal en el frente, laterales y parte posterior (clasificación AFLR).
 
+#### Enclavamientos de Seguridad (Safety Interlocks)
+Los enclavamientos mecánicos y eléctricos son dispositivos obligatorios por la **IEC 62271-200** diseñados para prevenir errores de operación humana catastróficos. Los sistemas de celdas deben incluir por diseño:
+- **Interlock de Maniobra de Barra/Línea**: Impide cerrar o abrir un seccionador de aislamiento bajo carga. El interruptor automático de la celda asociado debe estar obligatoriamente abierto para habilitar la maniobra de sus seccionadores.
+- **Interlock de Puesta a Tierra**: Evita cerrar el seccionador de puesta a tierra si el seccionador de aislamiento de línea se encuentra en posición de conectado. Inversamente, impide cerrar el seccionador de línea si la puesta a tierra está aplicada.
+- **Interlock de Acceso a Compartimentos**: Bloquea la apertura de las puertas de acceso físicas a los cables de potencia o interruptor si el seccionador de puesta a tierra no ha sido previamente cerrado.
+
+
