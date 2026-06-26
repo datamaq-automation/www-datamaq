@@ -319,3 +319,166 @@ cursos:
                       - "Falso"
                     correct_option: 1
                     explanation: "NumPy es la librería base que optimiza los cálculos matriciales a bajo nivel, mientras que Pandas se construye sobre ella para proveer manipulación tabular y análisis de alto nivel a través de DataFrames."
+
+  - id: "curso-conversation-ai-rasa"
+    slug: "conversation-ai-rasa"
+    title: "Conversation AI with RASA"
+    description_short: "Build, test and deploy AI-powered, enterprise-grade virtual assistants and chatbots."
+    description_long: "Este curso práctico e interactivo te guiará en el desarrollo de asistentes virtuales y chatbots conversacionales de nivel empresarial utilizando el framework de código abierto Rasa. Aprenderás desde los fundamentos del procesamiento del lenguaje natural (NLU) y el diseño de diálogos contextuales con Rasa Core, hasta el manejo de la lógica de negocio con Custom Actions, la integración de bases de conocimiento, el testing automático y las mejores prácticas para el despliegue a producción en arquitecturas reales."
+    duration: "40 horas de cursada"
+    level: "Avanzado"
+    language: "Inglés/Español"
+    price: 0.0
+    og_image: "/static/media/cursos/og-fastapi-data-science.webp"
+    instructor:
+      name: "Agustin Bustos"
+      role: "Técnico en Captura de Datos & Programador"
+      photo: "/static/media/tecnico-a-cargo.webp"
+      bio: "Especialista en captura automática de datos operativos e integración de modelos conversacionales y APIs en entornos industriales."
+    sections:
+      # --- SECCIÓN A ---
+      - id: "sec-rasa-a"
+        title: "Section A: The Rasa Framework"
+        description: "Fundamentos del framework Rasa, procesamiento de lenguaje natural y gestión del diálogo."
+        chapters:
+          - id: "chap-rasa-cap-1"
+            title: "Cap 1: Introduction to Chatbots and the Rasa Framework"
+            description: "Arquitectura conversacional, por qué usar Rasa y configuración básica de un asistente."
+            items:
+              - type: "lesson"
+                id: "les-rasa-1-1"
+                slug: "introduccion-rasa"
+                title: "1.1 Introducción al desarrollo conversacional"
+                duration: "10 min"
+                content_type: "markdown"
+                content: "El desarrollo de interfaces conversacionales inteligentes requiere comprender la diferencia entre sistemas basados en reglas y asistentes contextuales basados en aprendizaje automático. En esta clase introductoria veremos la arquitectura de Rasa (Rasa NLU y Rasa Core) y cómo inicializar nuestro primer proyecto con 'rasa init'."
+
+          - id: "chap-rasa-cap-2"
+            title: "Cap 2: Natural Language Understanding in RASA"
+            description: "Extracción de entidades, reconocimiento de intenciones y diseño de pipelines NLU."
+            items:
+              - type: "lesson"
+                id: "les-rasa-2-1"
+                slug: "nlu-intenciones-entidades"
+                title: "2.1 Reconocimiento de intenciones y entidades"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "Rasa NLU procesa los mensajes del usuario para extraer intenciones (intents) y entidades (entities). Analizaremos cómo balancear los datos de entrenamiento conversacionales y cómo estructurar el pipeline de procesamiento (tokenizadores, componentes de featurización y clasificadores como DIETClassifier) en el archivo 'config.yml'."
+
+          - id: "chap-rasa-cap-3"
+            title: "Cap 3: Rasa Core"
+            description: "Gestión de diálogos basada en historias, reglas y políticas conversacionales."
+            items:
+              - type: "lesson"
+                id: "les-rasa-3-1"
+                slug: "gestion-dialogo-core"
+                title: "3.1 Gestión de flujos de diálogo con Rasa Core"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "Rasa Core es el motor de decisiones encargado de predecir la siguiente acción en el flujo conversacional basándose en el historial. Estudiaremos cómo diseñar historias (stories), definir reglas (rules) y configurar las políticas de diálogo (como TEDPolicy y RulePolicy) para gestionar desvíos conversacionales complejos."
+
+      # --- SECCIÓN B ---
+      - id: "sec-rasa-b"
+        title: "Section B: Rasa in Action"
+        description: "Desarrollo práctico de asistentes, lógica de negocio personalizada e integraciones."
+        chapters:
+          - id: "chap-rasa-cap-4"
+            title: "Cap 4: Handling Business Logic"
+            description: "Uso de Custom Actions, Slots y Formularios (Forms)."
+            items:
+              - type: "lesson"
+                id: "les-rasa-4-1"
+                slug: "custom-actions-forms"
+                title: "4.1 Lógica de negocio con Custom Actions y Formularios"
+                duration: "20 min"
+                content_type: "markdown"
+                content: "Las acciones personalizadas (Custom Actions) nos permiten conectar nuestro asistente con APIs externas o bases de datos a través de un Action Server (ejecutado por defecto en el puerto 5005/5006). Aprenderemos a validar entradas de usuario, almacenar datos en Slots e implementar Formularios para recopilar información de manera guiada y robusta."
+
+          - id: "chap-rasa-cap-5"
+            title: "Cap 5: Working with Response Selector to Handle Chitchat and FAQs"
+            description: "Gestión de preguntas frecuentes y conversaciones informales fuera de flujo."
+            items:
+              - type: "lesson"
+                id: "les-rasa-5-1"
+                slug: "response-selector-faq"
+                title: "5.1 Respuestas rápidas y Chitchat"
+                duration: "10 min"
+                content_type: "markdown"
+                content: "El Response Selector permite resolver consultas de tipo pregunta-respuesta (FAQ) y conversaciones informales (chitchat) utilizando un pipeline de NLU optimizado. Veremos cómo estructurar los datos bajo intenciones secundarias y mapear las respuestas en el archivo 'domain.yml' de manera modular."
+
+          - id: "chap-rasa-cap-6"
+            title: "Cap 6: Knowledge Base Action to Handle Question Answering"
+            description: "Integración de bases de conocimiento y consultas de grafos en acciones personalizadas."
+            items:
+              - type: "lesson"
+                id: "les-rasa-6-1"
+                slug: "knowledge-base-actions"
+                title: "6.1 Consultas a bases de conocimiento"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "Cuando la información es dinámica y estructurada, es inviable definir historias para cada consulta. Utilizaremos la clase 'ActionQueryKnowledgeBase' de Rasa para conectar el bot a bases de datos relacionales, archivos JSON u otras fuentes complejas, permitiendo resolver preguntas como '¿Cuál es el precio del artículo X?' de forma automatizada."
+
+          - id: "chap-rasa-cap-7"
+            title: "Cap 7: Entity Roles and Groups for Complex Named Entity"
+            description: "Uso de roles y grupos para desambiguar entidades similares."
+            items:
+              - type: "lesson"
+                id: "les-rasa-7-1"
+                slug: "roles-grupos-entidades"
+                title: "7.1 Roles y grupos de entidades"
+                duration: "12 min"
+                content_type: "markdown"
+                content: "Rasa permite clasificar entidades con Roles (por ejemplo, definir 'origen' y 'destino' para una entidad 'localidad') y Grupos (asociar elementos como 'tamaño' e 'ingrediente' a una pizza específica). Estudiaremos cómo entrenar el extractor DIET para reconocer estas jerarquías conversacionales complejas."
+
+          - id: "chap-rasa-cap-8"
+            title: "Cap 8: Working Principles and Customization of Rasa"
+            description: "Profundización en el ciclo de vida de Rasa y componentes de ML customizados."
+            items:
+              - type: "lesson"
+                id: "les-rasa-8-1"
+                slug: "principios-personalizacion"
+                title: "8.1 Personalización y desarrollo de componentes customizados"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "Analizaremos cómo extender el comportamiento del framework creando tokenizadores o clasificadores NLU personalizados en Python. Conoceremos el ciclo de vida de entrenamiento del agente Conversational AI y el flujo de guardado y carga de modelos empaquetados en archivos '.tar.gz'."
+
+      # --- SECCIÓN C ---
+      - id: "sec-rasa-c"
+        title: "Section C: Best Practices"
+        description: "Pruebas de calidad, despliegue a producción y desarrollo guiado por conversaciones."
+        chapters:
+          - id: "chap-rasa-cap-9"
+            title: "Cap 9: Testing and Production Deployment"
+            description: "Testing automático, CI/CD, Rasa X/Enterprise y Dockerización."
+            items:
+              - type: "lesson"
+                id: "les-rasa-9-1"
+                slug: "testing-despliegue-produccion"
+                title: "9.1 Automatización de tests y despliegue del bot"
+                duration: "20 min"
+                content_type: "markdown"
+                content: "Un asistente en producción requiere un flujo robusto de testing continuo. Estudiaremos cómo escribir historias de prueba ('test_stories.yml') para evaluar regresiones de NLU y Core en Rasa, y cómo dockerizar la aplicación y el Action Server en contenedores para su despliegue en la nube mediante docker-compose o Kubernetes."
+
+          - id: "chap-rasa-cap-10"
+            title: "Cap 10: Conversation-Driven Development and Interactive Learning"
+            description: "Metodología CDD y entrenamiento guiado interactivo."
+            items:
+              - type: "lesson"
+                id: "les-rasa-10-1"
+                slug: "cdd-aprendizaje-interactivo"
+                title: "10.1 CDD y aprendizaje interactivo"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "El desarrollo guiado por conversaciones (Conversation-Driven Development o CDD) es la metodología sugerida para mejorar el asistente basándose en interacciones de usuarios reales. Implementaremos flujos de Interactive Learning para corregir predicciones erróneas de intenciones o acciones en tiempo real."
+
+          - id: "chap-rasa-cap-11"
+            title: "Cap 11: Debugging, Optimization, and Community Ecosystem"
+            description: "Análisis de logs, optimización de hiperparámetros y ecosistema de Rasa."
+            items:
+              - type: "lesson"
+                id: "les-rasa-11-1"
+                slug: "debugging-optimizacion-ecosistema"
+                title: "11.1 Depuración y optimización de hiperparámetros"
+                duration: "15 min"
+                content_type: "markdown"
+                content: "Finalizaremos el curso analizando técnicas avanzadas de debugging (configuración de logs detallados con flags --debug) y la optimización de hiperparámetros en redes neuronales conversacionales. Revisaremos los canales y herramientas provistos por la comunidad oficial de desarrolladores de Rasa."
