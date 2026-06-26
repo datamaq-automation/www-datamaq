@@ -1,17 +1,28 @@
-### 4.1 Suministros en Baja Tensión y Aisladores de BT
+### 4.1 Suministros en Baja Tensión e Instalaciones de BT
 
-El suministro en Baja Tensión (BT) representa la interfaz final de entrega de la energía eléctrica hacia las instalaciones de uso final domésticas, comerciales e industriales de baja escala.
+El suministro en Baja Tensión (BT) representa la interfaz final de entrega de la energía eléctrica hacia las instalaciones industriales y comerciales. El diseño de estas instalaciones está regulado estrictamente por la reglamentación **AEA 90364** (Asociación Electrotécnica Argentina) y las normas internacionales **IEC 60364**.
 
-#### Parámetros del Suministro de BT
+#### 1. Esquemas de Conexión a Tierra (ECT)
+Establecidos por **AEA 90364-3** e **IEC 60364-1**, definen la conexión del neutro de la fuente y de las masas metálicas de la instalación a tierra:
+- **Esquema TT**: Neutro del distribuidor directamente a tierra; masas del usuario a una tierra local independiente. Obliga al uso de interruptores diferenciales (RCD) en el usuario para asegurar la desconexión ante fallas de baja corriente.
+- **Esquema TN (TN-S, TN-C)**: Neutro a tierra; masas conectadas al conductor de protección (PE) que se une al neutro (TN-S separa neutro y PE; TN-C los combina en un conductor PEN). Las fallas a masa se convierten en cortocircuitos fase-neutro, despejados rápidamente por protecciones magnéticas.
+- **Esquema IT**: Neutro aislado de tierra (o conectado mediante alta impedancia); masas a tierra local. La primera falla a masa genera una corriente de falla despreciable, permitiendo mantener la continuidad del servicio. Obligatorio en quirófanos e industrias de proceso continuo, requiriendo un Vigilador de Aislamiento (monitor de aislamiento continuo).
 
-- **Tensiones Estándar**: En redes de distribución pública, los límites nominales comunes son 380 V entre fases (trifásica) y 220 V entre fase y neutro (monofásica), operando a una frecuencia de 50 Hz.
-- **Esquemas de Conexión a Tierra (ECT)**: Definen el método de puesta a tierra del neutro del transformador de distribución y de las masas metálicas de la instalación. Los más utilizados son:
-  - **Esquema TT**: Neutro del distribuidor directamente a tierra; masas del usuario a una tierra local independiente. Obliga al uso de interruptores diferenciales en el usuario.
-  - **Esquema TN (TN-S, TN-C)**: Neutro a tierra; masas del usuario conectadas al conductor neutro o de protección del distribuidor.
+#### 2. Dimensionamiento de Conductores (AEA 90364-5-52 / IEC 60364-5-52)
+La sección de los conductores eléctricos de BT debe seleccionarse y verificarse cumpliendo tres criterios fundamentales:
+- **Capacidad de Corriente (Criterio Térmico)**: La corriente de diseño del circuito ($I_b$) no debe superar la corriente admisible del cable ($I_z$). Esta última se determina aplicando factores de corrección por temperatura ambiente ($F_t$) y por agrupamiento de cables en la misma canalización o bandeja ($F_g$) sobre las capacidades tabuladas de la norma.
+- **Caída de Tensión**: Se calcula para asegurar que la tensión en bornes de la carga esté dentro de los límites regulados (habitualmente máximo 3% para alumbrado y 5% para fuerza motriz).
+- **Corriente de Cortocircuito (Criterio de Corto Circuito)**: Verificación térmica del conductor ante fallas, asegurando que la energía específica letal de paso admisible por el cable sea mayor que la disipada por la protección.
+
+#### 3. Coordinación de Protecciones contra Sobrecargas y Cortocircuitos (AEA 90364-4-43 / IEC 60364-4-43)
+Para asegurar que los conductores estén totalmente protegidos, los dispositivos de protección (fusibles o interruptores automáticos) deben cumplir con:
+- **Protección contra Sobrecargas**:
+  $$I_b \le I_n \le I_z \quad \text{y} \quad I_2 \le 1.45 \cdot I_z$$
+  Donde $I_n$ es la corriente nominal de la protección e $I_2$ es la corriente que asegura el funcionamiento efectivo del dispositivo en el tiempo convencional.
+- **Protección contra Cortocircuitos**: Se debe verificar que la protección despeje el cortocircuito antes de que el cable alcance su temperatura límite admisible de cortocircuito (ej. 160 °C para PVC, 250 °C para XLPE). Esto se expresa mediante la fórmula de la energía específica letal:
+  $$I^2t \le k^2 S^2$$
+  Donde $I$ es la corriente de cortocircuito eficaz, $t$ el tiempo de despeje, $S$ la sección del conductor en $\text{mm}^2$, y $k$ un factor constante del material conductor y aislante (ej. $k=115$ para cobre con aislamiento PVC).
 
 #### Aisladores de Baja Tensión
+Para canalizaciones y barras del Tablero General de Distribución (TGBT) se emplean soportes aisladores mecánicos de resina epoxi o poliéster cargado con fibra de vidrio. Estos aisladores deben estar dimensionados no solo para resistir el esfuerzo dieléctrico, sino fundamentalmente para soportar las fuerzas electrodinámicas de repulsión mecánica que se manifiestan entre barras de cobre durante un cortocircuito severo.
 
-Aunque las tensiones en BT son bajas, la seguridad operativa requiere aisladores mecánicos y dieléctricos en barras de tableros, líneas aéreas de distribución y acometidas.
-
-*   **Aisladores tipo Carretel (Shackle)**: De porcelana o plástico técnico, montados sobre racks metálicos fijados a postes o fachadas para tender líneas de BT preensambladas u ordinarias.
-*   **Aisladores de Resina / Poliéster**: Aisladores cilíndricos o cónicos con insertos roscados metálicos utilizados para soportar y distanciar las pletinas de cobre energizadas dentro de tableros generales de distribución de BT (TGBT) con altos niveles de corriente de cortocircuito disponible.

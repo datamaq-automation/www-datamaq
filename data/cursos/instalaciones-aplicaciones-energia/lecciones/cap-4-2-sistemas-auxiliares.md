@@ -1,22 +1,19 @@
-### 4.2 Sistemas Eléctricos Auxiliares
+### 4.2 Sistemas Eléctricos Auxiliares y de Seguridad
 
-Los sistemas auxiliares de una subestación o planta industrial son aquellas instalaciones que garantizan la operación segura de los equipos de potencia principales (transformadores, interruptores, relés de protección, sistemas de control) tanto en condiciones normales como ante emergencias o cortes de suministro.
+Los sistemas auxiliares de una subestación o planta industrial son aquellas instalaciones que garantizan la operación segura de los equipos de potencia principales y la salvaguarda de vidas ante emergencias. Las exigencias para sistemas de seguridad eléctrica se estructuran bajo **AEA 90364-5-56** (Servicios de seguridad) e **IEC 60364-5-55 / 5-56**.
 
-#### Sistemas Auxiliares de Corriente Continua (CC)
+#### 1. Sistemas Auxiliares de Corriente Continua (CC)
+Es el sistema más crítico para la protección de la subestación, alimentando de forma ininterrumpida los circuitos de control, alarmas y disparos de los interruptores de MT:
+- **Cargador de Baterías**: Rectifica la CA y mantiene el banco en flotación.
+- **Banco de Baterías**: Almacena energía química (típicamente Plomo-Ácido regulado por válvula - VRLA o Níquel-Cadmio). Operan en 110 Vcc o 125 Vcc.
+- **Tablero de Distribución de CC**: Distribuye la tensión de corriente continua de forma segregada y supervisada (detectores de falla a tierra en barras de CC).
 
-Es el sistema más crítico de la subestación. Su función es alimentar los circuitos de protección, control, alarmas y disparos de los interruptores de MT.
+#### 2. Alimentación de Servicios de Seguridad (Generadores y UPS)
+Según **IEC 60364-5-55 / 5-56**, las fuentes de seguridad para alimentación de emergencia se clasifican por su tiempo de conmutación y deben garantizar autonomía suficiente ante cortes:
+- **Sistemas de Alimentación Ininterrumpida (UPS)**: Clasificados como fuentes de corte nulo (0 ms). Basados en rectificador, banco de baterías y un inversor de estática que alimenta cargas críticas de control y sistemas informáticos industriales. Ante fallas internas del inversor, conmutan a un bypass estático rápido sin interrupción.
+- **Grupos Electrógenos de Emergencia**: Clasificados como fuentes de corte medio (conmutación en $< 15$ segundos). Equipados con un Tablero de Transferencia Automática (TTA) que supervisa la tensión de red externa, arranca el motor diésel y realiza la conmutación de cargas prioritarias (bombas de incendio, iluminación de escape, sistemas de extracción de gases).
 
-- **Cargador de Baterías**: Rectifica la corriente alterna del suministro de servicios auxiliares y mantiene cargado el banco de baterías en flotación.
-- **Banco de Baterías**: Almacena energía química para entregar corriente continua de forma instantánea. Generalmente operan en tensiones de 110 Vcc o 125 Vcc (plomo-ácido o níquel-cadmio).
-- **Tablero de Distribución de CC**: Distribuye la tensión de corriente continua hacia los diferentes paneles de protección y mandos.
-
-#### Sistemas Auxiliares de Corriente Alterna (CA)
-
-Alimentan los consumos que no son críticos para la desconexión segura pero sí para la operación continua:
-
-- **Ventilación de Transformadores**: Alimentación de motores de ventiladores y bombas de aceite de transformadores.
-- **Calefacción y Alumbrado**: Resistencias anticondensación dentro de gabinetes de control y celdas de MT, iluminación del recinto de la subestación y tomacorrientes de mantenimiento.
-
-#### Grupo Electrógeno de Emergencia
-
-Suministra corriente alterna auxiliar cuando falla la red externa. Cuenta con un tablero de transferencia automática (TTA) que detecta la falta de fase y arranca automáticamente el motor diésel para alimentar los consumos prioritarios de CA en menos de 15 segundos.
+#### 3. Canalizaciones Seguras para Emergencias
+Para asegurar que los servicios de seguridad sigan operativos en presencia de fuego directo (según **AEA 90364-5-56**):
+- **Cables Resistentes al Fuego (LSZH - Low Smoke Zero Halogen)**: Deben certificar resistencia al fuego directo durante períodos prolongados (norma **IEC 60331**, típicamente 90 o 120 minutos manteniendo continuidad eléctrica) y estar compuestos por materiales libres de halógenos para evitar la emisión de humos oscuros y gases ácidos altamente corrosivos y tóxicos.
+- **Segregación Física**: Los tendidos de cables de servicios de seguridad deben ir por bandejas o ductos exclusivos, físicamente separados de los cables de fuerza motriz convencionales, o protegidos por barreras cortafuego homologadas.

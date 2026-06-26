@@ -166,4 +166,46 @@ async def test_energia_lesson_rendered():
     assert "Conductores Desnudos" in response.text
 
 
+@pytest.mark.asyncio
+async def test_energia_new_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # Puesta a Tierra
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/puesta-a-tierra")
+        assert response.status_code == 200
+        assert "Diseño de Puesta a Tierra y Seguridad Eléctrica" in response.text
+        assert "Tensión de Contacto" in response.text
+
+        # Coordinación y Selectividad
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/coordinacion-selectividad")
+        assert response.status_code == 200
+        assert "Coordinación de Protecciones y Selectividad" in response.text
+        assert "ANSI 50" in response.text
+
+        # Ensayos y Mantenimiento
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/ensayos-mantenimiento")
+        assert response.status_code == 200
+        assert "Ensayos de Campo y Mantenimiento Predictivo" in response.text
+        assert "DGA" in response.text
+
+        # Calidad de Energía
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/calidad-energia")
+        assert response.status_code == 200
+        assert "Calidad de Energía y Compensación de Reactiva" in response.text
+        assert "THD-I" in response.text
+
+        # Sistemas de Gestión de Energía
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/sistemas-gestion-energia-iot")
+        assert response.status_code == 200
+        assert "Sistemas de Gestión de Energía (SGE) e IoT" in response.text
+        assert "Modbus" in response.text
+
+        # Generación Distribuida
+        response = await ac.get("/cursos/instalaciones-aplicaciones-energia/generacion-distribuida")
+        assert response.status_code == 200
+        assert "Transición Energética y Generación Distribuida" in response.text
+        assert "BESS" in response.text
+
+
+
 

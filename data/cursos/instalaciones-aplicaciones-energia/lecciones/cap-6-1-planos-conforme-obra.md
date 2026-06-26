@@ -1,20 +1,18 @@
-### 6.1 Planos y especificaciones técnicas conforme a obras
+### 6.1 Planos e Ingeniería Conforme a Obra
 
-La documentación conforme a obra (As-Built) constituye el registro final de ingeniería de una instalación eléctrica o electromecánica, detallando exactamente cómo fue construida físicamente e interconectada en la realidad, incorporando todas las modificaciones realizadas durante la fase de montaje.
+La documentación conforme a obra (As-Built) constituye el registro final de ingeniería de una instalación eléctrica, detallando exactamente cómo fue construida físicamente e interconectada en la realidad. Además de ser el manual operativo para mantenimiento, es un requisito legal normado por **AEA 90364-6** e **IEC 60364-6** para la habilitación de la obra.
 
-#### Planos Eléctricos Fundamentales
+#### 1. Planos Eléctricos y Documentación Técnica Obligatoria
+De acuerdo a **AEA 90364-3** y **Parte 6**, toda obra eléctrica habilitada debe contar con la siguiente carpeta de ingeniería básica:
+- **Esquema Unifilar**: Representación simplificada del sistema eléctrico completo mediante una sola línea. Muestra la jerarquía de distribución, acometidas, potencias de transformadores, tipos de interruptores, calibres de cables y protecciones.
+- **Croquis de Distribución de Tableros**: Detalle físico interno de los gabinetes, garantizando el cumplimiento de distancias mínimas y compartimentación de seguridad.
+- **Memoria de Cálculo**: Justificación técnica de las secciones de cables seleccionadas (caída de tensión, capacidad térmica de cortocircuito) y el cálculo de la corriente de cortocircuito en cada nodo.
+- **Plano de Puesta a Tierra (PAT)**: Plano de planta detallando el tendido de la malla, ubicación de los puntos de inspección (cámaras de registro) e interconexiones de equipotencialidad.
 
-1. **Esquema Unifilar**:
-   - Representación simplificada del sistema eléctrico completo mediante una sola línea. Muestra la jerarquía de distribución, acometidas, potencias de transformadores, tipos de interruptores, calibres de cables y protecciones.
-2. **Plano de Disposición Física e Implantación**:
-   - Muestra la ubicación geográfica y distribución en planta de los equipos dentro de la subestación (sala de celdas, bases de transformadores, canalizaciones de potencia y control).
-3. **Plano de Puesta a Tierra (PAT)**:
-   - Plano de planta detallando el tendido de la malla de cobre desnudo enterrada, la ubicación de las jabalinas y los puntos de conexión a las estructuras metálicas y equipos.
-4. **Planos de Circuitos de Control y Mando (Esquemas Funcionales)**:
-   - Esquemas detallados cable por cable de los lazos de disparo, enclavamientos de seguridad, alarmas y alimentación de protecciones.
+#### 2. Protocolo de Ensayos Obligatorios (AEA 90364-6 / IEC 60364-6)
+Antes de la puesta en servicio inicial de una instalación eléctrica de BT, se debe ejecutar y certificar una serie de pruebas y verificaciones visuales e instrumentales obligatorias:
+- **Continuidad de Conductores de Protección**: Verificación de que todos los conductores de protección (PE) y conexiones equipotenciales principales y suplementarias tienen una resistencia eléctrica menor a $0.2\ \Omega$.
+- **Resistencia de Aislamiento**: Medición con Megger entre conductores activos y entre conductores activos y tierra. Para tensiones de servicio de 380/220 V, la norma exige inyectar 500 Vcc, debiendo obtenerse una resistencia mínima de aislamiento de **1.0 M$\Omega$**.
+- **Resistencia de Puesta a Tierra**: Medición de los electrodos de PAT con telurímetro mediante el método de caída de potencial. El valor obtenido debe cumplir con los límites seguros según el esquema de conexión a tierra adoptado (ej. en esquema TT, $R_{\text{pat}} < 40\ \Omega$ o $10\ \Omega$ dependiendo de la distribuidora, garantizando que el producto $R_{\text{pat}} \times I_{\Delta n} \le 24\text{ V}$ o $50\text{ V}$).
+- **Ensayo de Disparo de Interruptores Diferenciales (RCDs)**: Prueba instrumental para verificar que los diferenciales desconectan dentro de los tiempos máximos permitidos por norma (ej. con una corriente de fuga diferencial nominal $I_{\Delta n} = 30\text{ mA}$, el interruptor debe disparar en menos de 40 ms a una corriente de prueba de $5 \times I_{\Delta n}$ para protección de contactos directos).
 
-#### Especificaciones Técnicas y Listas de Materiales
-
-- **Hojas de Datos (Data Sheets)**: Especificaciones de diseño aprobadas de cada equipo mayor (ej. potencia de cortocircuito de celdas, tensiones de ensayo del transformador).
-- **Lista de Cables e Interconexiones**: Tabla indexada de cada conductor de potencia y señal de la obra, detallando su procedencia, destino, sección, longitud y tipo de aislamiento.
-- **Protocolos de Ensayo**: Ensayos de puesta en marcha (resistencia de aislamiento, rigidez dieléctrica del aceite, tiempos de apertura de interruptores, resistencia de puesta a tierra) que avalan el correcto funcionamiento antes de energizar la instalación.
