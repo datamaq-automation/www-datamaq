@@ -127,9 +127,15 @@
             <section class="c-curso-section" aria-labelledby="instructor-title">
                 <h2 id="instructor-title" class="c-curso-section__title">Instructor del Curso</h2>
                 <div class="c-instructor-perfil">
-                    <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo">
+                    <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-instructor-perfil__photo-link" aria-label="Perfil de {{ curso.instructor.name }}">
+                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo">
+                    </a>
                     <div class="c-instructor-perfil__info">
-                        <h3 class="c-instructor-perfil__name">{{ curso.instructor.name }}</h3>
+                        <h3 class="c-instructor-perfil__name">
+                            <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-instructor-perfil__name-link">
+                                {{ curso.instructor.name }}
+                            </a>
+                        </h3>
                         <p class="c-instructor-perfil__role">{{ curso.instructor.role }}</p>
                         <p class="c-instructor-perfil__bio">{{ curso.instructor.bio }}</p>
                         {% if curso.instructor.social_links %}

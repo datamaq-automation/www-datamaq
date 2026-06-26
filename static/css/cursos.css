@@ -232,6 +232,28 @@
     text-overflow: ellipsis;
 }
 
+.c-curso-card__instructor-link {
+    display: block;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.c-curso-card__instructor-link:hover {
+    transform: scale(1.08);
+}
+
+.c-curso-card__instructor-name-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    min-width: 0;
+}
+
+.c-curso-card__instructor-name-link:hover .c-curso-card__instructor-name {
+    color: var(--dm-data-cyan);
+}
+
 .c-curso-card__cta {
     display: inline-flex;
     align-items: center;
@@ -574,19 +596,30 @@
     }
 }
 
+.c-instructor-perfil__photo-link {
+    display: inline-block;
+    align-self: center;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+@media(min-width: 576px) {
+    .c-instructor-perfil__photo-link {
+        align-self: flex-start;
+    }
+}
+
+.c-instructor-perfil__photo-link:hover {
+    transform: scale(1.04);
+}
+
 .c-instructor-perfil__photo {
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--dm-border-1);
-    align-self: center;
-}
-
-@media(min-width: 576px) {
-    .c-instructor-perfil__photo {
-        align-self: flex-start;
-    }
+    display: block;
 }
 
 .c-instructor-perfil__info {
@@ -601,6 +634,16 @@
     color: var(--dm-text-0);
     margin-bottom: 0.25rem;
     text-align: center;
+}
+
+.c-instructor-perfil__name-link {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.c-instructor-perfil__name-link:hover {
+    color: var(--dm-data-cyan);
 }
 
 .c-instructor-perfil__role {

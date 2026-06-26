@@ -48,9 +48,13 @@
                             
                             <div class="c-curso-card__footer">
                                 <div class="c-curso-card__instructor">
-                                    <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo">
+                                    <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-link" aria-label="Perfil de {{ curso.instructor.name }}">
+                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo">
+                                    </a>
                                     <div class="c-curso-card__instructor-info">
-                                        <span class="c-curso-card__instructor-name">{{ curso.instructor.name }}</span>
+                                        <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-name-link">
+                                            <span class="c-curso-card__instructor-name">{{ curso.instructor.name }}</span>
+                                        </a>
                                         <span class="c-curso-card__instructor-role">{{ curso.instructor.role }}</span>
                                     </div>
                                 </div>
