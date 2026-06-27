@@ -10,6 +10,9 @@
                     <p data-v-236fef00="" class="c-home-hero__subtitle">{{ subtitle if subtitle else data.subtitle }}</p>
                     <div data-v-236fef00="" class="c-home-hero__actions">
                         <a data-v-236fef00="" class="tw:btn-primary c-home-hero__primary" href="{{ data.primaryCta.href }}" target="_blank" rel="noopener noreferrer">{{ data.primaryCta.label }}</a>
+                        {% if data.secondaryCta %}
+                        <a data-v-236fef00="" class="tw:btn-outline c-home-hero__secondary" href="{{ data.secondaryCta.href }}">{{ data.secondaryCta.label }}</a>
+                        {% endif %}
                     </div>
                     <p data-v-236fef00="" class="c-home-hero__urgency" role="status">
                         {{ icon_macro.bootstrap_icon('lightning-charge-fill') }}

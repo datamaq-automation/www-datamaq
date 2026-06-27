@@ -41,11 +41,11 @@ Cada vez que un agente o desarrollador identifique un comportamiento inesperado,
 
 ### [DISC-003] Comportamiento del CTA Secundario en el Hero de Inicio
 * **Fecha:** 2026-06-27
-* **Estado:** Abierto
+* **Estado:** Resuelto
 * **Impacto:** Bajo
 * **Componentes afectados:** [contenido.yaml](file:///home/agustin/proyectos_software/www-datamaq/data/contenido.yaml) y [hero.html](file:///home/agustin/proyectos_software/www-datamaq/templates/partials/components/hero.html)
 * **Descripción:** El archivo `contenido.yaml` expone un botón CTA secundario (`secondaryCta`) para el componente Hero, pero el template `hero.html` solo renderiza el botón primario. Esto deja el parámetro configurado sin uso visual en el frontend.
-* **Resolución / Decisión:** Pendiente de corregir en el template Jinja2 del Hero para habilitar la renderización condicional del botón de acción secundario.
+* **Resolución / Decisión:** Se modificó [hero.html](file:///home/agustin/proyectos_software/www-datamaq/templates/partials/components/hero.html) para incluir de forma condicional el enlace del botón secundario (`tw:btn-outline c-home-hero__secondary`) respetando la flexbox responsiva del contenedor.
 
 ### [DISC-004] Decisión Estratégica: No indexación de lecciones de cursos
 * **Fecha:** 2026-06-27
