@@ -11,7 +11,6 @@ brand:
       src: /static/media/tecnico-a-cargo.webp
       width: 100
     role: "Técnico a cargo"
-  whatsappUrl: https://wa.me/5491156297160
   footerDescription: "Monitoreo de energía y captura de datos operativos para la industria."
 content:
   about:
@@ -253,8 +252,7 @@ footer:
         - label: "Gráfica"
           href: "/industria/grafica.html"
   cta_title: "¿Tenés dudas técnicas?"
-  cta_label: "Escribime por WhatsApp"
-  whatsapp_text: "Hola DataMaq, necesito asistencia técnica para [Tipo de Maquina]."
+  cta_label: "Contactar"
   terms_label: "Términos y condiciones"
   terms_href: "/terminos-y-condiciones"
   copyright_suffix: "Todos los derechos reservados."

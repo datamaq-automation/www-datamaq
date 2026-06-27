@@ -7,7 +7,6 @@
     <title>Preview: {{ partial_name }}</title>
     <!-- CSS Dependencies from head.html -->
     <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}?v={{ static_version() }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/WhatsAppFab.css') }}?v={{ static_version() }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/HomePage.css') }}?v={{ static_version() }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}">
@@ -25,7 +24,6 @@
             {% import 'partials/components/contact_form.html' as contact_macro %}
             {% import 'partials/components/contact_section.html' as contact_section_macro %}
             {% import 'partials/components/profile.html' as profile_macro %}
-            {% import 'partials/components/whatsapp_fab.html' as fab_macro %}
             {% import 'partials/components/dock.html' as dock_macro %}
             {% import 'partials/components/hero.html' as hero_macro %}
 

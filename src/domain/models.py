@@ -36,7 +36,7 @@ class BrandModel(BaseModel):
     brandAriaLabel: str
     baseOperativa: str
     contactEmail: str
-    whatsappUrl: str
+    whatsappUrl: Optional[str] = None
     technician: TechnicianModel
     footerDescription: str
 
@@ -164,7 +164,7 @@ class FooterModel(BaseModel):
     navigation_groups: List[FooterGroupModel]
     cta_title: str
     cta_label: str
-    whatsapp_text: str
+    whatsapp_text: Optional[str] = None
     terms_label: str
     terms_href: str
     copyright_suffix: str

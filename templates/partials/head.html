@@ -28,7 +28,7 @@
     </script>
 
 
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/WhatsAppFab.css') }}?v={{ static_version() }}'>
+    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/ChatwootFab.css') }}?v={{ static_version() }}'>
     <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}'>
     <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/HomePage.css') }}?v={{ static_version() }}'>
     <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}'>
@@ -64,9 +64,6 @@
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
                 "logo": "{{ request.url_for('static', path='favicon.svg') }}",
-                "sameAs": [
-                    "{{ brand.whatsappUrl }}"
-                ],
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "contactType": "Soporte técnico y ventas",

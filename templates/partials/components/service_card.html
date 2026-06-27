@@ -1,5 +1,5 @@
 {% import 'partials/components/icon.html' as icon_macro %}
-{% macro service_card(icon_name, title, description, subtitle, items, note, cta_text, cta_href='https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica') %}
+{% macro service_card(icon_name, title, description, subtitle, items, note, cta_text, cta_href='/contact') %}
 <article data-v-236fef00="" class="c-home-service-card">
     <div data-v-236fef00="" class="c-home-service-card__summary">
         <span data-v-236fef00="" class="c-home-service-card__icon" aria-hidden="true">{{ icon_macro.bootstrap_icon(icon_name) }}</span>
@@ -22,7 +22,11 @@
         {% if title == "Capacitaciones aplicadas" %}
         <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="/cursos">Ir a cursos</a>
         {% else %}
-        <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}" target="_blank" rel="noopener noreferrer">{{ cta_text }}</a>
+            {% if cta_href.startswith('/') %}
+            <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}">{{ cta_text }}</a>
+            {% else %}
+            <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}" target="_blank" rel="noopener noreferrer">{{ cta_text }}</a>
+            {% endif %}
         {% endif %}
     </div>
 </article>

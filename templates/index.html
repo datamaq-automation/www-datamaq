@@ -7,7 +7,6 @@
 {% import 'partials/components/contact_form.html' as contact_macro %}
 {% import 'partials/components/contact_section.html' as contact_section_macro %}
 {% import 'partials/components/profile.html' as profile_macro %}
-{% import 'partials/components/whatsapp_fab.html' as fab_macro %}
 {% import 'partials/components/chatwoot_fab.html' as chatwoot_macro %}
 {% import 'partials/components/dock.html' as dock_macro %}
 {% import 'partials/components/hero.html' as hero_macro %}
@@ -45,7 +44,7 @@
 
 <div data-v-236fef00="" class="c-home-services__grid">
 {% for card in content.services.cards %}
-{{ service_macro.service_card('bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, brand.whatsappUrl + '?text=Hola+DataMaq%2C+consulto+por+' + card.title.replace(' ', '+')) }}
+{{ service_macro.service_card('bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, '/contact') }}
 {% endfor %}
 </div>
 
@@ -66,7 +65,6 @@
 
 {% block fab %}
 {{ chatwoot_macro.chatwoot_fab(config.CHATWOOT_BASE_URL, config.CHATWOOT_TOKEN) }}
-{{ fab_macro.whatsapp_fab('https://wa.me/5491156297160?text=Hola+DataMaq%2C+necesito+asistencia+t%C3%A9cnica+para+%5BTipo+de+Maquina%5D.', 'Abrir WhatsApp para pedir coordinación', 'Abrir WhatsApp') }}
 {% endblock %}
 
 {% block dock %}

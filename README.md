@@ -1,6 +1,6 @@
 # Datamaq
 
-Migración de **Vue SPA** a **FastAPI Jinja2 SSR** (SEO First).
+ **FastAPI Jinja2 SSR** (SEO First).
 
 ## Quick Start
 

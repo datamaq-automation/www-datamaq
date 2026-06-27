@@ -1,0 +1,95 @@
+.c-chatwoot-fab {
+    position: fixed !important;
+    bottom: calc(var(--fab-offset, 1rem) + env(safe-area-inset-bottom, 0px));
+    right: 1.5rem; /* Posicionado en la esquina inferior derecha */
+    width: 3.25rem;
+    height: 3.25rem;
+    background-color: #0284c7; /* Color celeste corporativo de Chatwoot */
+    color: #fff;
+    border-radius: 9999px;
+    box-shadow: 0 .75rem 1.75rem rgba(0, 0, 0, 0.35);
+    z-index: 1030;
+    opacity: .96;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .24s ease, box-shadow .24s ease, opacity .24s ease, background-color .24s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.c-chatwoot-fab:hover {
+    transform: translateY(-2px);
+    background-color: #0369a1; /* Un tono más oscuro en hover */
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.c-chatwoot-fab:focus-visible {
+    outline: 3px solid rgba(255, 106, 0, 0.95);
+    outline-offset: 4px;
+}
+
+.c-chatwoot-fab:active {
+    transform: scale(0.95);
+}
+
+.c-chatwoot-fab__icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.c-chatwoot-fab.is-loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* Animación del spinner de carga */
+.c-chatwoot-fab__spinner {
+    display: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: chatwoot-spin 0.8s linear infinite;
+}
+
+.c-chatwoot-fab.is-loading .c-chatwoot-fab__spinner {
+    display: block;
+}
+
+.c-chatwoot-fab.is-loading .c-chatwoot-fab__icon {
+    display: none;
+}
+
+@keyframes chatwoot-spin {
+    to { transform: rotate(360deg); }
+}
+
+body.has-consent-banner .c-chatwoot-fab {
+    bottom: calc(var(--fab-offset, 1rem) + env(safe-area-inset-bottom, 0px) + max(var(--cookie-banner-height, 6rem), 13rem) + .75rem);
+}
+
+body.dmq-offcanvas-open .c-chatwoot-fab,
+body.offcanvas-open .c-chatwoot-fab {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+    .c-chatwoot-fab {
+        width: 3.5rem;
+        height: 3.5rem;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+        right: 1rem; /* Posicionado en la esquina inferior derecha */
+        opacity: 1;
+    }
+    
+    .c-chatwoot-fab__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+}
