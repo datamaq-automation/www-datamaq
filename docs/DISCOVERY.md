@@ -71,6 +71,14 @@ Cada vez que un agente o desarrollador identifique un comportamiento inesperado,
 * **Descripción:** El helper `canonical_url` generaba URLs relativas/absolutas dinámicamente usando el host del request. Si el proxy en producción está mal configurado, esto inyectaba canonicals de `localhost` o IPs internas.
 * **Resolución / Decisión:** Se añadió `BASE_URL` a la configuración (`https://datamaq.com.ar` como fallback) y se modificó `canonical_url` para forzar el esquema y netloc provistos por esta base URL en lugar de los dinámicos. Los tests de aserción canónica en `test_seo.py` también se ajustaron.
 
+### [DISC-007] Optimización de textos descriptivos alternativos (alt) para fotos
+* **Fecha:** 2026-06-27
+* **Estado:** Resuelto
+* **Impacto:** Bajo
+* **Componentes afectados:** [contenido.yaml](file:///home/agustin/proyectos_software/www-datamaq/data/contenido.yaml)
+* **Descripción:** Las fotos asociadas al técnico utilizaban textos descriptivos alternativos genéricos como `"Foto del técnico a cargo"` y `"Técnico a cargo de la implementación"`. Esto representaba una oportunidad perdida para inyectar semántica de marca y accesibilidad de cara al algoritmo de búsqueda de imágenes de Google.
+* **Resolución / Decisión:** Se modificaron los valores de `alt` en `contenido.yaml` para incluir el nombre del técnico y la especialidad: `"Foto de Agustin Bustos, técnico a cargo en DataMaq"` y `"Agustin Bustos, técnico a cargo de la implementación de equipos IoT"`.
+
 ---
 
 ## 3. Decisiones de Arquitectura Consolidadas

@@ -6,7 +6,7 @@ brand:
   technician:
     name: Agustin Bustos
     photo:
-      alt: "Foto del técnico a cargo"
+      alt: "Foto de Agustin Bustos, técnico a cargo en DataMaq"
       height: 100
       src: /static/media/tecnico-a-cargo.webp
       width: 100
@@ -15,7 +15,7 @@ brand:
 content:
   about:
     image:
-      alt: "Técnico a cargo de la implementación"
+      alt: "Agustin Bustos, técnico a cargo de la implementación de equipos IoT"
       height: 933
       src: /static/media/tecnico-a-cargo.webp
       width: 700
