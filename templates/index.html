@@ -61,6 +61,25 @@
 {% call contact_section_macro.contact_section(content.contact) %}
 {{ contact_macro.contact_form(content.contact) }}
 {% endcall %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in content.faq.questions %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question | replace('"', '\\"') }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer | replace('"', '\\"') }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
 {% endblock %}
 
 {% block fab %}

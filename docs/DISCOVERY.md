@@ -79,6 +79,14 @@ Cada vez que un agente o desarrollador identifique un comportamiento inesperado,
 * **Descripción:** Las fotos asociadas al técnico utilizaban textos descriptivos alternativos genéricos como `"Foto del técnico a cargo"` y `"Técnico a cargo de la implementación"`. Esto representaba una oportunidad perdida para inyectar semántica de marca y accesibilidad de cara al algoritmo de búsqueda de imágenes de Google.
 * **Resolución / Decisión:** Se modificaron los valores de `alt` en `contenido.yaml` para incluir el nombre del técnico y la especialidad: `"Foto de Agustin Bustos, técnico a cargo en DataMaq"` y `"Agustin Bustos, técnico a cargo de la implementación de equipos IoT"`.
 
+### [DISC-008] Marcado dinámico de datos estructurados para FAQPage y Person
+* **Fecha:** 2026-06-27
+* **Estado:** Resuelto
+* **Impacto:** Bajo
+* **Componentes afectados:** [index.html](file:///home/agustin/proyectos_software/www-datamaq/templates/index.html) e [instructor.html](file:///home/agustin/proyectos_software/www-datamaq/templates/cursos/instructor.html)
+* **Descripción:** Se carecía de un marcado JSON-LD para `FAQPage` en la página de inicio (a pesar de tener preguntas frecuentes) y para `Person` en la página de instructor. Esto reducía la posibilidad de que Google genere fragmentos enriquecidos (rich snippets).
+* **Resolución / Decisión:** Se inyectaron dinámicamente scripts `application/ld+json` en ambos templates utilizando ciclos en Jinja2. En `index.html` se itera sobre `content.faq.questions` y en `instructor.html` se procesa el perfil del instructor incluyendo sus redes sociales en el campo `sameAs`.
+
 ---
 
 ## 3. Decisiones de Arquitectura Consolidadas

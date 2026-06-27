@@ -105,6 +105,26 @@
         </section>
     </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ instructor.name }}",
+  "jobTitle": "{{ instructor.role }}",
+  "image": "{{ request.url_for('static', path=instructor.photo.replace('/static/', '')) }}",
+  "description": "{{ instructor.bio | replace('"', '\\"') }}",
+  "sameAs": [
+    {% set ns = namespace(first=true) %}
+    {% if instructor.social_links %}
+      {% if instructor.social_links.linkedin %}"{{ instructor.social_links.linkedin }}"{% set ns.first = false %}{% endif %}
+      {% if instructor.social_links.github %}{% if not ns.first %},{% endif %}"{{ instructor.social_links.github }}"{% set ns.first = false %}{% endif %}
+      {% if instructor.social_links.twitter %}{% if not ns.first %},{% endif %}"{{ instructor.social_links.twitter }}"{% set ns.first = false %}{% endif %}
+      {% if instructor.social_links.website %}{% if not ns.first %},{% endif %}"{{ instructor.social_links.website }}"{% set ns.first = false %}{% endif %}
+    {% endif %}
+  ]
+}
+</script>
 {% endblock %}
 
 {% block dock %}
