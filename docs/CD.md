@@ -1,180 +1,141 @@
-# Guía de Despliegue Continuo (CD)
+# Guía de Despliegue en Producción
 
-## Estado actual
+Esta guía detalla el proceso de preparación del servidor VPS, la configuración de los servicios del sistema (Systemd, Nginx) y el flujo de despliegue automatizado para la aplicación **www-datamaq**.
 
-El despliegue es **automático** mediante el workflow `.github/workflows/deploy.yml`, que se conecta por SSH al VPS y ejecuta `scripts/deploy-server.sh`. El CI corre **localmente** a través del hook `scripts/pre-push.sh`; no existe `.github/workflows/ci.yml`.
+---
 
-## Configuración del VPS
+## 1. Configuración de Variables de Despliegue
 
-Se puede automatizar la configuración inicial ejecutando `scripts/setup-vps-user.sh` en el VPS como `root`:
-
-```bash
-chmod +x /var/www/datamaq/scripts/setup-vps-user.sh
-/var/www/datamaq/scripts/setup-vps-user.sh
-```
-
-O seguir los pasos manuales a continuación.
-
-### 1. Usuario dedicado
-
-La aplicación **NO** debe ejecutarse como `root`. Crear un usuario dedicado con shell `bash` y sin contraseña (acceso solo por clave SSH):
+Tanto para la preparación inicial como para las tareas de despliegue y visualización de logs, se debe crear el archivo de configuración en tu entorno local:
 
 ```bash
-sudo adduser --disabled-password --gecos "" --home /var/www/datamaq datamaq
-sudo chown -R datamaq:datamaq /var/www/datamaq
+cp scripts/.env.deploy.example scripts/.env.deploy
 ```
 
-> Nota: `setup-vps-user.sh` automatiza este paso y también configura `sudoers`.
+Edita el archivo [scripts/.env.deploy](file:///home/agustin/proyectos_software/www-datamaq/scripts/.env.deploy) con los valores correspondientes del servidor:
+* `DEPLOY_SSH_HOST`: IP o dominio del servidor VPS.
+* `DEPLOY_SSH_PORT`: Puerto de conexión SSH (habitualmente 22).
+* `DEPLOY_SSH_USER`: Usuario del sistema dedicado al servicio (ej. `datamaq`).
+* `DEPLOY_REMOTE_DIR`: Ruta absoluta en el VPS donde se clonará el código (ej. `/var/www/datamaq`).
+* `DEPLOY_SERVICE_NAME`: Nombre del servicio del sistema en systemd (ej. `datamaq.service`).
 
-### 2. Clonar repositorio
+---
 
-```bash
-sudo -u datamaq git clone <URL_DEL_REPOSITORIO> /var/www/datamaq
-```
+## 2. Preparación Inicial del VPS (Bootstrap)
 
-### 3. Entorno virtual e instalación de dependencias
+Para preparar el servidor de producción con un usuario y permisos seguros, ejecuta el script de aprovisionamiento. **Este script debe correr en el VPS como usuario `root`**:
 
-```bash
-sudo -u datamaq python3 -m venv /var/www/datamaq/.venv
-sudo -u datamaq /var/www/datamaq/.venv/bin/pip install -r /var/www/datamaq/requirements.txt
-```
+1. Copia el script [setup-vps-user.sh](file:///home/agustin/proyectos_software/www-datamaq/scripts/setup-vps-user.sh) al servidor y ejecútalo como root:
+   ```bash
+   sudo ./setup-vps-user.sh
+   ```
+2. Este script se encargará de:
+   * Crear el usuario dedicado para la aplicación (`datamaq` por defecto) de forma segura (sin acceso por contraseña, solo SSH keys).
+   * Crear el directorio remoto asignándole la propiedad al usuario dedicado.
+   * Configurar los permisos de `sudoers` para permitirle al usuario del despliegue reiniciar e inspeccionar el estado del servicio systemd sin ingresar contraseña.
 
-> Nota: el archivo `requirements.txt` está en la raíz del proyecto, no en `backend/`.
+---
 
-### 4. Variables de entorno de la aplicación
+## 3. Configuración del Servicio Systemd (`datamaq.service`)
 
-Crear `/var/www/datamaq/.env` con los secretos de la app (tokens, IDs de analytics, etc.). Este archivo **no debe versionarse**.
-
-```bash
-sudo -u datamaq touch /var/www/datamaq/.env
-sudo chmod 600 /var/www/datamaq/.env
-```
-
-### 5. Servicio systemd
-
-Crear `/etc/systemd/system/datamaq.service`:
+En el VPS, crea el archivo de servicio de la aplicación en la ruta `/etc/systemd/system/datamaq.service` (reemplaza `datamaq` y las rutas si utilizas valores personalizados):
 
 ```ini
 [Unit]
-Description=Datamaq FastAPI Application
+Description=Servicio Web Datamaq (FastAPI)
 After=network.target
 
 [Service]
 User=datamaq
 Group=datamaq
 WorkingDirectory=/var/www/datamaq
-ExecStart=/var/www/datamaq/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 0.0.0.0 --port 8000
-Restart=always
+ExecStart=/var/www/datamaq/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 127.0.0.1 --port 8000
 EnvironmentFile=/var/www/datamaq/.env
+Restart=always
+RestartSec=5
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-Habilitar y arrancar:
-
+Habilita e inicia el servicio en el VPS:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable datamaq.service
 sudo systemctl start datamaq.service
 ```
 
-### 6. Permisos para reiniciar el servicio (deploy)
+---
 
-El usuario que realiza el deploy necesita reiniciar el servicio. Configurar `sudoers` para que no requiera contraseña:
+## 4. Configuración del Proxy Inverso (Nginx)
 
-```bash
-echo "datamaq ALL=(ALL) NOPASSWD: /bin/systemctl restart datamaq.service, /bin/systemctl is-active datamaq.service" | sudo tee /etc/sudoers.d/datamaq-deploy
-sudo chmod 440 /etc/sudoers.d/datamaq-deploy
+Para exponer la aplicación en producción de manera segura (puertos 80 y 443), utiliza **Nginx** como proxy inverso frente a Uvicorn.
+
+Crea un archivo de configuración de bloque de servidor en `/etc/nginx/sites-available/datamaq` en el VPS:
+
+```nginx
+server {
+    listen 80;
+    server_name datamaq.com.ar www.datamaq.com.ar;
+
+    # Redirección a HTTPS (Recomendado para producción)
+    # return 301 https://$host$request_uri;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Optimización opcional para archivos estáticos
+    location /static/ {
+        alias /var/www/datamaq/static/;
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+}
 ```
 
-> `setup-vps-user.sh` automatiza este paso.
-
-## Configuración local del desarrollador
-
-Copiar el template y completar con los datos del VPS:
-
+Habilita el sitio y reinicia Nginx:
 ```bash
-cp scripts/.env.deploy.example scripts/.env.deploy
-# Editá scripts/.env.deploy con los valores reales
+sudo ln -s /etc/nginx/sites-available/datamaq /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
 ```
 
-Variables obligatorias:
+> [!NOTE]
+> Para habilitar HTTPS (SSL), puedes utilizar **Certbot** para obtener e instalar automáticamente un certificado de Let's Encrypt ejecutando: `sudo certbot --nginx -d datamaq.com.ar -d www.datamaq.com.ar`.
 
-- `DEPLOY_SSH_HOST` — IP o hostname del VPS.
-- `DEPLOY_SSH_PORT` — puerto SSH del VPS.
-- `DEPLOY_SSH_USER` — usuario dedicado en el VPS (nunca `root`).
-- `DEPLOY_REMOTE_DIR` — ruta absoluta del proyecto en el VPS.
-- `DEPLOY_SERVICE_NAME` — nombre del servicio systemd (ejemplo: `datamaq.service`).
+---
 
-`scripts/.env.deploy` está en `.gitignore` y **nunca debe commitearse**.
+## 5. Proceso de Despliegue Automatizado
 
-> Nota: `scripts/setup-vps-user.sh` también lee `scripts/.env.deploy` cuando se ejecuta en el VPS. Si el archivo no está presente, usa los valores por defecto (`datamaq`, `/var/www/datamaq`, `datamaq.service`).
-
-## Scripts de deploy
-
-- `scripts/deploy-server.sh` — conecta por SSH al VPS, hace `git pull`, instala dependencias y reinicia el servicio.
-- `scripts/view_logs.sh` — muestra los últimos logs del servicio.
-
-## Roadmap hacia GitHub Actions
-
-### Secrets necesarios en el repositorio
-
-Configurar en GitHub: **Settings > Secrets and variables > Actions**.
-
-- `DEPLOY_SSH_HOST` — IP o hostname del VPS.
-- `DEPLOY_SSH_PORT` — puerto SSH del VPS.
-- `DEPLOY_SSH_USER` — usuario dedicado en el VPS.
-- `DEPLOY_SSH_KEY` — clave privada SSH (se recomienda sin frase de paso para CI).
-
-### Workflows
-
-1. **CI local:** `scripts/pre-push.sh` ejecuta `pytest` con cobertura mínima del `85 %` antes de cada push.
-2. `.github/workflows/deploy.yml` — deploy automático en cada push a `main`, conectándose por SSH al VPS y ejecutando `scripts/deploy-server.sh`.
-
-### Rollback
-
-Implementar en `scripts/deploy-server.sh`:
-
-1. Guardar el commit actual (`HEAD`) antes del `git pull`.
-2. Ejecutar health-check HTTP a `http://localhost:8000/` después del reinicio.
-3. Si el health-check falla, ejecutar `git reset --hard <commit-previo>` y reiniciar el servicio.
-
-## Notas de seguridad
-
-- No usar `root` para deploy ni ejecución.
-- Rotar credenciales SSH si alguna vez estuvieron en un archivo local no cifrado.
-- Configurar `PermitRootLogin no` en `/etc/ssh/sshd_config`.
-- Mantener `scripts/.env.deploy` fuera del control de versiones.
-- Usar autenticación por clave SSH sin frase de paso para CI/CD.
-
-### Configurar acceso SSH por clave
-
-Desde la máquina del desarrollador:
+Una vez configurado el entorno, todo cambio realizado en la rama principal se sube al servidor ejecutando el script localmente desde tu máquina de desarrollo o entorno de CI/CD:
 
 ```bash
-ssh-keygen -t ed25519 -C "deploy@datamaq" -f ~/.ssh/datamaq_deploy
-ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 datamaq@168.181.184.103
+./scripts/deploy-server.sh
 ```
 
-Luego probar:
+### Flujo del script y Rollback Automático:
+1. **Paso por SSH:** Se conecta al VPS de forma segura mediante el usuario del despliegue (no root).
+2. **Copia de Respaldo (Rollback Point):** Guarda el hash del commit actual en el servidor antes de realizar cambios.
+3. **Actualización:** Realiza un `git pull` en la carpeta del servidor para obtener los últimos cambios.
+4. **Dependencias:** Ejecuta `pip install` sobre el entorno virtual del servidor (`.venv`) si hay cambios en `requirements.txt`.
+5. **Reinicio:** Reinicia el servicio `systemd` para aplicar los cambios de código.
+6. **Health Check:** Realiza peticiones HTTP locales en el VPS a `http://localhost:8000/` durante un máximo de 30 segundos.
+   * **Si responde HTTP 200:** El despliegue finaliza de manera exitosa.
+   * **Si falla o supera el tiempo límite:** Revierte automáticamente el repositorio al commit anterior guardado (`git reset --hard`) y vuelve a reiniciar el servicio estable, previniendo caídas del sitio.
+
+---
+
+## 6. Monitoreo y Diagnóstico Remoto
+
+Puedes visualizar la salida de logs remotos de la aplicación directamente desde la máquina local sin necesidad de loguearte interactivamente por SSH:
 
 ```bash
-ssh -p 5932 -i ~/.ssh/datamaq_deploy datamaq@168.181.184.103
+./scripts/view_logs.sh
 ```
-- Usar autenticación por clave SSH sin frase de paso para CI/CD.
-
-### Configurar acceso SSH por clave
-
-Desde la máquina del desarrollador:
-
-```bash
-ssh-keygen -t ed25519 -C "deploy@datamaq" -f ~/.ssh/datamaq_deploy
-ssh-copy-id -i ~/.ssh/datamaq_deploy.pub -p 5932 datamaq@168.181.184.103
-```
-
-Luego probar:
-
-```bash
-ssh -p 5932 -i ~/.ssh/datamaq_deploy datamaq@168.181.184.103
-```
+Este comando consulta y muestra las últimas 20 líneas del servicio en tiempo real a través de `journalctl`.

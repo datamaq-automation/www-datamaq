@@ -1,41 +1,58 @@
-# Datamaq
+# www-datamaq
 
- **FastAPI Jinja2 SSR** (SEO First).
+Sitio web y plataforma técnica de **DataMaq**. El sistema presenta las soluciones de instalación de hardware IoT industrial para el monitoreo de energía y captura automática de datos operativos, el alcance de los servicios de asesoramiento en análisis de datos, y ofrece un anexo de capacitación técnica aplicada (LMS).
 
-## Quick Start
+Construido con **FastAPI** y Python, utilizando una arquitectura hexagonal/limpia y renderizado dinámico mediante plantillas HTML (Jinja2) a partir de datos estructurados en archivos YAML y Markdown.
 
-1. `pip install -r requirements.txt`
-2. `./run.sh`
+## Estructura del Proyecto
 
-## Tests
+* **[data/](file:///home/agustin/proyectos_software/www-datamaq/data)**: Contiene los archivos de contenido general, servicios, cobertura, leads y el catálogo de capacitaciones y lecciones (`*.yaml` y `*.md`).
+* **[src/](file:///home/agustin/proyectos_software/www-datamaq/src)**: Código fuente de la aplicación organizado en capas de arquitectura limpia:
+  * **[domain/](file:///home/agustin/proyectos_software/www-datamaq/src/domain)**: Modelos de datos (Pydantic).
+  * **[application/](file:///home/agustin/proyectos_software/www-datamaq/src/application)**: Lógica de negocio y servicios de datos.
+  * **[infrastructure/](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure)**: Inicialización de FastAPI, configuración de rutas web y middleware.
+* **[templates/](file:///home/agustin/proyectos_software/www-datamaq/templates)**: Plantillas Jinja2 para la interfaz de usuario.
+* **[static/](file:///home/agustin/proyectos_software/www-datamaq/static)**: Archivos estáticos (CSS, JS, imágenes).
+* **[tests/](file:///home/agustin/proyectos_software/www-datamaq/tests)**: Conjunto de pruebas unitarias y de integración del sistema.
 
-El repositorio incluye un hook `pre-push` que ejecuta los tests automáticamente:
+---
+
+## Inicio Rápido Local
+
+### 1. Requisitos Previos
+* **Python 3.12** o superior instalado en el sistema.
+* Utilidad `lsof` (habitual en entornos Linux/macOS) para la gestión automática del puerto en modo desarrollo.
+
+### 2. Configuración de Entorno
+Copia el archivo de plantilla `.env.example` para crear tu configuración local:
+```bash
+cp .env.example .env
+```
+Asegúrate de editar el archivo `.env` recién creado y colocar los valores de configuración requeridos (por ejemplo, tokens e identificadores para servicios integrados).
+
+### 3. Ejecución del Servidor de Desarrollo
+El proyecto cuenta con un script de automatización que gestiona la creación del entorno virtual (`venv`), instala las dependencias de [requirements.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements.txt) si es la primera ejecución, y arranca el servidor local con recarga automática:
 
 ```bash
-ln -s ../../scripts/pre-push.sh .git/hooks/pre-push
+./run.sh
 ```
+El servidor estará accesible en: [http://localhost:8000](http://localhost:8000).
 
-Para correr los tests manualmente:
+---
 
-```bash
-export PYTHONPATH=$PYTHONPATH:.
-pytest --cov=src --cov-report=term-missing tests/
-```
+## Ejecución de Pruebas
 
-## Despliegue
+Para correr el set de pruebas automatizadas y validar el correcto funcionamiento de las rutas, redirecciones y el catálogo de cursos:
 
-El despliegue actual es **manual** mediante `scripts/deploy-server.sh`. Requiere completar `scripts/.env.deploy` a partir de `scripts/.env.deploy.example`.
-
-Ver la guía completa en [`docs/CD.md`](docs/CD.md).
-
-## CI/CD
-
-GitHub Actions está planificado pero aún no implementado. El roadmap de tareas está en [`docs/TODO.md`](docs/TODO.md).
-
-## Documentación clave
-
-- [Estrategia SEO](docs/seo_strategy.md)
-- [Arquitectura y macros](docs/architecture.md)
-- [Guía de despliegue](docs/CD.md)
-- [Tareas pendientes](docs/TODO.md)
-- [Guía de estilo](GEMINI.md)
+1. Asegúrate de tener el entorno virtual activo:
+   ```bash
+   source venv/bin/activate
+   ```
+2. Ejecuta `pytest`:
+   ```bash
+   pytest
+   ```
+   *(Opcional) Para correr las pruebas con reporte de cobertura:*
+   ```bash
+   pytest --cov=src tests/
+   ```

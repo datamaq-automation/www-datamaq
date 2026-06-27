@@ -1,128 +1,68 @@
-# Especificación de Requisitos del Sistema (SRS) - Datamaq
+# Especificación de Requisitos de Software (SRS.md)
 
-## Contexto de Migración
-Replicar la UI/UX de la versión legacy (Vue.js) bajo arquitectura SSR para optimización SEO.
-
-## 1. Funcionalidades Críticas
-- **Landing Page SSR:** SEO optimizado, contenido dinámico desde YAML.
-- **Cotizador (Wizard UI):** 
-    - **Estrategia:** Multi-paso basado en rutas/parámetros (SSR) para mantener estado y SEO en cada etapa.
-    - **UX:** Uso de transiciones CSS para emular la fluidez de Vue.
-- **RASA Action Server:** Soporte para lógica de negocio del bot.
-- **LMS de Cursos (tipo LearnPress):**
-    - **Estructura:** Cursos, secciones (módulos) y lecciones (video y markdown/texto).
-    - **SEO Técnico:** URLs amigables, marcado estructurado JSON-LD tipo `Course` de Schema.org, e integración con sitemap.
-    - **Progressive Enhancement:** Reproductor interactivo y persistencia local de avance (`localStorage`) sin romper la visualización y navegabilidad SSR base.
-
-## 2. Requisitos No Funcionales
-- **Performance:** LCP < 2.5s.
-- **Fidelidad:** Coincidencia visual del 100% con el diseño original.
+Este documento define la Especificación de Requisitos de Software (SRS) para la plataforma web de servicios técnicos de **DataMaq**.
 
 ---
 
-## 3. Requisitos No Funcionales — SEO y Rendimiento
+## 1. Introducción
 
-> Derivados del informe de auditoría SEO técnica. Cada requisito referencia el hallazgo correspondiente.
+El sistema es la plataforma web institucional y técnica de **DataMaq**, una firma especializada en la implementación de equipos IoT industriales para el monitoreo de energía y la captura automática de datos operativos (producción, variables críticas de planta, kWh, factor de potencia, etc.). 
 
-### 3.1 Requisitos P1 — Críticos
-
-#### R-SEO-01 — Reducir CSS render-blocking
-- **Descripción:** La carga de estilos en el `<head>` no debe bloquear el renderizado del contenido above-the-fold.
-- **Criterio de aceptación:**
-  - El CSS crítico del above-the-fold se entrega inline en el `<head>`.
-  - El CSS no crítico se carga de forma diferida o no bloqueante.
-  - `index.css` se fragmenta o reduce para no incluir Bootstrap Icons completos ni estilos Tailwind remanentes sin uso.
-  - Lighthouse no reporta "Eliminar recursos que bloquean el renderizado" como problema principal.
-- **Prioridad:** P1.
-- **Referencia:** Informe SEO, oportunidad #1.
-
-#### R-SEO-02 — Diferenciar contenido de páginas dinámicas
-- **Descripción:** Las páginas de localidad e industria deben aportar valor de contenido único suficiente para evitar ser clasificadas como thin content o contenido duplicado.
-- **Criterio de aceptación:**
-  - `data/geografia.yaml` e `industrias.yaml` permiten definir bloques de contenido específicos (casos de uso, equipos recomendados, beneficios, FAQs sectoriales, og_image).
-  - El template `index.html` renderiza esos bloques solo cuando existen en el contexto.
-  - Google Search Console no reporta alertas de "Contenido escaso" ni "Contenido duplicado" para estas URLs.
-- **Prioridad:** P1.
-- **Referencia:** Informe SEO, oportunidad #2.
-
-#### R-SEO-03 — Normalización de URLs
-- **Descripción:** Las URLs canónicas deben ser accesibles de forma única; las variantes deben redirigir con 301/308.
-- **Criterio de aceptación:**
-  - Las peticiones `http://` redirigen a `https://`.
-  - Las variantes con o sin `www` redirigen a la versión canónica elegida.
-  - Las variantes con trailing slash redirigen a la versión sin slash (consistente con rutas actuales).
-  - La etiqueta `<link rel="canonical">` coincide con la URL final 200.
-- **Prioridad:** P1.
-- **Referencia:** Informe SEO, oportunidad #3.
-
-### 3.2 Requisitos P2 — Mejora
-
-#### R-SEO-04 — Evitar FOIT en icon fonts
-- **Descripción:** Los icon fonts deben renderizarse con `font-display: swap` o reemplazarse por SVG inline para evitar texto invisible durante la carga.
-- **Criterio de aceptación:**
-  - Lighthouse no reporta "Evitar texto invisible durante la carga de la fuente web".
-  - Los iconos se visualizan correctamente en primera carga.
-- **Prioridad:** P2.
-- **Referencia:** Informe SEO, oportunidad #4.
-
-#### R-SEO-05 — Logo de Schema.org cuadrado
-- **Descripción:** La entidad `Organization` del JSON-LD debe referenciar una imagen de logo cuadrada representativa de marca, no el favicon.
-- **Criterio de aceptación:**
-  - Se agrega un archivo de logo cuadrado (mínimo 112×112 px) en estáticos.
-  - El Schema.org pasa la validación de Rich Results Test / Schema Markup Validator sin errores en el campo `logo`.
-- **Prioridad:** P2.
-- **Referencia:** Informe SEO, oportunidad #5.
-
-#### R-SEO-06 — Open Graph por página dinámica
-- **Descripción:** Las páginas de localidad e industria deben poder configurar su propia imagen Open Graph desde YAML.
-- **Criterio de aceptación:**
-  - `data/geografia.yaml` e `industrias.yaml` soportan un campo opcional `og_image`.
-  - Si no se define, se mantiene la imagen por defecto de `data/contenido.yaml`.
-  - Facebook Sharing Debugger y LinkedIn Post Inspector muestran la imagen correcta por URL.
-- **Prioridad:** P2.
-- **Referencia:** Informe SEO, oportunidad #6.
-
-#### R-SEO-07 — Definir indexabilidad de términos y condiciones
-- **Descripción:** Definir si `/terminos-y-condiciones` debe ser indexable.
-- **Criterio de aceptación:**
-  - Se documenta la decisión de estrategia.
-  - Se aplica la meta robots acordada (`index,follow` o `noindex,follow`) de forma consistente.
-- **Prioridad:** P2.
-- **ESTADO:** BORRADOR.
-- **Información faltante:** decisión de negocio sobre si el contenido legal debe aparecer en resultados de búsqueda.
-- **Referencia:** Informe SEO, oportunidad #7.
-
-#### R-SEO-08 — Agregar hreflang x-default
-- **Descripción:** El sitio debe declarar `hreflang="x-default"` además del `hreflang="es_AR"` existente.
-- **Criterio de aceptación:**
-  - Cada página incluye ambas etiquetas `alternate` apuntando a su canonical.
-  - No hay conflictos de hreflang reportados por herramientas de validación.
-- **Prioridad:** P2.
-- **Referencia:** Informe SEO, oportunidad #8.
-
-### 3.3 Requisitos futuros — P3
-
-> Optimizaciones de menor impacto inmediato. Pueden abordarse una vez resueltos P1 y P2.
-
-#### R-SEO-09 — Limpiar preconnects a Google Fonts
-- **Descripción:** Eliminar los hints de preconnect a `fonts.googleapis.com` y `fonts.gstatic.com` si no se cargan fuentes de Google, o agregar la hoja de estilos correspondiente si se planea usarlas.
-- **Prioridad:** P3.
-- **Referencia:** Informe SEO, oportunidad #9.
-
-#### R-SEO-10 — Favicon en múltiples formatos
-- **Descripción:** Proveer favicon en PNG/ICO además del SVG actual para mayor compatibilidad.
-- **Prioridad:** P3.
-- **Referencia:** Informe SEO, oportunidad #10.
-
-#### R-SEO-11 — Definir estado del beacon de Cloudflare
-- **Descripción:** Activar o eliminar el script comentado de Cloudflare beacon en `index.html`.
-- **Prioridad:** P3.
-- **Referencia:** Informe SEO, oportunidad #11.
+El objetivo principal de la plataforma es exponer el alcance de las soluciones de instalación de hardware IoT, presentar los servicios de asesoramiento y análisis de datos para la toma de decisiones, capturar leads/proyectos mediante formularios interactivos y ofrecer una base de conocimiento técnica (catálogo de capacitaciones y lecciones enriquecidas) como un anexo complementario para los equipos de trabajo industriales.
 
 ---
 
-## 4. Trazabilidad
+## 2. Requerimientos Funcionales
 
-- Cada requisito R-SEO-XX debe tener su correspondiente tarea en `docs/TODO.md`.
-- Las decisiones de arquitectura asociadas deben reflejarse en `docs/architecture.md`.
-- La estrategia de contenido debe mantenerse en `docs/seo_strategy.md`.
+El sistema debe cumplir con los siguientes requerimientos funcionales:
+
+### RF-01: Exposición de Soluciones y Alcance Técnico (Core)
+* El sistema debe presentar la propuesta de valor de DataMaq, detallando las soluciones IoT de monitoreo de energía y los servicios de asistencia técnica en análisis de datos.
+* Debe estructurar y mostrar la información del proceso de implementación en sitio, tarifas, cobertura geográfica (zonas operativas) y sectores industriales objetivo.
+
+### RF-02: Formulario Interactivo de Contacto y Captura de Leads (Core)
+* La plataforma debe contar con un formulario dinámico de contacto en pasos (identidad del cliente, alcance del proyecto/consulta y datos de contacto).
+* El sistema debe validar la información requerida de los pasos del formulario y registrar los leads de proyectos en la carpeta [data/leads/](file:///home/agustin/proyectos_software/www-datamaq/data/leads) para su posterior seguimiento.
+
+### RF-03: Catálogo de Capacitaciones Técnicas (Anexo)
+* Como complemento educativo, el sistema debe cargar de forma dinámica el catálogo de capacitaciones definido en [data/cursos/](file:///home/agustin/proyectos_software/www-datamaq/data/cursos).
+* Cada elemento del catálogo debe mostrar el título de la capacitación, la descripción técnica orientada a equipos industriales, la duración y el instructor.
+
+### RF-04: Renderizado de Lecciones y Base de Conocimiento (Anexo)
+* El sistema debe permitir visualizar lecciones técnicas en formato Markdown mediante la URL `/cursos/{curso_slug}/{leccion_slug}`.
+* Las lecciones deben renderizarse dinámicamente convirtiendo el Markdown a HTML, soportando explicaciones matemáticas, fragmentos de código de programación, imágenes y videotutoriales.
+
+### RF-05: Cuestionarios Técnicos de Autoevaluación (Anexo)
+* El sistema debe soportar cuestionarios interactivos de autoevaluación (de selección múltiple o verdadero/falso) para validar conceptos eléctricos, de mantenimiento o análisis de datos.
+
+### RF-06: Automatización de Sitemap y Control Canónico
+* El sistema debe generar en tiempo real el archivo `/sitemap.xml` para indexar las páginas de inicio, sectores industriales específicos, instructores y lecciones.
+* Debe aplicar un middleware para redireccionar de forma automática cualquier tráfico que no respete el formato canónico del dominio.
+
+---
+
+## 3. Requerimientos No Funcionales
+
+### RNF-01: Arquitectura Limpia/Hexagonal
+* El código fuente de la aplicación en [src/](file:///home/agustin/proyectos_software/www-datamaq/src) debe estructurarse en capas separadas (Dominio, Aplicación, Infraestructura), prohibiendo la escritura de lógica de negocio o acceso a datos en los endpoints del router web.
+
+### RNF-02: Desempeño por Caché en Memoria
+* Los archivos estáticos estructurados (`.yaml` y `.md`) deben cargarse en memoria caché durante el arranque de la aplicación para minimizar el I/O en disco y asegurar tiempos de respuesta ágiles.
+
+### RNF-03: Estructura Semántica y Optimización SEO
+* Todas las secciones de servicios, cobertura, industrias y cursos deben incorporar etiquetas de metadatos únicas (título, descripción corta, URL canónica, tags Open Graph) para optimizar el posicionamiento en motores de búsqueda.
+
+### RNF-04: Robustez en el Despliegue Continuo
+* Las actualizaciones de código en producción deben utilizar el mecanismo de comprobación de salud (health check) mediante peticiones HTTP locales en el VPS, revirtiendo automáticamente al último commit de Git estable ante fallas del servidor.
+
+---
+
+## 4. Suposiciones y Restricciones
+
+### Restricciones (R)
+* **R-01 (Persistencia estática):** Toda la información de servicios, textos, cobertura, cursos y contenido general se almacena y administra mediante archivos estáticos estructurados en el directorio [data/](file:///home/agustin/proyectos_software/www-datamaq/data).
+* **R-02 (Infraestructura de Desarrollo):** El backend debe correr bajo Python 3.12+ utilizando FastAPI, Pydantic, Jinja2 y Uvicorn.
+* **R-03 (Despliegue de Seguridad):** El despliegue de la aplicación en el servidor debe ejecutarse bajo un usuario de sistema dedicado en el VPS con permisos acotados que no involucren accesos root por SSH.
+
+### Suposiciones (S)
+* **S-01:** Se asume que el cliente final cuenta con navegadores web modernos con soporte estándar para hojas de estilo CSS y componentes de JavaScript asíncronos para interactuar con los cuestionarios y el formulario en pasos.
