@@ -55,6 +55,22 @@ Cada vez que un agente o desarrollador identifique un comportamiento inesperado,
 * **Descripción:** Se evaluó la conveniencia de indexar las lecciones individuales para captar tráfico técnico. El objetivo comercial de la web no es ser una plataforma de cursos de programación, sino un canal de generación de leads B2B calificados de servicios de IoT y monitoreo de energía en plantas. Indexar lecciones de código atraería tráfico con intencionalidad no comercial (desarrolladores/estudiantes) y diluiría la conversión.
 * **Resolución / Decisión:** Se descarta la indexación de lecciones individuales. Se mantiene `"noindex, follow"` para lecciones y quizzes. Únicamente se indexan la página general de cursos y los temarios de cursos como prueba de topic authority y E-E-A-T.
 
+### [DISC-005] Estructura semántica de encabezados en el perfil de instructor
+* **Fecha:** 2026-06-27
+* **Estado:** Resuelto
+* **Impacto:** Bajo
+* **Componentes afectados:** [instructor.html](file:///home/agustin/proyectos_software/www-datamaq/templates/cursos/instructor.html)
+* **Descripción:** El H1 de la página de instructor era genérico ("Perfil del Instructor") y el nombre propio del profesional estaba en H2, reduciendo la relevancia del SEO semántico para búsquedas de marca personal de autores/instructores.
+* **Resolución / Decisión:** Se cambió el H1 principal a `Instructor: {{ instructor.name }}` y el H2 interno que duplicaba el nombre se degradó a un elemento `<p>` con la misma clase CSS para conservar el diseño.
+
+### [DISC-006] Forzar BASE_URL en canonical_url para estabilidad de proxies
+* **Fecha:** 2026-06-27
+* **Estado:** Resuelto
+* **Impacto:** Medio
+* **Componentes afectados:** [seo.py](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/fastapi/utils/seo.py) y [config.py](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/settings/config.py)
+* **Descripción:** El helper `canonical_url` generaba URLs relativas/absolutas dinámicamente usando el host del request. Si el proxy en producción está mal configurado, esto inyectaba canonicals de `localhost` o IPs internas.
+* **Resolución / Decisión:** Se añadió `BASE_URL` a la configuración (`https://datamaq.com.ar` como fallback) y se modificó `canonical_url` para forzar el esquema y netloc provistos por esta base URL en lugar de los dinámicos. Los tests de aserción canónica en `test_seo.py` también se ajustaron.
+
 ---
 
 ## 3. Decisiones de Arquitectura Consolidadas

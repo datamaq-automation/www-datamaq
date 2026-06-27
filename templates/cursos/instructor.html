@@ -31,11 +31,11 @@
 <div class="tw:container tw:mx-auto tw:px-4 tw:py-12">
     <div class="c-curso-body-layout" style="max-width: 900px; margin-inline: auto;">
         <section class="c-curso-section">
-            <h1 class="c-curso-section__title">Perfil del Instructor</h1>
+            <h1 class="c-curso-section__title">Instructor: {{ instructor.name }}</h1>
             <div class="c-instructor-perfil">
                 <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo">
                 <div class="c-instructor-perfil__info">
-                    <h2 class="c-instructor-perfil__name">{{ instructor.name }}</h2>
+                    <p class="c-instructor-perfil__name">{{ instructor.name }}</p>
                     <p class="c-instructor-perfil__role">{{ instructor.role }}</p>
                     <p class="c-instructor-perfil__bio">{{ instructor.bio }}</p>
                     

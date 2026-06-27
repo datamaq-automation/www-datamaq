@@ -117,7 +117,7 @@ async def test_home_has_single_h1_and_meta_tags():
     assert "<meta property='og:image:width' content='1200'" in text
     assert "<meta property='og:image:height' content='630'" in text
     assert "application/ld+json" in text
-    assert "https://test/" in text  # canonical forced to https and no query params
+    assert "https://datamaq.com.ar/" in text  # canonical forced to production base URL and no query params
 
 
 @pytest.mark.asyncio  # type: ignore
@@ -160,7 +160,7 @@ async def test_localidad_canonical_is_https():
         response = await ac.get("/buenos-aires/escobar/garin.html")
 
     assert response.status_code == 200
-    assert "rel='canonical' href='https://test/buenos-aires/escobar/garin.html'" in response.text
+    assert "rel='canonical' href='https://datamaq.com.ar/buenos-aires/escobar/garin.html'" in response.text
 
 
 @pytest.mark.asyncio  # type: ignore
