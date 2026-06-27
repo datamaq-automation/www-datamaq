@@ -43,7 +43,7 @@
 .c-home-profile__detail-copy[data-v-236fef00],
 .c-home-footer__legal[data-v-236fef00]{color:rgba(var(--dm-text-0-rgb),.72);line-height:1.65}
 .c-home-hero__subtitle[data-v-236fef00]{max-width:48ch;margin:.95rem 0 0}.c-home-hero__actions[data-v-236fef00]{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.5rem}
-.c-home-hero__urgency[data-v-236fef00]{display:inline-flex;align-items:center;gap:.45rem;margin:.95rem 0 0;padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(var(--dm-whatsapp-green-rgb),.45);background:rgba(var(--dm-whatsapp-green-rgb),.18);color:rgba(var(--dm-text-0-rgb),.95);font-size:.8rem;font-weight:700}.c-home-hero__urgency .bi[data-v-236fef00]{color:rgba(var(--dm-whatsapp-green-rgb),.95)}
+.c-home-hero__urgency[data-v-236fef00]{display:inline-flex;align-items:center;gap:.45rem;margin:.95rem 0 0;padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(var(--dm-status-green-rgb),.45);background:rgba(var(--dm-status-green-rgb),.18);color:rgba(var(--dm-text-0-rgb),.95);font-size:.8rem;font-weight:700}.c-home-hero__urgency .bi[data-v-236fef00]{color:rgba(var(--dm-status-green-rgb),.95)}
 .c-home-hero__prefill[data-v-236fef00]{margin:.55rem 0 0;color:rgba(var(--dm-text-0-rgb),.64);font-size:.82rem}
 .c-home-hero__primary[data-v-236fef00],.c-home-hero__secondary[data-v-236fef00],.c-home-profile__cta[data-v-236fef00],.c-home-service-card__cta[data-v-236fef00]{min-height:3.2rem}.c-home-hero__signals[data-v-236fef00]{display:grid;gap:.7rem;margin:1.5rem 0 0;padding:0;list-style:none}
 .c-home-hero__signals li[data-v-236fef00]{position:relative;padding-left:1.2rem;color:rgba(var(--dm-text-0-rgb),.84)}
@@ -99,10 +99,6 @@
 .c-home-footer__nav-group[data-v-236fef00] a{font-size:.9rem;color:rgba(var(--dm-text-0-rgb),.75);text-decoration:none;transition:color .2s,transform .2s;display:inline-block}
 .c-home-footer__nav-group[data-v-236fef00] a:hover{color:rgb(var(--dm-accent-orange-rgb));transform:translateX(2px)}
 .c-home-footer__col-cta[data-v-236fef00]{display:grid;gap:.8rem;align-content:start}
-.c-home-footer__cta-title[data-v-236fef00]{font-size:.95rem;font-weight:700;color:var(--dm-text-0);margin:0}
-.c-home-footer__btn-whatsapp[data-v-236fef00]{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.75rem 1.25rem;border-radius:2rem;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;text-decoration:none;font-weight:700;font-size:.9rem;transition:background-color .25s,border-color .25s,color .25s,transform .2s,box-shadow .25s}
-.c-home-footer__btn-whatsapp[data-v-236fef00]:hover{background:rgba(37,211,102,.2);border-color:rgba(37,211,102,.5);box-shadow:0 .4rem 1.2rem rgba(37,211,102,.15);transform:translateY(-1px)}
-.c-home-footer__btn-whatsapp[data-v-236fef00]:active{transform:translateY(0)}
 .c-home-footer__divider[data-v-236fef00]{margin:1.25rem 0;border:0;border-top:1px solid rgba(var(--dm-text-0-rgb),.08)}
 .c-home-footer__lower[data-v-236fef00]{display:grid;gap:0.75rem}
 .c-home-footer__legal[data-v-236fef00]{margin:0;font-size:.75rem;line-height:1.6;color:rgba(var(--dm-text-0-rgb),.5);max-width:72ch}
@@ -114,8 +110,8 @@
 .c-home-dock__link[data-v-236fef00]:hover,.c-home-dock__link[data-v-236fef00]:focus-visible{color:rgb(var(--dm-accent-orange-rgb));background:rgba(var(--dm-accent-orange-rgb),.12)}
 .c-home-dock__link .bi[data-v-236fef00]{font-size:1.25rem}
 .c-home-dock--direct .c-home-dock__link[data-v-236fef00]{min-height:4.35rem}
-.c-home-dock__link--emergency[data-v-236fef00]{color:rgba(var(--dm-whatsapp-green-rgb),.95);background:rgba(var(--dm-whatsapp-green-rgb),.16)}
-.c-home-dock__link--emergency[data-v-236fef00]:hover,.c-home-dock__link--emergency[data-v-236fef00]:focus-visible{color:rgba(var(--dm-whatsapp-green-rgb),.98);background:rgba(var(--dm-whatsapp-green-rgb),.24)}.app-shell--home[data-v-236fef00] 
+.c-home-dock__link--emergency[data-v-236fef00]{color:rgba(var(--dm-status-green-rgb),.95);background:rgba(var(--dm-status-green-rgb),.16)}
+.c-home-dock__link--emergency[data-v-236fef00]:hover,.c-home-dock__link--emergency[data-v-236fef00]:focus-visible{color:rgba(var(--dm-status-green-rgb),.98);background:rgba(var(--dm-status-green-rgb),.24)}.app-shell--home[data-v-236fef00] 
 .c-contact{background:linear-gradient(180deg,rgba(var(--dm-bg-0-rgb),.96),rgba(var(--dm-surface-0-rgb),.96))}
 .app-shell--home[data-v-236fef00] .c-contact__card{background:rgba(var(--dm-surface-0-rgb),.92)!important;border:1px solid rgba(var(--dm-text-0-rgb),.1)!important;box-shadow:0 1.4rem 3rem rgba(var(--dm-shadow-rgb),.3)!important}.app-shell--home[data-v-236fef00] .c-contact__title{color:var(--dm-text-0)!important;font-size:clamp(1.8rem,2.8vw,2.35rem);font-weight:800;letter-spacing:-.03em}
 .app-shell--home[data-v-236fef00] .c-contact__subtitle{color:rgba(var(--dm-text-0-rgb),.72)!important;margin-bottom:1.5rem!important}
@@ -125,7 +121,7 @@
 .app-shell--home[data-v-236fef00] .c-contact__submit{min-height:3.3rem}
 .app-shell--home[data-v-236fef00] 
 .c-consent-banner--shell{bottom:calc(var(--floating-cta-height, 5rem) + .75rem);border-radius:1.1rem;border:1px solid rgba(var(--dm-text-0-rgb),.12);background:rgba(var(--dm-surface-0-rgb),.94);box-shadow:0 1rem 2rem rgba(var(--dm-shadow-rgb),.35)}
-.app-shell--home[data-v-236fef00] .whatsapp-fab{right:1rem}@media(max-width:991.98px){.c-home-header__inner[data-v-236fef00]{min-height:3.75rem}
+@media(max-width:991.98px){.c-home-header__inner[data-v-236fef00]{min-height:3.75rem}
 .c-home-hero__media-card[data-v-236fef00]{margin-top:.5rem}
 .app-shell--home[data-v-236fef00] 
 .c-consent-banner--shell{margin-inline:.85rem}}@media(min-width:992px){.app-shell--home[data-v-236fef00]{--floating-cta-height: 0rem;--fab-offset: 1.6rem}.c-home-footer[data-v-236fef00]{padding-bottom:2.5rem}.c-home-footer__upper[data-v-236fef00]{grid-template-columns:1.2fr 1.5fr;gap:4rem;align-items:start}.c-home-footer__col-brand[data-v-236fef00]{display:grid}.c-home-footer__lower[data-v-236fef00]{grid-template-columns:1.8fr 1.2fr;gap:4rem;align-items:start}.c-home-footer__lower-links[data-v-236fef00]{margin-top:0;flex-direction:column;align-items:flex-end;gap:.5rem}.app-shell--home[data-v-236fef00]
