@@ -31,14 +31,14 @@
 }
 
 .c-cookie-banner__title {
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.35rem !important;
     font-weight: 600;
     color: var(--dm-text-0);
     font-size: 1rem;
 }
 
 .c-cookie-banner__text {
-    margin: 0;
+    margin: 0 !important;
     color: rgba(var(--dm-text-0-rgb), 0.82);
     font-size: 0.92rem;
     line-height: 1.5;
@@ -103,17 +103,41 @@
 }
 
 @media (max-width: 767.98px) {
+    .c-cookie-banner {
+        padding: 0.6rem 0.75rem;
+    }
+
     .c-cookie-banner__container {
         flex-direction: column;
         align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .c-cookie-banner__content {
+        flex: none;
+    }
+
+    .c-cookie-banner__title {
+        font-size: 0.92rem;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .c-cookie-banner__text {
+        font-size: 0.85rem;
+        line-height: 1.4;
     }
 
     .c-cookie-banner__actions {
-        flex-direction: column;
-        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        width: 100%;
     }
 
     .c-cookie-banner__button {
+        min-height: 2.5rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
         width: 100%;
     }
 }
