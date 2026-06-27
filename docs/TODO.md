@@ -5,7 +5,6 @@ Este documento centraliza las tareas de mantenimiento, documentación y optimiza
 ---
 
 ## Tareas de Optimización y SEO (# P2)
-- [ ] Analizar si es conveniente retirar la etiqueta `noindex` de las lecciones e incorporarlas en el sitemap dinámico para captar tráfico orgánico de búsquedas técnicas. # P2
 - [ ] Cambiar la jerarquía de encabezados en [instructor.html](file:///home/agustin/proyectos_software/www-datamaq/templates/cursos/instructor.html#L34-L38) para que el tag H1 contenga el nombre del instructor en lugar de un título de sección genérico. # P2
 - [ ] Robustecer el helper `canonical_url` en [seo.py](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/fastapi/utils/seo.py#L5) utilizando una constante `BASE_URL` en lugar de `request.url` dinámico, previniendo canonicals erróneos si el proxy está mal configurado. # P2
 - [ ] Mejorar los textos descriptivos alternativos (`alt`) genéricos de las fotos de los técnicos en [contenido.yaml](file:///home/agustin/proyectos_software/www-datamaq/data/contenido.yaml#L9). # P2

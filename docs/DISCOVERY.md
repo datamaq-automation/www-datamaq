@@ -47,6 +47,14 @@ Cada vez que un agente o desarrollador identifique un comportamiento inesperado,
 * **Descripción:** El archivo `contenido.yaml` expone un botón CTA secundario (`secondaryCta`) para el componente Hero, pero el template `hero.html` solo renderiza el botón primario. Esto deja el parámetro configurado sin uso visual en el frontend.
 * **Resolución / Decisión:** Pendiente de corregir en el template Jinja2 del Hero para habilitar la renderización condicional del botón de acción secundario.
 
+### [DISC-004] Decisión Estratégica: No indexación de lecciones de cursos
+* **Fecha:** 2026-06-27
+* **Estado:** Resuelto
+* **Impacto:** Medio
+* **Componentes afectados:** [course_routes.py](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/fastapi/routes/course_routes.py) y [main_routes.py](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/fastapi/routes/main_routes.py)
+* **Descripción:** Se evaluó la conveniencia de indexar las lecciones individuales para captar tráfico técnico. El objetivo comercial de la web no es ser una plataforma de cursos de programación, sino un canal de generación de leads B2B calificados de servicios de IoT y monitoreo de energía en plantas. Indexar lecciones de código atraería tráfico con intencionalidad no comercial (desarrolladores/estudiantes) y diluiría la conversión.
+* **Resolución / Decisión:** Se descarta la indexación de lecciones individuales. Se mantiene `"noindex, follow"` para lecciones y quizzes. Únicamente se indexan la página general de cursos y los temarios de cursos como prueba de topic authority y E-E-A-T.
+
 ---
 
 ## 3. Decisiones de Arquitectura Consolidadas
