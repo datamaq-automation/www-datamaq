@@ -58,6 +58,14 @@ async def sitemap(
             "priority": "0.8",
         })
 
+    for instructor_id in cursos_service.get_instructores_dict().keys():
+        urls.append({
+            "loc": f"{base_url}/cursos/instructor/{instructor_id}",
+            "lastmod": lastmod,
+            "changefreq": "monthly",
+            "priority": "0.5",
+        })
+
     return templates.TemplateResponse(
         request=request,
         name="sitemap.xml",

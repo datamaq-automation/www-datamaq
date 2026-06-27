@@ -55,7 +55,7 @@ async def canonical_redirect_middleware(request: Request, call_next: RequestResp
     )
 
     if needs_redirect:
-        canonical = urlunsplit((scheme, host, path, "", ""))
+        canonical = urlunsplit((scheme, host, path, request.url.query, ""))
         return RedirectResponse(url=canonical, status_code=308)
 
     return await call_next(request)

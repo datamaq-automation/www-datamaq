@@ -1,0 +1,16 @@
+{
+  "short_name": "DataMaq",
+  "name": "DataMaq - Monitoreo de Energía e IoT Industrial",
+  "icons": [
+    {
+      "src": "/static/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0d0e12",
+  "theme_color": "#00f0ff",
+  "display": "standalone",
+  "orientation": "portrait"
+}
