@@ -149,6 +149,14 @@ if ! $PYTHON -c "import playwright" 2>/dev/null; then
     exit 0
 fi
 
+# Verificar que axe-core esté disponible para el chequeo de contraste
+if [ ! -f "node_modules/axe-core/axe.min.js" ]; then
+    echo "⚠️ Advertencia: axe-core no está instalado en node_modules. Saltando auditoría responsive."
+    echo "   Instalalo con: npm install --save-dev axe-core"
+    echo "✅ Continuando con el push (sin auditoría responsive)."
+    exit 0
+fi
+
 # Levantar el servidor de desarrollo temporalmente
 SERVER_PID=""
 PORT=8000

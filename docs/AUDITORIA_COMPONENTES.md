@@ -179,7 +179,7 @@ La auditoría responsive está integrada en el hook `scripts/pre-push.sh`. Cada 
 4. **Levanta un servidor temporal de uvicorn, ejecuta `scripts/audit_responsive.py` y lo detiene.**
 5. Aborta el push si cualquiera de los pasos anteriores falla.
 
-Si Playwright no está instalado, el script muestra una advertencia y continúa sin la auditoría responsive, pero no bloquea el push.
+Si Playwright o **axe-core** no están instalados, el script muestra una advertencia y continúa sin la auditoría responsive, pero no bloquea el push.
 
 ### Optimización: omisión condicional por tipo de cambio
 
