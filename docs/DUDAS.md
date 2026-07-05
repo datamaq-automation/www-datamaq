@@ -1,0 +1,99 @@
+# Dudas de alto nivel — Optimización SEO
+
+Este documento reúne las decisiones estratégicas y de arquitectura que no se implementaron de forma autónoma por involucrar políticas de negocio, riesgo de cambios estructurales o falta de contexto suficiente. Cada ítem incluye opciones consideradas, recomendación del agente y el motivo por el que quedó pendiente de consulta.
+
+---
+
+## Duda de alto nivel: Redirección wildcard 301 de 404 a `/`
+- **Contexto:** El manejador de excepciones de `src/infrastructure/fastapi/app.py` redirige con HTTP 301 cualquier 404 no estático/no API hacia la Home (`/`). Esto fue heredado de la migración SPA para no perder tráfico, pero puede generar "soft 404" y diluir la señal de autoridad de URLs antiguas.
+- **Opciones consideradas:**
+  - **A.** Mantener el wildcard 301 tal cual (status quo).
+  - **B.** Reemplazarlo por un 404 real con plantilla y, a su vez, crear redirecciones 301 explícitas solo para las URLs legacy conocidas de la SPA anterior.
+  - **C.** Conservar el wildcard solo para un subconjunto de patrones predecibles (por ejemplo, `/es/*`, `/old-path/*`) y devolver 404 para el resto.
+- **Recomendación del agente:** Opción **B** a mediano plazo: servir 404 reales y mapear URLs legacy individualmente. A corto plazo, dejar **A** mientras se auditan los logs de 404.
+- **Bloqueo:** No se dispone del listado de URLs legacy de la SPA anterior ni de la estrategia de negocio sobre cuáles deben redirigirse. Cambiar el comportamiento actual rompería `test_404_has_noindex` y podría afectar el tráfico referido.
+- **Impacto SEO estimado:** Medio-Alto.
+
+---
+
+## Duda de alto nivel: Indexar o no las páginas de lección individuales
+- **Contexto:** Actualmente las lecciones (`/cursos/{curso_slug}/{leccion_slug}`) inyectan `<meta name="robots" content="noindex, follow">`. Son contenido técnico específico que podría captar búsquedas long-tail, pero también fragmentan la autoridad del curso principal y requieren canonicalización cuidadosa.
+- **Opciones consideradas:**
+  - **A.** Mantener `noindex, follow` (status quo).
+  - **B.** Cambiar a `index, follow` y asegurar breadcrumbs únicos, título/descripción por lección y sitemap dedicado.
+  - **C.** Indexar solo lecciones con video/contenido propio, dejando quizzes y repeticiones de temario como `noindex`.
+- **Recomendación del agente:** Opción **C**: indexar el material educativo real (videos/markdown) y mantener `noindex` para quizzes y lecciones de transición. Esto amplía el alcance sin generar contenido débil indexado.
+- **Bloqueo:** Es una decisión de estrategia de contenido que afecta al LMS y al modelo de captación de leads. Requiere definir criterios de calidad mínima por lección.
+- **Impacto SEO estimado:** Medio.
+
+---
+
+## Duda de alto nivel: Arquitectura de CSS y purga de Tailwind
+- **Contexto:** El bundle `static/css/index.css` es la salida compilada de Tailwind CSS v4.2.1. No se mide su peso real ni se conoce el porcentaje de clases no utilizadas. Además, coexisten hojas heredadas (`HomePage.css`, `cursos.css`, etc.) cargadas de forma plana.
+- **Opciones consideradas:**
+  - **A.** Dejar el build actual y confiar en la compresión GZip + caché.
+  - **B.** Auditar el bundle, configurar el content de Tailwind para purgar clases no usadas y, si aplica, separar CSS crítico Above The Fold.
+  - **C.** Reorganizar `static/css/` por dominio (home, cursos, componentes, utilidades) en lugar del esquema plano actual.
+- **Recomendación del agente:** Opción **B** primero (medición + purga), y **C** solo si se justifica por mantenibilidad. No eliminar Bootstrap/base sin validar que ningún template dependa de él.
+- **Bloqueo:** Cambiar el build de Tailwind o la estructura de CSS implica tocar el pipeline de assets, posiblemente agregar scripts de build y verificar visualmente cada página. Esto excede el alcance de una optimización de bajo nivel segura.
+- **Impacto SEO estimado:** Medio (Core Web Vitals).
+
+---
+
+## Duda de alto nivel: CSS crítico inline para Above The Fold
+- **Contexto:** La Home y las principales landings cargan `index.css` como stylesheet render-blocking. No existe CSS crítico inline para pintar el contenido inicial mientras llega el resto del CSS.
+- **Opciones consideradas:**
+  - **A.** No inlinear y mantener el archivo externo con caché agresiva.
+  - **B.** Extraer manualmente las reglas críticas del hero/header para las 3-4 rutas principales e inlinearlas en `<style>` dentro de `head.html`, cargando el resto de forma asíncrona.
+  - **C.** Usar una herramienta de extracción automática de crítico (requiere npm/webpack, prohibido por las restricciones actuales).
+- **Recomendación del agente:** Opción **B** solo si se puede automatizar una verificación post-cambio; de lo contrario, **A** es más seguro. No se implementó por el riesgo de romper el estilo inicial si las reglas inline quedan desfasadas del bundle.
+- **Bloqueo:** Requiere decisión sobre si se acepta mantener dos fuentes de verdad para los estilos críticos.
+- **Impacto SEO estimado:** Medio (LCP/CLS).
+
+---
+
+## Duda de alto nivel: Expansión de landings geográficas e industriales
+- **Contexto:** Hoy existen dos localidades (`Garín`, `Belén de Escobar`) y una industria (`Industria Gráfica`). El sitemap y las landings están automatizados, por lo que agregar más datos YAML escalaría el número de URLs indexables.
+- **Opciones consideradas:**
+  - **A.** Mantener el alcance actual mientras se consolida la autoridad del dominio.
+  - **B.** Expandir progresivamente a municipios/industrias relevantes con contenido diferenciado (no solo rellenar el template con otro nombre).
+  - **C.** Crear landings de provincia/municipio además de localidad.
+- **Recomendación del agente:** Opción **B** con criterio de calidad: cada nueva landing debe tener al menos un párrafo de contexto sectorial/geográfico único. Evitar generar miles de páginas con descripciones casi idénticas.
+- **Bloqueo:** Se desconoce el mercado objetivo y la capacidad de generar contenido específico. Decidirlo requiere input comercial.
+- **Impacto SEO estimado:** Alto.
+
+---
+
+## Duda de alto nivel: Mapeo de URLs legacy de la SPA anterior
+- **Contexto:** El sitio anterior era una SPA. No hay tabla de redirecciones 301 por URL; todo 404 desconocido va a `/`. Puede haber URLs indexadas en Google o backlinks apuntando a rutas que ahora pierden su señal.
+- **Opciones consideradas:**
+  - **A.** Recopilar logs de 404 y crear redirecciones 301 puntuales en FastAPI.
+  - **B.** Generar un listado de URLs legacy desde Google Search Console / Analytics y mapearlas a la landing equivalente.
+  - **C.** Mantener el wildcard si no hay tráfico significativo hacia URLs antiguas.
+- **Recomendación del agente:** Opción **A+B**: auditar 404 reales durante 30 días y redirigir las rutas con tráfico a su contraparte semántica (home, servicio, curso o contacto).
+- **Bloqueo:** No se cuenta con los logs históricos ni acceso a Search Console desde este entorno.
+- **Impacto SEO estimado:** Medio.
+
+---
+
+## Duda de alto nivel: Estrategia de contenido para autoridad de dominio
+- **Contexto:** El sitio actual es principalmente comercial + LMS. No hay sección de blog, casos de éxito o guías técnicas que generen backlinks orgánicos.
+- **Opciones consideradas:**
+  - **A.** Mantener el sitio como está y confiar en las landings locales/industriales.
+  - **B.** Crear una sección `/blog` o `/casos` con artículos técnicos (monitoreo de energía, casos de IoT industrial, tutoriales Python).
+  - **C.** Convertir las lecciones indexadas del LMS en contenido puerta de entrada para búsquedas educativas.
+- **Recomendación del agente:** Opción **B+C**: publicar contenido técnico propio y permitir que el LMS funcione como hub educativo, enlazando naturalmente hacia los servicios.
+- **Bloqueo:** Requiere plan editorial, recursos de redacción técnica y definición de voz de marca.
+- **Impacto SEO estimado:** Alto.
+
+---
+
+## Duda de alto nivel: Dimensiones explícitas en imágenes de cursos e instructores
+- **Contexto:** Las tarjetas de curso, la imagen destacada del curso y las fotos de instructores no incluyen atributos `width`/`height`. Aunque tienen `loading` y `decoding`, la ausencia de dimensiones puede contribuir a CLS si el CSS no fija un aspect-ratio estable.
+- **Opciones consideradas:**
+  - **A.** Agregar `width`/`height` al modelo de curso e instructor y propagarlos desde los archivos YAML.
+  - **B.** Resolver dimensiones en tiempo de build/servidor leyendo los metadatos de las imágenes.
+  - **C.** Definir `aspect-ratio` en CSS y no tocar los datos.
+- **Recomendación del agente:** Opción **A** si se conocen las dimensiones reales; opción **C** como solución rápida mientras se completan los datos.
+- **Bloqueo:** No se dispone de las dimensiones reales de cada imagen en los archivos de datos, y agregar valores incorrectos empeoraría CLS.
+- **Impacto SEO estimado:** Bajo-Medio (Core Web Vitals).
