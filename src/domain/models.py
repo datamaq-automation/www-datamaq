@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional, Union, Literal
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # --- Modelos Base ---
 class PhotoModel(BaseModel):
@@ -221,8 +221,8 @@ class LandingContentModel(BaseModel):
 
 # --- Modelos de Casos ---
 class CasoModel(BaseModel):
-    slug: str
-    title: str
+    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    title: str = Field(..., min_length=1)
     industry: str
     location: str
     client: Optional[str] = None
@@ -261,8 +261,8 @@ class InstructoresContainerModel(BaseModel):
 class LessonModel(BaseModel):
     type: Literal["lesson"] = "lesson"
     id: str
-    slug: str
-    title: str
+    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    title: str = Field(..., min_length=1)
     duration: str
     content_type: str = "markdown"
     video_url: Optional[str] = None
@@ -280,8 +280,8 @@ class QuestionModel(BaseModel):
 class QuizModel(BaseModel):
     type: Literal["quiz"] = "quiz"
     id: str
-    slug: str
-    title: str
+    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    title: str = Field(..., min_length=1)
     duration: str
     questions: List[QuestionModel]
 
@@ -299,14 +299,14 @@ class CourseSectionModel(BaseModel):
 
 class CourseModel(BaseModel):
     id: str
-    slug: str
-    title: str
-    description_short: str
-    description_long: str
+    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    title: str = Field(..., min_length=1)
+    description_short: str = Field(..., min_length=1)
+    description_long: str = Field(..., min_length=1)
     duration: str
     level: str
     language: str = "Español"
-    price: float = 0.0
+    price: float = Field(0.0, ge=0.0)
     og_image: Optional[str] = None
     og_image_width: Optional[int] = None
     og_image_height: Optional[int] = None

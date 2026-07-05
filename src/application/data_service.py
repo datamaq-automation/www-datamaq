@@ -1,7 +1,21 @@
-from typing import Any, Dict, List, Optional, Tuple, Union, cast
-from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel, CasoModel, CasosContainerModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
-import yaml # type: ignore
+from typing import Any, Dict, List, Optional, Tuple, Union
+import yaml  # type: ignore
 import os
+from src.domain.models import (
+    ContenidoModel,
+    IndustriaModel,
+    LandingContentModel,
+    CasoModel,
+    CasosContainerModel,
+    CursosContainerModel,
+    CourseModel,
+    LessonModel,
+    QuizModel,
+    InstructorModel,
+    InstructoresContainerModel
+)
+from src.infrastructure.adapters.markdown_parser import MarkdownParser
+from src.application.mappers.course_mapper import to_course_model
 
 class DataService:
     def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = "", landing_content_path: str = "", cases_dir: str = ""):
@@ -13,6 +27,8 @@ class DataService:
         self.redirects_path = redirects_path
         self.landing_content_path = landing_content_path
         self.cases_dir = cases_dir
+
+        self.markdown_parser = MarkdownParser()
 
         self._cached_contenido: Optional[ContenidoModel] = None
         self._cached_geografia: Optional[Dict[str, Any]] = None
@@ -28,11 +44,63 @@ class DataService:
             with open(self.content_path, "r", encoding="utf-8") as f:
                 raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
             
-            # Populate calculated fields
-            if 'content' in raw_data and 'services' in raw_data['content'] and 'cards' in raw_data['content']['services']:
-                for card in raw_data['content']['services']['cards']:
-                    if 'title' in card:
-                        card['cta'] = f"Consultá por {card['title'].split(' ')[0]}"
+            # --- Generar Footer Dinámico ---
+            if "footer" not in raw_data:
+                raw_data["footer"] = {}
+            if "navigation_groups" not in raw_data["footer"]:
+                raw_data["footer"]["navigation_groups"] = []
+
+            # 1. Grupo de Navegación (mantener o definir por defecto)
+            nav_group = None
+            for group in raw_data["footer"].get("navigation_groups", []):
+                if group.get("title") == "Navegación":
+                    nav_group = group
+                    break
+            
+            if not nav_group:
+                nav_group = {
+                    "title": "Navegación",
+                    "links": [
+                        {"label": "Inicio", "href": "/"},
+                        {"label": "Casos", "href": "/casos"},
+                        {"label": "Cursos", "href": "/cursos"},
+                        {"label": "Contacto", "href": "/contact"}
+                    ]
+                }
+            
+            # 2. Grupo de Cobertura dinámica
+            geografia_data = self.get_geografia()
+            cobertura_links = []
+            localidades = geografia_data.get("localidades", {})
+            for provincia_key, provincia in localidades.items():
+                for municipio_key, municipio in provincia.items():
+                    for localidad_key, nombre_localidad in municipio.items():
+                        cobertura_links.append({
+                            "label": nombre_localidad,
+                            "href": f"/{provincia_key}/{municipio_key}/{localidad_key}.html"
+                        })
+            
+            cobertura_group = {
+                "title": "Cobertura",
+                "links": cobertura_links
+            }
+            
+            # 3. Grupo de Industrias dinámica
+            industrias_data = self.get_industrias()
+            industrias_links = []
+            for industria_key, nombre_industria in industrias_data.industrias.items():
+                label = nombre_industria.replace("Industria ", "")
+                industrias_links.append({
+                    "label": label,
+                    "href": f"/industria/{industria_key}.html"
+                })
+                
+            industrias_group = {
+                "title": "Industrias",
+                "links": industrias_links
+            }
+            
+            raw_data["footer"]["navigation_groups"] = [nav_group, cobertura_group, industrias_group]
             
             self._cached_contenido = ContenidoModel(**raw_data)
         return self._cached_contenido
@@ -52,11 +120,7 @@ class DataService:
 
     def get_cursos_container(self) -> CursosContainerModel:
         if self._cached_cursos is None:
-            import os
-            import markdown # type: ignore
-            
             cursos_list: List[CourseModel] = []
-            md_extensions = ["fenced_code", "tables"]
             instructores = self.get_instructores_dict()
             
             if os.path.exists(self.courses_dir):
@@ -67,24 +131,6 @@ class DataService:
                         if os.path.exists(curso_yaml_path):
                             with open(curso_yaml_path, "r", encoding="utf-8") as f:
                                 curso_data: Dict[str, Any] = yaml.safe_load(f) or {}
-                                
-                                # Resolución por defecto de og_image si no viene definida
-                                if not curso_data.get("og_image") and "slug" in curso_data:
-                                    curso_data["og_image"] = f"/static/media/cursos/og-{curso_data['slug']}.webp"
-                                
-                                # Popular instructor desde el repositorio de instructores
-                                instructor_id = curso_data.get("instructor_id")
-                                if instructor_id in instructores:
-                                    curso_data["instructor"] = instructores[instructor_id].model_dump()
-                                else:
-                                    # Fallback seguro
-                                    curso_data["instructor"] = {
-                                        "id": "unknown",
-                                        "name": "Desconocido",
-                                        "role": "Instructor",
-                                        "photo": "/static/media/tecnico-a-cargo.webp",
-                                        "bio": "Instructor de Datamaq"
-                                    }
                                 
                                 # Cargar lecciones markdown locales al curso
                                 if "sections" in curso_data:
@@ -98,11 +144,13 @@ class DataService:
                                                             if os.path.exists(file_path):
                                                                 with open(file_path, "r", encoding="utf-8") as cf:
                                                                     raw_markdown = cf.read()
-                                                                    item["content"] = markdown.markdown(raw_markdown, extensions=md_extensions)
+                                                                    item["content"] = self.markdown_parser.to_html(raw_markdown)
                                                             else:
                                                                 item["content"] = f"<p class='error'>Error: No se encontró el archivo de contenido en {file_path}</p>"
                                 
-                                cursos_list.append(CourseModel.model_validate(curso_data))
+                                # Delegar la hidratación/resolución del instructor y parseo de Pydantic al mapper
+                                course_model = to_course_model(curso_data, instructores)
+                                cursos_list.append(course_model)
             
             self._cached_cursos = CursosContainerModel(cursos=cursos_list)
         return self._cached_cursos
@@ -110,7 +158,7 @@ class DataService:
     def get_instructores_dict(self) -> Dict[str, InstructorModel]:
         if self._cached_instructores is None:
             with open(self.instructors_path, "r", encoding="utf-8") as f:
-                raw_data: Dict[str, Any] = yaml.safe_load(f) or {"instructores": []} # type: ignore
+                raw_data: Dict[str, Any] = yaml.safe_load(f) or {"instructores": []}
             
             container = InstructoresContainerModel(**raw_data)
             self._cached_instructores = {inst.id: inst for inst in container.instructores}
@@ -161,9 +209,7 @@ class DataService:
 
     def get_casos_container(self) -> CasosContainerModel:
         if self._cached_casos is None:
-            import markdown # type: ignore
             casos_list: List[CasoModel] = []
-            md_extensions = ["fenced_code", "tables"]
 
             if os.path.exists(self.cases_dir):
                 for folder_name in sorted(os.listdir(self.cases_dir)):
@@ -174,9 +220,7 @@ class DataService:
                             with open(caso_yaml_path, "r", encoding="utf-8") as f:
                                 caso_data: Dict[str, Any] = yaml.safe_load(f) or {}
                             if caso_data.get("content"):
-                                caso_data["content"] = markdown.markdown(caso_data["content"], extensions=md_extensions)
-                            if not caso_data.get("og_image"):
-                                caso_data["og_image"] = "/static/og-default.jpg"
+                                caso_data["content"] = self.markdown_parser.to_html(caso_data["content"])
                             casos_list.append(CasoModel.model_validate(caso_data))
 
             self._cached_casos = CasosContainerModel(casos=casos_list)
@@ -190,4 +234,3 @@ class DataService:
             if caso.slug == slug:
                 return caso
         return None
-
