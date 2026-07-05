@@ -8,6 +8,7 @@ from src.infrastructure.fastapi.dependencies import templates, get_contenido, ge
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel
 from src.adapters.presenters.content_presenter import present_contenido
+from src.application.data_service import DataService
 
 router = APIRouter()
 
@@ -43,7 +44,7 @@ async def sitemap(
     contenido: ContenidoModel = Depends(get_contenido),
     geografia: Dict[str, Any] = Depends(get_geografia),
     industrias_data: IndustriaModel = Depends(get_industrias),
-    cursos_service = Depends(get_cursos_service)
+    cursos_service: DataService = Depends(get_cursos_service)
 ):
     base_url = "https://datamaq.com.ar"
     lastmod = _content_lastmod()
@@ -115,7 +116,8 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
         "seo": presented["seo"],
         "footer": presented.get("footer"),
         "chatwoot_token": chatwoot_token,
-        "partial_name": partial_name
+        "partial_name": partial_name,
+        "config": config
     }
     response = templates.TemplateResponse(request=request, name="preview.html", context=context)
     response.headers["X-Robots-Tag"] = "noindex, nofollow"
@@ -124,8 +126,8 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
 @router.get("/")
 async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
     presented = present_contenido(contenido)
-    base_seo = presented["seo"]
-    seo = {
+    base_seo: Dict[str, Any] = presented["seo"]
+    seo: Dict[str, Any] = {
         **base_seo,
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
@@ -143,8 +145,8 @@ async def root(request: Request, contenido: ContenidoModel = Depends(get_conteni
 @router.get("/terminos-y-condiciones")
 async def terms(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
     presented = present_contenido(contenido)
-    base_seo = presented["seo"]
-    seo = {
+    base_seo: Dict[str, Any] = presented["seo"]
+    seo: Dict[str, Any] = {
         **base_seo,
         "title": f"{presented['legal_pages']['terms']['title']} | {presented['brand']['brandName']}",
         "description": f"Términos y condiciones de uso del sitio web de {presented['brand']['brandName']}.",

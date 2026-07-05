@@ -1,0 +1,7 @@
+# Dependencias de desarrollo para auditoría UI/UX automatizada
+# Instalación:
+#   source venv/bin/activate
+#   pip install -r requirements-dev.txt
+#   playwright install chromium
+
+playwright>=1.40.0

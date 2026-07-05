@@ -18,13 +18,16 @@
         // Buscar desbordamientos horizontales en todo el documento
         document.querySelectorAll('*').forEach(el => {
             if (el.scrollWidth > el.clientWidth && el.clientWidth > 0) {
-                overflows.push({
-                    etiqueta: el.tagName,
-                    clase: el.className || 'Sin clase',
-                    ancho_contenido_px: el.scrollWidth,
-                    ancho_visible_px: el.clientWidth,
-                    extracto: el.textContent.trim().substring(0, 30)
-                });
+                const computed = window.getComputedStyle(el);
+                if (computed.overflowX !== 'auto' && computed.overflowX !== 'scroll') {
+                    overflows.push({
+                        etiqueta: el.tagName,
+                        clase: el.className || 'Sin clase',
+                        ancho_contenido_px: el.scrollWidth,
+                        ancho_visible_px: el.clientWidth,
+                        extracto: el.textContent.trim().substring(0, 30)
+                    });
+                }
             }
         });
 

@@ -55,6 +55,10 @@
     color: var(--dm-data-cyan);
     text-decoration: underline;
     font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.25rem 0;
 }
 
 .c-cookie-banner__link:hover,

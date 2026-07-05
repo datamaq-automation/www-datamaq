@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     gap: .45rem;
+    min-height: 2.5rem;
     padding: .45rem .55rem;
     background: transparent;
     color: inherit;
@@ -224,6 +225,10 @@
     color: rgb(var(--dm-accent-orange-rgb));
     text-decoration: none;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: .35rem 0;
 }
 
 .c-contact__email-link:hover {
