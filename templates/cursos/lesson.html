@@ -177,6 +177,32 @@
         </div>
     </main>
 </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Cursos",
+      "item": "https://datamaq.com.ar/cursos"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ curso.title | replace('"', '\\"') }}",
+      "item": "https://datamaq.com.ar/cursos/{{ curso.slug }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ leccion.title | replace('"', '\\"') }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
 {% endblock %}
 
 {% block fab %}

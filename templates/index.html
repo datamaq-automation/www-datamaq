@@ -80,6 +80,45 @@
   ]
 }
 </script>
+{% if localidad_nombre %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "DataMaq - Monitoreo de Energía en {{ localidad_nombre }}",
+  "image": "{{ seo.og_image }}",
+  "telephone": "+5491156297160",
+  "email": "{{ brand.contactEmail }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ localidad_nombre }}",
+    "addressRegion": "{{ provincia }}",
+    "addressCountry": "AR"
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "{{ localidad_nombre }}, {{ municipio }}, {{ provincia }}"
+  },
+  "description": "{{ seo.description }}"
+}
+</script>
+{% endif %}
+{% if industria_nombre %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "IoT Industrial para {{ industria_nombre }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ brand.brandName }}",
+    "url": "https://datamaq.com.ar"
+  },
+  "areaServed": "AR",
+  "description": "{{ seo.description }}"
+}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block fab %}

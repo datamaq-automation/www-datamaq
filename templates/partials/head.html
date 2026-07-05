@@ -29,11 +29,17 @@
     </script>
 
 
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/ChatwootFab.css') }}?v={{ static_version() }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}'>
     <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/HomePage.css') }}?v={{ static_version() }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}'>
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/LegalPage.css') }}?v={{ static_version() }}'>
+    <link rel="preload" href="{{ request.url_for('static', path='css/ChatwootFab.css') }}?v={{ static_version() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ request.url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ request.url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ request.url_for('static', path='css/LegalPage.css') }}?v={{ static_version() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel='stylesheet' href='{{ request.url_for('static', path='css/ChatwootFab.css') }}?v={{ static_version() }}'>
+        <link rel='stylesheet' href='{{ request.url_for('static', path='css/useContactPageActions.css') }}?v={{ static_version() }}'>
+        <link rel='stylesheet' href='{{ request.url_for('static', path='css/CookieBanner.css') }}?v={{ static_version() }}'>
+        <link rel='stylesheet' href='{{ request.url_for('static', path='css/LegalPage.css') }}?v={{ static_version() }}'>
+    </noscript>
 
     <meta name='description' content='{{ seo_data.description }}'>
     <meta name='robots' content='{{ seo_data.meta_robots or robots }}'>

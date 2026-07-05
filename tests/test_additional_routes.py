@@ -130,11 +130,15 @@ async def test_contact_page_rendered():
 async def test_custom_404_page_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/pagina-que-no-existe")
+        response_unknown = await ac.get("/pagina-que-no-existe")
+        response_business = await ac.get("/cursos/curso-que-no-existe")
     
-    assert response.status_code == 404
-    assert "text/html" in response.headers["content-type"]
-    assert "Página no encontrada" in response.text
+    assert response_unknown.status_code == 301
+    assert response_unknown.headers["location"] == "/"
+    
+    assert response_business.status_code == 404
+    assert "text/html" in response_business.headers["content-type"]
+    assert "Página no encontrada" in response_business.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_sitemap_includes_contact():
