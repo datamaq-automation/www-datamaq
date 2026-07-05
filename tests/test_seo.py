@@ -279,3 +279,23 @@ async def test_json_ld_cursos_and_breadcrumbs():
         assert len(breadcrumbs_lesson.get("itemListElement", [])) == 3
         # Comprobar que el tercer elemento es la lección actual
         assert "Requisitos técnicos" in breadcrumbs_lesson["itemListElement"][2]["name"]
+
+
+from src.infrastructure.settings import config
+
+@pytest.mark.asyncio  # type: ignore
+async def test_cache_control_and_gzip_headers():
+    original_debug = config.DEBUG
+    config.DEBUG = False
+    try:
+        transport = ASGITransport(app=app)
+        async with AsyncClient(transport=transport, base_url="http://test") as ac:
+            response = await ac.get("/", headers={"Accept-Encoding": "gzip"})
+        
+        assert response.status_code == 200
+        cache_control = response.headers.get("cache-control", "")
+        assert "public" in cache_control
+        assert "max-age=3600" in cache_control
+        assert "s-maxage=86400" in cache_control
+    finally:
+        config.DEBUG = original_debug

@@ -1,11 +1,12 @@
 from typing import Dict, Any
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.middleware.gzip import GZipMiddleware
 from starlette.exceptions import HTTPException
 from src.infrastructure.settings import config
 from src.infrastructure.fastapi.dependencies import CachedStaticFiles, templates, get_contenido
 from src.infrastructure.fastapi.utils.seo import canonical_url
-from src.infrastructure.fastapi.middleware import canonical_redirect_middleware
+from src.infrastructure.fastapi.middleware import canonical_redirect_middleware, cache_control_middleware
 from src.domain.models import ContenidoModel
 
 # --- Inicialización de FastAPI ---
@@ -13,6 +14,8 @@ from src.domain.models import ContenidoModel
 app = FastAPI(title=config.APP_TITLE)
 app.state.config = config
 app.middleware("http")(canonical_redirect_middleware)
+app.middleware("http")(cache_control_middleware)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="static")
 
 # --- Manejadores de error ---

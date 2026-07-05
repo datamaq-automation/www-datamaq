@@ -59,3 +59,27 @@ async def canonical_redirect_middleware(request: Request, call_next: RequestResp
         return RedirectResponse(url=canonical, status_code=308)
 
     return await call_next(request)
+
+
+from src.infrastructure.settings import config
+
+async def cache_control_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
+    """
+    Middleware que añade cabeceras Cache-Control a las páginas HTML y sitemaps XML.
+    En desarrollo (config.DEBUG=True) o rutas de previsualización no añade caché.
+    """
+    response = await call_next(request)
+    
+    if config.DEBUG:
+        return response
+
+    path = request.url.path
+    if path.startswith("/dev/preview"):
+        return response
+
+    content_type = response.headers.get("content-type", "")
+    if response.status_code == 200:
+        if "text/html" in content_type or "application/xml" in content_type:
+            response.headers["Cache-Control"] = "public, max-age=3600, s-maxage=86400, stale-while-revalidate=60"
+            
+    return response
