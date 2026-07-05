@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from pathlib import Path
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import FileResponse
 from datetime import datetime
@@ -9,9 +10,33 @@ from src.domain.models import ContenidoModel, IndustriaModel
 
 router = APIRouter()
 
+
+def _content_lastmod() -> str:
+    """
+    Devuelve la fecha de modificación más reciente de los archivos de datos
+    de contenido (YAML/Markdown) para usar como lastmod del sitemap.
+    Si no se encuentran archivos, retorna la fecha actual.
+    """
+    data_dir = Path("data")
+    latest_mtime: float = 0.0
+    if data_dir.exists():
+        for path in data_dir.rglob("*"):
+            if path.is_file() and path.suffix.lower() in (".yaml", ".yml", ".md"):
+                mtime = path.stat().st_mtime
+                if mtime > latest_mtime:
+                    latest_mtime = mtime
+    if latest_mtime:
+        return datetime.fromtimestamp(latest_mtime).strftime("%Y-%m-%d")
+    return datetime.now().strftime("%Y-%m-%d")
+
 @router.get("/robots.txt")
 async def robots():
     return FileResponse(config.ROBOTS_TXT_PATH)
+
+
+@router.get("/humans.txt")
+async def humans():
+    return FileResponse(config.HUMANS_TXT_PATH, media_type="text/plain")
 
 @router.get("/sitemap.xml")
 async def sitemap(
@@ -22,7 +47,7 @@ async def sitemap(
     cursos_service = Depends(get_cursos_service)
 ):
     base_url = "https://datamaq.com.ar"
-    lastmod = datetime.now().strftime("%Y-%m-%d")
+    lastmod = _content_lastmod()
 
     urls = [
         {"loc": f"{base_url}/", "lastmod": lastmod, "changefreq": "monthly", "priority": "1.0"},

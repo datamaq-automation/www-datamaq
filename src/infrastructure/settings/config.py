@@ -13,6 +13,7 @@ CHATWOOT_TOKEN = os.getenv("CHATWOOT_WEBSITE_TOKEN")
 GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", None)
 CLARITY_ID = os.environ.get("CLARITY_ID", None)
 ROBOTS_TXT_PATH = "static/robots.txt"
+HUMANS_TXT_PATH = "static/humans.txt"
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 CHATWOOT_BASE_URL = os.getenv("CHATWOOT_BASE_URL", "https://app.chatwoot.com")

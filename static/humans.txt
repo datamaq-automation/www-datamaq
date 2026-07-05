@@ -1,0 +1,12 @@
+/* TEAM */
+    Autor: DataMaq
+    Contacto: info@datamaq.com.ar
+    Desde: Garín, Buenos Aires, Argentina
+
+/* SITE */
+    Nombre: DataMaq
+    URL: https://datamaq.com.ar/
+    Última actualización: 2026-07-05
+    Estándares: HTML5, CSS3
+    Componentes: FastAPI, Jinja2, Tailwind CSS
+    Software: Python 3.12
