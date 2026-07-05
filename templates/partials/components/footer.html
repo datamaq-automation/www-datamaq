@@ -21,11 +21,13 @@
             <!-- Columna 2: Navegación Central -->
             <div data-v-236fef00="" class="c-home-footer__col-nav">
                 {% for group in footer.navigation_groups %}
-                <div data-v-236fef00="" class="c-home-footer__nav-group">
+                <div data-v-236fef00="" class="c-home-footer__nav-group {% if group.title == 'Cobertura' %}c-home-footer__nav-group--cobertura{% endif %}">
                     <p data-v-236fef00="" class="c-home-footer__nav-title">{{ group.title }}</p>
-                    {% for link in group.links %}
-                    <a href="{{ link.href }}">{{ link.label }}</a>
-                    {% endfor %}
+                    <div data-v-236fef00="" class="c-home-footer__links-container">
+                        {% for link in group.links %}
+                        <a href="{{ link.href }}">{{ link.label }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>

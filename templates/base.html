@@ -17,6 +17,7 @@
             {% block cookie_banner %}{% endblock %}
             {% block scripts %}
     <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
+    <script type="module" src="{{ url_for("static", path="js/preview-telemetry.js") }}?v={{ static_version() }}"></script>
 {% endblock %}
         </div>
     </div>
