@@ -33,7 +33,7 @@
         <section class="c-curso-section">
             <h1 class="c-curso-section__title">Instructor: {{ instructor.name }}</h1>
             <div class="c-instructor-perfil">
-                <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo">
+                <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async">
                 <div class="c-instructor-perfil__info">
                     <p class="c-instructor-perfil__name">{{ instructor.name }}</p>
                     <p class="c-instructor-perfil__role">{{ instructor.role }}</p>
@@ -122,6 +122,32 @@
       {% if instructor.social_links.twitter %}{% if not ns.first %},{% endif %}"{{ instructor.social_links.twitter }}"{% set ns.first = false %}{% endif %}
       {% if instructor.social_links.website %}{% if not ns.first %},{% endif %}"{{ instructor.social_links.website }}"{% set ns.first = false %}{% endif %}
     {% endif %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://datamaq.com.ar"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cursos",
+      "item": "https://datamaq.com.ar/cursos"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ instructor.name | replace('"', '\\"') }}",
+      "item": "{{ seo.canonical_url }}"
+    }
   ]
 }
 </script>

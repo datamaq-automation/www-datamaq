@@ -31,7 +31,7 @@
                     <article class="c-curso-card">
                         {% if curso.og_image %}
                             <div class="c-curso-card__media">
-                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy">
+                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async">
                             </div>
                         {% endif %}
                         <div class="c-curso-card__content">
@@ -49,7 +49,7 @@
                             <div class="c-curso-card__footer">
                                 <div class="c-curso-card__instructor">
                                     <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-link" aria-label="Perfil de {{ curso.instructor.name }}">
-                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo">
+                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo" loading="lazy" decoding="async">
                                     </a>
                                     <div class="c-curso-card__instructor-info">
                                         <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-name-link">

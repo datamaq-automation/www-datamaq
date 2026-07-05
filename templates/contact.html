@@ -26,6 +26,33 @@
 {% call contact_section_macro.contact_section(content.contact) %}
 {{ contact_macro.contact_form(content.contact) }}
 {% endcall %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "name": "{{ seo.title | replace('"', '\\"') }}",
+      "description": "{{ seo.description | replace('"', '\\"') }}",
+      "url": "{{ seo.canonical_url }}",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "url": "https://datamaq.com.ar",
+        "email": "{{ brand.contactEmail }}",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Soporte técnico y ventas",
+          "email": "{{ brand.contactEmail }}",
+          "areaServed": "AR",
+          "availableLanguage": "Spanish"
+        }
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
 
 {% block fab %}
