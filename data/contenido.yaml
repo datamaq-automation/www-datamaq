@@ -139,8 +139,10 @@ content:
       title: "Capacitaciones técnicas de cortesía"
     title: "Servicios técnicos sobre captura, integración y uso de datos"
   contact:
-    title: "Iniciá una consulta técnica"
-    subtitle: Dejanos el contexto del caso y te respondemos con el siguiente paso.
+    title: "Solicitá asistencia técnica híbrida"
+    subtitle: "Contanos tu caso y te proponemos visita en campo o consultoría remota,\
+      \ según la complejidad y tu ubicación. Las capacitaciones técnicas son de\
+      \ cortesía para quienes trabajan con nosotros."
     cta: "Continuá"
     alt_email:
       label: Contacto alternativo
@@ -248,12 +250,12 @@ legal_pages:
         \ o contactarnos a través de los canales disponibles en el Sitio."
 seo:
   canonical_url: https://datamaq.com.ar
-  description: "Soluciones IoT industrial para monitoreo de energía y captura automá\
-    tica de datos operativos. Instalación, integración y asesoramiento té\
-    nico en Argentina."
+  description: "Asistencia técnica híbrida para monitoreo de energía industrial,\
+    \ captura de datos operativos e IoT industrial. Visitas en campo y consultoría\
+    \ remota en Argentina, con capacitaciones técnicas de cortesía."
   og_image: https://datamaq.com.ar/static/og-default.jpg
   site_name: DataMaq
-  title: "Monitoreo de energía industrial y captura de datos operativos | DataMaq"
+  title: "Asistencia técnica en monitoreo de energía e IoT industrial | DataMaq"
 
 footer:
   navigation_groups:

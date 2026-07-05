@@ -40,15 +40,18 @@
 
 ### G. Alineación del copy con el negocio principal
 19. Se reescribió el **hero de la Home** para comunicar "asistencia técnica híbrida" (campo + remota) como mensaje principal, mencionando las capacitaciones de cortesía como complemento.
-20. Se ajustaron los títulos y descripciones de las tarjetas de servicio:
+20. Se actualizó el **título y la meta descripción SEO de la Home** para reflejar asistencia técnica híbrida en monitoreo de energía e IoT industrial.
+21. Se ajustaron los títulos y descripciones de las tarjetas de servicio:
     - "Instalación de equipos IoT en campo" (visitas técnicas).
     - "Asesoramiento técnico remoto" (consultoría a distancia).
     - "Capacitaciones técnicas de cortesía" (formación gratuita, no producto principal).
+22. Se reescribió el **título y subtítulo de `/contact`** para ofrecer asistencia técnica híbrida y dejar claro que las capacitaciones son de cortesía.
+23. Se eliminó el hardcodeo de SEO y hero en `src/infrastructure/fastapi/routes/contact_routes.py`; ahora se leen desde `data/contenido.yaml`.
 
 ### H. Calidad y cobertura
-21. Se validó que `pytest` continúa pasando al 100% (41 tests).
-22. Se validó que `mypy` sigue limpio sobre `src/`.
-23. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
+24. Se validó que `pytest` continúa pasando al 100% (41 tests).
+25. Se validó que `mypy` sigue limpio sobre `src/`.
+26. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
 
 ---
 

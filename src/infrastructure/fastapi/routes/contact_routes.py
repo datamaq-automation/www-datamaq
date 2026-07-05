@@ -21,11 +21,12 @@ logger = setup_logger(config.LOGGER_NAME)
 
 @router.get("/contact")
 async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+    contact_data = contenido.content.contact
     base_seo = contenido.seo.model_dump()
     seo = {
         **base_seo,
-        "title": f"Consultoría técnica IoT | {contenido.brand.brandName}",
-        "description": f"Contactá a {contenido.brand.brandName} para una consultoría técnica sobre monitoreo de energía industrial, captura de datos operativos e IoT industrial.",
+        "title": f"{contact_data.title} | {contenido.brand.brandName}",
+        "description": contact_data.subtitle,
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
         "og_image_height": 630,
@@ -37,8 +38,8 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
         "footer": contenido.footer.model_dump() if contenido.footer else None,
         "chatwoot_token": chatwoot_token,
         "contact_hero": {
-            "title": f"Consultoría técnica IoT con {contenido.brand.brandName}",
-            "subtitle": "Escribinos para evaluar tu proyecto de monitoreo de energía industrial, captura de datos operativos o equipos IoT.",
+            "title": f"{contact_data.title} con {contenido.brand.brandName}",
+            "subtitle": contact_data.subtitle,
         },
     }
     return templates.TemplateResponse(request=request, name="contact.html", context=context)

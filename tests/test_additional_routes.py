@@ -43,7 +43,7 @@ async def override_get_contenido():
                 "more_info_link": "/terminos-y-condiciones"
             },
             "contact": {
-                "title": "Test",
+                "title": "Solicitá asistencia técnica híbrida",
                 "subtitle": "Test",
                 "cta": "Test",
                 "alt_email": {"label": "Test", "title": "Test", "email": "test@test.com"},
@@ -128,7 +128,7 @@ async def test_contact_page_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Consultoría técnica IoT" in response.text
+    assert "Solicitá asistencia técnica híbrida" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_custom_404_page_rendered():
