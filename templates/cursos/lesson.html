@@ -97,6 +97,9 @@
             </nav>
             
             <header class="c-lesson-content__header">
+                <p class="c-lesson-courtesy" style="margin-bottom: 0.75rem; color: var(--dm-text-muted); font-size: 0.95rem;">
+                    <i class="bi bi-gift"></i> {{ courses.badge }} — <a href="{{ courses.assistance_cta_href }}">{{ courses.assistance_cta_label }}</a>
+                </p>
                 <h1 class="c-lesson-content__title">{{ leccion.title }}</h1>
                 <div class="c-lesson-content__meta">
                     <span><i class="bi bi-clock"></i> {{ leccion.duration }}</span>

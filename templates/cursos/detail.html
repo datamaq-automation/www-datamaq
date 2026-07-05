@@ -30,6 +30,9 @@
                 <span class="c-curso-detalle-header__badge">{{ curso.level }}</span>
                 <h1 class="c-curso-detalle-header__title">{{ curso.title }}</h1>
                 <p class="c-curso-detalle-header__subtitle">{{ curso.description_short }}</p>
+                <p class="c-curso-detalle-header__courtesy" style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--dm-text-muted);">
+                    <i class="bi bi-gift"></i> {{ courses.badge }} — <a href="{{ courses.assistance_cta_href }}">{{ courses.assistance_cta_label }}</a>
+                </p>
                 
                 <div class="c-curso-detalle-header__meta">
                     <span class="c-curso-detalle-header__meta-item"><i class="bi bi-clock"></i> {{ curso.duration }}</span>

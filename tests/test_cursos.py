@@ -10,7 +10,7 @@ async def test_cursos_catalog_rendered():
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Catálogo de Cursos" in response.text
+    assert "Cursos y capacitaciones técnicas gratuitas" in response.text
     assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
 
 @pytest.mark.asyncio

@@ -194,6 +194,14 @@ content:
     reject_label: Rechazar
     more_info_label: "Ver más"
     more_info_link: /terminos-y-condiciones
+  courses:
+    badge: "Capacitaciones técnicas de cortesía"
+    title: "Cursos y capacitaciones técnicas gratuitas"
+    subtitle: "Material técnico complementario para equipos que trabajan con datos\
+      \ operativos, IoT industrial y Python. No son el servicio principal: el foco\
+      \ de DataMaq es la asistencia técnica híbrida en campo y remota."
+    assistance_cta_label: "Necesitás asistencia técnica"
+    assistance_cta_href: "/contact"
 legal_pages:
   terms:
     title: Términos y condiciones

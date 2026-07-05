@@ -62,6 +62,13 @@ async def override_get_contenido():
             "assistance_modes": {
                 "on_site": {"label": "Campo", "description": "Test", "icon": "geo-alt-fill"},
                 "remote": {"label": "Remoto", "description": "Test", "icon": "wifi"}
+            },
+            "courses": {
+                "badge": "Capacitaciones de cortesía",
+                "title": "Cursos y capacitaciones técnicas gratuitas",
+                "subtitle": "Test",
+                "assistance_cta_label": "Necesitás asistencia técnica",
+                "assistance_cta_href": "/contact"
             }
         },
         seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},

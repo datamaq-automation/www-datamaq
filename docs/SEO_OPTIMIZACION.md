@@ -52,6 +52,15 @@
 24. Las landings de localidad (`/{provincia}/{municipio}/{localidad}.html`) ahora usan título, meta descripción y hero orientados a "asistencia técnica" con visitas en campo y consultoría remota.
 25. Las landings de industria (`/industria/{industria}.html`) ahora usan título, meta descripción y hero orientados a "asistencia técnica para [industria]", destacando modalidad híbrida y capacitaciones de cortesía.
 
+### K. Alineación del LMS con capacitaciones de cortesía
+29. Se agregó `courses` en `data/contenido.yaml` para centralizar el título, subtítulo, badge y CTA de asistencia técnica en todas las páginas del LMS.
+30. Se actualizó `src/domain/models.py` con `CoursesHeroModel` y se incorporó al `ContentModel`.
+31. Se actualizó `src/infrastructure/fastapi/routes/course_routes.py` para usar los datos de `courses` en el SEO del listado y pasarlos a todas las plantillas del LMS.
+32. Se ajustaron `templates/cursos/list.html`, `detail.html`, `instructor.html` y `lesson.html` para:
+    - Mostrar el badge "Capacitaciones técnicas de cortesía".
+    - Destacar que el material es gratuito y complementario.
+    - Incluir un CTA claro hacia `/contact` para quien necesite asistencia técnica.
+
 ### J. Calidad y cobertura
 26. Se validó que `pytest` continúa pasando al 100% (41 tests).
 27. Se validó que `mypy` sigue limpio sobre `src/`.

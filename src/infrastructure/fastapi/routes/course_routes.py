@@ -17,10 +17,11 @@ async def listado_cursos(
 ):
     cursos = cursos_service.get_cursos()
     brand_data = contenido.brand.model_dump()
-    
+    courses_data = contenido.content.courses.model_dump()
+
     seo: Dict[str, Any] = {
-        "title": "Cursos y Capacitaciones Técnicas | DataMaq",
-        "description": "Formación práctica y gratuita en Python, IoT industrial y captura de datos operativos para ingenieros y técnicos.",
+        "title": f"{courses_data['title']} | {contenido.brand.brandName}",
+        "description": courses_data['subtitle'],
         "canonical_url": canonical_url(request.url),
         "site_name": contenido.brand.brandName,
         "og_image": contenido.seo.og_image,
@@ -31,6 +32,7 @@ async def listado_cursos(
     context: Dict[str, Any] = {
         "brand": brand_data,
         "content": contenido.content.model_dump(),
+        "courses": courses_data,
         "cursos": [c.model_dump() for c in cursos],
         "seo": seo,
         "footer": contenido.footer.model_dump() if contenido.footer else None,
@@ -80,6 +82,7 @@ async def detalle_instructor(
     context: Dict[str, Any] = {
         "brand": brand_data,
         "content": contenido.content.model_dump(),
+        "courses": contenido.content.courses.model_dump(),
         "instructor": instructor.model_dump(),
         "cursos": [c.model_dump() for c in cursos],
         "seo": seo,
@@ -115,6 +118,7 @@ async def detalle_curso(
     context: Dict[str, Any] = {
         "brand": brand_data,
         "content": contenido.content.model_dump(),
+        "courses": contenido.content.courses.model_dump(),
         "curso": curso.model_dump(),
         "seo": seo,
         "footer": contenido.footer.model_dump() if contenido.footer else None,
@@ -171,6 +175,7 @@ async def vista_leccion(
     context: Dict[str, Any] = {
         "brand": brand_data,
         "content": contenido.content.model_dump(),
+        "courses": contenido.content.courses.model_dump(),
         "curso": curso.model_dump(),
         "leccion": leccion.model_dump(),
         "prev_lesson": prev_lesson.model_dump() if prev_lesson else None,

@@ -32,6 +32,9 @@
     <div class="c-curso-body-layout" style="max-width: 900px; margin-inline: auto;">
         <section class="c-curso-section">
             <h1 class="c-curso-section__title">Instructor: {{ instructor.name }}</h1>
+            <p class="c-instructor-courtesy" style="margin-bottom: 1.5rem; color: var(--dm-text-muted);">
+                <i class="bi bi-gift"></i> {{ courses.badge }} — <a href="{{ courses.assistance_cta_href }}">{{ courses.assistance_cta_label }}</a>
+            </p>
             <div class="c-instructor-perfil">
                 <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async">
                 <div class="c-instructor-perfil__info">

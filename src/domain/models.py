@@ -152,6 +152,14 @@ class AssistanceModeModel(BaseModel):
     icon: str
 
 
+class CoursesHeroModel(BaseModel):
+    badge: str
+    title: str
+    subtitle: str
+    assistance_cta_label: str
+    assistance_cta_href: str
+
+
 # --- Modelos Principales ---
 class ContentModel(BaseModel):
     hero: HeroModel
@@ -164,6 +172,7 @@ class ContentModel(BaseModel):
     contact: ContactModel
     cookie_banner: CookieBannerModel
     assistance_modes: Dict[str, AssistanceModeModel]
+    courses: CoursesHeroModel
 
 class FooterLinkModel(BaseModel):
     label: str

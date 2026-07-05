@@ -17,9 +17,10 @@
 {% block main_content %}
 <section class="c-cursos-hero">
     <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
-        <span class="c-cursos-hero__badge">Formación Técnica Gratuita</span>
-        <h1 class="c-cursos-hero__title">Catálogo de Cursos de Capacitación</h1>
-        <p class="c-cursos-hero__subtitle">Desarrollá habilidades reales sobre Python, IoT industrial y adquisición de datos operativos aplicados a entornos reales.</p>
+        <span class="c-cursos-hero__badge">{{ courses.badge }}</span>
+        <h1 class="c-cursos-hero__title">{{ courses.title }}</h1>
+        <p class="c-cursos-hero__subtitle">{{ courses.subtitle }}</p>
+        <a href="{{ courses.assistance_cta_href }}" class="c-cursos-hero__cta">{{ courses.assistance_cta_label }}</a>
     </div>
 </section>
 
