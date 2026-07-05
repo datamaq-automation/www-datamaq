@@ -19,6 +19,22 @@ if command -v npm &> /dev/null; then
 else
     echo "⚠️ Advertencia: npm no está instalado. No se pudo verificar la compilación de CSS."
 fi
+# Validar esquemas e integridad de YAMLs
+echo "==> Auditando esquemas YAML de contenido..."
+if [ -f "venv/bin/python" ]; then
+    PYTHON="venv/bin/python"
+else
+    PYTHON="python3"
+fi
+
+$PYTHON scripts/validate_content.py
+yaml_status=$?
+
+if [ $yaml_status -ne 0 ]; then
+    echo "❌ ERROR: Auditoría de esquemas YAML fallida. Corré 'venv/bin/python scripts/validate_content.py --fix' para reparar o revisar errores."
+    exit 1
+fi
+echo "✅ Todos los esquemas YAML de contenido son válidos."
 
 export PYTHONPATH=$PYTHONPATH:.
 
