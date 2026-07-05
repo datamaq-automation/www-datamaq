@@ -18,7 +18,14 @@
     {% if config.CHATWOOT_BASE_URL %}<link rel='preconnect' href='{{ config.CHATWOOT_BASE_URL }}' crossorigin>{% endif %}
     {% if config.CHATWOOT_BASE_URL %}<link rel='dns-prefetch' href='{{ config.CHATWOOT_BASE_URL }}'>{% endif %}
 
-    <link rel='stylesheet' crossorigin='' href='{{ request.url_for('static', path='css/index.css') }}?v={{ static_version() }}'>
+    <!-- CSS Crítico Inline (Above The Fold) -->
+    {% include 'partials/critical_css.html' %}
+
+    <!-- Carga Asíncrona del CSS Principal -->
+    <link rel="preload" href="{{ request.url_for('static', path='css/index.css') }}?v={{ static_version() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ request.url_for('static', path='css/index.css') }}?v={{ static_version() }}">
+    </noscript>
 
     <script>
         window.APP_CONFIG = {
