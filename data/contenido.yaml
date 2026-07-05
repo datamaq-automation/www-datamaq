@@ -41,17 +41,17 @@ content:
         n de señales y datos operativos."
       question: "¿Usás Powermeter y Automate?"
   hero:
-    badge: "Captura automática de datos operativos"
+    badge: "Asistencia técnica híbrida: visitas en campo + remota"
     benefits:
-    - text: "Captura de kWh, potencia, factor de potencia, armónicas, kilos, unidades,\
-        \ metros, velocidades o estados según el caso."
-      title: Variables definidas
-    - text: "Vinculación con Powermate, dashboards o sistemas de terceros cuando\
-        \ la conectividad y el objetivo lo permiten."
-      title: "Integración según alcance"
-    - text: "Datos ordenados y utilizables para seguimiento operativo, diagnóstico,\
-        \ reportes o formación técnica."
-      title: "Base técnica para análisis"
+    - text: "Relevamiento en planta, instalación de equipos IoT y puesta en marcha\
+        \ según el alcance acordado."
+      title: Visitas técnicas en campo
+    - text: "Consultoría, diagnóstico y seguimiento a distancia para casos que\
+        \ no requieran presencia física."
+      title: Asistencia remota
+    - text: "Capacitaciones técnicas de cortesía orientadas a equipos que trabajan\
+        \ con datos operativos, IoT industrial y Python."
+      title: Formación complementaria
     image:
       alt: "Captura e integración de datos energéticos y operativos en entorno\
         \ industrial"
@@ -61,17 +61,15 @@ content:
     primaryCta:
       href: https://wa.me/5491156297160
       label: Escribime por WhatsApp
-    responseNote: "Base operativa: Garín (GBA Norte). El alcance se define segú\
-      n tablero, señales disponibles, conectividad, sistema destino y objetivo\
-      \ operativo."
+    responseNote: "Base operativa: Garín (GBA Norte). Atención en campo según zona\
+      \ y disponibilidad; también asistencia remota para consultoría y seguimiento."
     secondaryCta:
       href: '#servicios'
       label: "Ver alcance técnico"
-    subtitle: "Implementamos equipos IoT industrial para monitoreo de energía\
-      \ y captura automática de datos operativos. Integramos variables elé\
-      ctricas y de producción a dashboards o sistemas existentes para mejorar\
-      \ el control de planta."
-    title: "Monitoreo de energía industrial y captura de datos operativos"
+    subtitle: "Brindamos asistencia técnica para monitoreo de energía industrial,\
+      \ captura de datos operativos e IoT industrial. Visitas en campo y consultoría\
+      \ remota, con capacitaciones técnicas de cortesía según el proyecto."
+    title: "Asistencia técnica en monitoreo de energía industrial y datos operativos"
   legal:
     text: "La información publicada es referencial y puede actualizarse segú\
       n alcance, tablero, señales disponibles, conectividad, sistema destino y\
@@ -108,9 +106,9 @@ content:
       label: "Asistencia remota y consultoría"
   services:
     cards:
-    - description: "Relevamiento, montaje, configuración y puesta en marcha de\
-        \ soluciones para medir variables eléctricas y operativas en tableros,\
-        \ líneas o puntos definidos."
+    - description: "Asistencia técnica en planta para relevar, montar, configurar\
+        \ y poner en marcha equipos IoT que midan variables eléctricas y operativas\
+        \ en tableros, líneas o puntos definidos."
       id: iot-installation
       key_points:
       - "Medición de kWh, potencia, factor de potencia y distorsión armó\
@@ -118,9 +116,9 @@ content:
       - Captura de kilos, unidades, metros, velocidades o estados
       - "Integración inicial con Powermate o sistemas de terceros"
       modality: "on_site"
-      title: "Instalación de equipos IoT para captura de datos"
-    - description: "Acompañamiento para estructurar, interpretar y explotar datos\
-        \ ya capturados, con foco en seguimiento operativo, diagnóstico y criterio\
+      title: "Instalación de equipos IoT en campo"
+    - description: "Asistencia técnica remota para estructurar, interpretar y explotar\
+        \ datos ya capturados, con foco en seguimiento operativo, diagnóstico y criterio\
         \ de decisión."
       id: data-advisory
       key_points:
@@ -128,17 +126,17 @@ content:
       - Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes
       - Soporte para reportes, dashboards y automatizaciones de seguimiento
       modality: "remote"
-      title: "Asesoramiento técnico para análisis de datos"
-    - description: "Formación técnica orientada a equipos que necesiten trabajar\
-        \ con datos operativos, Python, bases de datos, APIs o integraciones sobre\
-        \ casos reales."
+      title: "Asesoramiento técnico remoto"
+    - description: "Capacitaciones técnicas de cortesía orientadas a equipos que\
+        \ trabajan con datos operativos, Python, bases de datos, APIs o integraciones\
+        \ sobre casos reales. No son el servicio principal: complementan la asistencia."
       id: training
       key_points:
       - Python aplicado con NumPy, pandas y Matplotlib
       - "Buenas prácticas para trabajar con bases de datos y APIs"
       - "Capacitación adaptada al nivel técnico y al caso real del equipo"
       modality: "both"
-      title: Capacitaciones aplicadas
+      title: "Capacitaciones técnicas de cortesía"
     title: "Servicios técnicos sobre captura, integración y uso de datos"
   contact:
     title: "Iniciá una consulta técnica"
