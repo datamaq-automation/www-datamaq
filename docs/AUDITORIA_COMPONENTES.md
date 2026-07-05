@@ -10,20 +10,20 @@ El sistema cuenta con un total de **13 archivos físicos de componentes** en `te
 
 | Componente | Ruta Física | Previsualización Aislada | Estado | Especificaciones y Correcciones Locales |
 | :--- | :--- | :--- | :---: | :--- |
-| **Header** | `header.html` | `/dev/preview/header` | **Completado** (✅) | Corregido el bug de especificidad CSS en `.c-home-header__nav` que forzaba el despliegue del menú en móvil, provocando un desborde de `478px` de ancho. En móvil se oculta el menú (`display: none`) y se despliega solo a partir de los `992px`. Touch target de links visibles: **34px** de alto. |
-| **Footer** | `footer.html` | `/dev/preview/footer` | **Completado** (✅) | Rediseñado con acordeones nativos en móvil (`<details>` y `<summary>`) con animación y rotación de chevron. El contenido cerrado se oculta mediante `display: none !important`. Restaurada la visibilidad de la marca y datos de contacto en móvil. Altura total móvil reducida de `1140px` a **`700px`**. Touch targets optimizados a **`32px`-`34px`** (cero alertas de usabilidad táctil). |
-| **Hero** | `hero.html` | `/dev/preview/hero` | **Completado** (✅) | Sin desbordamientos horizontales ni alertas de Touch Target en viewport de `375px`. La lista de trust-chips utiliza `overflow-x: auto` de forma intencional y controlada; el script de telemetría fue ajustado para ignorar estos contenedores con scroll programado. |
-| **Profile** | `profile.html` | `/dev/preview/profile` | **Completado** (✅) | Sin desbordamientos horizontales ni alertas de Touch Target en viewport de `375px`. Avatar, tarjeta de perfil y grilla de beneficios se adaptan correctamente. |
-| **Contact Section** | `contact_section.html` + `contact_form.html` | `/dev/preview/contact_section` | **Completado** (✅) | Mejorados los Touch Targets del stepper (`min-height: 2.5rem`) y del enlace de e-mail alternativo (`min-height: 2rem` con `inline-flex`). El stepper se apila en una sola columna en móvil (`max-width: 767.98px`). Botón CTA y campos de formulario mantienen alturas accesibles. |
+| **Header** | `header.html` | `/dev/preview/header` | **Completado** (✅) | Corregido el bug de especificidad CSS en `.c-home-header__nav` que forzaba el despliegue del menú en móvil. Marca, icono de contacto y CTA ajustados a **44×44 px** como mínimo. Menú hamburguesa visible solo en móvil; menú desktop a partir de `992px`. |
+| **Footer** | `footer.html` | `/dev/preview/footer` | **Completado** (✅) | Rediseñado con acordeones nativos en móvil (`<details>` y `<summary>`) con animación y rotación de chevron. El contenido cerrado se oculta mediante `display: none !important`. Restaurada la visibilidad de la marca y datos de contacto en móvil. Altura total móvil reducida de `1140px` a **`700px`**. Todos los controles alcanzan **44×44 px**. |
+| **Hero** | `hero.html` | `/dev/preview/hero` | **Completado** (✅) | Sin desbordamientos horizontales ni alertas de Touch Target en viewports `320px`, `375px` y `768px`. La lista de trust-chips utiliza `overflow-x: auto` de forma intencional y controlada; el script de telemetría ignora estos contenedores con scroll programado. |
+| **Profile** | `profile.html` | `/dev/preview/profile` | **Completado** (✅) | Sin desbordamientos horizontales ni alertas de Touch Target en viewports `320px`, `375px` y `768px`. Avatar, tarjeta de perfil y grilla de beneficios se adaptan correctamente. |
+| **Contact Section** | `contact_section.html` + `contact_form.html` | `/dev/preview/contact_section` | **Completado** (✅) | Stepper triggers, enlace de e-mail alternativo y botón CTA ajustados a **44×44 px**. El stepper se apila en una sola columna en móvil (`max-width: 767.98px`). |
 | **Chatwoot FAB** | `chatwoot_fab.html` | `/dev/preview/chatwoot_fab` | **Completado** (✅) | Botón flotante de `3.5rem × 3.5rem` en móvil (**~56px**), bien por encima del mínimo táctil. No requirió ajustes. |
-| **Cookie Banner** | `cookie_banner.html` | `/dev/preview/cookie_banner` | **Completado** (✅) | Botones de acción con `min-height: 2.5rem` en móvil. Se aumentó el área táctil del enlace "Ver más" a `32px` mediante `display: inline-flex`, `align-items: center` y `min-height: 2rem`. |
-| **Dock** | `dock.html` | `/dev/preview/dock` | **Completado** (✅) | Barra de navegación fija inferior con enlaces de `min-height: 4.2rem` (variante directa `4.35rem`), equivalente a **~67-70px**. No requirió ajustes. |
-| **FAQ Item** | `faq_item.html` | `/dev/preview/faq_item` | **Completado** (✅) | Acordeón nativo con `<summary>` de padding `1.2rem 1.25rem`; el área táctil supera ampliamente los `32px`. No contiene enlaces internos. No requirió ajustes. |
+| **Cookie Banner** | `cookie_banner.html` | `/dev/preview/cookie_banner` | **Completado** (✅) | Botones de acción y enlace "Ver más" ajustados a **44×44 px** en todos los viewports. |
+| **Dock** | `dock.html` | `/dev/preview/dock` | **Completado** (✅) | Barra de navegación fija inferior. En móvil usa `grid-template-columns: repeat(var(--dock-columns, 4), minmax(3.5rem, 1fr))` y `overflow-x: auto` para soportar hasta 6 ítems sin romper el layout. Todos los enlaces superan **44×44 px**. |
+| **FAQ Item** | `faq_item.html` | `/dev/preview/faq_item` | **Completado** (✅) | Acordeón nativo con `<summary>` de padding `1.2rem 1.25rem`; el área táctil supera ampliamente los `44px`. No contiene enlaces internos. No requirió ajustes. |
 | **Service Card** | `service_card.html` | `/dev/preview/service_card` | **Completado** (✅) | CTA principal con `min-height: 3.2rem` (**~51px**). Contenido, icono y lista de beneficios se adaptan al ancho móvil. No requirió ajustes. |
 | **Section Wrapper** | `section_wrapper.html` | `/dev/preview/section_wrapper` | **Completado** (✅) | Envoltura estructurada de secciones. No introduce elementos interactivos propios; su ancho se controla mediante `tw:container tw:mx-auto tw:px-4`. No requirió ajustes. |
-| **Icon** | `icon.html` | *No aplica* | **No aplica** (⚪) | Macro de renderizado de iconos SVG de Bootstrap Icons. Es un helper sin interacción propia; se audita indirectamente dentro de los componentes que lo consumen. |
+| **Icon** | `icon.html` | *No aplica* | **No aplica** (⚪) | Macro de renderizado de iconos SVG de Bootstrap Icons. Es un helper sin interacción propia; se audita indirectamente dentro de los componentes que lo consume. |
 
-**Resumen:** 12 de 13 componentes auditados, con **0 alertas de Touch Target** en los componentes de bloque principales y **0 desbordamientos horizontales** no intencionales en viewport de `375px`.
+**Resumen:** 12 de 13 componentes auditados, con **0 controles interactivos menores a 44×44 px** y **0 desbordamientos horizontales** no intencionales en viewports `320px`, `375px` y `768px`.
 
 ---
 
@@ -31,10 +31,11 @@ El sistema cuenta con un total de **13 archivos físicos de componentes** en `te
 
 Para garantizar un producto premium, cada componente auditado y refinado en el repositorio debe cumplir rigurosamente con las siguientes pautas ergonómicas antes de ser considerado estable:
 
-* **Sin desbordamiento horizontal:** El scroll horizontal del cuerpo del documento (`document.body.scrollWidth`) debe ser idéntico al ancho del viewport (`window.innerWidth`) en cualquier resolución móvil (típicamente `320px` a `480px`). Los contenedores con `overflow-x: auto` o `overflow-x: scroll` intencionales (p. ej., trust-chips del Hero) se excluyen del reporte.
-* **Touch Targets accesibles (WCAG 2.2):**
-  * Los elementos de enlace de texto comunes (`<a>`) deben poseer un área táctil física de al menos **`32px` de alto**. Esto se logra incrementando el padding vertical (`padding: .35rem 0`) y usando `display: inline-flex` con `min-height`, sin necesidad de aumentar el tamaño de fuente visual de la tipografía.
-  * Los botones de acción principal (`.tw:btn`, `.btn-primary`) deben tener un área de click de al menos **`44px` a `48px` de alto**.
+* **Sin desbordamiento horizontal:** El scroll horizontal del cuerpo del documento (`document.body.scrollWidth`) debe ser idéntico al ancho del viewport (`window.innerWidth`) en cualquier resolución móvil (típicamente `320px` a `480px`) y tablet vertical (hasta `768px`). Los contenedores con `overflow-x: auto` o `overflow-x: scroll` intencionales (p. ej., trust-chips del Hero o el dock con muchos ítems) se excluyen del reporte.
+* **Touch Targets accesibles (WCAG 2.5.5 / WCAG 2.2):**
+  * Todos los controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) deben poseer un área táctil física de al menos **`44×44 px`**. Esto se logra con `display: inline-flex` o `display: flex`, `align-items: center`, `justify-content: center` y `min-height: 2.75rem` (44 px), sin necesidad de aumentar el tamaño de fuente visual.
+  * Se ignoran del reporte los controles con `pointer-events: none`, `display: none` o `visibility: hidden`, ya que no son interactivos.
+* **Matriz de viewports:** Toda auditoría se ejecuta como mínimo en `320×568`, `375×667` y `768×1024` para cubrir móvil pequeño, móvil estándar y tablet vertical.
 * **Visualización de Marca:** La información de contacto directo (Mail, Dirección) no debe ocultarse en mobile bajo directivas de simplificación, ya que es el motor de conversión directa de leads para la empresa.
 
 ---
@@ -50,7 +51,7 @@ Durante la etapa de depuración local, la plataforma cuenta con telemetría inte
    * Viewport actual (ancho y alto en px).
    * Scroll horizontal total del body (para detectar fugas de responsive).
    * Listado detallado de elementos del DOM que causan desbordamiento horizontal.
-   * Análisis automático de Touch Targets indicando la cantidad de enlaces menores a `32px` y listando las alertas con su respectivo tamaño físico.
+   * Análisis automático de Touch Targets indicando la cantidad de controles interactivos menores a `44px` y listando las alertas con su respectivo tamaño físico.
    * Medidas del footer cuando está presente.
 
 ### Uso para validar un componente:
@@ -94,11 +95,12 @@ python3 scripts/audit_components.py --skip-chrome
 * **Dependencias:** [requirements-dev.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements-dev.txt)
 
 **Qué hace:**
-1. Abre cada preview en un navegador Chromium headless con viewport móvil.
+1. Abre cada preview en un navegador Chromium headless con cada viewport configurado.
 2. Mide `document.body.scrollWidth` y compara con el ancho del viewport.
-3. Detecta elementos con desbordamiento horizontal no intencional (ignora contenedores con `overflow-x: auto/scroll`).
-4. Detecta enlaces (`<a>`) con altura inferior a `32px`.
-5. Reporta la altura del footer cuando el componente la incluye.
+3. Detecta elementos con desbordamiento horizontal no intencional (ignora contenedores con `overflow-x: auto/scroll` y sus hijos).
+4. Detecta controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) menores a **44×44 px**.
+5. Ignora controles no interactivos (`pointer-events: none`, `display: none`, `visibility: hidden`).
+6. Reporta la altura del footer cuando el componente la incluye.
 
 **Instalación:**
 ```bash
@@ -109,11 +111,11 @@ playwright install chromium
 
 **Uso:**
 ```bash
-# Con el servidor de desarrollo corriendo
+# Con el servidor de desarrollo corriendo (viewports por defecto: 320x568, 375x667, 768x1024)
 python3 scripts/audit_responsive.py
 
-# Otro viewport
-python3 scripts/audit_responsive.py --viewport 390x844
+# Matriz personalizada de viewports
+python3 scripts/audit_responsive.py --viewports 320x568,390x844,768x1024
 
 # Otra URL base
 python3 scripts/audit_responsive.py --base-url http://127.0.0.1:5000
@@ -121,10 +123,28 @@ python3 scripts/audit_responsive.py --base-url http://127.0.0.1:5000
 
 ### Hallazgos y correcciones recientes
 
-Durante la primera corrida de `audit_responsive.py` se detectó que el componente **Dock** con 6 enlaces generaba desbordamiento interno en viewport de `375px` (cada `<a>` medía más de `50px` de ancho real contra los `~50px` disponibles). Se corrigió en `static/css/HomePage.css` estableciendo:
+#### Primera corrida con umbral 32 px
+Se detectó que el componente **Dock** con 6 enlaces generaba desbordamiento interno en viewport de `375px`. Se corrigió en `static/css/HomePage.css` estableciendo:
 
 * `grid-template-columns: repeat(var(--dock-columns, 4), minmax(3.5rem, 1fr))` en móvil.
 * `overflow-x: auto` y `scroll-snap-type: x mandatory` en el dock para scroll horizontal controlado.
 * Texto centrado, ajustable a dos líneas y `font-size` reducido en móvil.
 
-Tras la corrección, la auditoría reporta **0 desbordamientos** y **0 enlaces con touch target insuficiente** en los 13 componentes.
+#### Segunda corrida con umbral 44×44 px y múltiples viewports
+Al subir el estándar a **44×44 px** y auditar `320×568`, `375×667` y `768×1024`, aparecieron fallas reales en:
+
+* **Contact Section / Contact Form:** stepper triggers de `40px` de alto y e-mail alternativo de `37px`.
+* **Cookie Banner:** botones de `40px` de alto y enlace "Ver más" de `32px`.
+* **Footer:** e-mail de marca de `34px`, términos legales de `33px` y summaries de acordeón en desktop no interactivos.
+* **Header:** icono de contacto móvil de `40×40px`.
+
+**Correcciones aplicadas:**
+* `static/css/useContactPageActions.css`: stepper triggers y e-mail alternativo a `min-height: 2.75rem`.
+* `static/css/CookieBanner.css`: botones y enlace "Ver más" a `min-height: 2.75rem`.
+* `static/css/HomePage.css`:
+  * Footer: summaries, links de navegación, e-mail de marca y términos legales a `min-height: 2.75rem`.
+  * Header: marca, icono de contacto móvil y CTA a `min-height: 2.75rem`.
+  * Dock: scroll horizontal controlado para 6 ítems.
+* `scripts/audit_responsive.py`: se agregó filtrado de controles con `pointer-events: none` para evitar falsos positivos en summaries de desktop.
+
+Tras las correcciones, la auditoría reporta **0 desbordamientos**, **0 controles menores a 44×44 px** y **0 componentes con fallas** en los 13 componentes y 3 viewports.

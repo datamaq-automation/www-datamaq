@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     gap: .45rem;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     padding: .45rem .55rem;
     background: transparent;
     color: inherit;
@@ -227,7 +227,7 @@
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    min-height: 2rem;
+    min-height: 2.75rem;
     padding: .35rem 0;
 }
 

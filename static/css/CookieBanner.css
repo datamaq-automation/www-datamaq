@@ -57,7 +57,7 @@
     font-size: 0.92rem;
     display: inline-flex;
     align-items: center;
-    min-height: 2rem;
+    min-height: 2.75rem;
     padding: 0.25rem 0;
 }
 
@@ -139,7 +139,7 @@
     }
 
     .c-cookie-banner__button {
-        min-height: 2.5rem;
+        min-height: 2.75rem;
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
         width: 100%;
