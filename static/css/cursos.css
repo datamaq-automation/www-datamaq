@@ -1260,7 +1260,7 @@
         left: -320px;
         width: 300px;
         height: 100vh;
-        z-index: 1060;
+        z-index: calc(var(--z-index-offcanvas) + 10);
         transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 0 2rem rgba(var(--dm-shadow-rgb), 0.5);
         background-color: var(--dm-surface-0);
@@ -1277,7 +1277,7 @@
         background-color: rgba(var(--dm-bg-0-rgb), 0.6);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-        z-index: 1050;
+        z-index: var(--z-index-offcanvas);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
