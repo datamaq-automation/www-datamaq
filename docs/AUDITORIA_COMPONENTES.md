@@ -163,6 +163,20 @@ La auditoría responsive está integrada en el hook `scripts/pre-push.sh`. Cada 
 
 Si Playwright no está instalado, el script muestra una advertencia y continúa sin la auditoría responsive, pero no bloquea el push.
 
+### Optimización: omisión condicional por tipo de cambio
+
+Para no penalizar pushes que no afectan el frontend, el hook analiza los archivos que se están por pushear y **omite la auditoría responsive** si **todos** los cambios pertenecen a rutas de exclusión:
+
+* Archivos `.sh`
+* `scripts/*` (excepto `scripts/audit_responsive.py` y `scripts/audit_components.py`)
+* `tests/*`
+* `.github/*`
+* `.agents/*`
+* `docs/*`
+* `README.md`, `README`, `AGENTS.md`
+
+Si hay un solo cambio en `templates/`, `static/css/`, `static/js/`, `data/content/`, `src/` o cualquier otro archivo potencialmente relacionado con el frontend, la auditoría responsive se ejecuta normalmente.
+
 ### Instalación del hook
 
 ```bash
@@ -172,6 +186,7 @@ chmod +x .git/hooks/pre-push
 
 ### Salida esperada
 
+**Con cambios de frontend:**
 ```text
 ✅ CSS validado y actualizado.
 ✅ Todos los esquemas YAML de contenido son válidos.
@@ -180,4 +195,11 @@ chmod +x .git/hooks/pre-push
 ==> Verificando auditoría responsive (Playwright)...
 ...
 ✅ Auditoría responsive superada. Continuando con el push.
+```
+
+**Sin cambios de frontend:**
+```text
+⏭️ Los cambios a pushear no afectan el frontend. Se omitirá la auditoría responsive.
+...
+✅ Push validado. Continuando (sin auditoría responsive).
 ```

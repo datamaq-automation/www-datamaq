@@ -4,6 +4,74 @@
 start_time=$(date +%s)
 echo "🚀 Validando compilación de CSS y tests antes de hacer push..."
 
+# ---------------------------------------------------------------------------
+# Determinar si los cambios a pushear afectan el frontend.
+# Si todos los archivos modificados están en rutas de exclusión, omitimos
+# la auditoría responsive para no penalizar pushes de backend/docs/scripts.
+# ---------------------------------------------------------------------------
+should_skip_responsive_audit() {
+    local changed_files
+    changed_files=$(mktemp)
+
+    # El hook pre-push recibe líneas con: <local_ref> <local_sha> <remote_ref> <remote_sha>
+    while read -r local_ref local_sha remote_ref remote_sha; do
+        if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+            # Nueva rama: listar todos los archivos del último commit.
+            git diff-tree --no-commit-id --name-only -r "$local_sha" >> "$changed_files" 2>/dev/null || true
+        else
+            git diff --name-only "$remote_sha" "$local_sha" >> "$changed_files" 2>/dev/null || true
+        fi
+    done
+
+    # Si no pudimos determinar archivos, no omitimos por seguridad.
+    if [ ! -s "$changed_files" ]; then
+        rm -f "$changed_files"
+        return 1
+    fi
+
+    sort -u "$changed_files" -o "$changed_files"
+
+    local skip=true
+    while IFS= read -r file; do
+        [ -z "$file" ] && continue
+
+        # Cambios en los scripts de auditoría sí deben ejecutar la auditoría.
+        if [[ "$file" == scripts/audit_responsive.py ]] || [[ "$file" == scripts/audit_components.py ]]; then
+            skip=false
+            break
+        fi
+
+        # Rutas que no afectan el layout/frontend.
+        if [[ "$file" == *.sh ]] || \
+           [[ "$file" == scripts/* ]] || \
+           [[ "$file" == tests/* ]] || \
+           [[ "$file" == .github/* ]] || \
+           [[ "$file" == .agents/* ]] || \
+           [[ "$file" == docs/* ]] || \
+           [[ "$file" == README.md ]] || \
+           [[ "$file" == README ]] || \
+           [[ "$file" == AGENTS.md ]]; then
+            continue
+        fi
+
+        # Cualquier otro archivo potencialmente afecta el frontend.
+        skip=false
+        break
+    done < "$changed_files"
+
+    rm -f "$changed_files"
+    if [ "$skip" = true ]; then
+        return 0
+    fi
+    return 1
+}
+
+SKIP_AUDIT=false
+if should_skip_responsive_audit; then
+    SKIP_AUDIT=true
+    echo "⏭️ Los cambios a pushear no afectan el frontend. Se omitirá la auditoría responsive."
+fi
+
 # Compilar CSS
 if command -v npm &> /dev/null; then
     echo "==> Compilando CSS consolidado con npm..."
@@ -64,6 +132,13 @@ echo "✅ Todos los tests pasaron en ${duration}s."
 # ---------------------------------------------------------------------------
 # Auditoría responsive y de usabilidad táctil con Playwright
 # ---------------------------------------------------------------------------
+if [ "$SKIP_AUDIT" = true ]; then
+    end_time=$(date +%s)
+    duration=$((end_time - start_time))
+    echo "✅ Push validado en ${duration}s. Continuando (sin auditoría responsive)."
+    exit 0
+fi
+
 echo "==> Verificando auditoría responsive (Playwright)..."
 
 # Verificar que playwright esté disponible
