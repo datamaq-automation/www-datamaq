@@ -21,14 +21,19 @@
             <!-- Columna 2: Navegación Central -->
             <div data-v-236fef00="" class="c-home-footer__col-nav">
                 {% for group in footer.navigation_groups %}
-                <div data-v-236fef00="" class="c-home-footer__nav-group {% if group.title == 'Cobertura' %}c-home-footer__nav-group--cobertura{% endif %}">
-                    <p data-v-236fef00="" class="c-home-footer__nav-title">{{ group.title }}</p>
+                <details data-v-236fef00="" class="c-home-footer__nav-group {% if group.title == 'Cobertura' %}c-home-footer__nav-group--cobertura{% endif %}">
+                    <summary data-v-236fef00="" class="c-home-footer__nav-title">
+                        <span>{{ group.title }}</span>
+                        <span data-v-236fef00="" class="c-home-footer__nav-icon">
+                            {{ icon_macro.bootstrap_icon('chevron-down') }}
+                        </span>
+                    </summary>
                     <div data-v-236fef00="" class="c-home-footer__links-container">
                         {% for link in group.links %}
                         <a href="{{ link.href }}">{{ link.label }}</a>
                         {% endfor %}
                     </div>
-                </div>
+                </details>
                 {% endfor %}
             </div>
         </div>
