@@ -85,14 +85,15 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 - **Recomendación del agente:** Opción **B+C**: publicar contenido técnico propio y permitir que el LMS funcione como hub educativo, enlazando naturalmente hacia los servicios.
 - **Decisión tomada:** Priorizar la opción **B** comenzando por `/casos`, ya que los casos de aplicación aportan mayor valor comercial inmediato y son más difíciles de replicar por competidores. Las lecciones del LMS se mantienen como `noindex` por ahora; su posible reformato a contenido indexable queda como segundo paso.
 - **Implementación:**
-  - Se creó `data/casos/` con un caso de ejemplo anónimo (`ejemplo-industria-plastica/caso.yaml`).
+  - Se creó `data/casos/` con el caso real `cooperativa-el-gringo/caso.yaml` (industria plástica, San Pedro).
   - Se agregaron `CasoModel` y `CasosContainerModel` en `src/domain/models.py`.
   - `src/application/data_service.py` carga y cachea los casos, convirtiendo el contenido markdown a HTML.
   - Se crearon las rutas `/casos` (listado) y `/casos/{slug}` (detalle) en `src/infrastructure/fastapi/routes/caso_routes.py`.
   - Se crearon `templates/casos/list.html` y `templates/casos/detail.html`.
   - Se actualizó `data/contenido.yaml` con el hero de casos y un link en el footer.
-  - El sitemap incluye `/casos` y cada caso individual.
-- **Próximo paso:** Reemplazar el caso de ejemplo con 2-3 casos reales autorizados, y evaluar si se suma una sección `/blog` o se reformatean lecciones del LMS.
+  - Se agregaron San Pedro y Santa Lucía a la cobertura geográfica.
+  - El sitemap incluye `/casos`, cada caso individual y las nuevas localidades.
+- **Próximo paso:** Sumar 1-2 casos reales adicionales, y evaluar si se agrega una sección `/blog` o se reformatean lecciones del LMS.
 - **Impacto SEO estimado:** Alto.
 
 ---
