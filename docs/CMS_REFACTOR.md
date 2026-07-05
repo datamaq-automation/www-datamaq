@@ -1,6 +1,6 @@
 # Resumen Ejecutivo: Refactorización CMS-YAML y DDD (Arquitectura Limpia)
 
-Este documento resume las mejoras arquitectónicas y lógicas de gestión de contenidos (Flat-file CMS) y del dominio del proyecto en las ramas de refactorización (`feature/cms-ddd-refactor` y `feature/data-reorganization-ddd`).
+Este documento resume las mejoras arquitectónicas, lógicas de gestión de contenidos (Flat-file CMS), y del dominio del proyecto implementadas en las ramas de refactorización (`feature/cms-ddd-refactor`, `feature/data-reorganization-ddd`, y `feature/yaml-validator-cli`).
 
 ---
 
@@ -41,8 +41,20 @@ Se ejecutó una reestructuración del Flat-file CMS bajo `data/` para separar re
 
 ---
 
-## 3. Estado de los Tests
+## 3. Integración de Value Objects y Tooling de Calidad (Fase 4 y 5)
 
-- La suite completa de pruebas de regresión corre exitosamente.
-- **Resultado:** `47 passed` en un tiempo promedio de 2.4 segundos.
-- Cobertura de código del **93.46%**, superando el umbral mínimo del 85% establecido por el repositorio.
+1. **Value Objects Enriquecidos:**
+   - Creados los Value Objects inmutables de dominio [Slug](file:///home/agustin/proyectos_software/www-datamaq/src/domain/value_objects/slug.py) y [Price](file:///home/agustin/proyectos_software/www-datamaq/src/domain/value_objects/price.py) para encapsular las validaciones y lógicas de dominio a nivel de tipo, desacoplándolos de los modelos generales de Pydantic.
+2. **Herramienta de Auditoría y Auto-reparación (CLI):**
+   - Diseñado el script interactivo [validate_content.py](file:///home/agustin/proyectos_software/www-datamaq/scripts/validate_content.py) que permite auditar sintáctica y semánticamente la integridad de todos los YAMLs en disco.
+   - El script cuenta con un modo de auto-reparación interactivo (`--fix`) que ayuda al autor de contenidos a identificar y autocompletar campos ausentes obligatorios con placeholders válidos en tiempo real.
+3. **Protección en Git (Hook Pre-Push):**
+   - Integrado el script de validación dentro de [pre-push.sh](file:///home/agustin/proyectos_software/www-datamaq/scripts/pre-push.sh). Esto garantiza que ningún desarrollador o autor de contenido pueda realizar un `git push` con archivos de datos mal formados, previniendo crashes en producción de forma proactiva.
+
+---
+
+## 4. Estado de los Tests
+
+- La suite completa de pruebas unitarias e integradas corre de forma exitosa.
+- **Resultado:** `51 passed` en un tiempo promedio de 2.2 segundos.
+- Cobertura de código consolidada del **93.78%**, superando holgadamente el umbral del 85% requerido.
