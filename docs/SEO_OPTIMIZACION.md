@@ -48,10 +48,14 @@
 22. Se reescribió el **título y subtítulo de `/contact`** para ofrecer asistencia técnica híbrida y dejar claro que las capacitaciones son de cortesía.
 23. Se eliminó el hardcodeo de SEO y hero en `src/infrastructure/fastapi/routes/contact_routes.py`; ahora se leen desde `data/contenido.yaml`.
 
-### H. Calidad y cobertura
-24. Se validó que `pytest` continúa pasando al 100% (41 tests).
-25. Se validó que `mypy` sigue limpio sobre `src/`.
-26. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
+### I. Alineación de landings geográficas e industriales
+24. Las landings de localidad (`/{provincia}/{municipio}/{localidad}.html`) ahora usan título, meta descripción y hero orientados a "asistencia técnica" con visitas en campo y consultoría remota.
+25. Las landings de industria (`/industria/{industria}.html`) ahora usan título, meta descripción y hero orientados a "asistencia técnica para [industria]", destacando modalidad híbrida y capacitaciones de cortesía.
+
+### J. Calidad y cobertura
+26. Se validó que `pytest` continúa pasando al 100% (41 tests).
+27. Se validó que `mypy` sigue limpio sobre `src/`.
+28. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
 
 ---
 

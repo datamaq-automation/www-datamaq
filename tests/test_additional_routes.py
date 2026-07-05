@@ -163,7 +163,7 @@ async def test_localidad_page_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Garín" in response.text
-    assert "Captura de datos operativos" in response.text
+    assert "Asistencia técnica" in response.text
 
 @pytest.mark.asyncio  # type: ignore
 async def test_industria_page_rendered():
@@ -174,7 +174,7 @@ async def test_industria_page_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Industria Gráfica" in response.text
-    assert "Captura de datos" in response.text
+    assert "Asistencia técnica" in response.text
 
 
 @pytest.mark.asyncio  # type: ignore
