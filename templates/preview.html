@@ -22,17 +22,17 @@
             {% import 'partials/components/dock.html' as dock_macro %}
             {% import 'partials/components/hero.html' as hero_macro %}
 
-            {% if 'header.html' in partial_name %}
+            {% if 'header' in partial_name %}
                 {{ header_macro.header() }}
-            {% elif 'footer.html' in partial_name %}
+            {% elif 'footer' in partial_name %}
                 {{ footer_macro.footer(brand, content.legal.text, footer) }}
-            {% elif 'contact_form.html' in partial_name or 'contact_section.html' in partial_name %}
+            {% elif 'contact_form' in partial_name or 'contact_section' in partial_name %}
                 {% call contact_section_macro.contact_section(content.contact) %}
                     {{ contact_macro.contact_form(content.contact) }}
                 {% endcall %}
-            {% elif 'profile.html' in partial_name %}
+            {% elif 'profile' in partial_name %}
                 {{ profile_macro.profile(request, brand, content.profile) }}
-            {% elif 'hero.html' in partial_name %}
+            {% elif 'hero' in partial_name %}
                 {{ hero_macro.hero(request, content.hero) }}
             {% else %}
                 <p>Componente no soportado para previsualización directa: {{ partial_name }}</p>
@@ -40,6 +40,74 @@
         </div>
     </div>
     <script type="module" src="{{ url_for('static', path='js/app.js') }}?v={{ static_version() }}"></script>
+    <script>
+        (function() {
+            // Limpiar ruido inicial
+            setTimeout(() => {
+                console.clear();
+                reportResponsive();
+            }, 1000);
+
+            // Escuchar el evento de resize de la pantalla
+            window.addEventListener('resize', () => {
+                console.clear();
+                reportResponsive();
+            });
+
+            function reportResponsive() {
+                const footer = document.querySelector('footer');
+                const rect = footer ? footer.getBoundingClientRect() : null;
+                const style = footer ? window.getComputedStyle(footer) : null;
+                
+                const overflows = [];
+                // Buscar desbordamientos horizontales en todo el documento
+                document.querySelectorAll('*').forEach(el => {
+                    if (el.scrollWidth > el.clientWidth && el.clientWidth > 0) {
+                        overflows.push({
+                            etiqueta: el.tagName,
+                            clase: el.className || 'Sin clase',
+                            ancho_contenido_px: el.scrollWidth,
+                            ancho_visible_px: el.clientWidth,
+                            extracto: el.textContent.trim().substring(0, 30)
+                        });
+                    }
+                });
+
+                // Auditar la usabilidad de clicks en enlaces en toda la página
+                const links = Array.from(document.querySelectorAll('a'));
+                const touchTargets = links.map(a => {
+                    const r = a.getBoundingClientRect();
+                    return {
+                        label: a.textContent.trim().substring(0, 15),
+                        alto_px: Math.round(r.height),
+                        ancho_px: Math.round(r.width)
+                    };
+                });
+                const targetIssues = touchTargets.filter(t => t.alto_px > 0 && t.alto_px < 32);
+
+                const info = {
+                    ruta_actual: window.location.pathname,
+                    ancho_viewport_px: window.innerWidth,
+                    alto_viewport_px: window.innerHeight,
+                    ancho_scroll_body_px: document.body.scrollWidth,
+                    elementos_con_desbordamiento_horizontal: overflows,
+                    medidas_footer: rect ? {
+                        ancho_px: Math.round(rect.width),
+                        alto_px: Math.round(rect.height)
+                    } : 'No renderizado',
+                    UX_enlaces: {
+                        total_enlaces_pagina: links.length,
+                        enlaces_con_area_pequena: targetIssues.length,
+                        listado_alertas_click: targetIssues.slice(0, 5)
+                    }
+                };
+
+                console.log("%c📱 TELEMETRÍA RESPONSIVE E INFORME UI/UX:", "color: #ff9f43; font-weight: bold; font-size: 14px;");
+                console.log(JSON.stringify(info, null, 2));
+                console.log("%c💡 Ajustá la pantalla en tu celular o emulador. Copiame este reporte completo cuando se vea mal.", "color: #2ec4b6; font-style: italic;");
+            }
+        })();
+    </script>
 </div>
 </body>
 </html>
