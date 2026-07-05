@@ -26,10 +26,15 @@
 9. El `lastmod` del sitemap ahora se calcula a partir de la fecha de modificación más reciente de los archivos de datos (`data/**/*.yaml`, `data/**/*.md`) en lugar de usar la fecha actual en cada request.
 10. El sitemap sigue exponiendo URLs canónicas absolutas (`https://datamaq.com.ar/...`) para Home, contacto, términos, cursos, localidades, industrias e instructores.
 
-### E. Calidad y cobertura
-11. Se validó que `pytest` continúa pasando al 100% (41 tests).
-12. Se validó que `mypy` sigue limpio sobre `src/`.
-13. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
+### E. Redirecciones y manejo de 404
+11. Se eliminó el **wildcard 301 de 404 a `/`** en `src/infrastructure/fastapi/app.py`. Ahora cualquier URL desconocida devuelve una respuesta 404 real con la plantilla `404.html` (`noindex, follow`).
+12. Se creó **`data/redirects.yaml`** para configurar redirecciones 301 puntuales hacia URLs legacy de la SPA anterior sin tocar código.
+13. `DataService` expone `get_redirects()` para leer y cachear el archivo de redirecciones.
+
+### F. Calidad y cobertura
+14. Se validó que `pytest` continúa pasando al 100% (41 tests).
+15. Se validó que `mypy` sigue limpio sobre `src/`.
+16. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
 
 ---
 
@@ -37,12 +42,11 @@
 
 Las siguientes decisiones estratégicas o de alto impacto no se implementaron de forma autónoma y quedaron pendientes de consulta:
 
-- **Redirección wildcard 301 de 404 a `/`** vs mapeo de URLs legacy de la SPA anterior.
 - **Indexación de lecciones individuales**: mantener `noindex` o indexar contenido educativo long-tail.
 - **Arquitectura de CSS y purga de Tailwind**: medir bloat, purgar clases no usadas y reorganizar `static/css/`.
 - **CSS crítico inline** para Above The Fold de la Home y rutas críticas.
 - **Expansión de landings geográficas e industriales**: qué localidades/sectores agregar con contenido diferenciado.
-- **Mapeo de URLs legacy de la SPA anterior** a partir de logs o Search Console.
+- **Completar mapeo de URLs legacy** en `data/redirects.yaml` a partir de logs o Search Console.
 - **Estrategia de contenido** (blog, casos de éxito, guías técnicas) para autoridad de dominio.
 - **Dimensiones explícitas** (`width`/`height` o `aspect-ratio`) en imágenes de cursos e instructores para reducir CLS.
 
@@ -67,7 +71,7 @@ PYTHONPATH=. mypy src/ --explicit-package-bases --python-executable venv/bin/pyt
 ## 4. Próximos pasos recomendados
 
 1. **Revisar `docs/DUDAS.md`** y priorizar las decisiones de alto nivel junto al equipo comercial/contenido.
-2. **Auditar Google Search Console** para identificar URLs legacy con tráfico y reemplazar el wildcard 301 por redirecciones puntuales.
+2. **Auditar Google Search Console/logs** para completar `data/redirects.yaml` con URLs legacy que necesiten redirección 301.
 3. **Definir criterios de indexación** para lecciones del LMS y, en caso de indexarlas, generar sitemap de lecciones.
 4. **Medir el bundle CSS** (`static/css/index.css`) y evaluar purga de Tailwind o extracción de crítico.
 5. **Completar dimensiones de imágenes** en los datos de cursos/instructores o fijar `aspect-ratio` en CSS para mejorar CLS.
@@ -80,10 +84,16 @@ PYTHONPATH=. mypy src/ --explicit-package-bases --python-executable venv/bin/pyt
 
 - `src/infrastructure/settings/config.py`
 - `src/infrastructure/fastapi/routes/main_routes.py`
+- `src/infrastructure/fastapi/app.py`
+- `src/infrastructure/fastapi/dependencies.py`
+- `src/application/data_service.py`
 - `templates/contact.html`
 - `templates/cursos/instructor.html`
 - `templates/cursos/list.html`
 - `templates/cursos/detail.html`
 - `static/humans.txt` (nuevo)
+- `data/redirects.yaml` (nuevo)
+- `tests/test_seo.py`
+- `tests/test_additional_routes.py`
 - `docs/DUDAS.md` (nuevo)
 - `docs/SEO_OPTIMIZACION.md` (nuevo)

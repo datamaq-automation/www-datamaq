@@ -4,14 +4,16 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
-## Duda de alto nivel: Redirección wildcard 301 de 404 a `/`
-- **Contexto:** El manejador de excepciones de `src/infrastructure/fastapi/app.py` redirige con HTTP 301 cualquier 404 no estático/no API hacia la Home (`/`). Esto fue heredado de la migración SPA para no perder tráfico, pero puede generar "soft 404" y diluir la señal de autoridad de URLs antiguas.
-- **Opciones consideradas:**
-  - **A.** Mantener el wildcard 301 tal cual (status quo).
-  - **B.** Reemplazarlo por un 404 real con plantilla y, a su vez, crear redirecciones 301 explícitas solo para las URLs legacy conocidas de la SPA anterior.
-  - **C.** Conservar el wildcard solo para un subconjunto de patrones predecibles (por ejemplo, `/es/*`, `/old-path/*`) y devolver 404 para el resto.
-- **Recomendación del agente:** Opción **B** a mediano plazo: servir 404 reales y mapear URLs legacy individualmente. A corto plazo, dejar **A** mientras se auditan los logs de 404.
-- **Bloqueo:** No se dispone del listado de URLs legacy de la SPA anterior ni de la estrategia de negocio sobre cuáles deben redirigirse. Cambiar el comportamiento actual rompería `test_404_has_noindex` y podría afectar el tráfico referido.
+## ✅ Resuelta — Redirección wildcard 301 de 404 a `/`
+- **Contexto:** El manejador de excepciones de `src/infrastructure/fastapi/app.py` redirigía con HTTP 301 cualquier 404 no estático/no API hacia la Home (`/`). Esto fue heredado de la migración SPA para no perder tráfico, pero generaba "soft 404" y diluía la señal de autoridad de URLs antiguas.
+- **Decisión tomada:** Se reemplazó el wildcard 301 por una verdadera respuesta 404 con la plantilla `404.html` (`noindex, follow`). A su vez se creó `data/redirects.yaml` para configurar redirecciones 301 puntuales hacia donde se necesite.
+- **Implementación:**
+  - `src/infrastructure/fastapi/app.py` consulta `data_service.get_redirects()` antes de servir el 404.
+  - Si el path coincide con una clave de `redirects`, responde `301` al destino configurado.
+  - Si no coincide, responde `404` con la plantilla existente.
+  - `src/application/data_service.py` expone `get_redirects()` y cachea el contenido de `data/redirects.yaml`.
+  - Los tests `test_404_has_noindex` y `test_custom_404_page_rendered` se actualizaron para reflejar el nuevo comportamiento.
+- **Próximo paso:** Completar `data/redirects.yaml` con las URLs legacy de la SPA que tengan tráfico o backlinks, auditando logs de 404 o Google Search Console.
 - **Impacto SEO estimado:** Medio-Alto.
 
 ---
