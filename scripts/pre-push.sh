@@ -2,7 +2,24 @@
 
 # Inicio del cronómetro
 start_time=$(date +%s)
-echo "🚀 Ejecutando tests antes de hacer push... (Iniciado a las $(date +"%H:%M:%S"))"
+echo "🚀 Validando compilación de CSS y tests antes de hacer push..."
+
+# Compilar CSS
+if command -v npm &> /dev/null; then
+    echo "==> Compilando CSS consolidado con npm..."
+    npm run build:css &> /dev/null
+    
+    # Verificar si index.css tiene cambios sin commitear
+    if ! git diff --exit-code static/css/index.css &> /dev/null; then
+        echo "❌ ERROR: El archivo static/css/index.css está desactualizado respecto a los fuentes."
+        echo "👉 Corrí 'npm run build:css', agregá el archivo al commit ('git add static/css/index.css') y volvé a intentar."
+        exit 1
+    fi
+    echo "✅ CSS validado y actualizado."
+else
+    echo "⚠️ Advertencia: npm no está instalado. No se pudo verificar la compilación de CSS."
+fi
+
 export PYTHONPATH=$PYTHONPATH:.
 
 # Preferir pytest del entorno virtual si existe

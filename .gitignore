@@ -6,4 +6,5 @@ scripts/.env.deploy
 data/leads/
 .ssh/
 .venv/
-tmp/script.js
+tmp/
+node_modules/

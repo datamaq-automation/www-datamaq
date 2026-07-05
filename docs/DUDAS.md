@@ -76,14 +76,9 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
-## Duda de alto nivel: Estrategia de contenido para autoridad de dominio
+## ✅ Resuelta — Estrategia de contenido para autoridad de dominio
 - **Contexto:** El sitio era principalmente comercial + LMS. No había sección de blog, casos de éxito o guías técnicas que generen backlinks orgánicos.
-- **Opciones consideradas:**
-  - **A.** Mantener el sitio como está y confiar en las landings locales/industriales.
-  - **B.** Crear una sección `/blog` o `/casos` con artículos técnicos (monitoreo de energía, casos de IoT industrial, tutoriales Python).
-  - **C.** Convertir las lecciones indexadas del LMS en contenido puerta de entrada para búsquedas educativas.
-- **Recomendación del agente:** Opción **B+C**: publicar contenido técnico propio y permitir que el LMS funcione como hub educativo, enlazando naturalmente hacia los servicios.
-- **Decisión tomada:** Priorizar la opción **B** comenzando por `/casos`, ya que los casos de aplicación aportan mayor valor comercial inmediato y son más difíciles de replicar por competidores. Las lecciones del LMS se mantienen como `noindex` por ahora; su posible reformato a contenido indexable queda como segundo paso.
+- **Decisión tomada:** Priorizar la opción **B** comenzando por `/casos`, ya que los casos de aplicación aportan mayor valor comercial inmediato. El usuario confirmó que con el caso real de la Cooperativa El Gringo es suficiente, por lo que se da por completada esta estrategia por el momento.
 - **Implementación:**
   - Se creó `data/casos/` con el caso real `cooperativa-el-gringo/caso.yaml` (industria plástica, San Pedro).
   - Se agregaron `CasoModel` y `CasosContainerModel` en `src/domain/models.py`.
@@ -93,7 +88,6 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
   - Se actualizó `data/contenido.yaml` con el hero de casos y un link en el footer.
   - Se agregaron San Pedro y Santa Lucía a la cobertura geográfica.
   - El sitemap incluye `/casos`, cada caso individual y las nuevas localidades.
-- **Próximo paso:** Sumar 1-2 casos reales adicionales, y evaluar si se agrega una sección `/blog` o se reformatean lecciones del LMS.
 - **Impacto SEO estimado:** Alto.
 
 ---
