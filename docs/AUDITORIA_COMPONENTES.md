@@ -148,3 +148,36 @@ Al subir el estándar a **44×44 px** y auditar `320×568`, `375×667` y `768×1
 * `scripts/audit_responsive.py`: se agregó filtrado de controles con `pointer-events: none` para evitar falsos positivos en summaries de desktop.
 
 Tras las correcciones, la auditoría reporta **0 desbordamientos**, **0 controles menores a 44×44 px** y **0 componentes con fallas** en los 13 componentes y 3 viewports.
+
+---
+
+## 5. Hook de Pre-push
+
+La auditoría responsive está integrada en el hook `scripts/pre-push.sh`. Cada vez que un desarrollador intenta hacer `git push`, el script:
+
+1. Compila y valida `static/css/index.css`.
+2. Valida los esquemas YAML de contenido.
+3. Ejecuta la suite de tests con cobertura mínima del 85%.
+4. **Levanta un servidor temporal de uvicorn, ejecuta `scripts/audit_responsive.py` y lo detiene.**
+5. Aborta el push si cualquiera de los pasos anteriores falla.
+
+Si Playwright no está instalado, el script muestra una advertencia y continúa sin la auditoría responsive, pero no bloquea el push.
+
+### Instalación del hook
+
+```bash
+ln -sf ../../scripts/pre-push.sh .git/hooks/pre-push
+chmod +x .git/hooks/pre-push
+```
+
+### Salida esperada
+
+```text
+✅ CSS validado y actualizado.
+✅ Todos los esquemas YAML de contenido son válidos.
+============================== 51 passed ==============================
+✅ Todos los tests pasaron.
+==> Verificando auditoría responsive (Playwright)...
+...
+✅ Auditoría responsive superada. Continuando con el push.
+```
