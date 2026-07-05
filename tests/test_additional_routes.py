@@ -63,6 +63,11 @@ async def override_get_contenido():
                 "subtitle": "Test",
                 "assistance_cta_label": "Necesitás asistencia técnica",
                 "assistance_cta_href": "/contact"
+            },
+            "cases": {
+                "badge": "Casos de aplicación",
+                "title": "Casos técnicos",
+                "subtitle": "Test"
             }
         },
         seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},
@@ -206,6 +211,28 @@ async def test_industria_plastica_page_rendered():
     assert "text/html" in response.headers["content-type"]
     assert "Industria Plástica" in response.text
     assert "Asistencia técnica" in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_casos_list_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/casos")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Casos técnicos" in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_caso_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/casos/cooperativa-el-gringo")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Cooperativa El Gringo" in response.text
 
 
 @pytest.mark.asyncio  # type: ignore

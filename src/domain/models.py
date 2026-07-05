@@ -160,6 +160,12 @@ class CoursesHeroModel(BaseModel):
     assistance_cta_href: str
 
 
+class CasesHeroModel(BaseModel):
+    badge: str
+    title: str
+    subtitle: str
+
+
 # --- Modelos Principales ---
 class ContentModel(BaseModel):
     hero: HeroModel
@@ -173,6 +179,7 @@ class ContentModel(BaseModel):
     cookie_banner: CookieBannerModel
     assistance_modes: Dict[str, AssistanceModeModel]
     courses: CoursesHeroModel
+    cases: CasesHeroModel
 
 class FooterLinkModel(BaseModel):
     label: str
@@ -211,6 +218,25 @@ class LandingContentItemModel(BaseModel):
 class LandingContentModel(BaseModel):
     industrias: Dict[str, LandingContentItemModel] = {}
     localidades: Dict[str, Dict[str, Dict[str, LandingContentItemModel]]] = {}
+
+# --- Modelos de Casos ---
+class CasoModel(BaseModel):
+    slug: str
+    title: str
+    industry: str
+    location: str
+    client: Optional[str] = None
+    summary: str
+    problem: str
+    solution: str
+    results: List[str]
+    published_at: str
+    og_image: Optional[str] = None
+    content: Optional[str] = None
+
+
+class CasosContainerModel(BaseModel):
+    casos: List[CasoModel]
 
 # --- Modelos de Cursos (LMS) ---
 class InstructorSocialLinksModel(BaseModel):

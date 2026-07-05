@@ -1,10 +1,10 @@
 from typing import Any, Dict, List, Optional, Tuple, Union, cast
-from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
+from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel, CasoModel, CasosContainerModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
 import yaml # type: ignore
 import os
 
 class DataService:
-    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = "", landing_content_path: str = ""):
+    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = "", landing_content_path: str = "", cases_dir: str = ""):
         self.content_path = content_path
         self.geography_path = geography_path
         self.industry_path = industry_path
@@ -12,6 +12,7 @@ class DataService:
         self.instructors_path = instructors_path
         self.redirects_path = redirects_path
         self.landing_content_path = landing_content_path
+        self.cases_dir = cases_dir
 
         self._cached_contenido: Optional[ContenidoModel] = None
         self._cached_geografia: Optional[Dict[str, Any]] = None
@@ -20,6 +21,7 @@ class DataService:
         self._cached_instructores: Optional[Dict[str, InstructorModel]] = None
         self._cached_redirects: Optional[Dict[str, str]] = None
         self._cached_landing_content: Optional[LandingContentModel] = None
+        self._cached_casos: Optional[CasosContainerModel] = None
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
@@ -156,4 +158,36 @@ class DataService:
                     raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
                 self._cached_landing_content = LandingContentModel(**raw_data)
         return self._cached_landing_content
+
+    def get_casos_container(self) -> CasosContainerModel:
+        if self._cached_casos is None:
+            import markdown # type: ignore
+            casos_list: List[CasoModel] = []
+            md_extensions = ["fenced_code", "tables"]
+
+            if os.path.exists(self.cases_dir):
+                for folder_name in sorted(os.listdir(self.cases_dir)):
+                    caso_folder_path = os.path.join(self.cases_dir, folder_name)
+                    if os.path.isdir(caso_folder_path):
+                        caso_yaml_path = os.path.join(caso_folder_path, "caso.yaml")
+                        if os.path.exists(caso_yaml_path):
+                            with open(caso_yaml_path, "r", encoding="utf-8") as f:
+                                caso_data: Dict[str, Any] = yaml.safe_load(f) or {}
+                            if caso_data.get("content"):
+                                caso_data["content"] = markdown.markdown(caso_data["content"], extensions=md_extensions)
+                            if not caso_data.get("og_image"):
+                                caso_data["og_image"] = "/static/og-default.jpg"
+                            casos_list.append(CasoModel.model_validate(caso_data))
+
+            self._cached_casos = CasosContainerModel(casos=casos_list)
+        return self._cached_casos
+
+    def get_casos(self) -> List[CasoModel]:
+        return self.get_casos_container().casos
+
+    def get_caso_por_slug(self, slug: str) -> Optional[CasoModel]:
+        for caso in self.get_casos():
+            if caso.slug == slug:
+                return caso
+        return None
 

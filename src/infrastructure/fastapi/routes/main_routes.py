@@ -54,6 +54,7 @@ async def sitemap(
         {"loc": f"{base_url}/contact", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.6"},
         {"loc": f"{base_url}/terminos-y-condiciones", "lastmod": lastmod, "changefreq": "yearly", "priority": "0.3"},
         {"loc": f"{base_url}/cursos", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.8"},
+        {"loc": f"{base_url}/casos", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.8"},
     ]
 
     localidades = geografia.get("localidades", {})
@@ -89,6 +90,14 @@ async def sitemap(
             "lastmod": lastmod,
             "changefreq": "monthly",
             "priority": "0.5",
+        })
+
+    for caso in cursos_service.get_casos():
+        urls.append({
+            "loc": f"{base_url}/casos/{caso.slug}",
+            "lastmod": lastmod,
+            "changefreq": "monthly",
+            "priority": "0.7",
         })
 
     return templates.TemplateResponse(

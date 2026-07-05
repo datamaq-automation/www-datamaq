@@ -69,6 +69,11 @@ async def override_get_contenido():
                 "subtitle": "Test",
                 "assistance_cta_label": "Necesitás asistencia técnica",
                 "assistance_cta_href": "/contact"
+            },
+            "cases": {
+                "badge": "Casos de aplicación",
+                "title": "Casos técnicos",
+                "subtitle": "Test"
             }
         },
         seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},

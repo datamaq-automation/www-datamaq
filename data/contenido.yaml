@@ -202,6 +202,12 @@ content:
       \ de DataMaq es la asistencia técnica híbrida en campo y remota."
     assistance_cta_label: "Necesitás asistencia técnica"
     assistance_cta_href: "/contact"
+  cases:
+    badge: "Casos de aplicación"
+    title: "Casos técnicos de monitoreo e IoT industrial"
+    subtitle: "Experiencias reales de relevamiento, instalación de equipos IoT y uso\
+      \ de datos operativos para mejorar la eficiencia energética en industrias de\
+      \ la zona."
 legal_pages:
   terms:
     title: Términos y condiciones
@@ -271,6 +277,8 @@ footer:
       links:
         - label: "Inicio"
           href: "/"
+        - label: "Casos"
+          href: "/casos"
         - label: "Cursos"
           href: "/cursos"
         - label: "Contacto"
@@ -311,6 +319,10 @@ footer:
           href: "/buenos-aires/tigre/nordelta.html"
         - label: "Ricardo Rojas"
           href: "/buenos-aires/tigre/ricardo-rojas.html"
+        - label: "San Pedro"
+          href: "/buenos-aires/san-pedro/san-pedro.html"
+        - label: "Santa Lucía"
+          href: "/buenos-aires/san-pedro/santa-lucia.html"
     - title: "Industrias"
       links:
         - label: "Gráfica"

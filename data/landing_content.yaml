@@ -144,3 +144,16 @@ localidades:
         paragraphs:
           - "Ricardo Rojas es una localidad del partido de Tigre con perfil industrial y residencial en expansión. Asistimos a plantas de la zona con instalaciones de equipos IoT y capacitaciones técnicas según el proyecto."
           - "Combinamos el relevamiento en campo con el soporte remoto para que cada cliente tenga visibilidad de su consumo y sus variables críticas."
+
+    san-pedro:
+      san-pedro:
+        title: "Asistencia técnica en San Pedro"
+        paragraphs:
+          - "San Pedro es un centro industrial y comercial del norte de la provincia de Buenos Aires, conectado por la Ruta 8 y la Ruta 191. Atendemos plantas de la zona con relevamiento en campo para monitoreo de energía e IoT industrial."
+          - "Trabajamos con industrias plásticas, metalúrgicas y agroindustriales que buscan medir consumos, detectar anomalías y usar datos operativos para la toma de decisiones."
+
+      santa-lucia:
+        title: "Asistencia técnica en Santa Lucía"
+        paragraphs:
+          - "Santa Lucía es una localidad del partido de San Pedro con actividad industrial y residencial en crecimiento. Realizamos visitas técnicas para instalar medidores IoT y asesorar en el seguimiento de datos operativos."
+          - "Diseñamos cada intervención según el tipo de tablero, equipos existentes y objetivos de mejora energética de la planta."

@@ -42,7 +42,8 @@ data_service = DataService(
     courses_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos"),
     instructors_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "instructores.yaml"),
     redirects_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "redirects.yaml"),
-    landing_content_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "landing_content.yaml")
+    landing_content_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "landing_content.yaml"),
+    cases_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "casos")
 )
 
 # --- Dependencias de Datos ---

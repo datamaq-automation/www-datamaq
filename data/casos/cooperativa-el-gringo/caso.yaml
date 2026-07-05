@@ -1,0 +1,36 @@
+slug: cooperativa-el-gringo
+title: "Cooperativa El Gringo: monitoreo de extrusoras y secadoras en San Pedro"
+industry: "Industria Plástica"
+location: "San Pedro, Buenos Aires"
+client: "Cooperativa El Gringo"
+summary: "Se instaló medición IoT en extrusoras y secadoras de una planta de reciclado y extrusión de plástico en San Pedro, logrando identificar picos de demanda y reprogramar encendidos para evitar superposiciones."
+problem: "La planta contaba únicamente con el medidor general de la distribuidora. El consumo eléctrico era alto y no había visibilidad de cuáles extrusoras o secadoras concentraban la demanda ni en qué horarios."
+solution: "Se instalaron medidores IoT en las extrusoras y secadoras principales para registrar consumo activo, demanda y horarios de operación. Los datos se centralizaron en una primera capa de visualización accesible para el área de mantenimiento y producción."
+results:
+  - "Visibilidad del consumo por extrusora y secadora, desagregado por turno."
+  - "Detección de picos de demanda causados por encendidos simultáneos."
+  - "Reprogramación de horarios de encendido para reducir la coincidencia de arranques."
+  - "Base de datos instalada para futuros análisis de eficiencia por línea y producto."
+published_at: "2026-07-05"
+og_image: "/static/og-default.jpg"
+content: |
+  ## Contexto
+
+  Cooperativa El Gringo opera en San Pedro una planta dedicada al reciclado y extrusión de plástico. El proceso involucra extrusoras de diferentes tamaños y secadoras que trabajan de forma continua durante los turnos de producción. Antes del relevamiento, la única medición disponible era el medidor general de la distribuidora, lo que dificultaba asignar costos por línea o detectar desperdicios.
+
+  ## Relevamiento e instalación
+
+  Se recorrió la planta identificando los tableros de alimentación de cada extrusora y secadora. Se instalaron medidores IoT en los puntos críticos sin interrumpir la producción, conectándolos a la red interna para enviar lecturas en tiempo real.
+
+  Durante las primeras semanas se registraron:
+
+  - Consumo activo y demanda máxima por equipo.
+  - Horarios de encendido y apagado de cada secadora.
+  - Picos de demanda durante arranques simultáneos.
+  - Patrones de consumo por turno.
+
+  ## Resultado
+
+  El equipo de mantenimiento pudo visualizar el comportamiento energético de cada línea. Se detectó que varios equipos encendían al mismo tiempo al inicio del turno, generando picos de demanda que impactaban en la facturación. A partir de los datos se reprogramaron los horarios de encendido para distribuir la carga.
+
+  La cooperativa quedó con una base de datos histórica que permite continuar el análisis de eficiencia por máquina y producto, y planificar mejoras futuras con información objetiva.

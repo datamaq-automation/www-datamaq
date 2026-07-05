@@ -26,6 +26,20 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
+## ✅ Resuelta — Expansión de landings geográficas e industriales
+- **Contexto:** El sitio contaba con dos localidades (`Garín`, `Belén de Escobar`) y una industria (`Industria Gráfica`). El sitemap y las landings estaban automatizados, por lo que agregar más datos YAML escalaría el número de URLs indexables.
+- **Decisión tomada:** Expandir a municipios/industrias relevantes con contenido diferenciado. Se agregaron las localidades del partido de **Escobar** y **Tigre**, y las industrias **Plástica**, **Papelera** y **Metalúrgica**.
+- **Implementación:**
+  - `data/geografia.yaml`: se completaron las localidades de Escobar (`Garín`, `Belén de Escobar`, `Ingeniero Maschwitz`, `Loma Verde`, `Matheu`, `Maquinista Savio`) y se agregó el municipio de Tigre (`Tigre`, `Don Torcuato`, `El Talar`, `General Pacheco`, `Benavídez`, `Los Troncos del Talar`, `Dique Luján`, `Rincón de Milberg`, `Villa La Ñata`, `Nordelta`, `Ricardo Rojas`).
+  - `data/industrias.yaml`: se agregaron `plastica`, `papelera` y `metalurgica`.
+  - `data/landing_content.yaml`: nuevo archivo con textos únicos por industria y por localidad, cargados por `DataService` y renderizados condicionalmente en `templates/index.html`.
+  - `data/contenido.yaml`: se actualizó el footer con los nuevos links de cobertura e industrias.
+  - Se agregaron tests de renderizado para una localidad de Tigre y una industria nueva.
+- **Próximo paso:** Monitorear la indexación de las nuevas URLs y, si generan tráfico, seguir agregando localidades o sectores con el mismo criterio de calidad.
+- **Impacto SEO estimado:** Alto.
+
+---
+
 ## Duda de alto nivel: Arquitectura de CSS y purga de Tailwind
 - **Contexto:** El bundle `static/css/index.css` es la salida compilada de Tailwind CSS v4.2.1. No se mide su peso real ni se conoce el porcentaje de clases no utilizadas. Además, coexisten hojas heredadas (`HomePage.css`, `cursos.css`, etc.) cargadas de forma plana.
 - **Opciones consideradas:**
@@ -50,18 +64,6 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
-## Duda de alto nivel: Expansión de landings geográficas e industriales
-- **Contexto:** Hoy existen dos localidades (`Garín`, `Belén de Escobar`) y una industria (`Industria Gráfica`). El sitemap y las landings están automatizados, por lo que agregar más datos YAML escalaría el número de URLs indexables.
-- **Opciones consideradas:**
-  - **A.** Mantener el alcance actual mientras se consolida la autoridad del dominio.
-  - **B.** Expandir progresivamente a municipios/industrias relevantes con contenido diferenciado (no solo rellenar el template con otro nombre).
-  - **C.** Crear landings de provincia/municipio además de localidad.
-- **Recomendación del agente:** Opción **B** con criterio de calidad: cada nueva landing debe tener al menos un párrafo de contexto sectorial/geográfico único. Evitar generar miles de páginas con descripciones casi idénticas.
-- **Bloqueo:** Se desconoce el mercado objetivo y la capacidad de generar contenido específico. Decidirlo requiere input comercial.
-- **Impacto SEO estimado:** Alto.
-
----
-
 ## Duda de alto nivel: Mapeo de URLs legacy de la SPA anterior
 - **Contexto:** El sitio anterior era una SPA. No hay tabla de redirecciones 301 por URL; todo 404 desconocido va a `/`. Puede haber URLs indexadas en Google o backlinks apuntando a rutas que ahora pierden su señal.
 - **Opciones consideradas:**
@@ -75,13 +77,22 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 ---
 
 ## Duda de alto nivel: Estrategia de contenido para autoridad de dominio
-- **Contexto:** El sitio actual es principalmente comercial + LMS. No hay sección de blog, casos de éxito o guías técnicas que generen backlinks orgánicos.
+- **Contexto:** El sitio era principalmente comercial + LMS. No había sección de blog, casos de éxito o guías técnicas que generen backlinks orgánicos.
 - **Opciones consideradas:**
   - **A.** Mantener el sitio como está y confiar en las landings locales/industriales.
   - **B.** Crear una sección `/blog` o `/casos` con artículos técnicos (monitoreo de energía, casos de IoT industrial, tutoriales Python).
   - **C.** Convertir las lecciones indexadas del LMS en contenido puerta de entrada para búsquedas educativas.
 - **Recomendación del agente:** Opción **B+C**: publicar contenido técnico propio y permitir que el LMS funcione como hub educativo, enlazando naturalmente hacia los servicios.
-- **Bloqueo:** Requiere plan editorial, recursos de redacción técnica y definición de voz de marca.
+- **Decisión tomada:** Priorizar la opción **B** comenzando por `/casos`, ya que los casos de aplicación aportan mayor valor comercial inmediato y son más difíciles de replicar por competidores. Las lecciones del LMS se mantienen como `noindex` por ahora; su posible reformato a contenido indexable queda como segundo paso.
+- **Implementación:**
+  - Se creó `data/casos/` con un caso de ejemplo anónimo (`ejemplo-industria-plastica/caso.yaml`).
+  - Se agregaron `CasoModel` y `CasosContainerModel` en `src/domain/models.py`.
+  - `src/application/data_service.py` carga y cachea los casos, convirtiendo el contenido markdown a HTML.
+  - Se crearon las rutas `/casos` (listado) y `/casos/{slug}` (detalle) en `src/infrastructure/fastapi/routes/caso_routes.py`.
+  - Se crearon `templates/casos/list.html` y `templates/casos/detail.html`.
+  - Se actualizó `data/contenido.yaml` con el hero de casos y un link en el footer.
+  - El sitemap incluye `/casos` y cada caso individual.
+- **Próximo paso:** Reemplazar el caso de ejemplo con 2-3 casos reales autorizados, y evaluar si se suma una sección `/blog` o se reformatean lecciones del LMS.
 - **Impacto SEO estimado:** Alto.
 
 ---
