@@ -18,15 +18,11 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
-## Duda de alto nivel: Indexar o no las páginas de lección individuales
-- **Contexto:** Actualmente las lecciones (`/cursos/{curso_slug}/{leccion_slug}`) inyectan `<meta name="robots" content="noindex, follow">`. Son contenido técnico específico que podría captar búsquedas long-tail, pero también fragmentan la autoridad del curso principal y requieren canonicalización cuidadosa.
-- **Opciones consideradas:**
-  - **A.** Mantener `noindex, follow` (status quo).
-  - **B.** Cambiar a `index, follow` y asegurar breadcrumbs únicos, título/descripción por lección y sitemap dedicado.
-  - **C.** Indexar solo lecciones con video/contenido propio, dejando quizzes y repeticiones de temario como `noindex`.
-- **Recomendación del agente:** Opción **C**: indexar el material educativo real (videos/markdown) y mantener `noindex` para quizzes y lecciones de transición. Esto amplía el alcance sin generar contenido débil indexado.
-- **Bloqueo:** Es una decisión de estrategia de contenido que afecta al LMS y al modelo de captación de leads. Requiere definir criterios de calidad mínima por lección.
-- **Impacto SEO estimado:** Medio.
+## ✅ Resuelta — Indexar o no las páginas de lección individuales
+- **Contexto:** Las lecciones (`/cursos/{curso_slug}/{leccion_slug}`) tenían `<meta name="robots" content="noindex, follow">`. Al confirmar que los cursos son **capacitaciones de cortesía** y no el producto principal, la decisión se simplifica.
+- **Decisión tomada:** Mantener `noindex, follow` en lecciones individuales. El foco SEO debe estar en la asistencia técnica (visitas en campo + remota), no en captar tráfico educativo para vender cursos.
+- **Implementación:** No se requirieron cambios de código; se documenta la política para futuras revisiones.
+- **Impacto SEO estimado:** Bajo (evita fragmentar autoridad hacia contenido que no es el negocio).
 
 ---
 

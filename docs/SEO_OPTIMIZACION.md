@@ -31,10 +31,17 @@
 12. Se creó **`data/redirects.yaml`** para configurar redirecciones 301 puntuales hacia URLs legacy de la SPA anterior sin tocar código.
 13. `DataService` expone `get_redirects()` para leer y cachear el archivo de redirecciones.
 
-### F. Calidad y cobertura
-14. Se validó que `pytest` continúa pasando al 100% (41 tests).
-15. Se validó que `mypy` sigue limpio sobre `src/`.
-16. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
+### F. Modelado de asistencia técnica híbrida (campo + remota)
+14. Se agregó `assistance_modes` en `data/contenido.yaml` con `on_site` (visitas en campo) y `remote` (asistencia remota/consultoría).
+15. Se agregó el campo `modality` a cada tarjeta de servicio (`on_site`, `remote`, `both`) y se muestra en las tarjetas de servicio de la Home.
+16. Se agregó una **sección de modalidades** en la Home (`templates/index.html`) que presenta ambas formas de asistencia técnica.
+17. Se extendió `FieldModel` en `src/domain/models.py` para soportar campos de tipo `select` con opciones.
+18. Se agregó al formulario de contacto un select de **modalidad de asistencia preferida** (campo, remoto, ambas), modelado desde `data/contenido.yaml`.
+
+### G. Calidad y cobertura
+19. Se validó que `pytest` continúa pasando al 100% (41 tests).
+20. Se validó que `mypy` sigue limpio sobre `src/`.
+21. No se redujo la cobertura de tests ni se modificó la arquitectura de capas.
 
 ---
 
@@ -82,17 +89,21 @@ PYTHONPATH=. mypy src/ --explicit-package-bases --python-executable venv/bin/pyt
 
 ## 5. Archivos modificados
 
-- `src/infrastructure/settings/config.py`
-- `src/infrastructure/fastapi/routes/main_routes.py`
-- `src/infrastructure/fastapi/app.py`
-- `src/infrastructure/fastapi/dependencies.py`
+- `src/domain/models.py`
 - `src/application/data_service.py`
+- `src/infrastructure/fastapi/dependencies.py`
+- `src/infrastructure/fastapi/app.py`
+- `src/infrastructure/fastapi/routes/main_routes.py`
+- `templates/index.html`
+- `templates/partials/components/service_card.html`
+- `templates/partials/components/contact_form.html`
 - `templates/contact.html`
 - `templates/cursos/instructor.html`
 - `templates/cursos/list.html`
 - `templates/cursos/detail.html`
-- `static/humans.txt` (nuevo)
+- `data/contenido.yaml`
 - `data/redirects.yaml` (nuevo)
+- `static/humans.txt` (nuevo)
 - `tests/test_seo.py`
 - `tests/test_additional_routes.py`
 - `docs/DUDAS.md` (nuevo)
