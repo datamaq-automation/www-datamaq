@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional, Union, Literal
 from pydantic import BaseModel, Field
+from src.domain.value_objects import Slug, Price
 
 # --- Modelos Base ---
 class PhotoModel(BaseModel):
@@ -221,7 +222,7 @@ class LandingContentModel(BaseModel):
 
 # --- Modelos de Casos ---
 class CasoModel(BaseModel):
-    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    slug: Slug
     title: str = Field(..., min_length=1)
     industry: str
     location: str
@@ -261,7 +262,7 @@ class InstructoresContainerModel(BaseModel):
 class LessonModel(BaseModel):
     type: Literal["lesson"] = "lesson"
     id: str
-    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    slug: Slug
     title: str = Field(..., min_length=1)
     duration: str
     content_type: str = "markdown"
@@ -280,7 +281,7 @@ class QuestionModel(BaseModel):
 class QuizModel(BaseModel):
     type: Literal["quiz"] = "quiz"
     id: str
-    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    slug: Slug
     title: str = Field(..., min_length=1)
     duration: str
     questions: List[QuestionModel]
@@ -299,14 +300,14 @@ class CourseSectionModel(BaseModel):
 
 class CourseModel(BaseModel):
     id: str
-    slug: str = Field(..., pattern=r"^[a-z0-9-]+$")
+    slug: Slug
     title: str = Field(..., min_length=1)
     description_short: str = Field(..., min_length=1)
     description_long: str = Field(..., min_length=1)
     duration: str
     level: str
     language: str = "Español"
-    price: float = Field(0.0, ge=0.0)
+    price: Price = Price(0.0)
     og_image: Optional[str] = None
     og_image_width: Optional[int] = None
     og_image_height: Optional[int] = None
