@@ -26,6 +26,12 @@
                 <label class="c-contact__label" for="{{ field.id }}">{{ field.label }}</label>
                 {% if field.type == 'textarea' %}
                 <textarea id="{{ field.id }}" class="c-contact__input" rows="4"></textarea>
+                {% elif field.type == 'select' %}
+                <select id="{{ field.id }}" class="c-contact__input" aria-invalid="false">
+                    {% for option in field.options %}
+                    <option value="{{ option.value }}">{{ option.label }}</option>
+                    {% endfor %}
+                </select>
                 {% else %}
                 <input id="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" aria-invalid="false">
                 {% endif %}

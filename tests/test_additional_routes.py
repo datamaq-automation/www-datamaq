@@ -52,6 +52,10 @@ async def override_get_contenido():
                 "error_message": "Test",
                 "optional_text": "Test",
                 "steps": []
+            },
+            "assistance_modes": {
+                "on_site": {"label": "Campo", "description": "Test", "icon": "geo-alt-fill"},
+                "remote": {"label": "Remoto", "description": "Test", "icon": "wifi"}
             }
         },
         seo={"title": "Test", "description": "Test", "site_name": "Test", "canonical_url": "http://test.com", "og_image": "http://test.com/og.png"},

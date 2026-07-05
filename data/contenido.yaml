@@ -97,6 +97,15 @@ content:
       \ de datos."
     - Asesoramiento y capacitaciones sobre Python, datos, bases de datos y APIs en
       contextos reales.
+  assistance_modes:
+    on_site:
+      description: "Relevamiento e intervención directa en tu planta, tablero o línea de proceso."
+      icon: "geo-alt-fill"
+      label: "Visitas técnicas en campo"
+    remote:
+      description: "Consultoría, diagnóstico y seguimiento técnico a distancia según el caso."
+      icon: "wifi"
+      label: "Asistencia remota y consultoría"
   services:
     cards:
     - description: "Relevamiento, montaje, configuración y puesta en marcha de\
@@ -108,6 +117,7 @@ content:
         nica"
       - Captura de kilos, unidades, metros, velocidades o estados
       - "Integración inicial con Powermate o sistemas de terceros"
+      modality: "on_site"
       title: "Instalación de equipos IoT para captura de datos"
     - description: "Acompañamiento para estructurar, interpretar y explotar datos\
         \ ya capturados, con foco en seguimiento operativo, diagnóstico y criterio\
@@ -117,6 +127,7 @@ content:
       - "Análisis de consumo energético y comportamiento operativo"
       - Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes
       - Soporte para reportes, dashboards y automatizaciones de seguimiento
+      modality: "remote"
       title: "Asesoramiento técnico para análisis de datos"
     - description: "Formación técnica orientada a equipos que necesiten trabajar\
         \ con datos operativos, Python, bases de datos, APIs o integraciones sobre\
@@ -126,6 +137,7 @@ content:
       - Python aplicado con NumPy, pandas y Matplotlib
       - "Buenas prácticas para trabajar con bases de datos y APIs"
       - "Capacitación adaptada al nivel técnico y al caso real del equipo"
+      modality: "both"
       title: Capacitaciones aplicadas
     title: "Servicios técnicos sobre captura, integración y uso de datos"
   contact:
@@ -152,6 +164,16 @@ content:
         autocomplete: family-name
     - title: Proyecto
       fields:
+      - id: contacto-modalidad
+        label: "Modalidad de asistencia preferida"
+        type: select
+        options:
+        - value: "campo"
+          label: "Visita técnica en campo"
+        - value: "remoto"
+          label: "Asistencia remota / consultoría"
+        - value: "ambas"
+          label: "Ambas según necesidad"
       - id: contacto-comentario
         label: "¿En qué consiste tu proyecto o consulta?"
         type: textarea

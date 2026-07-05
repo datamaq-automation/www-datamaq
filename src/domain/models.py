@@ -56,6 +56,7 @@ class ServiceCardModel(BaseModel):
     cta: Optional[str] = None
     description: str
     key_points: List[str]
+    modality: Optional[str] = "both"  # "on_site", "remote" or "both"
 
 class ServicesModel(BaseModel):
     title: str
@@ -102,10 +103,17 @@ class LegalPagesModel(BaseModel):
     terms: LegalPageModel
 
 # --- Nuevos Modelos Contact ---
+class OptionModel(BaseModel):
+    value: str
+    label: str
+
+
 class FieldModel(BaseModel):
     id: str
     label: str
     autocomplete: Optional[str] = None
+    type: Optional[str] = "text"  # "text", "textarea", "select"
+    options: Optional[List[OptionModel]] = None
 
 class StepModel(BaseModel):
     title: str
@@ -138,6 +146,12 @@ class SeoModel(BaseModel):
     site_name: str
     og_image: str
 
+class AssistanceModeModel(BaseModel):
+    label: str
+    description: str
+    icon: str
+
+
 # --- Modelos Principales ---
 class ContentModel(BaseModel):
     hero: HeroModel
@@ -149,6 +163,7 @@ class ContentModel(BaseModel):
     legal: LegalModel
     contact: ContactModel
     cookie_banner: CookieBannerModel
+    assistance_modes: Dict[str, AssistanceModeModel]
 
 class FooterLinkModel(BaseModel):
     label: str

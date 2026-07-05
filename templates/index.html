@@ -12,6 +12,7 @@
 {% import 'partials/components/hero.html' as hero_macro %}
 {% import 'partials/components/section_wrapper.html' as section_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+{% import 'partials/components/icon.html' as icon_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
@@ -40,11 +41,31 @@
 </section>
 {% endif %}
 {{ profile_macro.profile(request, brand, content.profile) }}
+
+<section id="asistencia" class="section-mobile c-assistance-modes" aria-labelledby="asistencia-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">Modalidades</span>
+            <h2 id="asistencia-title" class="c-home-section-title">Asistencia técnica a tu medida</h2>
+            <p class="c-home-section-copy">Podés optar por visitas en campo o consultoría remota, según la complejidad del caso y tu ubicación.</p>
+        </div>
+        <div class="c-assistance-modes__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+            {% for key, mode in content.assistance_modes.items() %}
+            <article class="c-assistance-mode-card" style="padding: 1.5rem; border: 1px solid var(--dm-border-0); border-radius: var(--ui-radius-lg); background: var(--dm-surface-0);">
+                <span class="c-assistance-mode-card__icon" style="font-size: 1.5rem; color: var(--dm-data-cyan);" aria-hidden="true">{{ icon_macro.bootstrap_icon(mode.icon) }}</span>
+                <h3 class="c-assistance-mode-card__title" style="margin-top: 0.75rem; font-size: 1.15rem;">{{ mode.label }}</h3>
+                <p class="c-assistance-mode-card__description" style="margin-top: 0.5rem; color: var(--dm-text-muted);">{{ mode.description }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 {% call section_macro.section_wrapper('servicios', 'Servicios técnicos sobre captura, integración y uso de datos', 'Servicios', 'Servicios orientados a captura automática de datos, integración técnica y formación aplicada sobre casos reales.', 'c-home-services') %}
 
 <div data-v-236fef00="" class="c-home-services__grid">
 {% for card in content.services.cards %}
-{{ service_macro.service_card('bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, '/contact') }}
+{{ service_macro.service_card('bar-chart-line-fill', card.title, card.description, 'Captura, comunicación e integración inicial', card.key_points, 'Según el caso, la implementación puede apoyarse en Powermeter, Automate u otros equipos compatibles con la variable a capturar y el objetivo del proyecto.', card.cta, '/contact', card.modality, content.assistance_modes) }}
 {% endfor %}
 </div>
 
