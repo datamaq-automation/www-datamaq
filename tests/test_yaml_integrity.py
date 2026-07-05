@@ -9,17 +9,8 @@ def test_yaml_files_integrity():
     """
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(base_dir, "data")
+    service = DataService(data_dir=data_dir)
     
-    service = DataService(
-        content_path=os.path.join(data_dir, "contenido.yaml"),
-        geography_path=os.path.join(data_dir, "geografia.yaml"),
-        industry_path=os.path.join(data_dir, "industrias.yaml"),
-        courses_dir=os.path.join(data_dir, "cursos"),
-        instructors_path=os.path.join(data_dir, "instructores.yaml"),
-        redirects_path=os.path.join(data_dir, "redirects.yaml"),
-        landing_content_path=os.path.join(data_dir, "landing_content.yaml"),
-        cases_dir=os.path.join(data_dir, "casos")
-    )
     
     # 1. Validar Contenido general
     contenido = service.get_contenido()

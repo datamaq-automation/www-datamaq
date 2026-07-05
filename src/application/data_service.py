@@ -18,15 +18,26 @@ from src.infrastructure.adapters.markdown_parser import MarkdownParser
 from src.application.mappers.course_mapper import to_course_model
 
 class DataService:
-    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = "", landing_content_path: str = "", cases_dir: str = ""):
-        self.content_path = content_path
-        self.geography_path = geography_path
-        self.industry_path = industry_path
-        self.courses_dir = courses_dir
-        self.instructors_path = instructors_path
-        self.redirects_path = redirects_path
-        self.landing_content_path = landing_content_path
-        self.cases_dir = cases_dir
+    def __init__(self, data_dir: str = "data"):
+        self.data_dir = data_dir
+        
+        # Deducir rutas según la arquitectura física por Bounded Contexts
+        self.brand_path = os.path.join(data_dir, "config", "brand.yaml")
+        self.footer_path = os.path.join(data_dir, "config", "footer.yaml")
+        self.redirects_path = os.path.join(data_dir, "config", "redirects.yaml")
+        
+        self.home_sections_path = os.path.join(data_dir, "content", "home_sections.yaml")
+        self.legal_path = os.path.join(data_dir, "content", "legal.yaml")
+        
+        self.seo_path = os.path.join(data_dir, "seo", "seo.yaml")
+        self.landing_content_path = os.path.join(data_dir, "seo", "landing_content.yaml")
+        
+        self.geography_path = os.path.join(data_dir, "meta", "geografia.yaml")
+        self.industry_path = os.path.join(data_dir, "meta", "industrias.yaml")
+        
+        self.instructors_path = os.path.join(data_dir, "core", "instructores.yaml")
+        self.courses_dir = os.path.join(data_dir, "core", "cursos")
+        self.cases_dir = os.path.join(data_dir, "core", "casos")
 
         self.markdown_parser = MarkdownParser()
 
@@ -41,12 +52,32 @@ class DataService:
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
-            with open(self.content_path, "r", encoding="utf-8") as f:
-                raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
+            # Leer los archivos separados del CMS
+            with open(self.brand_path, "r", encoding="utf-8") as f:
+                brand_data = yaml.safe_load(f) or {}
+                
+            with open(self.home_sections_path, "r", encoding="utf-8") as f:
+                home_sections_data = yaml.safe_load(f) or {}
+                
+            with open(self.legal_path, "r", encoding="utf-8") as f:
+                legal_data = yaml.safe_load(f) or {}
+                
+            with open(self.seo_path, "r", encoding="utf-8") as f:
+                seo_data = yaml.safe_load(f) or {}
+                
+            with open(self.footer_path, "r", encoding="utf-8") as f:
+                footer_data = yaml.safe_load(f) or {}
+
+            # Reconstruir el diccionario compatible con ContenidoModel
+            raw_data = {
+                "brand": brand_data,
+                "content": home_sections_data,
+                "seo": seo_data,
+                "legal_pages": legal_data,
+                "footer": footer_data
+            }
             
             # --- Generar Footer Dinámico ---
-            if "footer" not in raw_data:
-                raw_data["footer"] = {}
             if "navigation_groups" not in raw_data["footer"]:
                 raw_data["footer"]["navigation_groups"] = []
 
@@ -148,7 +179,7 @@ class DataService:
                                                             else:
                                                                 item["content"] = f"<p class='error'>Error: No se encontró el archivo de contenido en {file_path}</p>"
                                 
-                                # Delegar la hidratación/resolución del instructor y parseo de Pydantic al mapper
+                                # Delegar la hidratación/resolución del instructor al mapper
                                 course_model = to_course_model(curso_data, instructores)
                                 cursos_list.append(course_model)
             
