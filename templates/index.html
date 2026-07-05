@@ -27,16 +27,44 @@
 {% if localidad_nombre %}
 <section class="c-context-section" aria-labelledby="contexto-localidad-title">
     <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        {% if landing_localidad %}
+        <h2 id="contexto-localidad-title" class="c-context-section__title">{{ landing_localidad.title }}</h2>
+        {% for paragraph in landing_localidad.paragraphs %}
+        <p class="c-context-section__text">{{ paragraph }}</p>
+        {% endfor %}
+        {% if landing_localidad.bullets %}
+        <ul class="c-context-section__list">
+            {% for bullet in landing_localidad.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% else %}
         <h2 id="contexto-localidad-title" class="c-context-section__title">Cobertura técnica en {{ localidad_nombre }}</h2>
         <p class="c-context-section__text">En {{ localidad_nombre }}, {{ municipio }}, {{ provincia }}, implementamos equipos IoT para medición de energía y captura de datos operativos. Trabajamos con industrias de la zona que buscan reducir consumos, detectar anomalías y digitalizar información de planta sin reemplazar sus tableros actuales.</p>
+        {% endif %}
     </div>
 </section>
 {% endif %}
 {% if industria_nombre %}
 <section class="c-context-section" aria-labelledby="contexto-industria-title">
     <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        {% if landing_industria %}
+        <h2 id="contexto-industria-title" class="c-context-section__title">{{ landing_industria.title }}</h2>
+        {% for paragraph in landing_industria.paragraphs %}
+        <p class="c-context-section__text">{{ paragraph }}</p>
+        {% endfor %}
+        {% if landing_industria.bullets %}
+        <ul class="c-context-section__list">
+            {% for bullet in landing_industria.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% else %}
         <h2 id="contexto-industria-title" class="c-context-section__title">Soluciones para {{ industria_nombre }}</h2>
         <p class="c-context-section__text">La {{ industria_nombre }} puede aprovechar el monitoreo de energía industrial y la captura automática de datos operativos para mejorar la eficiencia, anticipar fallas y cumplir con requisitos de trazabilidad. Diseñamos cada implementación según los equipos y procesos propios del sector.</p>
+        {% endif %}
     </div>
 </section>
 {% endif %}

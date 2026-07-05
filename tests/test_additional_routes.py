@@ -185,6 +185,30 @@ async def test_industria_page_rendered():
 
 
 @pytest.mark.asyncio  # type: ignore
+async def test_localidad_tigre_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/buenos-aires/tigre/general-pacheco.html")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "General Pacheco" in response.text
+    assert "Asistencia técnica" in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_industria_plastica_page_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/industria/plastica.html")
+    
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Industria Plástica" in response.text
+    assert "Asistencia técnica" in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
 async def test_submit_contact_returns_success():
     transport = ASGITransport(app=app)
     payload = {

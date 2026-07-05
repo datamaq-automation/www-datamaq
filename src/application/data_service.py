@@ -1,16 +1,17 @@
 from typing import Any, Dict, List, Optional, Tuple, Union, cast
-from src.domain.models import ContenidoModel, IndustriaModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
+from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
 import yaml # type: ignore
 import os
 
 class DataService:
-    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = ""):
+    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = "", landing_content_path: str = ""):
         self.content_path = content_path
         self.geography_path = geography_path
         self.industry_path = industry_path
         self.courses_dir = courses_dir
         self.instructors_path = instructors_path
         self.redirects_path = redirects_path
+        self.landing_content_path = landing_content_path
 
         self._cached_contenido: Optional[ContenidoModel] = None
         self._cached_geografia: Optional[Dict[str, Any]] = None
@@ -18,6 +19,7 @@ class DataService:
         self._cached_cursos: Optional[CursosContainerModel] = None
         self._cached_instructores: Optional[Dict[str, InstructorModel]] = None
         self._cached_redirects: Optional[Dict[str, str]] = None
+        self._cached_landing_content: Optional[LandingContentModel] = None
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
@@ -145,4 +147,13 @@ class DataService:
                 if isinstance(redirects, dict):
                     self._cached_redirects = {str(k): str(v) for k, v in redirects.items()}
         return self._cached_redirects
+
+    def get_landing_content(self) -> LandingContentModel:
+        if self._cached_landing_content is None:
+            self._cached_landing_content = LandingContentModel()
+            if self.landing_content_path and os.path.exists(self.landing_content_path):
+                with open(self.landing_content_path, "r", encoding="utf-8") as f:
+                    raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
+                self._cached_landing_content = LandingContentModel(**raw_data)
+        return self._cached_landing_content
 

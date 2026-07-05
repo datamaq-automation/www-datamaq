@@ -1,13 +1,13 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_chatwoot_token
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_chatwoot_token, get_landing_content
 from src.infrastructure.fastapi.utils.seo import canonical_url
-from src.domain.models import ContenidoModel
+from src.domain.models import ContenidoModel, LandingContentModel
 
 router = APIRouter()
 
 @router.get("/{provincia}/{municipio}/{localidad}.html")
-async def pagina_localidad(request: Request, provincia: str, municipio: str, localidad: str, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def pagina_localidad(request: Request, provincia: str, municipio: str, localidad: str, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), landing_content: LandingContentModel = Depends(get_landing_content), chatwoot_token: str = Depends(get_chatwoot_token)):
     # Validar existencia
     locs: Dict[str, Any] = geografia.get("localidades", {}) # type: ignore
     prov = locs.get(provincia, {})
@@ -20,6 +20,13 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
     brand_data = contenido.brand.model_dump()
     servicios_data = [s.model_dump() for s in contenido.content.services.cards]
     municipio_formateado = municipio.replace("-", " ").title()
+
+    localidad_content = (
+        landing_content.localidades
+        .get(provincia, {})
+        .get(municipio, {})
+        .get(localidad)
+    )
 
     seo = {
         "title": f"Asistencia técnica en {nombre_localidad}, {municipio_formateado} | DataMaq",
@@ -47,5 +54,6 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "footer": contenido.footer.model_dump() if contenido.footer else None,
         "hero_title": hero_title,
         "hero_subtitle": hero_subtitle,
+        "landing_localidad": localidad_content.model_dump() if localidad_content else None,
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

@@ -1,0 +1,146 @@
+industrias:
+  grafica:
+    title: "Soluciones para la Industria Gráfica"
+    paragraphs:
+      - "La industria gráfica consume energía en prensas, termofijadoras, cizallas, sistemas de climatización e iluminación. Medir el consumo por máquina y turno permite identificar desperdicios, planificar mantenimiento y mejorar la cotización de trabajos."
+      - "Trabajamos con talleres e imprentas para instalar medidores IoT, leer variables operativas y conectar los datos a una primera capa de visualización o reporte."
+    bullets:
+      - "Medición de consumo por equipo y turno"
+      - "Detección de picos durante arranques de prensas"
+      - "Seguimiento de calidad de energía para proteger electrónica sensible"
+
+  plastica:
+    title: "Soluciones para la Industria Plástica"
+    paragraphs:
+      - "En plantas de inyección, extrusión y termoformado, los ciclos de máquinas y el consumo de compresores son los principales factores de costo. Capturar datos operativos ayuda a reducir tiempos muertos y optimizar el uso de energía térmica y eléctrica."
+      - "Diseñamos relevamientos e instalaciones de equipos de medición que se adaptan a la dinámica de inyectoras, chillers y secadoras, con soporte remoto para análisis y seguimiento."
+    bullets:
+      - "Monitoreo de inyectoras, extrusoras y chillers"
+      - "Control de consumo de compresores y secadoras"
+      - "Alertas de anomalías por ciclo o turno"
+
+  papelera:
+    title: "Soluciones para la Industria Papelera"
+    paragraphs:
+      - "El proceso papelero involucra pulperías, prensas, calderas, secadores y sistemas de tratamiento. El monitoreo de energía y variables operativas permite controlar eficiencia térmica, detectar fugas de vapor y planificar paradas."
+      - "Asistimos a plantas cartoneras y papeleras con la instalación de medidores IoT y la integración inicial de datos hacia planillas, bases o dashboards según la infraestructura disponible."
+    bullets:
+      - "Medición en calderas, prensas y secadores"
+      - "Seguimiento de eficiencia energética térmica"
+      - "Integración de datos de producción y consumo"
+
+  metalurgica:
+    title: "Soluciones para la Industria Metalúrgica"
+    paragraphs:
+      - "Hornos, soldadoras, plegadoras, CNC y sistemas de tratamiento térmico definen el perfil energético de la metalurgia. Medir consumos por centro de trabajo permite ajustar tarifas, dimensionar correctamente la instalación y anticipar fallas."
+      - "Realizamos relevamientos en plantas metalmecánicas para medir energía, capturar señales de producción y estructurar la información para diagnóstico y seguimiento."
+    bullets:
+      - "Monitoreo de hornos y máquinas herramienta"
+      - "Medición de consumo por celda o línea"
+      - "Análisis de factor de potencia y distorsión armónica"
+
+localidades:
+  buenos-aires:
+    escobar:
+      garin:
+        title: "Asistencia técnica en Garín, Escobar"
+        paragraphs:
+          - "Garín es uno de los principales centros industriales del partido de Escobar, con acceso directo por Panamericana y Ruta 9. Desde aquí atendemos plantas del corredor productivo norte, con visitas en campo y soporte remoto según el alcance."
+          - "Instalamos equipos IoT para medición de energía y captura de datos operativos en industrias gráficas, plásticas, metalúrgicas y papeleras de la zona."
+
+      belen-de-escobar:
+        title: "Asistencia técnica en Belén de Escobar"
+        paragraphs:
+          - "Belén de Escobar concentra actividad comercial, logística e industria de transformación en torno al centro del partido. Trabajamos con empresas de la zona que buscan digitalizar datos de energía y producción sin interrumpir la operación."
+          - "Ofrecemos relevamiento en campo, instalación de medidores y asesoramiento remoto para interpretar el consumo de plantas y líneas de proceso."
+
+      ingeniero-maschwitz:
+        title: "Asistencia técnica en Ingeniero Maschwitz"
+        paragraphs:
+          - "Ingeniero Maschwitz combina desarrollo comercial, logístico y productivo dentro del partido de Escobar. Implementamos medidores IoT y sistemas de captura de datos en plantas que requieren flexibilidad y seguimiento remoto."
+          - "Atendemos consultas de monitoreo energético, captura de variables operativas y capacitaciones técnicas de cortesía según el proyecto."
+
+      loma-verde:
+        title: "Asistencia técnica en Loma Verde"
+        paragraphs:
+          - "Loma Verde se ubica en el área industrial y residencial de Escobar, cerca de importantes corredores de distribución. Asistimos a industrias locales con relevamiento en campo para monitoreo de energía y variables operativas."
+          - "Realizamos instalaciones de equipos IoT compatibles con tableros existentes, sin necesidad de reemplazar la instrumentación actual."
+
+      matheu:
+        title: "Asistencia técnica en Matheu"
+        paragraphs:
+          - "Matheu es una localidad del partido de Escobar con creciente actividad productiva vinculada al norte del GBA. Realizamos instalaciones de equipos IoT y capacitaciones técnicas de cortesía según el proyecto."
+          - "Trabajamos con pymes industriales de la zona que necesitan medir energía, capturar datos de producción o iniciar un sistema de seguimiento operativo."
+
+      maquinista-savio:
+        title: "Asistencia técnica en Maquinista Savio"
+        paragraphs:
+          - "Maquinista Savio forma parte del corredor industrial de Escobar, con buena conectividad hacia rutas principales. Atendemos consultas de monitoreo energético y captura de datos operativos con visitas técnicas programadas."
+          - "Diseñamos cada intervención según el tipo de tablero, señales disponibles y objetivos de mejora de la planta."
+
+    tigre:
+      tigre:
+        title: "Asistencia técnica en Tigre"
+        paragraphs:
+          - "Tigre es la ciudad cabecera de un partido con fuerte presencia industrial en su zona continental y logística vinculada al Delta. Brindamos asistencia técnica para monitoreo de energía e IoT industrial a empresas de la región."
+          - "Combinamos visitas en campo con consultoría remota para cubrir tanto plantas industriales como emprendimientos productivos del partido."
+
+      don-torcuato:
+        title: "Asistencia técnica en Don Torcuato"
+        paragraphs:
+          - "Don Torcuato alberga uno de los parques industriales más importantes del partido de Tigre, conectado por Panamericana y Ruta 197. Realizamos relevamientos e instalaciones de equipos de medición en plantas de la zona."
+          - "Trabajamos con industrias que buscan reducir consumos eléctricos, detectar anomalías y digitalizar información de proceso."
+
+      el-talar:
+        title: "Asistencia técnica en El Talar"
+        paragraphs:
+          - "El Talar es una localidad industrial clave dentro de Tigre, cercana a la Ruta 9 y al corredor de General Pacheco. Asistimos a industrias con monitoreo de energía, captura de datos y consultoría remota."
+          - "Instalamos medidores IoT y desarrollamos integraciones iniciales con sistemas de terceros o planillas según la infraestructura del cliente."
+
+      general-pacheco:
+        title: "Asistencia técnica en General Pacheco"
+        paragraphs:
+          - "General Pacheco concentra una de las zonas industriales más activas del Gran Buenos Aires Norte, con acceso por Panamericana y Ruta 202. Atendemos plantas de diversos sectores con visitas técnicas y seguimiento remoto."
+          - "Realizamos diagnósticos energéticos, medición por centro de costo y capacitaciones técnicas para equipos de mantenimiento y producción."
+
+      benavidez:
+        title: "Asistencia técnica en Benavídez"
+        paragraphs:
+          - "Benavídez combina actividad industrial, comercial y residencial en el partido de Tigre. Implementamos soluciones de monitoreo energético y captura de datos orientadas a pequeñas y medianas industrias."
+          - "Asesoramos en la selección de equipos, la instalación en campo y la primera interpretación de los datos capturados."
+
+      los-troncos-del-talar:
+        title: "Asistencia técnica en Los Troncos del Talar"
+        paragraphs:
+          - "Los Troncos del Talar es una localidad en desarrollo dentro del partido de Tigre, con buena accesibilidad desde el corredor norte. Asistimos a empresas locales con relevamiento y puesta en marcha de equipos IoT."
+          - "Trabajamos con flexibilidad de modalidad: visitas en campo para instalación y soporte remoto para seguimiento continuo."
+
+      dique-lujan:
+        title: "Asistencia técnica en Dique Luján"
+        paragraphs:
+          - "Dique Luján, junto al Delta del Paraná, alberga actividad productiva vinculada a la náutica, logística y transformación. Brindamos soporte técnico para monitoreo de energía en instalaciones de la zona."
+          - "Adaptamos los equipos a condiciones particulares de conectividad y tipo de tablero, priorizando la continuidad operativa."
+
+      rincon-de-milberg:
+        title: "Asistencia técnica en Rincón de Milberg"
+        paragraphs:
+          - "Rincón de Milberg es una localidad del partido de Tigre con crecimiento comercial e industrial cercano a Nordelta y al acceso norte. Atendemos consultas de eficiencia energética y captura de datos operativos."
+          - "Ofrecemos relevamiento, instalación de medidores y acompañamiento remoto para interpretar el comportamiento energético de cada planta."
+
+      villa-la-nata:
+        title: "Asistencia técnica en Villa La Ñata"
+        paragraphs:
+          - "Villa La Ñata se encuentra sobre la Ruta 27 en el partido de Tigre, con acceso directo a zonas industriales y logísticas. Realizamos visitas técnicas para medición de energía e integración de datos."
+          - "Trabajamos con sectores gráfico, plástico, metalúrgico y papelero que operan en el corredor norte del GBA."
+
+      nordelta:
+        title: "Asistencia técnica en Nordelta"
+        paragraphs:
+          - "Nordelta es un polo urbano y comercial del partido de Tigre que también alberga servicios e industrias de apoyo. Ofrecemos asistencia remota y visitas programadas para monitoreo de energía y datos operativos."
+          - "Diseñamos propuestas escalables que se ajustan al tamaño de la instalación y a los objetivos de seguimiento del cliente."
+
+      ricardo-rojas:
+        title: "Asistencia técnica en Ricardo Rojas"
+        paragraphs:
+          - "Ricardo Rojas es una localidad del partido de Tigre con perfil industrial y residencial en expansión. Asistimos a plantas de la zona con instalaciones de equipos IoT y capacitaciones técnicas según el proyecto."
+          - "Combinamos el relevamiento en campo con el soporte remoto para que cada cliente tenga visibilidad de su consumo y sus variables críticas."

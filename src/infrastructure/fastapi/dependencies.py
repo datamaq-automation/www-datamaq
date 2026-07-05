@@ -5,7 +5,7 @@ from fastapi.responses import Response
 from starlette.types import Scope
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
-from src.domain.models import ContenidoModel
+from src.domain.models import ContenidoModel, LandingContentModel
 from src.application.data_service import DataService
 from src.application.gateways.chatwoot_gateway import ChatwootGateway
 from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
@@ -41,7 +41,8 @@ data_service = DataService(
     industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml"),
     courses_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos"),
     instructors_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "instructores.yaml"),
-    redirects_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "redirects.yaml")
+    redirects_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "redirects.yaml"),
+    landing_content_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "landing_content.yaml")
 )
 
 # --- Dependencias de Datos ---
@@ -50,6 +51,7 @@ def get_geografia(): return data_service.get_geografia()
 def get_industrias(): return data_service.get_industrias()
 def get_cursos_service() -> DataService: return data_service
 def get_redirects() -> Dict[str, str]: return data_service.get_redirects()
+def get_landing_content() -> LandingContentModel: return data_service.get_landing_content()
 def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
 

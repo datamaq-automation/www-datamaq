@@ -1,13 +1,13 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_industrias, get_chatwoot_token
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_industrias, get_chatwoot_token, get_landing_content
 from src.infrastructure.fastapi.utils.seo import canonical_url
-from src.domain.models import ContenidoModel, IndustriaModel
+from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel
 
 router = APIRouter()
 
 @router.get("/industria/{industria}.html")
-async def pagina_industria(request: Request, industria: str, contenido: ContenidoModel = Depends(get_contenido), industrias_data: IndustriaModel = Depends(get_industrias), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def pagina_industria(request: Request, industria: str, contenido: ContenidoModel = Depends(get_contenido), industrias_data: IndustriaModel = Depends(get_industrias), landing_content: LandingContentModel = Depends(get_landing_content), chatwoot_token: str = Depends(get_chatwoot_token)):
 
     nombre_industria = industrias_data.industrias.get(industria)
 
@@ -17,6 +17,8 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
     brand_data = contenido.brand.model_dump()
     servicios_data = [s.model_dump() for s in contenido.content.services.cards]
     industria_formateada = industria.replace("-", " ").title()
+
+    industria_content = landing_content.industrias.get(industria)
 
     seo = {
         "title": f"Asistencia técnica para {nombre_industria} | DataMaq",
@@ -42,5 +44,6 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
         "footer": contenido.footer.model_dump() if contenido.footer else None,
         "hero_title": hero_title,
         "hero_subtitle": hero_subtitle,
+        "landing_industria": industria_content.model_dump() if industria_content else None,
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

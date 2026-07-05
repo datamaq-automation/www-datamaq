@@ -201,6 +201,17 @@ class ContenidoModel(BaseModel):
 class IndustriaModel(BaseModel):
     industrias: Dict[str, str]
 
+# --- Modelos de Contenido de Landing ---
+class LandingContentItemModel(BaseModel):
+    title: Optional[str] = None
+    paragraphs: List[str] = []
+    bullets: List[str] = []
+
+
+class LandingContentModel(BaseModel):
+    industrias: Dict[str, LandingContentItemModel] = {}
+    localidades: Dict[str, Dict[str, Dict[str, LandingContentItemModel]]] = {}
+
 # --- Modelos de Cursos (LMS) ---
 class InstructorSocialLinksModel(BaseModel):
     linkedin: Optional[str] = None
