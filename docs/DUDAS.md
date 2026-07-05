@@ -26,43 +26,7 @@ Este documento reúne las decisiones estratégicas, de arquitectura y de negocio
 - **Recomendación del agente:** Opción **A+B**: auditar 404 reales durante 30 días y redirigir las rutas con tráfico a su contraparte semántica (home, servicio, curso o contacto).
 - **Bloqueo:** No se cuenta con los logs históricos ni acceso a Search Console desde este entorno.
 - **Impacto SEO estimado:** Medio.
-- **Archivos afectados:** `redirects.yaml`, `data_service.py`
-
----
-
-## Duda de alto nivel: Reorganización de `data/` por Bounded Contexts
-- **Contexto:** La carpeta `data/` mezcla contenidos globales de diseño y marca (`contenido.yaml`), base de datos geográfica (`geografia.yaml`), redirecciones (`redirects.yaml`), marketing y SEO (`landing_content.yaml`) y entidades core del dominio (cursos y casos). Esto dificulta ver los límites del negocio (Bounded Contexts) a nivel físico.
-- **Opciones consideradas:**
-  - **A.** Mantener la estructura plana actual en la carpeta `data/`.
-  - **B.** Reorganizar en subcarpetas temáticas que reflejen el negocio: `data/core/` (cursos, casos), `data/marketing/` (landing_content, geografia, industrias) y `data/config/` (redirects, contenido).
-- **Recomendación del agente:** Opción **B**. Clarifica la arquitectura y grita el dominio del negocio de inmediato.
-- **Bloqueo:** Requiere actualizar todas las rutas de inicialización del `DataService` en la configuración y scripts de despliegue.
-- **Impacto estimado:** Medio (Mantenibilidad).
-- **Archivos afectados:** Todos los archivos en `data/` y `src/infrastructure/fastapi/dependencies.py`.
-
----
-
-## Duda de alto nivel: Separación de concerns en YAML (SEO/Config vs Editorial)
-- **Contexto:** En `contenido.yaml` conviven metadatos de SEO (`seo: title, description`), reglas de renderizado/diseño (nombres de iconos de Bootstrap, llamadas a la acción `cta`, cantidad de pasos) y contenido netamente editorial (preguntas frecuentes `faq`, párrafos descriptivos). Esto confunde los concerns y expone a errores técnicos al modificar textos.
-- **Opciones consideradas:**
-  - **A.** Mantener el diseño monolítico actual en `contenido.yaml`.
-  - **B.** Dividir en archivos de responsabilidad única: `data/site_seo.yaml` (SEO), `data/site_brand.yaml` (ajustes técnicos de marca) y `data/editorial_home.yaml` (copys del home).
-- **Recomendación del agente:** Opción **B**. Aísla fallos y permite flujos de edición separados.
-- **Bloqueo:** Exige reestructurar por completo los esquemas Pydantic en `models.py` y actualizar el `DataService`.
-- **Impacto estimado:** Medio (Mantenibilidad).
-- **Archivos afectados:** `contenido.yaml`, `src/domain/models.py`, `src/application/data_service.py`.
-
----
-
-## Duda de alto nivel: Creación de Value Objects Enriquecidos
-- **Contexto:** Actualmente `models.py` valida tipos de datos elementales con Pydantic. Las reglas específicas de negocio (ej: que un slug de curso o lección deba seguir exactamente el regex `^[a-z0-9-]+$`, o que un email deba validarse de forma corporativa) no están encapsuladas en Value Objects ricos de dominio bajo `src/domain/value_objects/`.
-- **Opciones consideradas:**
-  - **A.** Mantener las validaciones inline con Pydantic `Field` tal como se implementó de forma incremental.
-  - **B.** Definir clases de Value Objects ricos (ej: `Slug`, `Price`, `Email`) con su lógica de validación e inicialización independiente en la capa de dominio.
-- **Recomendación del agente:** Opción **B**. Robustece el código y reduce la duplicación de validadores en diferentes modelos de Pydantic.
-- **Bloqueo:** Requiere una revisión profunda de tipos que podría generar incompatibilidades de deserialización en YAMLs existentes.
-- **Impacto estimado:** Medio (Arquitectura Limpia).
-- **Archivos afectados:** `src/domain/models.py`, `src/domain/value_objects/`.
+- **Archivos afectados:** `data/config/redirects.yaml`, `data_service.py`
 
 ---
 
@@ -75,3 +39,10 @@ Este documento reúne las decisiones estratégicas, de arquitectura y de negocio
 - **Bloqueo:** Requiere el desarrollo de tooling e infraestructura adicional de compilación.
 - **Impacto estimado:** Alto (Seguridad en Despliegues).
 - **Archivos afectados:** Tooling / scripts de desarrollo.
+
+---
+
+## Decisiones de Arquitectura e Implementaciones Consolidadas
+
+* **Reorganización de `data/` por Bounded Contexts y modularización de YAMLs:** Implementado con éxito en la rama `feature/data-reorganization-ddd` (2026-07-05).
+* **Creación e Integración de Value Objects de Dominio (`Slug`, `Price`):** Implementado con éxito en la rama `feature/domain-value-objects` (2026-07-05).
