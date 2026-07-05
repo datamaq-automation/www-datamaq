@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Tuple, Union, cast
 from src.domain.models import ContenidoModel, IndustriaModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
-import yaml
+import yaml # type: ignore
 
 class DataService:
     def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str):
@@ -9,12 +9,17 @@ class DataService:
         self.industry_path = industry_path
         self.courses_dir = courses_dir
         self.instructors_path = instructors_path
+        
+        self._cached_contenido: Optional[ContenidoModel] = None
+        self._cached_geografia: Optional[Dict[str, Any]] = None
+        self._cached_industrias: Optional[IndustriaModel] = None
         self._cached_cursos: Optional[CursosContainerModel] = None
         self._cached_instructores: Optional[Dict[str, InstructorModel]] = None
 
     def get_contenido(self) -> ContenidoModel:
-        with open(self.content_path, "r", encoding="utf-8") as f:
-            raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
+        if self._cached_contenido is None:
+            with open(self.content_path, "r", encoding="utf-8") as f:
+                raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
             
             # Populate calculated fields
             if 'content' in raw_data and 'services' in raw_data['content'] and 'cards' in raw_data['content']['services']:
@@ -22,23 +27,28 @@ class DataService:
                     if 'title' in card:
                         card['cta'] = f"Consultá por {card['title'].split(' ')[0]}"
             
-            return ContenidoModel(**raw_data)
+            self._cached_contenido = ContenidoModel(**raw_data)
+        return self._cached_contenido
 
     def get_geografia(self) -> Dict[str, Any]:
-        with open(self.geography_path, "r", encoding="utf-8") as f:
-            return cast(Dict[str, Any], yaml.safe_load(f)) # type: ignore
+        if self._cached_geografia is None:
+            with open(self.geography_path, "r", encoding="utf-8") as f:
+                self._cached_geografia = yaml.safe_load(f) or {}
+        return self._cached_geografia
 
     def get_industrias(self) -> IndustriaModel:
-        with open(self.industry_path, "r", encoding="utf-8") as f:
-            raw_data: Dict[str, Any] = yaml.safe_load(f) # type: ignore
-            return IndustriaModel(**raw_data)
+        if self._cached_industrias is None:
+            with open(self.industry_path, "r", encoding="utf-8") as f:
+                raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
+            self._cached_industrias = IndustriaModel(**raw_data)
+        return self._cached_industrias
 
     def get_cursos_container(self) -> CursosContainerModel:
         if self._cached_cursos is None:
             import os
-            import markdown
+            import markdown # type: ignore
             
-            cursos_list = []
+            cursos_list: List[CourseModel] = []
             md_extensions = ["fenced_code", "tables"]
             instructores = self.get_instructores_dict()
             
@@ -85,7 +95,7 @@ class DataService:
                                                             else:
                                                                 item["content"] = f"<p class='error'>Error: No se encontró el archivo de contenido en {file_path}</p>"
                                 
-                                cursos_list.append(curso_data)
+                                cursos_list.append(CourseModel.model_validate(curso_data))
             
             self._cached_cursos = CursosContainerModel(cursos=cursos_list)
         return self._cached_cursos

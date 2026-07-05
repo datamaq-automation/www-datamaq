@@ -43,9 +43,7 @@ class BrandModel(BaseModel):
 class HeroModel(BaseModel):
     badge: str
     title: str
-    cta: Optional[str] = None
     subtitle: str
-    cta: Optional[str] = None
     responseNote: str
     primaryCta: CtaModel
     secondaryCta: CtaModel
