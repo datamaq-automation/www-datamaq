@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.exceptions import HTTPException
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.dependencies import CachedStaticFiles, templates, get_contenido
+from src.infrastructure.fastapi.dependencies import CachedStaticFiles, templates, get_contenido, data_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.fastapi.middleware import canonical_redirect_middleware, cache_control_middleware
 from src.domain.models import ContenidoModel
@@ -24,8 +24,14 @@ app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="stati
 async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == 404:
         path = request.url.path
-        if exc.detail == "Not Found" and not path.startswith("/static") and not path.startswith("/api"):
-            return RedirectResponse(url="/", status_code=301)
+
+        # No aplicar lógica de redirección a archivos estáticos ni API
+        if not path.startswith("/static") and not path.startswith("/api"):
+            # Redirecciones 301 puntuales para URLs legacy (si están configuradas)
+            redirects = data_service.get_redirects()
+            target = redirects.get(path)
+            if target:
+                return RedirectResponse(url=target, status_code=301)
 
         contenido: ContenidoModel = get_contenido()
         seo: Dict[str, Any] = {

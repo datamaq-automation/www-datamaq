@@ -138,9 +138,9 @@ async def test_404_has_noindex():
         response_unknown = await ac.get("/pagina-que-no-existe")
         response_business = await ac.get("/cursos/curso-que-no-existe")
 
-    assert response_unknown.status_code == 301
-    assert response_unknown.headers["location"] == "/"
-    
+    assert response_unknown.status_code == 404
+    assert "noindex" in response_unknown.text
+
     assert response_business.status_code == 404
     assert "noindex" in response_business.text
 

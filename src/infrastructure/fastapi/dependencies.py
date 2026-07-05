@@ -40,7 +40,8 @@ data_service = DataService(
     geography_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml"),
     industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml"),
     courses_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos"),
-    instructors_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "instructores.yaml")
+    instructors_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "instructores.yaml"),
+    redirects_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "redirects.yaml")
 )
 
 # --- Dependencias de Datos ---
@@ -48,6 +49,7 @@ def get_contenido() -> ContenidoModel: return data_service.get_contenido()
 def get_geografia(): return data_service.get_geografia()
 def get_industrias(): return data_service.get_industrias()
 def get_cursos_service() -> DataService: return data_service
+def get_redirects() -> Dict[str, str]: return data_service.get_redirects()
 def get_chatwoot_token() -> str:
     return config.CHATWOOT_TOKEN or ""
 

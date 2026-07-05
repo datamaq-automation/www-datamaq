@@ -133,9 +133,10 @@ async def test_custom_404_page_rendered():
         response_unknown = await ac.get("/pagina-que-no-existe")
         response_business = await ac.get("/cursos/curso-que-no-existe")
     
-    assert response_unknown.status_code == 301
-    assert response_unknown.headers["location"] == "/"
-    
+    assert response_unknown.status_code == 404
+    assert "text/html" in response_unknown.headers["content-type"]
+    assert "Página no encontrada" in response_unknown.text
+
     assert response_business.status_code == 404
     assert "text/html" in response_business.headers["content-type"]
     assert "Página no encontrada" in response_business.text

@@ -1,20 +1,23 @@
 from typing import Any, Dict, List, Optional, Tuple, Union, cast
 from src.domain.models import ContenidoModel, IndustriaModel, CursosContainerModel, CourseModel, LessonModel, QuizModel, InstructorModel, InstructoresContainerModel
 import yaml # type: ignore
+import os
 
 class DataService:
-    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str):
+    def __init__(self, content_path: str, geography_path: str, industry_path: str, courses_dir: str, instructors_path: str, redirects_path: str = ""):
         self.content_path = content_path
         self.geography_path = geography_path
         self.industry_path = industry_path
         self.courses_dir = courses_dir
         self.instructors_path = instructors_path
-        
+        self.redirects_path = redirects_path
+
         self._cached_contenido: Optional[ContenidoModel] = None
         self._cached_geografia: Optional[Dict[str, Any]] = None
         self._cached_industrias: Optional[IndustriaModel] = None
         self._cached_cursos: Optional[CursosContainerModel] = None
         self._cached_instructores: Optional[Dict[str, InstructorModel]] = None
+        self._cached_redirects: Optional[Dict[str, str]] = None
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
@@ -131,4 +134,15 @@ class DataService:
 
     def get_instructor_por_id(self, instructor_id: str) -> Optional[InstructorModel]:
         return self.get_instructores_dict().get(instructor_id)
+
+    def get_redirects(self) -> Dict[str, str]:
+        if self._cached_redirects is None:
+            self._cached_redirects = {}
+            if self.redirects_path and os.path.exists(self.redirects_path):
+                with open(self.redirects_path, "r", encoding="utf-8") as f:
+                    raw_data: Dict[str, Any] = yaml.safe_load(f) or {}
+                redirects = raw_data.get("redirects") or {}
+                if isinstance(redirects, dict):
+                    self._cached_redirects = {str(k): str(v) for k, v in redirects.items()}
+        return self._cached_redirects
 

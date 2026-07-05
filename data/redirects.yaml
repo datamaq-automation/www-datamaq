@@ -1,0 +1,6 @@
+# Redirecciones 301 para URLs legacy de la SPA anterior o rutas movidas.
+# Formato: clave = path origen, valor = path destino (pueden ser absolutos del sitio).
+# Ejemplo:
+# "/old-spa-path": "/"
+# "/legacy-contact": "/contact"
+redirects: {}
