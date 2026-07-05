@@ -1,0 +1,159 @@
+about:
+  image:
+    alt: "Agustin Bustos, técnico a cargo de la implementación de equipos IoT"
+    height: 933
+    src: "/static/media/tecnico-a-cargo.webp"
+    width: 700
+  paragraphs:
+    - "DataMaq trabaja sobre captura automática de datos operativos, con foco en energía eléctrica, producción y variables críticas de seguimiento."
+    - "El servicio combina relevamiento en campo, implementación técnica, integración inicial y acompañamiento para que los datos capturados puedan usarse con criterio en análisis, seguimiento o capacitación."
+  title: "Sobre DataMaq"
+faq:
+  questions:
+    - answer: "Según el caso, variables eléctricas como kWh, potencia, factor de potencia y distorsión armónica, o variables operativas como kilos, unidades, metros, velocidades y estados."
+      question: "¿Qué tipo de datos se pueden capturar?"
+    - answer: "No. La energía es una de las aplicaciones principales, pero también se pueden implementar soluciones para captura de datos de producción u otras variables operativas relevantes."
+      question: "¿Trabajás solo con energía eléctrica?"
+    - answer: "Sí. Según el proyecto, la solución puede apoyarse en Powermeter para medición eléctrica y en Automate para captura e integración de señales y datos operativos."
+      question: "¿Usás Powermeter y Automate?"
+hero:
+  badge: "Asistencia técnica híbrida: visitas en campo + remota"
+  benefits:
+    - text: "Relevamiento en planta, instalación de equipos IoT y puesta en marcha según el alcance acordado."
+      title: "Visitas técnicas en campo"
+    - text: "Consultoría, diagnóstico y seguimiento a distancia para casos que no requieran presencia física."
+      title: "Asistencia remota"
+    - text: "Capacitaciones técnicas de cortesía orientadas a equipos que trabajan con datos operativos, IoT industrial y Python."
+      title: "Formación complementaria"
+  image:
+    alt: "Captura e integración de datos energéticos y operativos en entorno industrial"
+    height: 700
+    src: "/static/media/hero-energy.svg"
+    width: 900
+  primaryCta:
+    href: "https://wa.me/5491156297160"
+    label: "Escribime por WhatsApp"
+  responseNote: "Base operativa: Garín (GBA Norte). Atención en campo según zona y disponibilidad; también asistencia remota para consultoría y seguimiento."
+  secondaryCta:
+    href: "#servicios"
+    label: "Ver alcance técnico"
+  subtitle: "Brindamos asistencia técnica para monitoreo de energía industrial, captura de datos operativos e IoT industrial. Visitas en campo y consultoría remota, con capacitaciones técnicas de cortesía según el proyecto."
+  title: "Asistencia técnica en monitoreo de energía industrial y datos operativos"
+legal:
+  text: "La información publicada es referencial y puede actualizarse según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación."
+navbar:
+  links:
+    - href: "#servicios"
+      label: "Solución"
+    - href: "#proceso"
+      label: "Proceso"
+    - href: "#tarifas"
+      label: "Alcance"
+    - href: "#cobertura"
+      label: "Cobertura"
+    - href: "#faq"
+      label: "FAQ"
+    - href: "#contacto"
+      label: "Contacto"
+profile:
+  bullets:
+    - "Relevamiento en sitio y criterio de implementación."
+    - "Instalación, integración y puesta en marcha para captura automática de datos."
+    - "Asesoramiento y capacitaciones sobre Python, datos, bases de datos y APIs en contextos reales."
+assistance_modes:
+  on_site:
+    description: "Relevamiento e intervención directa en tu planta, tablero o línea de proceso."
+    icon: "geo-alt-fill"
+    label: "Visitas técnicas en campo"
+  remote:
+    description: "Consultoría, diagnóstico y seguimiento técnico a distancia según el caso."
+    icon: "wifi"
+    label: "Asistencia remota y consultoría"
+services:
+  cards:
+    - description: "Asistencia técnica en planta para relevar, montar, configurar y poner en marcha equipos IoT que midan variables eléctricas y operativas en tableros, líneas o puntos definidos."
+      id: "iot-installation"
+      key_points:
+        - "Medición de kWh, potencia, factor de potencia y distorsión armónica"
+        - "Captura de kilos, unidades, metros, velocidades o estados"
+        - "Integración inicial con Powermate o sistemas de terceros"
+      modality: "on_site"
+      title: "Instalación de equipos IoT en campo"
+    - description: "Asistencia técnica remota para estructurar, interpretar y explotar datos ya capturados, con foco en seguimiento operativo, diagnóstico y criterio de decisión."
+      id: "data-advisory"
+      key_points:
+        - "Análisis de consumo energético y comportamiento operativo"
+        - "Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes"
+        - "Soporte para reportes, dashboards y automatizaciones de seguimiento"
+      modality: "remote"
+      title: "Asesoramiento técnico remoto"
+    - description: "Capacitaciones técnicas de cortesía orientadas a equipos que trabajan con datos operativos, Python, bases de datos, APIs o integraciones sobre casos reales. No son el servicio principal: complementan la asistencia."
+      id: "training"
+      key_points:
+        - "Python aplicado con NumPy, pandas y Matplotlib"
+        - "Buenas prácticas para trabajar con bases de datos y APIs"
+        - "Capacitación adaptada al nivel técnico y al caso real del equipo"
+      modality: "both"
+      title: "Capacitaciones técnicas de cortesía"
+  title: "Servicios técnicos sobre captura, integración y uso de datos"
+contact:
+  title: "Solicitá asistencia técnica híbrida"
+  subtitle: "Contanos tu caso y te proponemos visita en campo o consultoría remota, según la complejidad y tu ubicación. Las capacitaciones técnicas son de cortesía para quienes trabajan con nosotros."
+  cta: "Continuá"
+  alt_email:
+    label: "Contacto alternativo"
+    title: "Escribinos por e-mail"
+    email: "info@datamaq.com.ar"
+  progress_text: "Paso 1 de 3"
+  privacy_note: "Guardamos un borrador temporal de este formulario por hasta 12 horas en este dispositivo."
+  error_message: "Servicio temporalmente no disponible."
+  optional_text: "Opcional"
+  steps:
+    - title: "Identidad"
+      fields:
+        - id: "contacto-nombre"
+          label: "Nombre"
+          autocomplete: "given-name"
+        - id: "contacto-apellido"
+          label: "Apellido"
+          autocomplete: "family-name"
+    - title: "Proyecto"
+      fields:
+        - id: "contacto-modalidad"
+          label: "Modalidad de asistencia preferida"
+          type: "select"
+          options:
+            - value: "campo"
+              label: "Visita técnica en campo"
+            - value: "remoto"
+              label: "Asistencia remota / consultoría"
+            - value: "ambas"
+              label: "Ambas según necesidad"
+        - id: "contacto-comentario"
+          label: "¿En qué consiste tu proyecto o consulta?"
+          type: "textarea"
+    - title: "Contacto"
+      fields:
+        - id: "contacto-email"
+          label: "Email"
+          autocomplete: "email"
+        - id: "contacto-telefono"
+          label: "Teléfono"
+          autocomplete: "tel"
+cookie_banner:
+  title: "¿Te parece si usamos cookies?"
+  text: "Usamos cookies propias y de terceros para mejorar la experiencia, analizar el tráfico y ofrecer comunicación a través de nuestro chat. Podés aceptar, rechazar o leer más en nuestros términos y condiciones."
+  accept_label: "Aceptar"
+  reject_label: "Rechazar"
+  more_info_label: "Ver más"
+  more_info_link: "/terminos-y-condiciones"
+courses:
+  badge: "Capacitaciones técnicas de cortesía"
+  title: "Cursos y capacitaciones técnicas gratuitas"
+  subtitle: "Material técnico complementario para equipos que trabajan con datos operativos, IoT industrial y Python. No son el servicio principal: el foco de DataMaq es la asistencia técnica híbrida en campo y remota."
+  assistance_cta_label: "Necesitás asistencia técnica"
+  assistance_cta_href: "/contact"
+cases:
+  badge: "Casos de aplicación"
+  title: "Casos técnicos de monitoreo e IoT industrial"
+  subtitle: "Experiencias reales de relevamiento, instalación de equipos IoT y uso de datos operativos para mejorar la eficiencia energética en industrias de la zona."

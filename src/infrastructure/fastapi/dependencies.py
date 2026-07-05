@@ -35,16 +35,7 @@ templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
 templates.env.globals = cast(Dict[str, Any], templates.env.globals)  # type: ignore[assignment]
 
 # --- Configuración del Servicio de Datos ---
-data_service = DataService(
-    content_path=config.CONTENT_DATA_PATH,
-    geography_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "geografia.yaml"),
-    industry_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "industrias.yaml"),
-    courses_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "cursos"),
-    instructors_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "instructores.yaml"),
-    redirects_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "redirects.yaml"),
-    landing_content_path=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "landing_content.yaml"),
-    cases_dir=os.path.join(os.path.dirname(config.CONTENT_DATA_PATH), "casos")
-)
+data_service = DataService(data_dir="data")
 
 # --- Dependencias de Datos ---
 def get_contenido() -> ContenidoModel: return data_service.get_contenido()

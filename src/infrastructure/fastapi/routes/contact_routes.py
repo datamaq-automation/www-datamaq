@@ -14,36 +14,39 @@ from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
 from src.application.use_cases.submit_lead import SubmitLeadUseCase
+from src.adapters.presenters.content_presenter import present_contenido
 
 router = APIRouter()
 logger = setup_logger(config.LOGGER_NAME)
 
-
 @router.get("/contact")
 async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
-    contact_data = contenido.content.contact
-    base_seo = contenido.seo.model_dump()
+    presented = present_contenido(contenido)
+    brand_data = presented["brand"]
+    content_data = presented["content"]
+    contact_data = content_data["contact"]
+    
+    base_seo = presented["seo"]
     seo = {
         **base_seo,
-        "title": f"{contact_data.title} | {contenido.brand.brandName}",
-        "description": contact_data.subtitle,
+        "title": f"{contact_data['title']} | {brand_data['brandName']}",
+        "description": contact_data["subtitle"],
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
         "og_image_height": 630,
     }
     context: Dict[str, Any] = {
-        "brand": contenido.brand.model_dump(),
-        "content": contenido.content.model_dump(),
+        "brand": brand_data,
+        "content": content_data,
         "seo": seo,
-        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "footer": presented.get("footer"),
         "chatwoot_token": chatwoot_token,
         "contact_hero": {
-            "title": f"{contact_data.title} con {contenido.brand.brandName}",
-            "subtitle": contact_data.subtitle,
+            "title": f"{contact_data['title']} con {brand_data['brandName']}",
+            "subtitle": contact_data["subtitle"],
         },
     }
     return templates.TemplateResponse(request=request, name="contact.html", context=context)
-
 
 @router.post("/api/v1/contact", status_code=201)
 async def submit_contact(

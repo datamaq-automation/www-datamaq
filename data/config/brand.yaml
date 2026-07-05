@@ -1,0 +1,13 @@
+baseOperativa: "Garín (GBA Norte)"
+brandAriaLabel: "DataMaq, inicio"
+brandName: "DataMaq"
+contactEmail: "info@datamaq.com.ar"
+technician:
+  name: "Agustin Bustos"
+  photo:
+    alt: "Foto de Agustin Bustos, técnico a cargo en DataMaq"
+    height: 100
+    src: "/static/media/tecnico-a-cargo.webp"
+    width: 100
+  role: "Técnico a cargo"
+footerDescription: "Monitoreo de energía y captura de datos operativos para la industria."

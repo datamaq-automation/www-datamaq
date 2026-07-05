@@ -1,0 +1,16 @@
+navigation_groups:
+  - title: "Navegación"
+    links:
+      - label: "Inicio"
+        href: "/"
+      - label: "Casos"
+        href: "/casos"
+      - label: "Cursos"
+        href: "/cursos"
+      - label: "Contacto"
+        href: "/contact"
+cta_title: "¿Tenés dudas técnicas?"
+cta_label: "Contactar"
+terms_label: "Términos y condiciones"
+terms_href: "/terminos-y-condiciones"
+copyright_suffix: "Todos los derechos reservados."
