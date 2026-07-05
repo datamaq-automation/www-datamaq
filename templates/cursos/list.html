@@ -32,7 +32,8 @@
                     <article class="c-curso-card">
                         {% if curso.og_image %}
                             <div class="c-curso-card__media">
-                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async">
+                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async"
+                                     {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
                             </div>
                         {% endif %}
                         <div class="c-curso-card__content">
@@ -50,7 +51,8 @@
                             <div class="c-curso-card__footer">
                                 <div class="c-curso-card__instructor">
                                     <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-link" aria-label="Perfil de {{ curso.instructor.name }}">
-                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo" loading="lazy" decoding="async">
+                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo" loading="lazy" decoding="async"
+                                             {% if curso.instructor.photo_width and curso.instructor.photo_height %}width="{{ curso.instructor.photo_width }}" height="{{ curso.instructor.photo_height }}"{% endif %}>
                                     </a>
                                     <div class="c-curso-card__instructor-info">
                                         <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-name-link">

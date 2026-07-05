@@ -8,6 +8,8 @@ level: "Avanzado"
 language: "Inglés/Español"
 price: 0.0
 og_image: "/static/media/cursos/og-conversation-ai-with-rasa.webp"
+og_image_width: 810
+og_image_height: 1000
 instructor_id: "agustin-bustos"
 sections:
   # --- SECCIÓN A ---

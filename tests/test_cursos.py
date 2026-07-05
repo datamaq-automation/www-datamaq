@@ -207,5 +207,12 @@ async def test_energia_new_lessons_rendered():
         assert "BESS" in response.text
 
 
-
+@pytest.mark.asyncio
+async def test_curso_detail_includes_image_dimensions():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/fastapi-data-science")
+    assert response.status_code == 200
+    assert 'width="1103"' in response.text
+    assert 'height="1360"' in response.text
 

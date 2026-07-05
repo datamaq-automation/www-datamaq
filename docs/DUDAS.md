@@ -98,12 +98,14 @@ Este documento reúne las decisiones estratégicas y de arquitectura que no se i
 
 ---
 
-## Duda de alto nivel: Dimensiones explícitas en imágenes de cursos e instructores
+## ✅ Resuelta — Dimensiones explícitas en imágenes de cursos e instructores
 - **Contexto:** Las tarjetas de curso, la imagen destacada del curso y las fotos de instructores no incluyen atributos `width`/`height`. Aunque tienen `loading` y `decoding`, la ausencia de dimensiones puede contribuir a CLS si el CSS no fija un aspect-ratio estable.
-- **Opciones consideradas:**
-  - **A.** Agregar `width`/`height` al modelo de curso e instructor y propagarlos desde los archivos YAML.
-  - **B.** Resolver dimensiones en tiempo de build/servidor leyendo los metadatos de las imágenes.
-  - **C.** Definir `aspect-ratio` en CSS y no tocar los datos.
-- **Recomendación del agente:** Opción **A** si se conocen las dimensiones reales; opción **C** como solución rápida mientras se completan los datos.
-- **Bloqueo:** No se dispone de las dimensiones reales de cada imagen en los archivos de datos, y agregar valores incorrectos empeoraría CLS.
+- **Decisión tomada:** Combinar la opción **A** con el fallback de **C**: se agregaron `width`/`height` reales en los datos y se mantuvieron los `aspect-ratio` del CSS para imágenes sin dimensiones.
+- **Implementación:**
+  - `src/domain/models.py`: se agregaron `og_image_width`/`og_image_height` en `CourseModel` y `photo_width`/`photo_height` en `InstructorModel`.
+  - `data/instructores.yaml`: se agregaron las dimensiones de `tecnico-a-cargo.webp`.
+  - `data/cursos/*/curso.yaml`: se agregaron las dimensiones reales de cada imagen OG.
+  - `templates/cursos/*.html`: los `<img>` de cursos e instructores ahora incluyen `width` y `height` cuando están disponibles.
+  - `static/css/cursos.css` ya contiene `aspect-ratio` en `.c-curso-card__media` y `.c-curso-detalle-card__img`, y tamaños fijos en las fotos de instructor.
+  - Se agregó `test_curso_detail_includes_image_dimensions` para verificar que los atributos se renderizan.
 - **Impacto SEO estimado:** Bajo-Medio (Core Web Vitals).

@@ -3,6 +3,8 @@ instructores:
     name: "Agustin Bustos"
     role: "Técnico Universitario en Mantenimiento Industrial"
     photo: "/static/media/tecnico-a-cargo.webp"
+    photo_width: 1024
+    photo_height: 1024
     bio: "Especialista en captura automática de datos operativos e integración de sistemas industriales con Python."
     social_links:
       linkedin: "https://www.linkedin.com/in/agustin-bustos"

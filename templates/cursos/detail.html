@@ -44,7 +44,8 @@
             {% if curso.og_image %}
                 <div class="c-curso-header-layout__side">
                     <div class="c-curso-detalle-card">
-                        <img src="{{ curso.og_image }}" alt="{{ curso.title }}" class="c-curso-detalle-card__img" decoding="async">
+                        <img src="{{ curso.og_image }}" alt="{{ curso.title }}" class="c-curso-detalle-card__img" decoding="async"
+                             {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
                         <div class="c-curso-detalle-card__content">
                             {% set first_section = curso.sections | first %}
                             {% if first_section and first_section.chapters %}
@@ -131,7 +132,8 @@
                 <h2 id="instructor-title" class="c-curso-section__title">Instructor del Curso</h2>
                 <div class="c-instructor-perfil">
                     <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-instructor-perfil__photo-link" aria-label="Perfil de {{ curso.instructor.name }}">
-                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async">
+                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async"
+                             {% if curso.instructor.photo_width and curso.instructor.photo_height %}width="{{ curso.instructor.photo_width }}" height="{{ curso.instructor.photo_height }}"{% endif %}>
                     </a>
                     <div class="c-instructor-perfil__info">
                         <h3 class="c-instructor-perfil__name">

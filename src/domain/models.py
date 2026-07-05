@@ -250,6 +250,8 @@ class InstructorModel(BaseModel):
     name: str
     role: str
     photo: str
+    photo_width: Optional[int] = None
+    photo_height: Optional[int] = None
     bio: str
     social_links: Optional[InstructorSocialLinksModel] = None
 
@@ -306,6 +308,8 @@ class CourseModel(BaseModel):
     language: str = "Español"
     price: float = 0.0
     og_image: Optional[str] = None
+    og_image_width: Optional[int] = None
+    og_image_height: Optional[int] = None
     instructor: InstructorModel
     sections: List[CourseSectionModel]
 

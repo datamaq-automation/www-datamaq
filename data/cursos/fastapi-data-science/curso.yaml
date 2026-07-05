@@ -7,6 +7,8 @@ duration: "45 horas de cursada"
 level: "Avanzado"
 price: 0.0
 og_image: "/static/media/cursos/og-fastapi-data-science.webp"
+og_image_width: 1103
+og_image_height: 1360
 instructor_id: "agustin-bustos"
 sections:
   # --- SECCIÓN A ---

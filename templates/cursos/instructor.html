@@ -36,7 +36,8 @@
                 <i class="bi bi-gift"></i> {{ courses.badge }} — <a href="{{ courses.assistance_cta_href }}">{{ courses.assistance_cta_label }}</a>
             </p>
             <div class="c-instructor-perfil">
-                <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async">
+                <img src="{{ instructor.photo }}" alt="{{ instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async"
+                     {% if instructor.photo_width and instructor.photo_height %}width="{{ instructor.photo_width }}" height="{{ instructor.photo_height }}"{% endif %}>
                 <div class="c-instructor-perfil__info">
                     <p class="c-instructor-perfil__name">{{ instructor.name }}</p>
                     <p class="c-instructor-perfil__role">{{ instructor.role }}</p>
@@ -78,7 +79,8 @@
                         <article class="c-curso-card">
                             {% if curso.og_image %}
                                 <div class="c-curso-card__media">
-                                    <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy">
+                                    <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async"
+                                         {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
                                 </div>
                             {% endif %}
                             <div class="c-curso-card__content">
