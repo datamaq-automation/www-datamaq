@@ -7,9 +7,9 @@ from src.infrastructure.settings import config
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_chatwoot_token, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel
+from src.adapters.presenters.content_presenter import present_contenido
 
 router = APIRouter()
-
 
 def _content_lastmod() -> str:
     """
@@ -32,7 +32,6 @@ def _content_lastmod() -> str:
 @router.get("/robots.txt")
 async def robots():
     return FileResponse(config.ROBOTS_TXT_PATH)
-
 
 @router.get("/humans.txt")
 async def humans():
@@ -109,11 +108,12 @@ async def sitemap(
 
 @router.get("/dev/preview/{partial_name:path}")
 async def preview(request: Request, partial_name: str, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+    presented = present_contenido(contenido)
     context: Dict[str, Any] = {
-        "brand": contenido.brand.model_dump(),
-        "content": contenido.content.model_dump(),
-        "seo": contenido.seo.model_dump(),
-        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "brand": presented["brand"],
+        "content": presented["content"],
+        "seo": presented["seo"],
+        "footer": presented.get("footer"),
         "chatwoot_token": chatwoot_token,
         "partial_name": partial_name
     }
@@ -123,7 +123,8 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
 
 @router.get("/")
 async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
-    base_seo = contenido.seo.model_dump()
+    presented = present_contenido(contenido)
+    base_seo = presented["seo"]
     seo = {
         **base_seo,
         "canonical_url": canonical_url(request.url),
@@ -131,32 +132,33 @@ async def root(request: Request, contenido: ContenidoModel = Depends(get_conteni
         "og_image_height": 630,
     }
     context: Dict[str, Any] = {
-        "brand": contenido.brand.model_dump(),
-        "content": contenido.content.model_dump(),
+        "brand": presented["brand"],
+        "content": presented["content"],
         "seo": seo,
-        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "footer": presented.get("footer"),
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
 
 @router.get("/terminos-y-condiciones")
 async def terms(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
-    base_seo = contenido.seo.model_dump()
+    presented = present_contenido(contenido)
+    base_seo = presented["seo"]
     seo = {
         **base_seo,
-        "title": f"{contenido.legal_pages.terms.title} | {contenido.brand.brandName}",
-        "description": f"Términos y condiciones de uso del sitio web de {contenido.brand.brandName}.",
+        "title": f"{presented['legal_pages']['terms']['title']} | {presented['brand']['brandName']}",
+        "description": f"Términos y condiciones de uso del sitio web de {presented['brand']['brandName']}.",
         "canonical_url": canonical_url(request.url),
         "og_image_width": 1200,
         "og_image_height": 630,
     }
     context: Dict[str, Any] = {
-        "brand": contenido.brand.model_dump(),
-        "content": contenido.content.model_dump(),
-        "terms": contenido.legal_pages.terms.model_dump(),
-        "cookie_banner": contenido.content.cookie_banner.model_dump(),
+        "brand": presented["brand"],
+        "content": presented["content"],
+        "terms": presented["legal_pages"]["terms"],
+        "cookie_banner": presented["content"]["cookie_banner"],
         "seo": seo,
-        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "footer": presented.get("footer"),
         "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="terms.html", context=context)

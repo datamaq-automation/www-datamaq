@@ -3,6 +3,7 @@ from fastapi import APIRouter, Request, HTTPException, Depends
 from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_industrias, get_chatwoot_token, get_landing_content
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel
+from src.adapters.presenters.content_presenter import present_contenido
 
 router = APIRouter()
 
@@ -14,9 +15,10 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
     if not nombre_industria:
         raise HTTPException(status_code=404, detail="Industria no encontrada")
 
-    brand_data = contenido.brand.model_dump()
-    servicios_data = [s.model_dump() for s in contenido.content.services.cards]
-    industria_formateada = industria.replace("-", " ").title()
+    presented = present_contenido(contenido)
+    brand_data = presented["brand"]
+    content_data = presented["content"]
+    servicios_data = content_data["services"]["cards"]
 
     industria_content = landing_content.industrias.get(industria)
 
@@ -24,8 +26,8 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
         "title": f"Asistencia técnica para {nombre_industria} | DataMaq",
         "description": f"Asistencia técnica híbrida para la {nombre_industria}: visitas en campo, consultoría remota y capacitaciones de cortesía sobre monitoreo de energía e IoT industrial.",
         "canonical_url": canonical_url(request.url),
-        "site_name": contenido.brand.brandName,
-        "og_image": contenido.seo.og_image,
+        "site_name": brand_data["brandName"],
+        "og_image": presented["seo"]["og_image"],
         "og_image_width": 1200,
         "og_image_height": 630,
     }
@@ -35,13 +37,13 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
 
     context: Dict[str, Any] = {
         "brand": brand_data,
-        "content": contenido.content.model_dump(),
+        "content": content_data,
         "servicios": servicios_data,
-        "faq": contenido.content.faq.questions,
+        "faq": content_data["faq"]["questions"],
         "chatwoot_token": chatwoot_token,
         "industria_nombre": nombre_industria,
         "seo": seo,
-        "footer": contenido.footer.model_dump() if contenido.footer else None,
+        "footer": presented.get("footer"),
         "hero_title": hero_title,
         "hero_subtitle": hero_subtitle,
         "landing_industria": industria_content.model_dump() if industria_content else None,
