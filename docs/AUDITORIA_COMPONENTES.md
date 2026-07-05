@@ -35,6 +35,12 @@ Para garantizar un producto premium, cada componente auditado y refinado en el r
 * **Touch Targets accesibles (WCAG 2.5.5 / WCAG 2.2):**
   * Todos los controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) deben poseer un área táctil física de al menos **`44×44 px`**. Esto se logra con `display: inline-flex` o `display: flex`, `align-items: center`, `justify-content: center` y `min-height: 2.75rem` (44 px), sin necesidad de aumentar el tamaño de fuente visual.
   * Se ignoran del reporte los controles con `pointer-events: none`, `display: none` o `visibility: hidden`, ya que no son interactivos.
+* **Contraste de color (WCAG 1.4.3 / WCAG 2.1 AA):**
+  * Todo texto debe alcanzar una relación de contraste mínima de **4.5:1** frente a su fondo (3:1 para texto grande).
+  * El script utiliza **axe-core** para evaluar el DOM completo bajo la regla `color-contrast` y reporta violaciones con el ratio detectado.
+* **Foco visible (WCAG 2.4.7):**
+  * Todo control interactivo debe contar con estilos explícitos para `:focus` o `:focus-visible`, garantizando que usuarios de teclado y asistencias puedan percibir el elemento activo.
+  * El script inspecciona `document.styleSheets` y verifica que exista al menos una regla que aplique al control.
 * **Matriz de viewports:** Toda auditoría se ejecuta como mínimo en `320×568`, `375×667` y `768×1024` para cubrir móvil pequeño, móvil estándar y tablet vertical.
 * **Visualización de Marca:** La información de contacto directo (Mail, Dirección) no debe ocultarse en mobile bajo directivas de simplificación, ya que es el motor de conversión directa de leads para la empresa.
 
@@ -89,10 +95,11 @@ python3 scripts/audit_components.py --base-url http://127.0.0.1:5000
 python3 scripts/audit_components.py --skip-chrome
 ```
 
-### 4.2. Auditoría responsive y de usabilidad táctil con Playwright
+### 4.2. Auditoría responsive, táctil y de accesibilidad con Playwright
 
 * **Archivo:** [scripts/audit_responsive.py](file:///home/agustin/proyectos_software/www-datamaq/scripts/audit_responsive.py)
-* **Dependencias:** [requirements-dev.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements-dev.txt)
+* **Dependencias Python:** [requirements-dev.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements-dev.txt)
+* **Dependencias Node:** `axe-core` (instalado en `node_modules/axe-core/axe.min.js`)
 
 **Qué hace:**
 1. Abre cada preview en un navegador Chromium headless con cada viewport configurado.
@@ -100,13 +107,16 @@ python3 scripts/audit_components.py --skip-chrome
 3. Detecta elementos con desbordamiento horizontal no intencional (ignora contenedores con `overflow-x: auto/scroll` y sus hijos).
 4. Detecta controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) menores a **44×44 px**.
 5. Ignora controles no interactivos (`pointer-events: none`, `display: none`, `visibility: hidden`).
-6. Reporta la altura del footer cuando el componente la incluye.
+6. Ejecuta **axe-core** con la regla `color-contrast` para detectar textos sin contraste WCAG AA.
+7. Verifica que cada control interactivo tenga estilos definidos para `:focus` o `:focus-visible`.
+8. Reporta la altura del footer cuando el componente la incluye.
 
 **Instalación:**
 ```bash
 source venv/bin/activate
 pip install -r requirements-dev.txt
 playwright install chromium
+npm install --save-dev axe-core
 ```
 
 **Uso:**
@@ -147,7 +157,15 @@ Al subir el estándar a **44×44 px** y auditar `320×568`, `375×667` y `768×1
   * Dock: scroll horizontal controlado para 6 ítems.
 * `scripts/audit_responsive.py`: se agregó filtrado de controles con `pointer-events: none` para evitar falsos positivos en summaries de desktop.
 
-Tras las correcciones, la auditoría reporta **0 desbordamientos**, **0 controles menores a 44×44 px** y **0 componentes con fallas** en los 13 componentes y 3 viewports.
+Tras las correcciones, la auditoría reporta **0 desbordamientos**, **0 controles menores a 44×44 px**, **0 problemas de contraste** y **0 problemas de foco** en los 13 componentes y 3 viewports.
+
+#### Tercera corrida: contraste de color y foco visible
+Se incorporaron dos nuevos chequeos de accesibilidad en `scripts/audit_responsive.py`:
+
+* **Contraste:** se carga `axe-core` desde `node_modules` y se ejecuta la regla `color-contrast` contra el `document.body` de cada preview.
+* **Foco visible:** se recorren `document.styleSheets` para detectar reglas que contengan `:focus` o `:focus-visible` y se verifica que apliquen a cada control interactivo.
+
+Resultado: **0 violaciones de contraste** y **0 controles sin estilo de foco** en todos los componentes auditados.
 
 ---
 
