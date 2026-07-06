@@ -145,6 +145,50 @@ python3 scripts/audit_responsive.py --base-url http://127.0.0.1:5000
 python3 scripts/audit_responsive.py --a11y-warnings
 ```
 
+### 4.3. Auditoría SEO e imágenes con Playwright
+
+* **Archivo:** [scripts/audit_seo.py](file:///home/agustin/proyectos_software/www-datamaq/scripts/audit_seo.py)
+* **Dependencias Python:** [requirements-dev.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements-dev.txt)
+
+**Qué hace:**
+1. Abre las rutas reales del sitio (`/`, `/contact`, `/cursos`, `/casos`, `/terminos-y-condiciones`) en un navegador Chromium headless.
+2. Valida tags HTML y meta tags esenciales:
+   * Atributo `lang` en `<html>`.
+   * `<title>` no vacío.
+   * `<meta name="description">` no vacío.
+   * `<link rel="canonical">` con `href` no vacío.
+   * Tags Open Graph: `og:title`, `og:description`, `og:image`.
+3. Verifica estructura de encabezados: exactamente un `<h1>` y sin saltos inválidos en la jerarquía.
+4. Verifica imágenes:
+   * Atributo `alt` presente (o marcada como decorativa con `aria-hidden="true"` / `role="presentation"`).
+   * Atributos `width` y `height` explícitos para prevenir CLS.
+
+**Modo de impacto (`--seo-warnings`):**
+* Por defecto, los hallazgos SEO e imágenes **fallan** la auditoría.
+* Con `--seo-warnings` los hallazgos se imprimen como advertencias sin contar como fallas.
+
+**Instalación:**
+```bash
+source venv/bin/activate
+pip install -r requirements-dev.txt
+playwright install chromium
+```
+
+**Uso:**
+```bash
+# Con el servidor de desarrollo corriendo
+python3 scripts/audit_seo.py
+
+# Otra URL base
+python3 scripts/audit_seo.py --base-url http://127.0.0.1:5000
+
+# Modo impacto: reporta hallazgos sin fallar
+python3 scripts/audit_seo.py --seo-warnings
+
+# Rutas personalizadas
+python3 scripts/audit_seo.py --routes / /contact /cursos
+```
+
 ### Hallazgos y correcciones recientes
 
 #### Primera corrida con umbral 32 px
@@ -204,29 +248,32 @@ Resultado: la auditoría mantiene **0 fallas** en todos los componentes y viewpo
 
 ## 5. Hook de Pre-push
 
-La auditoría responsive está integrada en el hook `scripts/pre-push.sh`. Cada vez que un desarrollador intenta hacer `git push`, el script:
+La auditoría responsive, de accesibilidad, SEO e imágenes está integrada en el hook `scripts/pre-push.sh`. Cada vez que un desarrollador intenta hacer `git push`, el script:
 
 1. Compila y valida `static/css/index.css`.
 2. Valida los esquemas YAML de contenido.
 3. Ejecuta la suite de tests con cobertura mínima del 85%.
-4. **Levanta un servidor temporal de uvicorn, ejecuta `scripts/audit_responsive.py` y lo detiene.**
-5. Aborta el push si cualquiera de los pasos anteriores falla.
+4. **Levanta un servidor temporal de uvicorn** y ejecuta:
+   * `scripts/audit_responsive.py` (layout, usabilidad táctil, contraste, foco y accesibilidad con axe-core).
+   * `scripts/audit_seo.py` (meta tags, encabezados e imágenes).
+5. **Detiene el servidor temporal.**
+6. Aborta el push si cualquiera de los pasos anteriores falla.
 
-Si Playwright o **axe-core** no están instalados, el script muestra una advertencia y continúa sin la auditoría responsive, pero no bloquea el push.
+Si Playwright o **axe-core** no están instalados, el script muestra una advertencia y continúa sin las auditorías correspondientes, pero no bloquea el push.
 
 ### Optimización: omisión condicional por tipo de cambio
 
-Para no penalizar pushes que no afectan el frontend, el hook analiza los archivos que se están por pushear y **omite la auditoría responsive** si **todos** los cambios pertenecen a rutas de exclusión:
+Para no penalizar pushes que no afectan el frontend, el hook analiza los archivos que se están por pushear y **omite las auditorías responsive y SEO** si **todos** los cambios pertenecen a rutas de exclusión:
 
 * Archivos `.sh`
-* `scripts/*` (excepto `scripts/audit_responsive.py` y `scripts/audit_components.py`)
+* `scripts/*` (excepto `scripts/audit_responsive.py`, `scripts/audit_seo.py` y `scripts/audit_components.py`)
 * `tests/*`
 * `.github/*`
 * `.agents/*`
 * `docs/*`
 * `README.md`, `README`, `AGENTS.md`
 
-Si hay un solo cambio en `templates/`, `static/css/`, `static/js/`, `data/content/`, `src/` o cualquier otro archivo potencialmente relacionado con el frontend, la auditoría responsive se ejecuta normalmente.
+Si hay un solo cambio en `templates/`, `static/css/`, `static/js/`, `data/content/`, `src/` o cualquier otro archivo potencialmente relacionado con el frontend, las auditorías se ejecutan normalmente.
 
 ### Instalación del hook
 

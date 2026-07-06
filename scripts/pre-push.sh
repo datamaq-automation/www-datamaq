@@ -36,7 +36,7 @@ should_skip_responsive_audit() {
         [ -z "$file" ] && continue
 
         # Cambios en los scripts de auditoría sí deben ejecutar la auditoría.
-        if [[ "$file" == scripts/audit_responsive.py ]] || [[ "$file" == scripts/audit_components.py ]]; then
+        if [[ "$file" == scripts/audit_responsive.py ]] || [[ "$file" == scripts/audit_seo.py ]] || [[ "$file" == scripts/audit_components.py ]]; then
             skip=false
             break
         fi
@@ -197,6 +197,14 @@ fi
 $PYTHON scripts/audit_responsive.py --base-url http://127.0.0.1:$PORT
 audit_status=$?
 
+# Ejecutar la auditoría SEO e imágenes (solo si la responsive pasó)
+seo_status=0
+if [ $audit_status -eq 0 ]; then
+    echo "==> Verificando auditoría SEO e imágenes..."
+    $PYTHON scripts/audit_seo.py --base-url http://127.0.0.1:$PORT
+    seo_status=$?
+fi
+
 # Detener el servidor temporal
 if [ ! -z "$SERVER_PID" ]; then
     kill $SERVER_PID 2>/dev/null || true
@@ -206,11 +214,17 @@ fi
 end_time=$(date +%s)
 duration=$((end_time - start_time))
 
-if [ $audit_status -eq 0 ]; then
-    echo "✅ Auditoría responsive superada en ${duration}s. Continuando con el push."
-    exit 0
-else
+if [ $audit_status -ne 0 ]; then
     echo "❌ La auditoría responsive falló tras ${duration}s. Abortando push."
     echo "👉 Corré manualmente 'source venv/bin/activate && python scripts/audit_responsive.py' para ver el detalle."
     exit 1
 fi
+
+if [ $seo_status -ne 0 ]; then
+    echo "❌ La auditoría SEO e imágenes falló tras ${duration}s. Abortando push."
+    echo "👉 Corré manualmente 'source venv/bin/activate && python scripts/audit_seo.py' para ver el detalle."
+    exit 1
+fi
+
+echo "✅ Auditoría responsive, SEO e imágenes superadas en ${duration}s. Continuando con el push."
+exit 0
