@@ -107,9 +107,19 @@ python3 scripts/audit_components.py --skip-chrome
 3. Detecta elementos con desbordamiento horizontal no intencional (ignora contenedores con `overflow-x: auto/scroll` y sus hijos).
 4. Detecta controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) menores a **44×44 px**.
 5. Ignora controles no interactivos (`pointer-events: none`, `display: none`, `visibility: hidden`).
-6. Ejecuta **axe-core** con la regla `color-contrast` para detectar textos sin contraste WCAG AA.
+6. Ejecuta **axe-core** con una allowlist curada de reglas de accesibilidad:
+   * `color-contrast` (WCAG AA).
+   * Nombres accesibles: `button-name`, `input-button-name`, `link-name`, `image-alt`, `label`.
+   * Estructura: `heading-order`, `landmark-one-main`.
+   * ARIA: `aria-required-attr`, `aria-required-children`, `aria-roles`.
+   * Identificadores: `duplicate-id`.
+   * La regla `region` se excluye deliberadamente porque los previews aislados de componentes no tienen landmarks de página completos.
 7. Verifica que cada control interactivo tenga estilos definidos para `:focus` o `:focus-visible`.
 8. Reporta la altura del footer cuando el componente la incluye.
+
+**Modo de impacto (`--a11y-warnings`):**
+* Por defecto, los hallazgos de accesibilidad adicionales de axe-core **fallan** la auditoría.
+* Con `--a11y-warnings` los hallazgos se imprimen como advertencias sin contar como fallas, útil para evaluar el impacto antes de activar el modo estricto.
 
 **Instalación:**
 ```bash
@@ -129,6 +139,9 @@ python3 scripts/audit_responsive.py --viewports 320x568,390x844,768x1024
 
 # Otra URL base
 python3 scripts/audit_responsive.py --base-url http://127.0.0.1:5000
+
+# Modo impacto: reporta hallazgos de accesibilidad adicionales sin fallar
+python3 scripts/audit_responsive.py --a11y-warnings
 ```
 
 ### Hallazgos y correcciones recientes
@@ -166,6 +179,15 @@ Se incorporaron dos nuevos chequeos de accesibilidad en `scripts/audit_responsiv
 * **Foco visible:** se recorren `document.styleSheets` para detectar reglas que contengan `:focus` o `:focus-visible` y se verifica que apliquen a cada control interactivo.
 
 Resultado: **0 violaciones de contraste** y **0 controles sin estilo de foco** en todos los componentes auditados.
+
+#### Cuarta corrida: allowlist ampliada de accesibilidad
+Se expandió el uso de `axe-core` a un subset curado de reglas de accesibilidad (`button-name`, `input-button-name`, `link-name`, `image-alt`, `label`, `heading-order`, `landmark-one-main`, `aria-required-attr`, `aria-required-children`, `aria-roles`, `duplicate-id`).
+
+* Se agregó el flag `--a11y-warnings` para evaluar el impacto sin bloquear el pipeline.
+* La primera corrida con allowlist reportó **24 warnings** de la regla `region`, todos provenientes de previews aislados donde no existen landmarks de página completos.
+* Se decidió **excluir `region` de la allowlist** porque no refleja un problema real en producción; en las páginas completas los componentes viven dentro de `<main>` y secciones con títulos.
+
+Tras el ajuste, la auditoría en modo estricto reporta **0 desbordamientos**, **0 controles menores a 44×44 px**, **0 problemas de contraste**, **0 problemas de foco** y **0 hallazgos adicionales de accesibilidad** en los 13 componentes y 3 viewports.
 
 ---
 

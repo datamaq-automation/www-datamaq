@@ -22,6 +22,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -41,6 +42,24 @@ DEFAULT_VIEWPORTS: List[Tuple[int, int]] = [
     (768, 1024),
 ]
 
+# Reglas de axe-core que se ejecutan además de color-contrast.
+# Se mantiene una allowlist curada para evitar ruido de reglas poco relevantes.
+# Nota: "region" se omite porque los previews aislados de componentes no cuentan
+# con landmarks de página completos; la regla no refleja un problema real.
+AXE_RULES: List[str] = [
+    "button-name",
+    "input-button-name",
+    "link-name",
+    "image-alt",
+    "label",
+    "heading-order",
+    "landmark-one-main",
+    "aria-required-attr",
+    "aria-required-children",
+    "aria-roles",
+    "duplicate-id",
+]
+
 AXE_CORE_PATH = Path(__file__).resolve().parent.parent / "node_modules" / "axe-core" / "axe.min.js"
 
 
@@ -53,6 +72,7 @@ class ViewportResult:
     small_controls: List[Dict[str, Any]] = cast(List[Dict[str, Any]], field(default_factory=list))
     contrast_issues: List[Dict[str, Any]] = cast(List[Dict[str, Any]], field(default_factory=list))
     focus_issues: List[Dict[str, Any]] = cast(List[Dict[str, Any]], field(default_factory=list))
+    a11y_issues: List[Dict[str, Any]] = cast(List[Dict[str, Any]], field(default_factory=list))
     footer_present: bool = False
     footer_height: Optional[int] = None
 
@@ -62,6 +82,7 @@ class ComponentResult:
     component: str
     url: str
     viewport_results: List[ViewportResult] = cast(List[ViewportResult], field(default_factory=list))
+    a11y_warnings_only: bool = False
 
     @property
     def has_failures(self) -> bool:
@@ -71,6 +92,7 @@ class ComponentResult:
             or r.small_controls
             or r.contrast_issues
             or r.focus_issues
+            or (not self.a11y_warnings_only and r.a11y_issues)
             for r in self.viewport_results
         )
 
@@ -167,12 +189,14 @@ def audit_viewport(url: str, viewport_width: int, viewport_height: int) -> Viewp
                 }});
 
                 // -----------------------------------------------------------------
-                // Contraste de color con axe-core
+                // Accesibilidad con axe-core (contraste + allowlist curada)
                 // -----------------------------------------------------------------
+                const axeRules = ['color-contrast', ...{json.dumps(AXE_RULES)}];
+
                 let axeResult;
                 try {{
                     axeResult = await axe.run(document.body, {{
-                        runOnly: {{ type: 'rule', values: ['color-contrast'] }},
+                        runOnly: {{ type: 'rule', values: axeRules }},
                         resultTypes: ['violations']
                     }});
                 }} catch (e) {{
@@ -180,14 +204,21 @@ def audit_viewport(url: str, viewport_width: int, viewport_height: int) -> Viewp
                 }}
 
                 const contrastIssues = [];
+                const a11yIssues = [];
                 for (const violation of axeResult.violations) {{
                     for (const node of violation.nodes) {{
-                        contrastIssues.push({{
+                        const issue = {{
+                            rule: violation.id,
                             target: node.target.join(' > '),
                             html: node.html.substring(0, 80),
-                            message: node.failureSummary ? node.failureSummary.split('\\n')[0] : violation.help,
-                            contrast: node.contrastRatio ? Math.round(node.contrastRatio * 100) / 100 : null
-                        }});
+                            message: node.failureSummary ? node.failureSummary.split('\\n')[0] : violation.help
+                        }};
+                        if (violation.id === 'color-contrast') {{
+                            issue.contrast = node.contrastRatio ? Math.round(node.contrastRatio * 100) / 100 : null;
+                            contrastIssues.push(issue);
+                        }} else {{
+                            a11yIssues.push(issue);
+                        }}
                     }}
                 }}
 
@@ -240,6 +271,7 @@ def audit_viewport(url: str, viewport_width: int, viewport_height: int) -> Viewp
                     overflows,
                     smallControls,
                     contrastIssues,
+                    a11yIssues,
                     focusIssues,
                     footerPresent: !!footer,
                     footerHeight: footerRect ? Math.round(footerRect.height) : null
@@ -256,16 +288,22 @@ def audit_viewport(url: str, viewport_width: int, viewport_height: int) -> Viewp
             overflows=data["overflows"],
             small_controls=data["smallControls"],
             contrast_issues=data["contrastIssues"],
+            a11y_issues=data["a11yIssues"],
             focus_issues=data["focusIssues"],
             footer_present=data["footerPresent"],
             footer_height=data["footerHeight"],
         )
 
 
-def audit_component(base_url: str, component: str, viewports: List[Tuple[int, int]]) -> ComponentResult:
+def audit_component(
+    base_url: str,
+    component: str,
+    viewports: List[Tuple[int, int]],
+    a11y_warnings_only: bool = False,
+) -> ComponentResult:
     """Audita un componente en todos los viewports indicados."""
     url = f"{base_url.rstrip('/')}/dev/preview/{component}"
-    result = ComponentResult(component=component, url=url)
+    result = ComponentResult(component=component, url=url, a11y_warnings_only=a11y_warnings_only)
     for width, height in viewports:
         result.viewport_results.append(audit_viewport(url, width, height))
     return result
@@ -280,6 +318,11 @@ def main() -> int:
         default=DEFAULT_VIEWPORTS,
         help="Lista de viewports en formato WIDTHxHEIGHT separados por coma (default: 320x568,375x667,768x1024)",
     )
+    parser.add_argument(
+        "--a11y-warnings",
+        action="store_true",
+        help="Reporta los hallazgos de accesibilidad adicionales sin contarlos como fallas (modo impacto)",
+    )
     args = parser.parse_args()
 
     components = list_previewable_components()
@@ -291,20 +334,22 @@ def main() -> int:
 
     print("=" * 70)
     print("Auditoría responsive, táctil y accesibilidad con Playwright")
-    print(f"Touch target: {TOUCH_TARGET_SIZE}×{TOUCH_TARGET_SIZE}px | axe-core | Viewports: {len(viewports)}")
+    mode_label = "modo estricto" if not args.a11y_warnings else "modo impacto (a11y como warning)"
+    print(f"Touch target: {TOUCH_TARGET_SIZE}×{TOUCH_TARGET_SIZE}px | axe-core ({mode_label}) | Viewports: {len(viewports)}")
     print("=" * 70)
 
     total_overflows = 0
     total_small_controls = 0
     total_contrast_issues = 0
     total_focus_issues = 0
+    total_a11y_issues = 0
     component_failures = 0
     all_results: List[ComponentResult] = []
 
     for component in components:
         print(f"\n🔍 {component}")
         try:
-            result = audit_component(args.base_url, component, viewports)
+            result = audit_component(args.base_url, component, viewports, a11y_warnings_only=args.a11y_warnings)
         except Exception as exc:  # noqa: BLE001
             print(f"   ❌ Error al auditar {component}: {exc}")
             component_failures += 1
@@ -353,6 +398,15 @@ def main() -> int:
             else:
                 print("   ✅ Estilos de foco definidos en controles interactivos")
 
+            if vr.a11y_issues:
+                total_a11y_issues += len(vr.a11y_issues)
+                label = "⚠️ Hallazgos de accesibilidad adicionales" if args.a11y_warnings else "❌ Problemas de accesibilidad adicionales"
+                print(f"   {label} ({len(vr.a11y_issues)}):")
+                for issue in vr.a11y_issues:
+                    print(f"      - [{issue['rule']}] {issue['target']}")
+            else:
+                print("   ✅ Sin hallazgos adicionales de accesibilidad")
+
         if result.has_failures:
             component_failures += 1
             print(f"   ❌ {component} tiene fallas")
@@ -365,6 +419,8 @@ def main() -> int:
     print(f"   Controles pequeños totales: {total_small_controls}")
     print(f"   Problemas de contraste: {total_contrast_issues}")
     print(f"   Problemas de foco: {total_focus_issues}")
+    a11y_label = "Hallazgos de accesibilidad adicionales (warnings)" if args.a11y_warnings else "Problemas de accesibilidad adicionales"
+    print(f"   {a11y_label}: {total_a11y_issues}")
     print(f"   Componentes con fallas: {component_failures}")
 
     if component_failures == 0:
