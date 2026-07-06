@@ -67,7 +67,7 @@
 }
 
 .c-cookie-banner__button {
-    min-height: 2.75rem;
+    min-height: 3rem;
     padding: 0.6rem 1.25rem;
     border-radius: var(--dm-radius-1);
     border: 1px solid transparent;

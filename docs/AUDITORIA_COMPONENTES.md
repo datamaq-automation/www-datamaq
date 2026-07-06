@@ -34,6 +34,7 @@ Para garantizar un producto premium, cada componente auditado y refinado en el r
 * **Sin desbordamiento horizontal:** El scroll horizontal del cuerpo del documento (`document.body.scrollWidth`) debe ser idéntico al ancho del viewport (`window.innerWidth`) en cualquier resolución móvil (típicamente `320px` a `480px`) y tablet vertical (hasta `768px`). Los contenedores con `overflow-x: auto` o `overflow-x: scroll` intencionales (p. ej., trust-chips del Hero o el dock con muchos ítems) se excluyen del reporte.
 * **Touch Targets accesibles (WCAG 2.5.5 / WCAG 2.2):**
   * Todos los controles interactivos (`<a>`, `<button>`, `<input>`, `<select>`, `<textarea>`, `<summary>`) deben poseer un área táctil física de al menos **`44×44 px`**. Esto se logra con `display: inline-flex` o `display: flex`, `align-items: center`, `justify-content: center` y `min-height: 2.75rem` (44 px), sin necesidad de aumentar el tamaño de fuente visual.
+  * **CTAs principales a 48×48 px:** Los controles de alta conversión (botón primario `tw:btn-primary`, outline `tw:btn-outline`, CTA del header, icono de contacto móvil del header y botones del banner de cookies) se elevan a **`48×48 px`** (`min-height: 3rem` / `width: 3rem; height: 3rem`), alineándose con el estándar más conservador de Material Design para acciones críticas.
   * Se ignoran del reporte los controles con `pointer-events: none`, `display: none` o `visibility: hidden`, ya que no son interactivos.
 * **Contraste de color (WCAG 1.4.3 / WCAG 2.1 AA):**
   * Todo texto debe alcanzar una relación de contraste mínima de **4.5:1** frente a su fondo (3:1 para texto grande).
@@ -188,6 +189,16 @@ Se expandió el uso de `axe-core` a un subset curado de reglas de accesibilidad 
 * Se decidió **excluir `region` de la allowlist** porque no refleja un problema real en producción; en las páginas completas los componentes viven dentro de `<main>` y secciones con títulos.
 
 Tras el ajuste, la auditoría en modo estricto reporta **0 desbordamientos**, **0 controles menores a 44×44 px**, **0 problemas de contraste**, **0 problemas de foco** y **0 hallazgos adicionales de accesibilidad** en los 13 componentes y 3 viewports.
+
+#### Quinta corrida: CTAs principales a 48×48 px
+Se elevó selectivamente el área táctil de los controles de alta conversión para superar el estándar base de 44×44 px:
+
+* `.tw:btn-primary` y `.tw:btn-outline` en `static/css/src/input.css`: `min-height: 3rem` (48 px).
+* Header: icono de contacto móvil y CTA desktop en `static/css/HomePage.css` a `3rem`.
+* Cookie banner: botones de acción en `static/css/CookieBanner.css` a `min-height: 3rem`.
+* Componentes como Hero, Profile, Contact Form y Service Card ya superaban los 48 px con sus estilos existentes (`3.2rem` / `3.3rem`).
+
+Resultado: la auditoría mantiene **0 fallas** en todos los componentes y viewports, con CTAs principales en el rango óptimo de 48×48 px.
 
 ---
 

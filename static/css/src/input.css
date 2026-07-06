@@ -284,6 +284,7 @@ img {
         border-radius: var(--tw-radius-xl);
         padding-inline: calc(var(--tw-spacing) * 6);
         padding-block: calc(var(--tw-spacing) * 3);
+        min-height: 3rem;
         --tw-font-weight: var(--tw-font-weight-medium);
         font-weight: var(--tw-font-weight-medium);
         transition-property: all;
@@ -317,6 +318,7 @@ img {
         color: var(--color-dm-text-0);
         border-radius: .75rem;
         padding: .75rem 1.5rem;
+        min-height: 3rem;
         transition: all .3s;
     }
 
