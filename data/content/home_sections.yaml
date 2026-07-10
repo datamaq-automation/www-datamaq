@@ -5,8 +5,8 @@ about:
     src: "/static/media/tecnico-a-cargo.webp"
     width: 700
   paragraphs:
-    - "DataMaq trabaja sobre captura automática de datos operativos, con foco en energía eléctrica, producción y variables críticas de seguimiento."
-    - "El servicio combina relevamiento en campo, implementación técnica, integración inicial y acompañamiento para que los datos capturados puedan usarse con criterio en análisis, seguimiento o capacitación."
+    - "Ofrecemos servicios profesionales, científicos y técnicos especializados en la captura automática de datos operativos, enfocándonos en el monitoreo de energía eléctrica y variables críticas de la producción industrial."
+    - "Nuestro trabajo combina la instalación de equipos industriales de medición en planta con la consultoría en informática para estructurar e integrar datos en tus sistemas, asegurando acompañamiento y capacitaciones aplicadas en cada proyecto."
   title: "Sobre DataMaq"
 faq:
   questions:
@@ -37,8 +37,8 @@ hero:
   secondaryCta:
     href: "#servicios"
     label: "Ver alcance técnico"
-  subtitle: "Brindamos asistencia técnica para monitoreo de energía industrial, captura de datos operativos e IoT industrial. Visitas en campo y consultoría remota, con capacitaciones técnicas de cortesía según el proyecto."
-  title: "Asistencia técnica en monitoreo de energía industrial y datos operativos"
+  subtitle: "Brindamos servicios profesionales de consultoría informática, instalación de equipos industriales e IoT para el monitoreo de energía y captura de datos operativos. Visitas en campo y asistencia remota."
+  title: "Servicios profesionales en monitoreo de energía e IoT industrial"
 legal:
   text: "La información publicada es referencial y puede actualizarse según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación."
 navbar:
@@ -71,31 +71,31 @@ assistance_modes:
     label: "Asistencia remota y consultoría"
 services:
   cards:
-    - description: "Asistencia técnica en planta para relevar, montar, configurar y poner en marcha equipos IoT que midan variables eléctricas y operativas en tableros, líneas o puntos definidos."
+    - description: "Servicios de instalación de maquinaria y equipos industriales de medición. Realizamos el relevamiento, montaje físico y puesta en marcha de dispositivos IoT en tableros y líneas de proceso."
       id: "iot-installation"
       key_points:
         - "Medición de kWh, potencia, factor de potencia y distorsión armónica"
-        - "Captura de kilos, unidades, metros, velocidades o estados"
-        - "Integración inicial con Powermate o sistemas de terceros"
+        - "Instalación y configuración de Powermeter e instrumentación IoT en campo"
+        - "Captura de variables operativas físicas (kilos, unidades, metros, estados)"
       modality: "on_site"
-      title: "Instalación de equipos IoT en campo"
-    - description: "Asistencia técnica remota para estructurar, interpretar y explotar datos ya capturados, con foco en seguimiento operativo, diagnóstico y criterio de decisión."
+      title: "Instalación de equipos industriales IoT"
+    - description: "Servicios de consultoría informática y suministro de programas a medida para estructurar, integrar y explotar tus datos operativos y bases de datos históricas."
       id: "data-advisory"
       key_points:
-        - "Análisis de consumo energético y comportamiento operativo"
-        - "Ordenamiento de datos desde bases, planillas, APIs o sistemas existentes"
-        - "Soporte para reportes, dashboards y automatizaciones de seguimiento"
+        - "Desarrollo de software y scripts personalizados (Python, APIs, bases de datos)"
+        - "Estructuración de datos operativos y diseño de dashboards de monitoreo"
+        - "Soporte remoto para el análisis de comportamiento operativo y energético"
       modality: "remote"
-      title: "Asesoramiento técnico remoto"
-    - description: "Capacitaciones técnicas de cortesía orientadas a equipos que trabajan con datos operativos, Python, bases de datos, APIs o integraciones sobre casos reales. No son el servicio principal: complementan la asistencia."
+      title: "Consultoría informática y de datos"
+    - description: "Capacitaciones técnicas profesionales orientadas a transferir conocimientos a equipos de trabajo sobre herramientas informáticas, Python y análisis de datos. Complementan nuestro servicio de consultoría."
       id: "training"
       key_points:
-        - "Python aplicado con NumPy, pandas y Matplotlib"
-        - "Buenas prácticas para trabajar con bases de datos y APIs"
-        - "Capacitación adaptada al nivel técnico y al caso real del equipo"
+        - "Python aplicado con NumPy, pandas y visualización de datos"
+        - "Buenas prácticas en integración de APIs y bases de datos relacionales"
+        - "Transferencia de conocimiento adaptada a la realidad del equipo técnico"
       modality: "both"
-      title: "Capacitaciones técnicas de cortesía"
-  title: "Servicios técnicos sobre captura, integración y uso de datos"
+      title: "Capacitaciones profesionales complementarias"
+  title: "Servicios profesionales de consultoría, instalación y análisis de datos"
 contact:
   title: "Solicitá asistencia técnica híbrida"
   subtitle: "Contanos tu caso y te proponemos visita en campo o consultoría remota, según la complejidad y tu ubicación. Las capacitaciones técnicas son de cortesía para quienes trabajan con nosotros."

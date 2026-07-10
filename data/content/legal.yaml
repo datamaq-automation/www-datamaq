@@ -3,9 +3,11 @@ terms:
   last_updated: "2026-06-19"
   introduction: "Estos términos y condiciones regulan el uso del sitio web datamaq.com.ar (en adelante, \"el Sitio\"), propiedad de DataMaq. Al acceder y navegar por el Sitio, aceptás estos términos en su totalidad. Si no estás de acuerdo, te pedimos que no utilices el Sitio."
   sections:
-    - title: "1. Información general"
+    - title: "1. Información general y actividades"
       paragraphs:
-        - "DataMaq ofrece servicios técnicos de captura automática de datos operativos, asesoramiento técnico y capacitaciones aplicadas. La información publicada en el Sitio es referencial y puede variar según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación."
+        - "DataMaq brinda servicios especializados bajo el encuadre de sus actividades económicas registradas ante el ARCA (ex AFIP): Actividades profesionales, científicas y técnicas NCP (Código 749009); Instalación de maquinaria y equipos industriales (Código 332000); y Servicios de consultores en informática y suministros de programas de informática (Código 620100)."
+        - "Estas actividades se instrumentan a través de la provisión y el desarrollo de software a medida, la consultoría informática para la integración y explotación de datos, la instalación física de instrumentación y equipos IoT para adquisición de datos en planta, y las correspondientes capacitaciones aplicadas."
+        - "La información publicada en el Sitio es referencial y puede variar según alcance, tablero, señales disponibles, conectividad, sistema destino y condiciones de implementación."
     - title: "2. Uso del sitio"
       paragraphs:
         - "El usuario se compromete a utilizar el Sitio de manera lícita, respetando la legislación vigente y los derechos de terceros. Está prohibido el uso del Sitio para actividades fraudulentas, malintencionadas o que puedan dañar la imagen de DataMaq."
