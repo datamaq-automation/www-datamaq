@@ -216,3 +216,18 @@ async def test_curso_detail_includes_image_dimensions():
     assert 'width="1103"' in response.text
     assert 'height="1360"' in response.text
 
+
+@pytest.mark.asyncio
+async def test_cursos_pages_do_not_render_footer():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        for url in [
+            "/cursos",
+            "/cursos/fastapi-data-science",
+            "/cursos/fastapi-data-science/requisitos-tecnicos",
+            "/cursos/instructor/agustin-bustos",
+        ]:
+            response = await ac.get(url)
+            assert response.status_code == 200
+            assert 'class="c-home-footer"' not in response.text
+

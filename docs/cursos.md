@@ -47,7 +47,7 @@ instructores:
 
 ## 3. Registro de un Curso (`curso.yaml`)
 
-Cada curso debe tener su propio archivo `curso.yaml` dentro de su carpeta correspondiente en `data/cursos/[slug-del-curso]/`. Este archivo define la estructura del curso, organizada en **Secciones**, **Capítulos** y **Elementos (Lecciones o Quizzes)**.
+Cada curso debe tener su propio archivo `curso.yaml` dentro de su carpeta correspondiente en `data/core/cursos/[slug-del-curso]/`. Este archivo define la estructura del curso, organizada en **Secciones**, **Capítulos** y **Elementos (Lecciones o Quizzes)**.
 
 ### Estructura de Campos Obligatorios y Opcionales:
 

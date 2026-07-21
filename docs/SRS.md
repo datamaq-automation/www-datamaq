@@ -25,7 +25,7 @@ El sistema debe cumplir con los siguientes requerimientos funcionales:
 * El sistema debe validar la información requerida de los pasos del formulario y registrar los leads de proyectos en la carpeta [data/leads/](file:///home/agustin/proyectos_software/www-datamaq/data/leads) para su posterior seguimiento.
 
 ### RF-03: Catálogo de Capacitaciones Técnicas (Anexo)
-* Como complemento educativo, el sistema debe cargar de forma dinámica el catálogo de capacitaciones definido en [data/cursos/](file:///home/agustin/proyectos_software/www-datamaq/data/cursos).
+* Como complemento educativo, el sistema debe cargar de forma dinámica el catálogo de capacitaciones definido en [data/core/cursos/](file:///home/agustin/proyectos_software/www-datamaq/data/core/cursos).
 * Cada elemento del catálogo debe mostrar el título de la capacitación, la descripción técnica orientada a equipos industriales, la duración y el instructor.
 
 ### RF-04: Renderizado de Lecciones y Base de Conocimiento (Anexo)
