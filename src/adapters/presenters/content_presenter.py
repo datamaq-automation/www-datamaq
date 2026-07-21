@@ -21,5 +21,5 @@ def present_caso(caso: CasoModel) -> Dict[str, Any]:
     """Prepara un caso para su presentación, inyectando og_image por defecto si falta."""
     data = caso.model_dump()
     if not data.get("og_image"):
-        data["og_image"] = "/static/og-default.jpg"
+        data["og_image"] = "/static/og-default.webp"
     return data
