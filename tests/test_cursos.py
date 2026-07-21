@@ -29,12 +29,11 @@ async def test_curso_detail_rendered():
 async def test_lesson_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science/requisitos-tecnicos")
+        response = await ac.get("/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv")
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "<h3>1.1 Requisitos técnicos</h3>" in response.text
-    assert "Para seguir este curso necesitarás una computadora" in response.text
+    assert "1.1 Instalación de una Distribución de Python con pyenv" in response.text
     assert "### 1.1" not in response.text
 
 @pytest.mark.asyncio
@@ -224,7 +223,7 @@ async def test_cursos_pages_do_not_render_footer():
         for url in [
             "/cursos",
             "/cursos/fastapi-data-science",
-            "/cursos/fastapi-data-science/requisitos-tecnicos",
+            "/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv",
             "/cursos/instructor/agustin-bustos",
         ]:
             response = await ac.get(url)

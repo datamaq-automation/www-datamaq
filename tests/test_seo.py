@@ -288,7 +288,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
         assert len(breadcrumbs_detail.get("itemListElement", [])) == 3
 
         # 2. Validar Lección (BreadcrumbList)
-        response_lesson = await ac.get("/cursos/fastapi-data-science/requisitos-tecnicos")
+        response_lesson = await ac.get("/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv")
         assert response_lesson.status_code == 200
         json_lds_lesson = parse_json_ld_blocks(response_lesson.text)
         
@@ -296,7 +296,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
         assert breadcrumbs_lesson is not None, "Falta JSON-LD de tipo BreadcrumbList en la página de lección"
         assert len(breadcrumbs_lesson.get("itemListElement", [])) == 3
         # Comprobar que el tercer elemento es la lección actual
-        assert "Requisitos técnicos" in breadcrumbs_lesson["itemListElement"][2]["name"]
+        assert "Instalación de una Distribución de Python con pyenv" in breadcrumbs_lesson["itemListElement"][2]["name"]
 
 
 from src.infrastructure.settings import config
