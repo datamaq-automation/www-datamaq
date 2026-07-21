@@ -1070,12 +1070,47 @@
 }
 
 .c-lesson-body pre {
+    position: relative;
     background-color: var(--dm-surface-1);
     border: 1px solid var(--dm-border-0);
     padding: 1rem;
+    padding-top: 2.5rem;
     border-radius: var(--ui-radius-md);
     overflow-x: auto;
     margin-bottom: 1.5rem;
+}
+
+.c-code-copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    color: rgba(var(--dm-text-0-rgb), 0.8);
+    background: rgba(var(--dm-bg-0-rgb), 0.75);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-sm);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.c-code-copy-btn:hover {
+    color: #ffffff;
+    background: var(--dm-accent-orange);
+    border-color: var(--dm-accent-orange);
+}
+
+.c-code-copy-btn.is-copied {
+    color: #ffffff;
+    background: #16a34a;
+    border-color: #16a34a;
 }
 
 .c-lesson-body pre code {
@@ -1197,7 +1232,7 @@
 }
 
 .c-lesson-mobile-header__back {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
@@ -1205,6 +1240,8 @@
     color: var(--dm-text-muted);
     text-decoration: none;
     transition: color 0.2s ease;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
 }
 
 .c-lesson-mobile-header__back:hover {
@@ -1212,7 +1249,7 @@
 }
 
 .c-lesson-mobile-header__toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
@@ -1221,7 +1258,8 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
 }
 
 .c-lesson-sidebar__close-btn {

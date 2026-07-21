@@ -61,6 +61,9 @@ export class CourseManager {
         // Inicializar lógica de cuestionario interactivo
         this.initQuiz();
 
+        // Inicializar botones de copiar para bloques de código
+        this.initCodeCopyButtons();
+
         // Actualizar porcentaje y barra de progreso al cargar
         this.updateProgressBar();
     }
@@ -248,6 +251,7 @@ export class CourseManager {
 
         if (this.progressText) {
             this.progressText.textContent = `${percentage}% completado`;
+        }
     }
 
     openSidebar() {
@@ -261,9 +265,50 @@ export class CourseManager {
         if (this.sidebarBackdrop) this.sidebarBackdrop.classList.remove('is-open');
         document.body.style.overflow = '';
     }
+
+    /**
+     * Inyecta un botón de copiar en la esquina superior derecha de cada bloque de código (<pre>).
+     */
+    initCodeCopyButtons() {
+        const codeBlocks = document.querySelectorAll('.c-lesson-body pre, .markdown-body pre, pre');
+        if (!codeBlocks.length) return;
+
+        codeBlocks.forEach((pre) => {
+            if (pre.querySelector('.c-code-copy-btn')) return;
+
+            const copyBtn = document.createElement('button');
+            copyBtn.type = 'button';
+            copyBtn.className = 'c-code-copy-btn';
+            copyBtn.setAttribute('aria-label', 'Copiar código al portapapeles');
+            copyBtn.setAttribute('title', 'Copiar al portapapeles');
+            copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> <span>Copiar</span>';
+
+            copyBtn.addEventListener('click', async () => {
+                const codeElement = pre.querySelector('code') || pre;
+                let textToCopy = codeElement.innerText || codeElement.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(textToCopy.trim());
+                    copyBtn.classList.add('is-copied');
+                    copyBtn.innerHTML = '<i class="bi bi-check2"></i> <span>¡Copiado!</span>';
+
+                    setTimeout(() => {
+                        copyBtn.classList.remove('is-copied');
+                        copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> <span>Copiar</span>';
+                    }, 2000);
+                } catch (err) {
+                    console.error('[CourseManager] Error al copiar texto al portapapeles:', err);
+                }
+            });
+
+            pre.appendChild(copyBtn);
+        });
+    }
 }
 
-// Inicialización automática
-document.addEventListener('DOMContentLoaded', () => {
+// Inicialización automática robusta
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new CourseManager());
+} else {
     new CourseManager();
-});
+}

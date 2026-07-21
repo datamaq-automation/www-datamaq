@@ -1,21 +1,20 @@
 (function() {
+    // Desactivar el borrado y ruido de consola salvo que se especifique ?telemetry=1 en la URL
+    if (!window.location.search.includes('telemetry=1')) return;
+
     setTimeout(() => {
-        console.clear();
         reportResponsive();
     }, 1000);
 
     window.addEventListener('resize', () => {
-        console.clear();
         reportResponsive();
     });
 
     function reportResponsive() {
         const footer = document.querySelector('footer');
         const rect = footer ? footer.getBoundingClientRect() : null;
-        const style = footer ? window.getComputedStyle(footer) : null;
         
         const overflows = [];
-        // Buscar desbordamientos horizontales en todo el documento
         document.querySelectorAll('*').forEach(el => {
             if (el.scrollWidth > el.clientWidth && el.clientWidth > 0) {
                 const computed = window.getComputedStyle(el);
@@ -31,7 +30,6 @@
             }
         });
 
-        // Auditar la usabilidad de clicks en enlaces en toda la página
         const links = Array.from(document.querySelectorAll('a'));
         const touchTargets = links.map(a => {
             const r = a.getBoundingClientRect();
@@ -42,18 +40,6 @@
             };
         });
         const targetIssues = touchTargets.filter(t => t.alto_px > 0 && t.alto_px < 32);
-
-        const groups = footer ? Array.from(footer.querySelectorAll('.c-home-footer__nav-group')).map((el, i) => {
-            const elRect = el.getBoundingClientRect();
-            const container = el.querySelector('.c-home-footer__links-container');
-            const containerRect = container ? container.getBoundingClientRect() : null;
-            return {
-                nombre: el.querySelector('.c-home-footer__nav-title')?.textContent || 'Sin título',
-                ancho_grupo_px: Math.round(elRect.width),
-                ancho_links_container_px: containerRect ? Math.round(containerRect.width) : 'N/A',
-                columnas_internas_links: container ? window.getComputedStyle(container).gridTemplateColumns : 'N/A'
-            };
-        }) : [];
 
         const info = {
             ruta_actual: window.location.pathname,
@@ -74,6 +60,5 @@
 
         console.log("%c📱 TELEMETRÍA RESPONSIVE E INFORME UI/UX:", "color: #ff9f43; font-weight: bold; font-size: 14px;");
         console.log(JSON.stringify(info, null, 2));
-        console.log("%c💡 Ajustá la pantalla en tu celular o emulador. Copiame este reporte completo cuando se vea mal.", "color: #2ec4b6; font-style: italic;");
     }
 })();
