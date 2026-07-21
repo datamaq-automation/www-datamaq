@@ -174,6 +174,12 @@ sections:
             title: "5.4 Sistemas Eléctricos Auxiliares y de Seguridad"
             duration: "25 min"
             content_file: "cap-5-4-sistemas-auxiliares.md"
+          - type: "lesson"
+            id: "les-energia-5-5"
+            slug: "telemetria-variadores-frecuencia-vfd"
+            title: "5.5 Telemetría y Monitoreo IoT en Variadores de Frecuencia (VFD)"
+            duration: "25 min"
+            content_file: "cap-5-5-telemetria-variadores-frecuencia-vfd.md"
 
       - id: "chap-eval-energia-b"
         title: "Evaluación de la Sección B"

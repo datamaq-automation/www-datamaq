@@ -87,6 +87,14 @@ services:
         - "Soporte remoto para el análisis de comportamiento operativo y energético"
       modality: "remote"
       title: "Consultoría informática y de datos"
+    - description: "Relevamiento, integración industrial Modbus e instalación de equipos IoT para la captura remota de datos en variadores de frecuencia (VFD). Monitoreo en tiempo real de velocidad, corriente, torque y diagnóstico preventivo."
+      id: "vfd-telemetry"
+      key_points:
+        - "Lectura continua de Hz, Amperes, kW acumulados y temperatura de etapa de potencia"
+        - "Integración de comunicación industrial vía Modbus RTU/TCP con gateways IoT"
+        - "Análisis de eficiencia energética y prevención de fallas por sobrecarga en motores"
+      modality: "both"
+      title: "Telemetría e integración de variadores de velocidad"
     - description: "Capacitaciones técnicas profesionales orientadas a transferir conocimientos a equipos de trabajo sobre herramientas informáticas, Python y análisis de datos. Complementan nuestro servicio de consultoría."
       id: "training"
       key_points:

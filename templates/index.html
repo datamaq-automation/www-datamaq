@@ -151,6 +151,38 @@
   "description": "{{ seo.description }}"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ provincia }}",
+      "item": "{{ seo.canonical_url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ municipio }}",
+      "item": "{{ seo.canonical_url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "{{ localidad_nombre }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
 {% endif %}
 {% if industria_nombre %}
 <script type="application/ld+json">
@@ -165,6 +197,26 @@
   },
   "areaServed": "AR",
   "description": "{{ seo.description }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Industria {{ industria_nombre }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
 }
 </script>
 {% endif %}

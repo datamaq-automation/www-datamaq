@@ -1,0 +1,34 @@
+slug: optimizacion-variadores-velocidad
+title: "Telemetría Modbus IoT en variadores de velocidad para sistemas de bombeo industrial"
+industry: "Industria Alimenticia"
+location: "Pilar, Buenos Aires"
+client: "Planta de Procesamiento Alimenticio"
+summary: "Integración de telemetría IoT mediante comunicación Modbus en variadores de velocidad (VFD) para monitorear Hz, amperaje y torque en bombas de fluido, optimizando el consumo energético un 28%."
+problem: "Una planta de procesamiento operaba bombas de impulsión con variadores de frecuencia ajustados manualmente. No había registro del comportamiento de velocidad, temperatura del inverter ni amperaje, lo que provocaba sobrecalentamientos y consumo eléctrico ineficiente."
+solution: "Se instaló una pasarela IoT Modbus RTU conectada directamente a los variadores de frecuencia de las bombas principales. Se configuró la captura continua de velocidad (Hz), corriente (A), consumo activo (kW) y temperatura de etapa de potencia, centralizando los datos en dashboards analíticos."
+results:
+  - "Reducción del 28% en el consumo energético al automatizar la curva de regulación de velocidad según demanda real."
+  - "Monitoreo continuo de temperatura del inverter y alerta preventiva por sobrecorriente."
+  - "Eliminación de paradas no programadas por disparos de protección del variador."
+  - "Registro histórico de parámetros de marcha e integración con el sistema de mantenimiento predictivo."
+published_at: "2026-07-21"
+og_image: "/static/og-default.webp"
+content: |
+  ## Contexto
+
+  En la planta de procesamiento alimenticio situada en Pilar, los sistemas de impulsión y bombeo de fluidos requerían un ajuste preciso de caudal según la etapa del proceso productivo. Aunque los motores contaban con variadores de frecuencia (VFD), estos operaban en modo manual y sin conectividad a la red de control.
+
+  ## Relevamiento e instalación
+
+  Se realizó la inspección de los tableros de fuerza y control, identificando los variadores instalados. Se implementó una pasarela IoT con interfaz RS-485 Modbus RTU para conectarse a los puertos de comunicación nativos de cada variador de velocidad sin necesidad de modificar el cableado de potencia.
+
+  Se parametrizó la lectura continua de las siguientes variables:
+
+  - Frecuencia de salida en Hertz (Hz) y velocidad calculada en RPM.
+  - Corriente de motor (A) y potencia activa estimada (kW).
+  - Torque relativo y temperatura interna del módulo IGBT.
+  - Estado de marcha, sentido de giro y códigos de alarma/falla.
+
+  ## Resultado
+
+  Con la telemetría automatizada, el departamento de ingeniería identificó que las bombas operaban al 100% de frecuencia en momentos donde la demanda de caudal era menor al 40%. Mediante el ajuste de la curva de regulación y el seguimiento en tiempo real, la planta logró reducir su consumo energético en un 28%, extendiendo la vida útil de los sellos mecánicos y previniendo fallas por sobrecalentamiento en los inverters.
