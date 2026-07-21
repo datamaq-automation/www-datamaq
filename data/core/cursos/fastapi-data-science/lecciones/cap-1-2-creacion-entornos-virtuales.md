@@ -1,29 +1,39 @@
 ### 1.2 Creación de Entornos Virtuales en Python (Creating a Virtual Environment)
 
-Un **entorno virtual** es una estructura de directorio aislada que contiene una instalación propia de Python e intérpretes, junto con sus librerías y dependencias específicas.
+Un **entorno virtual** es una estructura de directorio aislada que contiene una copia independiente del intérprete de Python y su directorio de paquetes de terceros (`site-packages`).
 
 ---
 
-### 1. ¿Por qué son indispensables los Entornos Virtuales?
+### 1. Arquitectura Visual de un Entorno Virtual
 
-Imaginá que estás trabajando en dos proyectos de Ciencia de Datos en el mismo equipo:
+```mermaid
+graph LR
+    A["Directorio del Proyecto (/mi-proyecto/)"] --> B[".venv/ (Entorno Virtual Aislado)"]
+    B --> C["bin/python (Intérprete Local)"]
+    B --> D["lib/python3.10/site-packages/ (Librerías Locales)"]
+    A --> E["src/ (Código Fuente de tu API)"]
+    A --> F[".gitignore (Excluye .venv/)"]
+```
+
+---
+
+### 2. ¿Por qué son indispensables los Entornos Virtuales?
+
+Imaginá dos proyectos en el mismo equipo:
 - El **Proyecto A** requiere `FastAPI 0.95.0` y `Pydantic 1.10.0`.
 - El **Proyecto B** requiere `FastAPI 0.110.0` y `Pydantic 2.6.0`.
 
-Si instalaras los paquetes de forma global en el sistema, la instalación de un proyecto sobrescribiría las librerías del otro. Los entornos virtuales resuelven este problema aislando las dependencias por proyecto.
+Si instalaras los paquetes de forma global, la instalación de un proyecto sobrescribiría las librerías del otro. Los entornos virtuales resuelven este conflicto aislando las dependencias.
 
 ---
 
-### 2. Creación de un Entorno Virtual con `venv`
+### 3. Creación y Activación con `venv`
 
-Python incluye el módulo nativo **`venv`** para la generación de entornos virtuales sin necesidad de instalar herramientas externas.
+Python incluye el módulo nativo **`venv`** para la generación de entornos virtuales.
 
-#### Comandos para Crear y Activar el Entorno Virtual:
-
-Navegá al directorio raíz de tu proyecto en la terminal y ejecutá:
-
+#### Comandos para Crear el Entorno Virtual:
 ```bash
-# 1. Crear el entorno virtual en una carpeta oculta llamada .venv
+# Crear el entorno virtual en el directorio oculto .venv
 python -m venv .venv
 ```
 
@@ -40,23 +50,22 @@ python -m venv .venv
   ```
 
 #### Indicador en la Terminal:
-Una vez activado, el prompt de tu terminal mostrará el nombre del entorno virtual al inicio:
+Una vez activado, el prompt de tu terminal mostrará el nombre del entorno al inicio:
 ```text
-(.venv) agustin@datamaq:~/proyectos_software/mi-api$
+(.venv) usuario@equipo:~/mi-proyecto$
 ```
 
 ---
 
-### 3. Desactivación e Ignorado en Control de Versiones
+### 4. Desactivación e Ignorado en Git (`.gitignore`)
 
 #### Desactivar el Entorno Virtual:
-Para salir del entorno virtual y volver al intérprete global de la terminal, ejecutá:
 ```bash
 deactivate
 ```
 
-#### Ignorar el Entorno Virtual en Git (`.gitignore`):
-**¡Regla de Oro!**: Jamás se debe incluir la carpeta `.venv` en el repositorio Git. Agregá la carpeta a tu archivo `.gitignore`:
+#### Ignorar el Entorno Virtual en Git:
+**¡Regla de Oro!**: Jamás se debe subir la carpeta `.venv` al repositorio Git. Agregá la carpeta a tu archivo `.gitignore`:
 
 ```text
 # Archivo .gitignore
@@ -67,5 +76,21 @@ __pycache__/
 
 ---
 
-### Resumen de la Lección
-Los entornos virtuales con `venv` garantizan que las librerías instaladas pertenezcan exclusivamente a tu proyecto, asegurando reproducibilidad y aislamiento total.
+### 🛠️ Diagnóstico y Resolución de Errores Comunes (Troubleshooting)
+
+> [!WARNING]
+> **Error 1: `bash: .venv/bin/activate: No such file or directory`**
+> - **Causa**: Intentaste activar el entorno sin haber ejecutado primero el comando de creación `python -m venv .venv`.
+> - **Solución**: Verificá que estás ubicado en la raíz del proyecto y ejecutá `python -m venv .venv` antes de activar.
+
+> [!CAUTION]
+> **Error 2: PowerShell bloquea la activación en Windows (`cannot be loaded because running scripts is disabled`)**
+> - **Causa**: Política de ejecución de scripts de Windows restringida por defecto.
+> - **Solución**: Abrí PowerShell como Administrador y ejecutá: `Set-ExecutionPolicy Unrestricted -Scope Process`.
+
+---
+
+### 🧪 Micro-Desafío Práctico
+1. En tu terminal, ejecutá `which python` antes de activar el entorno virtual.
+2. Activá el entorno virtual con `source .venv/bin/activate` y volvé a ejecutar `which python`.
+3. Comprobá que la ruta del ejecutable ahora apunte a la carpeta `.venv/bin/python`.

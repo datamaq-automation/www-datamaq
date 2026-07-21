@@ -1113,6 +1113,52 @@
     border-color: #16a34a;
 }
 
+/* Badges e indicadores visuales de bloques de código */
+.c-code-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-radius: var(--ui-radius-sm);
+    z-index: 4;
+    pointer-events: none;
+}
+
+.c-code-badge--input {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.c-code-badge--output {
+    color: #94a3b8;
+    background: rgba(148, 163, 184, 0.12);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Diferenciación visual de bloques de salida de terminal */
+.c-lesson-body pre.c-code-block--output,
+.markdown-body pre.c-code-block--output,
+pre.c-code-block--output {
+    background-color: rgba(15, 23, 42, 0.75) !important;
+    border-left: 4px solid #64748b !important;
+    opacity: 0.92;
+}
+
+.c-lesson-body pre.c-code-block--output code,
+.markdown-body pre.c-code-block--output code,
+pre.c-code-block--output code {
+    color: #cbd5e1 !important;
+}
+
 .c-lesson-body pre code {
     background-color: transparent;
     color: var(--dm-text-0);
@@ -1278,12 +1324,24 @@
     color: var(--dm-text-0);
 }
 
+/* Ocultar dock de navegación en lecciones de cursos en todas las pantallas y universalmente en desktop (>=1024px) */
+.c-lesson-layout .c-home-dock,
+body:has(.c-lesson-layout) .c-home-dock,
+.c-home-dock[data-v-236fef00] {
+    display: none !important;
+}
+
 @media(max-width: 991.98px) {
     /* Ocultar elementos del sitio principal para evitar distracciones en móviles */
     body:has(.c-lesson-layout) .c-home-header,
-    body:has(.c-lesson-layout) .c-home-footer,
-    body:has(.c-lesson-layout) .c-home-dock {
+    body:has(.c-lesson-layout) .c-home-footer {
         display: none !important;
+    }
+
+    /* Mostrar dock solo fuera de las lecciones en móviles */
+    body:not(:has(.c-lesson-layout)) .c-home-dock,
+    body:not(:has(.c-lesson-layout)) .c-home-dock[data-v-236fef00] {
+        display: grid !important;
     }
 
     /* Mostrar botón de cerrar temario */

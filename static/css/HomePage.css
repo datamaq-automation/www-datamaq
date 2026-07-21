@@ -180,6 +180,7 @@
 .c-home-dock--direct .c-home-dock__link[data-v-236fef00]{min-height:4.35rem}
 .c-home-dock__link--emergency[data-v-236fef00]{color:rgba(var(--dm-status-green-rgb),.95);background:rgba(var(--dm-status-green-rgb),.16)}
 .c-home-dock__link--emergency[data-v-236fef00]:hover,.c-home-dock__link--emergency[data-v-236fef00]:focus-visible{color:rgba(var(--dm-status-green-rgb),.98);background:rgba(var(--dm-status-green-rgb),.24)}
+@media(min-width:1024px){.c-home-dock[data-v-236fef00],.c-home-dock{display:none!important}}
 .app-shell--home[data-v-236fef00] 
 .c-contact{background:linear-gradient(180deg,rgba(var(--dm-bg-0-rgb),.96),rgba(var(--dm-surface-0-rgb),.96))}
 .app-shell--home[data-v-236fef00] .c-contact__card{background:rgba(var(--dm-surface-0-rgb),.92)!important;border:1px solid rgba(var(--dm-text-0-rgb),.1)!important;box-shadow:0 1.4rem 3rem rgba(var(--dm-shadow-rgb),.3)!important}

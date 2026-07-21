@@ -267,15 +267,55 @@ export class CourseManager {
     }
 
     /**
-     * Inyecta un botón de copiar en la esquina superior derecha de cada bloque de código (<pre>).
+    /**
+     * Inyecta distintivos visuales y botones de copia diferenciando comandos CLI de salidas de terminal.
      */
     initCodeCopyButtons() {
         const codeBlocks = document.querySelectorAll('.c-lesson-body pre, .markdown-body pre, pre');
         if (!codeBlocks.length) return;
 
-        codeBlocks.forEach((pre) => {
-            if (pre.querySelector('.c-code-copy-btn')) return;
+        const outputLanguages = ['text', 'output', 'console', 'plain', 'raw', 'log', 'stdout', 'stderr'];
+        const inputLanguages = ['bash', 'sh', 'shell', 'zsh', 'powershell', 'cmd'];
 
+        codeBlocks.forEach((pre) => {
+            if (pre.querySelector('.c-code-copy-btn') || pre.querySelector('.c-code-badge')) return;
+
+            const codeElement = pre.querySelector('code') || pre;
+            const classList = Array.from(codeElement.classList).concat(Array.from(pre.classList));
+            const langClass = classList.find(c => c.startsWith('language-') || c.startsWith('lang-')) || '';
+            const lang = langClass.replace(/^(language-|lang-)/, '').toLowerCase();
+
+            const rawText = (codeElement.innerText || codeElement.textContent || '').trim();
+
+            // Heurística para detectar si el bloque es una salida de terminal (Output)
+            const isOutputBlock = outputLanguages.includes(lang) || 
+                rawText.startsWith('Output:') || 
+                rawText.startsWith('Completed At:') ||
+                rawText.startsWith('HTTP/1.1') ||
+                rawText.startsWith('=============================') ||
+                (lang === '' && (rawText.includes('INFO:') || rawText.includes('error:') || rawText.includes('WARN:')));
+
+            if (isOutputBlock) {
+                // Configurar como bloque de Salida (Sin botón de copiar)
+                pre.classList.add('c-code-block--output');
+                const outputBadge = document.createElement('span');
+                outputBadge.className = 'c-code-badge c-code-badge--output';
+                outputBadge.innerHTML = '<i class="bi bi-terminal"></i> Salida de Terminal';
+                pre.appendChild(outputBadge);
+                return;
+            }
+
+            // Si es un bloque de Comando CLI (Input)
+            const isCliInput = inputLanguages.includes(lang) || rawText.startsWith('$ ') || rawText.startsWith('> ');
+
+            if (isCliInput) {
+                const inputBadge = document.createElement('span');
+                inputBadge.className = 'c-code-badge c-code-badge--input';
+                inputBadge.innerHTML = '<i class="bi bi-terminal-fill"></i> Ejecutar en Terminal';
+                pre.appendChild(inputBadge);
+            }
+
+            // Inyectar Botón de Copiado para comandos y código ejecutable
             const copyBtn = document.createElement('button');
             copyBtn.type = 'button';
             copyBtn.className = 'c-code-copy-btn';
@@ -284,8 +324,15 @@ export class CourseManager {
             copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> <span>Copiar</span>';
 
             copyBtn.addEventListener('click', async () => {
-                const codeElement = pre.querySelector('code') || pre;
-                let textToCopy = codeElement.innerText || codeElement.textContent;
+                let textToCopy = codeElement.innerText || codeElement.textContent || '';
+
+                // Si es comando de consola, limpiar los símbolos de prompt ($ o >) al copiar
+                if (isCliInput) {
+                    textToCopy = textToCopy
+                        .split('\n')
+                        .map(line => line.replace(/^[\$\>]\s?/, ''))
+                        .join('\n');
+                }
 
                 try {
                     await navigator.clipboard.writeText(textToCopy.trim());
