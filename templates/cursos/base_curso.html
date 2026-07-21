@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', path='css/cursos.css') }}?v={{ static_version() }}">
+{% endblock %}
+
 {# Entorno de Cursos: Layout enfocado de aprendizaje sin footer #}
 {% block footer %}{% endblock %}
