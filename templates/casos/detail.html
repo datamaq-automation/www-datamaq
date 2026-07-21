@@ -60,6 +60,49 @@
         </div>
     </div>
 </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "{{ caso.title | replace('\"', '\\\"') }}",
+      "description": "{{ caso.summary | replace('\"', '\\\"') }}",
+      "url": "{{ seo.canonical_url }}",
+      "image": "{{ seo.og_image }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "logo": "{{ request.url_for('static', path='favicon.svg') }}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "{{ request.url_for('root') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Casos",
+          "item": "{{ request.url_for('listado_casos') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ caso.title | replace('\"', '\\\"') }}",
+          "item": "{{ seo.canonical_url }}"
+        }
+      ]
+    }
+  ]
+}
+</script>
 {% endblock %}
 
 {% block dock %}

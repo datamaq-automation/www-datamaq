@@ -317,3 +317,33 @@ async def test_cache_control_and_gzip_headers():
         assert "s-maxage=86400" in cache_control
     finally:
         config.DEBUG = original_debug
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_new_breadcrumbs_and_tech_article():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # Validar /cursos listado
+        res_cursos = await ac.get("/cursos")
+        json_cursos = parse_json_ld_blocks(res_cursos.text)
+        bc_cursos = get_json_ld_by_type(json_cursos, "BreadcrumbList")
+        assert bc_cursos is not None
+
+        # Validar /casos listado
+        res_casos = await ac.get("/casos")
+        json_casos = parse_json_ld_blocks(res_casos.text)
+        bc_casos = get_json_ld_by_type(json_casos, "BreadcrumbList")
+        assert bc_casos is not None
+
+        # Validar /contact
+        res_contact = await ac.get("/contact")
+        json_contact = parse_json_ld_blocks(res_contact.text)
+        bc_contact = get_json_ld_by_type(json_contact, "BreadcrumbList")
+        assert bc_contact is not None
+
+        # Validar /terminos-y-condiciones
+        res_terms = await ac.get("/terminos-y-condiciones")
+        json_terms = parse_json_ld_blocks(res_terms.text)
+        bc_terms = get_json_ld_by_type(json_terms, "BreadcrumbList")
+        assert bc_terms is not None
+

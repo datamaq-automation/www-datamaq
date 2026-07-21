@@ -49,6 +49,23 @@
           "availableLanguage": "Spanish"
         }
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "{{ request.url_for('root') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contacto",
+          "item": "{{ seo.canonical_url }}"
+        }
+      ]
     }
   ]
 }
