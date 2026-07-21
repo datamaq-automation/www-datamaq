@@ -75,11 +75,9 @@ sections:
           - type: "lesson"
             id: "les-cap-3"
             slug: "desarrollo-api-restful-fastapi"
-            title: "Videotutorial: API RESTful básica"
+            title: "Clase Completa: API RESTful con FastAPI"
             duration: "45 min"
-            content_type: "video"
-            video_url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            content: "En este videotutorial crearemos nuestra primera API RESTful real con FastAPI. Aprenderemos sobre la creación de la instancia app, definición de rutas HTTP mediante decoradores (@app.get, @app.post), parámetros de ruta y de consulta, y cómo correr el servidor de desarrollo con recarga automática usando Uvicorn."
+            content_file: "cap-3-desarrollo-api-restful.md"
 
       - id: "chap-cap-4"
         title: "Cap 4: Gestión de Modelos de Datos de Pydantic en FastAPI"
@@ -130,6 +128,36 @@ sections:
                   - "Falso"
                 correct_option: 0
                 explanation: "El uso de async def en FastAPI permite ejecutar llamadas de entrada/salida (I/O) no bloqueantes en el event loop principal."
+              - id: "q-depends"
+                question: "¿Qué función de FastAPI se utiliza para implementar el patrón de Inyección de Dependencias?"
+                type: "single_choice"
+                options:
+                  - "Inject"
+                  - "Depends"
+                  - "Provide"
+                  - "UseService"
+                correct_option: 1
+                explanation: "La función Depends() de FastAPI permite declarar dependencias en las firmas de los endpoints para modularizar la lógica de negocio."
+              - id: "q-status-422"
+                question: "¿Qué código de estado HTTP devuelve automáticamente FastAPI cuando los datos de la petición no cumplen con la estructura esperada por el schema Pydantic?"
+                type: "single_choice"
+                options:
+                  - "400 Bad Request"
+                  - "404 Not Found"
+                  - "422 Unprocessable Entity"
+                  - "500 Internal Server Error"
+                correct_option: 2
+                explanation: "FastAPI retorna un estado HTTP 422 (Unprocessable Entity) acompañado por una lista detallada en JSON indicando cada uno de los campos que fallaron la validación."
+              - id: "q-uvicorn-reload"
+                question: "¿Qué opción se pasa al comando 'uvicorn' para habilitar el reinicio automático del servidor cuando se guardan cambios en el código?"
+                type: "single_choice"
+                options:
+                  - "--watch"
+                  - "--reload"
+                  - "--live"
+                  - "--restart"
+                correct_option: 1
+                explanation: "La bandera '--reload' indica a Uvicorn que monitoree los archivos del proyecto y reinicie el servidor de desarrollo al detectar modificaciones."
 
   # --- SECCIÓN B ---
   - id: "sec-web-backend-fastapi"
