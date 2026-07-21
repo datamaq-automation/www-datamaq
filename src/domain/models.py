@@ -13,6 +13,7 @@ class TechnicianModel(BaseModel):
     name: str
     role: str
     photo: PhotoModel
+    linkedin_url: Optional[str] = None
 
 class CtaModel(BaseModel):
     label: str

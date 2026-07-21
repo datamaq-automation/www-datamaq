@@ -57,9 +57,9 @@ navbar:
       label: "Contacto"
 profile:
   bullets:
-    - "Relevamiento en sitio y criterio de implementación."
-    - "Instalación, integración y puesta en marcha para captura automática de datos."
-    - "Asesoramiento y capacitaciones sobre Python, datos, bases de datos y APIs en contextos reales."
+    - "Relevamiento técnico en planta y diseño de arquitectura de telemetría IoT a medida."
+    - "Instalación, integración y puesta en marcha para captura automática y continua de datos energéticos y productivos."
+    - "Consultoría informática y capacitaciones profesionales en Python, bases de datos y APIs para optimización operativa."
 assistance_modes:
   on_site:
     description: "Relevamiento e intervención directa en tu planta, tablero o línea de proceso."
