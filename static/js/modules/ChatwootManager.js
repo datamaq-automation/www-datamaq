@@ -1,14 +1,12 @@
 export const initChatwoot = (configElement) => {
     try {
         if (!configElement) {
-            console.warn("[ChatwootManager] Elemento 'chatwoot-config' no encontrado.");
             return;
         }
 
         const BASE_URL = configElement.dataset.baseUrl;
         const WEBSITE_TOKEN = configElement.dataset.websiteToken;
 
-        console.info("[ChatwootManager] Inicializando gestor de Chatwoot...");
         window.chatwootSettings = {
             position: "right",
             type: "standard",
@@ -31,7 +29,6 @@ export const initChatwoot = (configElement) => {
                 s.parentNode.insertBefore(g,s);
                 
                 g.onload = function() {
-                    console.info("[ChatwootManager] SDK descargado, registrando widget...");
                     window.chatwootSDK.run({
                         websiteToken: WEBSITE_TOKEN,
                         baseUrl: BASE_URL
@@ -47,8 +44,6 @@ export const initChatwoot = (configElement) => {
 
         // Escuchar cuando el chat esté completamente listo
         window.addEventListener("chatwoot:ready", function () {
-            console.info("[ChatwootManager] Chatwoot listo. Ocultando botones estáticos.");
-            
             // Guardar estado en sessionStorage para cargarlo automáticamente en páginas subsecuentes
             sessionStorage.setItem('chatwoot_active', 'true');
             
@@ -62,7 +57,6 @@ export const initChatwoot = (configElement) => {
 
         // Si ya interactuó con el chat en esta sesión de navegación, cargarlo automáticamente
         if (sessionStorage.getItem('chatwoot_active') === 'true') {
-            console.info("[ChatwootManager] Sesión previa activa. Autocargando Chatwoot...");
             loadChatwootSDK();
         } else {
             // De lo contrario, esperar al clic del usuario (Lazy loading)
