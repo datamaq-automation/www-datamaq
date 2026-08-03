@@ -2,6 +2,29 @@
 
 Una vez entrenado un modelo, el objetivo es exponerlo como **servicio**: recibir datos de entrada vía HTTP y devolver una predicción. FastAPI es ideal para esto gracias a Pydantic y a la gestión del ciclo de vida de la aplicación.
 
+El modelo `regresion.pkl` que usaremos se entrenó con el **dataset de telemetría industrial `data/core/datasets/curvas_de_carga.csv`** (el mismo que trabajaste en el curso *Python y Entorno para Ciencia de Datos*). Así se cierra el círculo narrativo del catálogo: el análisis inicial en Pandas se convierte en un servicio de predicción en producción.
+
+### De Pandas a producción: el entrenamiento
+
+El modelo se entrenó a partir de las variables de las curvas de carga:
+
+```python
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import joblib
+
+df = pd.read_csv("data/core/datasets/curvas_de_carga.csv")
+
+# Características y objetivo
+X = df[["potencia_kw", "factor_potencia"]]
+y = df["potencia_kw"] * 24  # energía diaria estimada en kWh
+
+modelo = LinearRegression().fit(X, y)
+joblib.dump(modelo, "models/regresion.pkl")
+```
+
+En esta lección no reentrenamos el modelo: lo **cargamos** y lo exponemos como API.
+
 ### Carga del modelo una sola vez
 
 Entrenar o cargar un modelo es una operación costosa. Hacerlo en cada petición degradaría la API. La solución es cargarlo **una única vez** al arrancar la aplicación, usando el mecanismo de `lifespan`:
@@ -90,10 +113,11 @@ Respuesta esperada:
 
 ### Buenas prácticas de MLOps
 
-1. **Versioná los modelos**: asociá cada artefacto a una versión y a los datos con los que se entrenó.
+1. **Versioná los modelos**: asociá cada artefacto a una versión y a los datos con los que se entrenó (en nuestro caso, `curvas_de_carga.csv`).
 2. **Cacheá la carga**: el modelo se carga una vez y se reutiliza en todas las peticiones.
 3. **Validá las características**: los rangos de entrada deben coincidir con el entrenamiento.
 4. **Monitoreá en producción**: registrá latencia y drift de los datos de entrada.
+5. **Trazabilidad del dataset**: documentá qué versión de datos generó cada modelo publicado.
 
 ### Micro-desafío práctico
 
