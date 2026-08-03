@@ -5,7 +5,7 @@
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
 {% block head %}
-{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand, page_type='article') }}
 {% endblock %}
 
 {% block header %}
@@ -29,7 +29,7 @@
                 <h1 class="c-curso-detalle-header__title">{{ curso.title }}</h1>
                 <p class="c-curso-detalle-header__subtitle">{{ curso.description_short }}</p>
                 <p class="c-curso-detalle-header__courtesy" style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--dm-text-muted);">
-                    <i class="bi bi-gift"></i> {{ courses.badge }} — <a href="{{ courses.assistance_cta_href }}">{{ courses.assistance_cta_label }}</a>
+                    <i class="bi bi-gift"></i> {{ courses.badge }}
                 </p>
                 
                 <div class="c-curso-detalle-header__meta">
@@ -183,6 +183,13 @@
     "name": "{{ brand.brandName }}",
     "sameAs": "{{ seo.canonical_url }}"
   },
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "category": "free",
+    "price": "0",
+    "priceCurrency": "ARS"
+  },
   "hasCourseInstance": {
     "@type": "CourseInstance",
     "courseMode": "online",
@@ -205,13 +212,13 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Inicio",
-      "item": "https://datamaq.com.ar"
+      "item": "{{ request.url_for('root') }}"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Cursos",
-      "item": "https://datamaq.com.ar/cursos"
+      "item": "{{ request.url_for('listado_cursos') }}"
     },
     {
       "@type": "ListItem",

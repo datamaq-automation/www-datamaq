@@ -1,7 +1,7 @@
 id: "curso-fastapi-data-science"
 slug: "fastapi-data-science"
 title: "Construyendo Aplicaciones de Ciencia de Datos con FastAPI"
-description_short: "Desarrollá, gestioná y desplegá aplicaciones eficientes de machine learning con Python."
+description_short: "Desarrollá, gestioná y desplegá aplicaciones de machine learning con Python y FastAPI: APIs, MLOps y producción."
 description_long: "Este curso práctico, basado en el libro 'Building Data Science Applications with FastAPI', te guiará en el desarrollo de APIs robustas de machine learning utilizando Python, FastAPI y Pydantic, cubriendo desde la configuración inicial hasta el despliegue en producción y el procesamiento en tiempo real. Prerrequisitos recomendados: conocimientos básicos de Python, manejo de entornos virtuales (venv/pyenv) y conceptos generales de HTTP."
 duration: "45 horas de cursada"
 level: "Avanzado"
