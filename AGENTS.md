@@ -18,6 +18,15 @@ Este archivo contiene los lineamientos de diseño, restricciones arquitectónica
 
 ---
 
+## 2b. Modificabilidad del Código Fuente (src/)
+* **Permitido y esperado:** El código en [src/](file:///home/agustin/proyectos_software/www-datamaq/src) puede y debe modificarse para implementar funcionalidad, corregir errores, y agregar rutas, servicios, mappers, presenters o utilidades (ej. lógica de SEO), respetando siempre la separación de capas de la sección 2.
+* **Prohibido:**
+  - Introducir datos de contenido (textos, catálogos, cursos, lecciones, cobertura) en código Python o plantillas HTML; esos datos viven exclusivamente en [data/](file:///home/agustin/proyectos_software/www-datamaq/data).
+  - Escribir lógica de acceso a datos o de negocio dentro de los endpoints de [infrastructure/fastapi/routes/](file:///home/agustin/proyectos_software/www-datamaq/src/infrastructure/fastapi/routes); deben delegar en servicios.
+  - Agregar dependencias de infraestructura (FastAPI, bases de datos) en la capa [domain/](file:///home/agustin/proyectos_software/www-datamaq/src/domain).
+
+---
+
 ## 3. Gestión de Datos de Contenido (Servicios, Cobertura, Leads y Cursos)
 * **Datos Desacoplados:** Toda la información referente a la propuesta de servicios técnicos, industrias asociadas, cobertura geográfica, leads capturados, cursos, lecciones, cuestionarios e instructores reside en archivos estáticos en la carpeta [data/](file:///home/agustin/proyectos_software/www-datamaq/data).
 * **Prohibido Hardcodear:** No debes escribir datos de contenido o textos descriptivos dentro del código Python o directamente en las plantillas HTML de [templates/](file:///home/agustin/proyectos_software/www-datamaq/templates). Toda incorporación de información debe realizarse actualizando los archivos `.yaml` y agregando los archivos `.md` correspondientes.
