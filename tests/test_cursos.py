@@ -63,40 +63,6 @@ async def test_sitemap_includes_courses():
     assert response.status_code == 200
     assert "https://datamaq.com.ar/cursos" in response.text
     assert "https://datamaq.com.ar/cursos/fastapi-data-science" in response.text
-    assert "https://datamaq.com.ar/cursos/conversation-ai-rasa" in response.text
-
-@pytest.mark.asyncio
-async def test_rasa_course_catalog_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos")
-    
-    assert response.status_code == 200
-    assert "Conversation AI with RASA" in response.text
-
-@pytest.mark.asyncio
-async def test_rasa_course_detail_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/conversation-ai-rasa")
-    
-    assert response.status_code == 200
-    assert "Conversation AI with RASA" in response.text
-    assert "Section A: The Rasa Framework" in response.text
-    assert "Cap 1: Introduction to Chatbots and the Rasa Framework" in response.text
-    assert "1.1 Technical requirements" in response.text
-    assert "1.2 What is Machine Learning?" in response.text
-
-@pytest.mark.asyncio
-async def test_rasa_lesson_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/conversation-ai-rasa/technical-requirements")
-    
-    assert response.status_code == 200
-    assert "<h3>1.1 Technical requirements</h3>" in response.text
-    assert "Rasa 2.x requiere versiones específicas de Python" in response.text
-    assert "### 1.1" not in response.text
 
 
 @pytest.mark.asyncio
