@@ -11,25 +11,26 @@ async def test_cursos_catalog_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Cursos y capacitaciones técnicas gratuitas" in response.text
-    assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
+    assert "Desarrollo de APIs con FastAPI y Python" in response.text
+    assert "FastAPI Avanzado: MLOps, Async DB y Producción" in response.text
 
 @pytest.mark.asyncio
 async def test_curso_detail_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science")
+        response = await ac.get("/cursos/fastapi-intermedio")
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
-    assert "Sección A: Introducción a Python y FastAPI" in response.text
-    assert "Cap 1: Configuración del Entorno de Desarrollo de Python" in response.text
+    assert "Desarrollo de APIs con FastAPI y Python" in response.text
+    assert "Sección A: Fundamentos de Python y Entorno" in response.text
+    assert "Cap 1: Entorno de Desarrollo de Python" in response.text
 
 @pytest.mark.asyncio
 async def test_lesson_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv")
+        response = await ac.get("/cursos/fastapi-intermedio/instalacion-distribucion-python-pyenv")
     
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
@@ -49,7 +50,7 @@ async def test_invalid_course_returns_404():
 async def test_invalid_lesson_returns_404():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science/leccion-inexistente")
+        response = await ac.get("/cursos/fastapi-intermedio/leccion-inexistente")
     
     assert response.status_code == 404
     assert "Página no encontrada" in response.text
@@ -62,7 +63,8 @@ async def test_sitemap_includes_courses():
     
     assert response.status_code == 200
     assert "https://datamaq.com.ar/cursos" in response.text
-    assert "https://datamaq.com.ar/cursos/fastapi-data-science" in response.text
+    assert "https://datamaq.com.ar/cursos/fastapi-intermedio" in response.text
+    assert "https://datamaq.com.ar/cursos/fastapi-avanzado" in response.text
 
 
 @pytest.mark.asyncio
@@ -85,7 +87,7 @@ async def test_instructor_detail_rendered():
     assert "text/html" in response.headers["content-type"]
     assert "Agustin Bustos" in response.text
     assert "Mantenimiento Industrial" in response.text
-    assert "Construyendo Aplicaciones de Ciencia de Datos con FastAPI" in response.text
+    assert "Desarrollo de APIs con FastAPI y Python" in response.text
 
 
 @pytest.mark.asyncio
@@ -176,10 +178,10 @@ async def test_energia_new_lessons_rendered():
 async def test_curso_detail_includes_image_dimensions():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos/fastapi-data-science")
+        response = await ac.get("/cursos/fastapi-intermedio")
     assert response.status_code == 200
-    assert 'width="1103"' in response.text
-    assert 'height="1360"' in response.text
+    assert 'width="1200"' in response.text
+    assert 'height="630"' in response.text
 
 
 @pytest.mark.asyncio
@@ -188,8 +190,8 @@ async def test_cursos_pages_do_not_render_footer():
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         for url in [
             "/cursos",
-            "/cursos/fastapi-data-science",
-            "/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv",
+            "/cursos/fastapi-intermedio",
+            "/cursos/fastapi-intermedio/instalacion-distribucion-python-pyenv",
             "/cursos/instructor/agustin-bustos",
         ]:
             response = await ac.get(url)

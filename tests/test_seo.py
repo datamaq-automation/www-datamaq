@@ -275,7 +275,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         # 1. Validar Detalle del Curso (Course, BreadcrumbList)
-        response_detail = await ac.get("/cursos/fastapi-data-science")
+        response_detail = await ac.get("/cursos/fastapi-intermedio")
         assert response_detail.status_code == 200
         json_lds_detail = parse_json_ld_blocks(response_detail.text)
         
@@ -288,7 +288,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
         assert len(breadcrumbs_detail.get("itemListElement", [])) == 3
 
         # 2. Validar Lección (BreadcrumbList)
-        response_lesson = await ac.get("/cursos/fastapi-data-science/instalacion-distribucion-python-pyenv")
+        response_lesson = await ac.get("/cursos/fastapi-intermedio/instalacion-distribucion-python-pyenv")
         assert response_lesson.status_code == 200
         json_lds_lesson = parse_json_ld_blocks(response_lesson.text)
         
