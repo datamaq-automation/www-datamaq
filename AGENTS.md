@@ -48,3 +48,14 @@ Este archivo contiene los lineamientos de diseño, restricciones arquitectónica
 ## 5. Control de Cambios y Despliegue
 * **Despliegues con Autorización:** Está prohibido ejecutar el despliegue automático hacia producción (`deploy-server.sh`) de manera autónoma. Cualquier despliegue debe ser explícitamente aprobado por el usuario.
 * **Validación de Dependencias:** Al añadir librerías nuevas al archivo [requirements.txt](file:///home/agustin/proyectos_software/www-datamaq/requirements.txt) , valida primero localmente que no existan conflictos de versiones.
+
+---
+
+## 6. Operaciones en el VPS de Producción
+* **Prohibido ejecutar git como `root` en el VPS:** Cualquier comando git (`git pull`, `git status`, `git fetch`) ejecutado como `root` sobre `/var/www/www-datamaq` deja `.git/index` y otros archivos con ownership `root`, rompiendo el despliegue (ver [docs/INFORME_DEPLOY_ERROR.md](docs/INFORME_DEPLOY_ERROR.md#61-no-correr-git-como-root-en-el-vps)).
+* **Uso correcto en el VPS:** Ejecutar siempre git con el usuario dedicado:
+  ```bash
+  sudo -u datamaq git pull --ff-only
+  sudo -u datamaq git status
+  ```
+  o a través del script [scripts/deploy-server.sh](scripts/deploy-server.sh).

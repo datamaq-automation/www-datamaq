@@ -128,6 +128,19 @@ fi
 
 Esto convierte un error críptico de Git en un diagnóstico accionable en futuros despliegues.
 
+### 6.1 No correr git como root en el VPS
+
+El síntoma **recurre** si se ejecuta cualquier comando git como `root` en el VPS: un `git pull`, `git status` o `git fetch` como root re-crea `.git/index` (y potencialmente otros archivos de `.git/`) con ownership `root`, volviendo a romper el deploy. En este incidente, `.git/index` quedó root-owned 9 segundos después de la corrección por una operación git ejecutada como root.
+
+Regla operativa en el VPS — usar siempre el usuario dedicado:
+
+```bash
+sudo -u datamaq git pull --ff-only
+sudo -u datamaq git status
+```
+
+Nunca ejecutar `git ...` directo como root en `/var/www/www-datamaq`.
+
 ---
 
 ## 7. Registro del Incidente

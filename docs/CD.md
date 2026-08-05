@@ -129,6 +129,9 @@ Una vez configurado el entorno, todo cambio realizado en la rama principal se su
    * **Si responde HTTP 200:** El despliegue finaliza de manera exitosa.
    * **Si falla o supera el tiempo límite:** Revierte automáticamente el repositorio al commit anterior guardado (`git reset --hard`) y vuelve a reiniciar el servicio estable, previniendo caídas del sitio.
 
+> [!IMPORTANT]
+> **No ejecutar git como `root` en el VPS.** Cualquier `git pull`, `git status` o `git fetch` como root sobre `$DEPLOY_REMOTE_DIR` deja `.git/` con ownership `root` y rompe el deploy. Usá siempre el usuario dedicado: `sudo -u datamaq git ...` o el propio `./scripts/deploy-server.sh`. Ver [INFORME_DEPLOY_ERROR.md](INFORME_DEPLOY_ERROR.md#61-no-correr-git-como-root-en-el-vps).
+
 ---
 
 ## 6. Monitoreo y Diagnóstico Remoto
