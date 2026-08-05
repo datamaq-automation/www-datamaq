@@ -198,3 +198,107 @@ async def test_cursos_pages_do_not_render_footer():
             assert response.status_code == 200
             assert 'class="c-home-footer"' not in response.text
 
+
+@pytest.mark.asyncio
+async def test_lenguajes_basico_catalog_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos")
+
+    assert response.status_code == 200
+    assert "Lenguajes Electrónicos: Nivel Básico" in response.text
+    assert "Lenguajes Electrónicos: Nivel Intermedio" in response.text
+    assert "Lenguajes Electrónicos: Nivel Avanzado" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_basico_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-basico")
+
+    assert response.status_code == 200
+    assert "Lenguajes Electrónicos: Nivel Básico" in response.text
+    assert "Sección A: Fundamentos de la Programación" in response.text
+    assert "Algoritmos y Pseudo Código" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_basico_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-basico/algoritmos-pseudocodigo")
+
+    assert response.status_code == 200
+    assert "Algoritmos y Pseudo Código" in response.text
+    assert "no debe confundirse" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_intermedio_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-intermedio")
+
+    assert response.status_code == 200
+    assert "Lenguajes Electrónicos: Nivel Intermedio" in response.text
+    assert "El Microcontrolador y el ESP32" in response.text
+    assert "Comunicación I2C y Pantalla OLED" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_intermedio_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-intermedio/instalacion-micropython-esp32")
+
+    assert response.status_code == 200
+    assert "Instalación de MicroPython en ESP32-WROOM y la consola REPL" in response.text
+    assert "REPL" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_avanzado_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-avanzado")
+
+    assert response.status_code == 200
+    assert "Lenguajes Electrónicos: Nivel Avanzado" in response.text
+    assert "Arquitectura Limpia y DDD" in response.text
+    assert "Construcción del Pac-Man" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_avanzado_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-avanzado/arquitectura-limpia-regla-dependencia")
+
+    assert response.status_code == 200
+    assert "Arquitectura limpia que grita: capas y regla de dependencia" in response.text
+    assert "regla de dependencia" in response.text
+
+
+@pytest.mark.asyncio
+async def test_lenguajes_ddd_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/lenguajes-electronicos-avanzado/ddd-modelado-dominio-pacman")
+
+    assert response.status_code == 200
+    assert "Modelado del dominio con DDD" in response.text
+    assert "Entidad" in response.text
+
+
+@pytest.mark.asyncio
+async def test_sitemap_includes_lenguajes_courses():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/sitemap.xml")
+
+    assert response.status_code == 200
+    assert "https://datamaq.com.ar/cursos/lenguajes-electronicos-basico" in response.text
+    assert "https://datamaq.com.ar/cursos/lenguajes-electronicos-intermedio" in response.text
+    assert "https://datamaq.com.ar/cursos/lenguajes-electronicos-avanzado" in response.text
+
