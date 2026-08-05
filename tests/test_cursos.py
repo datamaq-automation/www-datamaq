@@ -302,3 +302,96 @@ async def test_sitemap_includes_lenguajes_courses():
     assert "https://datamaq.com.ar/cursos/lenguajes-electronicos-intermedio" in response.text
     assert "https://datamaq.com.ar/cursos/lenguajes-electronicos-avanzado" in response.text
 
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_catalog_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos")
+
+    assert response.status_code == 200
+    assert "Laboratorio de Sistemas Operativos: Nivel Inicial" in response.text
+    assert "Laboratorio de Sistemas Operativos: Nivel Intermedio" in response.text
+    assert "Laboratorio de Sistemas Operativos: Nivel Avanzado" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_inicial_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-inicial")
+
+    assert response.status_code == 200
+    assert "Laboratorio de Sistemas Operativos: Nivel Inicial" in response.text
+    assert "Sección A: Concepto de Sistema Operativo" in response.text
+    assert "Sección C: Terminal, Archivos y Arranque" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_inicial_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-inicial/funciones-estructura-so")
+
+    assert response.status_code == 200
+    assert "Funciones y estructura de un sistema operativo" in response.text
+    assert "Micro-desafío práctico" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_intermedio_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-intermedio")
+
+    assert response.status_code == 200
+    assert "Laboratorio de Sistemas Operativos: Nivel Intermedio" in response.text
+    assert "Sección B: Memoria y Procesos" in response.text
+    assert "Sección C: Impresión, Tipografías y Panel de Control" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_intermedio_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-intermedio/impresion-diferida-spool-cups")
+
+    assert response.status_code == 200
+    assert "La impresión diferida al procesamiento y el spool (CUPS)" in response.text
+    assert "CUPS" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_avanzado_detail_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-avanzado")
+
+    assert response.status_code == 200
+    assert "Laboratorio de Sistemas Operativos: Nivel Avanzado" in response.text
+    assert "Sección B: Seguridad" in response.text
+    assert "Sección C: Arquitecturas y Sistemas de Archivos" in response.text
+
+
+@pytest.mark.asyncio
+async def test_laboratorio_so_avanzado_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/laboratorio-sistemas-operativos-avanzado/sistemas-abiertos-vs-propietarios")
+
+    assert response.status_code == 200
+    assert "Sistemas abiertos vs cerrados/propietarios: características y comparación" in response.text
+    assert "Propietario" in response.text
+
+
+@pytest.mark.asyncio
+async def test_sitemap_includes_laboratorio_so_courses():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/sitemap.xml")
+
+    assert response.status_code == 200
+    assert "https://datamaq.com.ar/cursos/laboratorio-sistemas-operativos-inicial" in response.text
+    assert "https://datamaq.com.ar/cursos/laboratorio-sistemas-operativos-intermedio" in response.text
+    assert "https://datamaq.com.ar/cursos/laboratorio-sistemas-operativos-avanzado" in response.text
+
