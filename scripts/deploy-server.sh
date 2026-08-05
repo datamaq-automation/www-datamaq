@@ -41,6 +41,15 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     echo "==> Guardando commit actual para posible rollback..."
     PREVIOUS_COMMIT=$(git rev-parse HEAD)
 
+    echo "==> Verificando permisos de escritura sobre el repositorio git..."
+    NOT_WRITABLE=$(find .git -maxdepth 2 ! -writable 2>/dev/null | head -1)
+    if [ -n "$NOT_WRITABLE" ]; then
+        echo "ERROR: Sin permiso de escritura en '$NOT_WRITABLE'."
+        echo "Corregí el ownership del repositorio en el VPS:"
+        echo "  sudo chown -R <usuario_despliegue>:<grupo> $DEPLOY_REMOTE_DIR"
+        exit 1
+    fi
+
     echo "==> Actualizando código..."
     git pull
 
