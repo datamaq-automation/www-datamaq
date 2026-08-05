@@ -11,10 +11,15 @@ def present_contenido(contenido: ContenidoModel) -> Dict[str, Any]:
     return data
 
 def present_course(course: CourseModel) -> Dict[str, Any]:
-    """Prepara un curso para su presentación, inyectando og_image por defecto si falta."""
+    """Prepara un curso para su presentación, inyectando og_image y dimensiones por defecto si faltan."""
     data = course.model_dump()
     if not data.get("og_image") and data.get("slug"):
         data["og_image"] = f"/static/media/cursos/og-{data['slug']}.webp"
+    # Definir dimensiones OG estándar si no están presentes
+    if not data.get("og_image_width"):
+        data["og_image_width"] = 1200
+    if not data.get("og_image_height"):
+        data["og_image_height"] = 630
     return data
 
 def present_caso(caso: CasoModel) -> Dict[str, Any]:
