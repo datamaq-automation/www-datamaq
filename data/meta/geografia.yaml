@@ -23,3 +23,12 @@ localidades:
     san-pedro:
       san-pedro: "San Pedro"
       santa-lucia: "Santa Lucía"
+  neuquen:
+    confluencia:
+      neuquen-capital: "Neuquén Capital"
+      centenario: "Centenario"
+      plaza-huincul: "Plaza Huincul"
+      cutral-co: "Cutral Co"
+    anelo:
+      anelo: "Añelo"
+      rincon-de-los-sauces: "Rincón de los Sauces"

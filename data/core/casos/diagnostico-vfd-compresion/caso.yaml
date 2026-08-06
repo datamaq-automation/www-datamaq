@@ -1,0 +1,34 @@
+slug: diagnostico-vfd-compresion
+title: "Diagnóstico y puesta en marcha de VFD Siemens Sinamics en planta de compresión de gas"
+industry: "Oil & Gas"
+location: "Cuenca Neuquina"
+client: "Planta de compresión de gas"
+summary: "Falla intermitente en variador Siemens Sinamics G120 de 250 kW que accionaba compresor a tornillo. Diagnóstico en 4 horas, parametrización y puesta en marcha. Cero fallas en los siguientes 6 meses."
+problem: "El variador principal del compresor de gas presentaba fallas intermitentes de sobrecorriente (F07801) que detenían la producción. El equipo de mantenimiento de la planta había reemplazado el variador sin éxito, ya que la falla persistía."
+solution: "Se realizó diagnóstico en campo con osciloscopio y software Starter (Siemens):\n\n1. Medición de armónicas en la red de alimentación — detectada distorsión del 8% por banco de capacitores defectuoso.\n2. Verificación de parámetros del VFD — mal configurado el tiempo de rampa de aceleración para la inercia del compresor.\n3. Corrección del banco de capacitores y reparametrización del lazo de corriente."
+results:
+  - "Compresor operativo en 4 horas desde la llegada a planta."
+  - "Cero fallas F07801 en los siguientes 6 meses."
+  - "Ahorro estimado: USD 15,000 en lucro cesante por parada no programada."
+published_at: "2025-11-01"
+og_image: "/static/og-default.webp"
+content: |
+  ## Contexto
+
+  Una planta de compresión de gas en la Cuenca Neuquina operaba compresores a tornillo accionados por motores de 250 kW controlados por variadores Siemens Sinamics G120. El variador principal comenzó a disparar fallas de sobrecorriente (F07801) de forma intermitente, deteniendo la producción en momentos aleatorios.
+
+  El equipo de mantenimiento de planta había reemplazado el variador completo por uno nuevo del mismo modelo, pero la falla persistió, descartando un defecto del equipo y apuntando a una causa externa o de configuración.
+
+  ## Diagnóstico en campo
+
+  Se realizó el diagnóstico en campo durante una parada programada:
+
+  1. **Medición de calidad de energía:** con osciloscopio y analizador de redes se midió la alimentación del variador, detectando una distorsión armónica del 8% (THD-V) originada por un banco de capacitores de corrección de factor de potencia defectuoso. Esta distorsión provocaba picos de tensión que el variador interpretaba como sobrecorriente.
+
+  2. **Verificación de parámetros:** con software Siemens Starter se extrajo la configuración del variador. El tiempo de rampa de aceleración estaba seteado demasiado corto para la inercia del compresor a tornillo, forzando al lazo de corriente a compensar con picos durante el arranque.
+
+  3. **Corrección:** se desconectó el banco de capacitores defectuoso, se ajustó la rampa de aceleración según la curva de inercia del compresor, y se recalibró el lazo de corriente.
+
+  ## Resultado
+
+  El compresor volvió a operar en 4 horas desde la llegada a planta. En 6 meses de seguimiento no se registró ninguna falla F07801. El ahorro estimado por lucro cesante evitado fue de USD 15,000 considerando el costo de parada no programada del tren de compresión.

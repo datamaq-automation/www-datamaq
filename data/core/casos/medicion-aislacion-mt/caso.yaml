@@ -1,0 +1,42 @@
+slug: medicion-aislacion-mt
+title: "Medición de aislación e hipot en celdas MT 13.2 kV de subestación de yacimiento"
+industry: "Oil & Gas"
+location: "Cuenca Neuquina"
+client: "Facility de upstream en yacimiento"
+summary: "Campaña de medición de aislación (megado) y prueba de hipot en 6 celdas MT 13.2 kV de subestación de yacimiento. Detección de 2 puntos con degradación de aislación antes de que provoquen falla franca."
+problem: "Una subestación MT 13.2 kV en facility de upstream presentaba antecedentes de disparos inexplicados en días de alta humedad. El equipo de operaciones requería una campaña completa de diagnóstico predictivo sin afectar la continuidad operativa, coordinando ventanas con producción."
+solution: "Se ejecutó campaña de medición de aislación en 6 celdas MT durante ventanas de parada coordinadas:\n\n1. Megado de barras, interruptores y cables de salida (tensión de prueba 5 kV DC).\n2. Prueba de hipot (15 kV AC durante 1 minuto) en interruptores y transformadores de medición.\n3. Termografía de puntos de conexión en barra principal y bornes de transformadores.\n4. Informe detallado con valores de referencia, hallazgos y recomendaciones."
+results:
+  - "Detectados 2 puntos con resistencia de aislación por debajo del umbral mínimo (50 MΩ) en cables de salida hacia bombas de extracción."
+  - "Reemplazo programado de los tramos de cable afectados antes de que se produzca falla franca."
+  - "Ahorro estimado: USD 40,000 en reparación de emergencia y lucro cesante evitado."
+published_at: "2025-05-20"
+og_image: "/static/og-default.webp"
+content: |
+  ## Contexto
+
+  Una subestación MT 13.2 kV que alimenta bombas de extracción en un yacimiento de la Cuenca Neuquina presentaba disparos inexplicados del interruptor general en días de alta humedad. El equipo de operaciones sospechaba degradación de aislación en cables de salida o en los propios interruptores, pero no se había realizado una campaña de diagnóstico sistemática.
+
+  La dificultad principal era coordinar las ventanas de parada con producción, ya que cada salida de interruptor requería detener bombas de extracción.
+
+  ## Campaña de medición
+
+  Se planificó la campaña en 3 ventanas de 4 horas cada una, coordinadas con el programador de producción:
+
+  1. **Megado (5 kV DC):** medición de resistencia de aislación en barras principales, interruptores y cables de salida de las 6 celdas. Se utilizó megómetro digital con registro de curva de absorción dieléctrica (DAR).
+
+  2. **Prueba de hipot (15 kV AC):** prueba de rigidez dieléctrica en interruptores de potencia y transformadores de medición de tensión y corriente. Verificación de corriente de fuga durante 1 minuto de aplicación.
+
+  3. **Termografía:** barrido infrarrojo de todos los puntos de conexión en barra principal, bornes de transformadores y terminales de cables.
+
+  ## Hallazgos
+
+  - 2 cables de salida hacia bombas de extracción presentaron resistencia de aislación de 35 MΩ y 42 MΩ respectivamente, por debajo del umbral mínimo aceptable de 50 MΩ según norma.
+  - La termografía detectó 3 puntos con diferencia de temperatura > 15°C respecto a conexiones adyacentes, indicando reapriete necesario.
+  - Las 4 celdas restantes presentaron valores de aislación superiores a 200 MΩ, dentro de parámetros normales.
+
+  ## Resultado
+
+  Se reemplazaron los 2 tramos de cable afectados en la siguiente parada programada, antes de que se produjera una falla franca. El ahorro estimado considerando reparación de emergencia (cable fallado + horas extra + lucro cesante por parada no programada de bombas) fue de aproximadamente USD 40,000.
+
+  El informe de la campaña quedó como línea de base para el plan de mantenimiento predictivo de la subestación, con recomendación de repetir el megado cada 12 meses.

@@ -1,0 +1,38 @@
+slug: adecuacion-tablero-ccm
+title: "Adecuación de tablero CCM con protocolo LOTO en planta de proceso continuo"
+industry: "Oil & Gas"
+location: "Campana, Buenos Aires"
+client: "Planta siderúrgica de proceso continuo"
+summary: "Adecuación de centro de control de motores (CCM) en planta de proceso continuo bajo protocolo LOTO y normativa NFPA 70E. Reemplazo de contactores, relevamiento termográfico y pruebas de aislación."
+problem: "Un CCM de baja tensión que alimentaba motores críticos de un tren de laminación presentaba contactores con desgaste severo, puntos calientes detectados en barras y borneras, y falta dedocumentación actualizada del estado de aislación. Cualquier parada no programada implicaba lucro cesante de alto impacto."
+solution: "Se planificó y ejecutó la adecuación completa del CCM en ventana de parada programada:\n\n1. Protocolo LOTO integral con bloqueo de alimentación aguas arriba y verificación de ausencia de tensión.\n2. Relevamiento termográfico pre y post intervención para documentar puntos calientes.\n3. Reemplazo de contactores desgastados y reapriete de barras y borneras.\n4. Pruebas de aislación (megado) en todos los circuitos de salida.\n5. Documentación completa del estado del tablero y plan de mantenimiento preventivo."
+results:
+  - "Eliminación de 7 puntos calientes detectados en barra principal y borneras."
+  - "Cero disparos por falla de contactor en los siguientes 12 meses."
+  - "Documentación de aislación actualizada para gestión de activos."
+published_at: "2025-08-15"
+og_image: "/static/og-default.webp"
+content: |
+  ## Contexto
+
+  En una planta siderúrgica de proceso continuo en Campana, un centro de control de motores (CCM) de baja tensión alimentaba motores críticos del tren de laminación. El tablero tenía más de 10 años de servicio continuo y el mantenimiento se limitaba a intervenciones correctivas.
+
+  Durante una inspección rutinaria se detectaron contactores con contactos principales erosionados, puntos calientes en la barra principal y borneras flojas. Una falla en este CCM implicaba parar el tren de laminación completo.
+
+  ## Intervención
+
+  Coordinada con el equipo de producción, se planificó la intervención en ventana de parada programada de 12 horas:
+
+  1. **Protocolo LOTO:** bloqueo del interruptor principal aguas arriba con candado personal. Verificación de ausencia de tensión en bornes de entrada y circuitos de control. Señalización y delimitación del área de trabajo.
+
+  2. **Relevamiento termográfico inicial:** se documentaron 7 puntos calientes (> 60°C de diferencia con temperatura ambiente) en barra principal, borneras de contactores y conexiones de relés térmicos.
+
+  3. **Reemplazo de componentes:** se reemplazaron 4 contactores con contactos desgastados y 2 relés térmicos con signos de fatiga. Reapriete completo de barra principal y todas las borneras de fuerza y control.
+
+  4. **Pruebas de aislación:** megado de todos los circuitos de salida (> 100 MΩ en todos los casos). Medición de resistencia de puesta a tierra del tablero.
+
+  5. **Relevamiento termográfico post-intervención:** confirmación de eliminación de todos los puntos calientes.
+
+  ## Resultado
+
+  La adecuación se completó dentro de la ventana de 12 horas. En los 12 meses siguientes no se registró ningún disparo por falla de contactor en el CCM intervenido. La planta incorporó la documentación al plan de mantenimiento preventivo para replicar la intervención en otros CCM del tren.

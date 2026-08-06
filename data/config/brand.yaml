@@ -9,6 +9,7 @@ technician:
     height: 100
     src: "/static/media/tecnico-a-cargo.webp"
     width: 100
-  role: "Técnico a cargo"
+  role: "Contratista de Mantenimiento Eléctrico Industrial"
   linkedin_url: "https://www.linkedin.com/in/agustin-bustos"
-footerDescription: "Monitoreo de energía y captura de datos operativos para la industria."
+  bio: "Técnico UTN con +15 años de experiencia en mantenimiento eléctrico industrial. Ex-Tenaris Siderca (Grupo Techint). Docente universitario UTN en Mantenimiento Industrial, Electrotecnia e Instalaciones y Máquinas Eléctricas. Posgrado en Gestión de la Innovación y Eficiencia Energética (ITBA)."
+footerDescription: "Mantenimiento Eléctrico Industrial para Oil & Gas y sector productivo."
