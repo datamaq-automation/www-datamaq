@@ -16,14 +16,14 @@ footerDescription: "Mantenimiento Eléctrico Industrial para Oil & Gas y sector 
 whatsappUrl: "https://wa.me/541156297160"
 # Datos estructurados (JSON-LD LocalBusiness) — completar valores reales antes del deploy
 address:
-  streetAddress: "CALLE Y NUMERO"       # ← completar
-  postalCode: "1619"                     # ← verificar CP de Garín
+  streetAddress: "Centenario 2795"
+  postalCode: "1619"              
   addressLocality: "Garín"
   addressRegion: "Buenos Aires"
   addressCountry: "AR"
 geo:
-  lat: -34.4230                          # ← verificar coordenadas reales
-  lng: -58.7450                          # ← verificar coordenadas reales
-openingHours: "Mo-Fr 08:00-18:00"       # ← verificar horario real
+  lat: -34.4286681
+  lng: -58.741936
+openingHours: "Mo-Fr 08:00-18:00" 
 sameAs:
   - "https://www.linkedin.com/in/agustin-bustos"
