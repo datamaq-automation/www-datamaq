@@ -59,7 +59,21 @@ async def sitemap(
 
     localidades = geografia.get("localidades", {})
     for provincia_key, provincia in localidades.items():
+        # Página hub de provincia
+        urls.append({
+            "loc": f"{base_url}/{provincia_key}",
+            "lastmod": lastmod,
+            "changefreq": "monthly",
+            "priority": "0.6",
+        })
         for municipio_key, municipio in provincia.items():
+            # Página hub de municipio
+            urls.append({
+                "loc": f"{base_url}/{provincia_key}/{municipio_key}",
+                "lastmod": lastmod,
+                "changefreq": "monthly",
+                "priority": "0.6",
+            })
             for localidad_key in municipio.keys():
                 urls.append({
                     "loc": f"{base_url}/{provincia_key}/{municipio_key}/{localidad_key}.html",

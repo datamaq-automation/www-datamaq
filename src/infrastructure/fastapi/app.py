@@ -66,9 +66,9 @@ from src.infrastructure.fastapi.routes.course_routes import router as course_rou
 from src.infrastructure.fastapi.routes.caso_routes import router as caso_router
 
 # Eliminamos el prefijo para respetar la estructura de URLs solicitada
-app.include_router(seo_router)
 app.include_router(main_router)
 app.include_router(industry_router)
 app.include_router(contact_router)
 app.include_router(course_router)
 app.include_router(caso_router)
+app.include_router(seo_router)  # Debe ir último: sus rutas /{provincia} y /{provincia}/{municipio} son catch-all
