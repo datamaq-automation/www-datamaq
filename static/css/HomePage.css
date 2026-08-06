@@ -41,7 +41,7 @@
 .app-shell--variant-direct .c-home-hero__copy[data-v-236fef00]{padding:clamp(1.2rem,3vw,1.8rem)}
 .app-shell--variant-direct .c-home-header__inner[data-v-236fef00]{min-height:3.7rem}
 .app-shell--variant-authority .c-home-hero__copy[data-v-236fef00]{padding:clamp(1.4rem,3.2vw,2rem)}
-.c-home-hero__title[data-v-236fef00],.c-home-section-title[data-v-236fef00]{margin:0;font-size:clamp(2.2rem,4.3vw,4rem);line-height:.98;letter-spacing:-.03em;text-wrap:balance}
+.c-home-hero__title[data-v-236fef00],.c-home-section-title[data-v-236fef00]{margin:0;font-size:clamp(2.2rem,4.3vw,4rem);line-height:.98;letter-spacing:-.03em;text-wrap:balance;overflow-wrap:break-word}
 .c-home-hero__subtitle[data-v-236fef00],
 .c-home-section-copy[data-v-236fef00],.c-home-profile__lead[data-v-236fef00],
 .c-home-profile__detail-copy[data-v-236fef00],
