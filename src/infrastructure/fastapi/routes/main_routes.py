@@ -38,6 +38,10 @@ async def robots():
 async def humans():
     return FileResponse(config.HUMANS_TXT_PATH, media_type="text/plain")
 
+@router.get("/google1be4ebe73ffd0291.html")
+async def google_verification():
+    return FileResponse("static/google1be4ebe73ffd0291.html")
+
 @router.get("/sitemap.xml")
 async def sitemap(
     request: Request,
