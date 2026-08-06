@@ -1,23 +1,29 @@
 export const loadThirdPartyScripts = () => {
     try {
         const gaId = window.APP_CONFIG?.gaId;
+        const adsId = window.APP_CONFIG?.googleAdsId;
         const clarityId = window.APP_CONFIG?.clarityId;
-        
-        // 1. Cargar Google Analytics
-        if (gaId && gaId !== "None") {
+
+        const hasGtag = (gaId && gaId !== "None") || (adsId && adsId !== "None");
+
+        // 0. Shim global: dataLayer + gtag siempre disponibles tras el consentimiento
+        //    (corrige bug: si solo hay Ads ID sin GA ID, gtag nunca existía)
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+
+        // 1. Google Analytics + Google Ads (un único script gtag.js)
+        if (hasGtag) {
             try {
+                const primaryId = (gaId && gaId !== "None") ? gaId : adsId;
                 const script = document.createElement("script");
                 script.async = true;
-                script.src = "https://www.googletagmanager.com/gtag/js?id=" + gaId;
-                
+                script.src = "https://www.googletagmanager.com/gtag/js?id=" + primaryId;
                 script.onerror = () => console.error("[ThirdPartyManager] Error de red al cargar GTAG.");
-                
                 document.head.appendChild(script);
-                
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag("js", new Date());
-                gtag("config", gaId);
+
+                window.gtag("js", new Date());
+                if (gaId && gaId !== "None") window.gtag("config", gaId);
+                if (adsId && adsId !== "None") window.gtag("config", adsId); // remarketing
             } catch (e) {
                 console.error("[ThirdPartyManager] Fallo crítico al inicializar GTAG:", e);
             }

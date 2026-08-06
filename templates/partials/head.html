@@ -13,6 +13,10 @@
     <link rel='dns-prefetch' href='https://www.googletagmanager.com'>
     <link rel='preconnect' href='https://www.google-analytics.com' crossorigin>
     <link rel='dns-prefetch' href='https://www.google-analytics.com'>
+    <link rel='preconnect' href='https://googleads.g.doubleclick.net' crossorigin>
+    <link rel='dns-prefetch' href='https://googleads.g.doubleclick.net'>
+    <link rel='preconnect' href='https://www.googleadservices.com' crossorigin>
+    <link rel='dns-prefetch' href='https://www.googleadservices.com'>
     <link rel='preconnect' href='https://www.clarity.ms' crossorigin>
     <link rel='dns-prefetch' href='https://www.clarity.ms'>
 
@@ -28,6 +32,9 @@
     <script>
         window.APP_CONFIG = {
             gaId: '{{ config.GOOGLE_ANALYTICS_ID }}',
+            googleAdsId: '{{ config.GOOGLE_ADS_ID }}',
+            googleAdsConversionId: '{{ config.GOOGLE_ADS_CONVERSION_ID }}',
+            googleAdsWhatsappConversionId: '{{ config.GOOGLE_ADS_WHATSAPP_CONVERSION_ID }}',
             clarityId: '{{ config.CLARITY_ID }}',
             contactApiUrl: '{{ request.url_for("submit_contact") }}'
         };
@@ -65,9 +72,23 @@
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
                 "logo": "{{ request.url_for('static', path='favicon.svg') }}",
+                "telephone": "+{{ config.WHATSAPP_PHONE }}",
+                "email": "{{ brand.contactEmail }}",
+                {% if brand.address %}
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "{{ brand.address.streetAddress }}",
+                    "postalCode": "{{ brand.address.postalCode }}",
+                    "addressLocality": "{{ brand.address.addressLocality }}",
+                    "addressRegion": "{{ brand.address.addressRegion }}",
+                    "addressCountry": "{{ brand.address.addressCountry }}"
+                },
+                {% endif %}
+                {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "contactType": "Soporte técnico y ventas",
+                    "telephone": "+{{ config.WHATSAPP_PHONE }}",
                     "email": "{{ brand.contactEmail }}",
                     "areaServed": "AR",
                     "availableLanguage": "Spanish"

@@ -68,6 +68,75 @@
     </div>
 </section>
 {% endif %}
+{% if hub_type %}
+<section class="c-context-section" aria-labelledby="hub-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        <h2 id="hub-title" class="c-context-section__title">{{ hub_title }}</h2>
+        <p class="c-context-section__text">{{ hub_subtitle }}</p>
+        {% if hub_type == 'provincia' %}
+            {% for muni in municipios %}
+            <section style="margin-top: 1.5rem;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">{{ muni.nombre }}</h3>
+                <ul class="c-context-section__list">
+                    {% for loc in muni.localidades %}
+                    <li><a href="{{ loc.url }}">{{ loc.nombre }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endfor %}
+        {% elif hub_type == 'municipio' %}
+            <ul class="c-context-section__list" style="margin-top: 1rem;">
+                {% for loc in localidades %}
+                <li><a href="{{ loc.url }}">{{ loc.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ seo.title }}",
+  "description": "{{ seo.description }}",
+  "url": "{{ seo.canonical_url }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ config.BASE_URL }}/"
+    }{% if hub_type == 'municipio' %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ provincia }}",
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ municipio }}",
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}/{{ municipio_slug }}/"
+    }
+    {% else %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ provincia }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endif %}
 {{ profile_macro.profile(request, brand, content.profile) }}
 
 <section id="asistencia" class="section-mobile c-assistance-modes" aria-labelledby="asistencia-title">
@@ -129,26 +198,95 @@
   ]
 }
 </script>
+{% if not localidad_nombre and not industria_nombre and not hub_type %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{ brand.brandName }}",
+  "image": "{{ seo.og_image }}",
+  "url": "{{ seo.canonical_url }}",
+  "telephone": "+{{ config.WHATSAPP_PHONE }}",
+  "email": "{{ brand.contactEmail }}",
+  {% if brand.address %}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ brand.address.streetAddress }}",
+    "postalCode": "{{ brand.address.postalCode }}",
+    "addressLocality": "{{ brand.address.addressLocality }}",
+    "addressRegion": "{{ brand.address.addressRegion }}",
+    "addressCountry": "{{ brand.address.addressCountry }}"
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query={{ (brand.address.addressLocality + ', ' + brand.address.addressRegion) | urlencode }}",
+  {% endif %}
+  {% if brand.geo %}
+  "geo": { "@type": "GeoCoordinates", "latitude": {{ brand.geo.lat }}, "longitude": {{ brand.geo.lng }} },
+  {% endif %}
+  {% if brand.openingHours %}"openingHours": "{{ brand.openingHours }}",{% endif %}
+  {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
+  "areaServed": "AR",
+  "description": "{{ seo.description }}",
+  "makesOffer": [
+    {% for card in content.services.cards %}
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "{{ card.title | replace('"', '\\"') }}",
+        "description": "{{ card.description | replace('"', '\\"') }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
 {% if localidad_nombre %}
+{% set path_parts = request.url.path.split('/') %}
+{% set provincia_slug = path_parts[1] %}
+{% set municipio_slug = path_parts[2] %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "DataMaq - Monitoreo de Energía en {{ localidad_nombre }}",
   "image": "{{ seo.og_image }}",
-  "telephone": "+5491156297160",
+  "url": "{{ seo.canonical_url }}",
+  "telephone": "+{{ config.WHATSAPP_PHONE }}",
   "email": "{{ brand.contactEmail }}",
+  {% if brand.address %}
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "{{ localidad_nombre }}",
-    "addressRegion": "{{ provincia }}",
-    "addressCountry": "AR"
+    "streetAddress": "{{ brand.address.streetAddress }}",
+    "postalCode": "{{ brand.address.postalCode }}",
+    "addressLocality": "{{ brand.address.addressLocality }}",
+    "addressRegion": "{{ brand.address.addressRegion }}",
+    "addressCountry": "{{ brand.address.addressCountry }}"
   },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query={{ (localidad_nombre + ', ' + provincia) | urlencode }}",
+  {% endif %}
+  {% if brand.geo %}
+  "geo": { "@type": "GeoCoordinates", "latitude": {{ brand.geo.lat }}, "longitude": {{ brand.geo.lng }} },
+  {% endif %}
+  {% if brand.openingHours %}"openingHours": "{{ brand.openingHours }}",{% endif %}
+  {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
   "areaServed": {
     "@type": "AdministrativeArea",
     "name": "{{ localidad_nombre }}, {{ municipio }}, {{ provincia }}"
   },
-  "description": "{{ seo.description }}"
+  "description": "{{ seo.description }}",
+  "makesOffer": [
+    {% for card in content.services.cards %}
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "{{ card.title | replace('"', '\\"') }}",
+        "description": "{{ card.description | replace('"', '\\"') }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -160,19 +298,19 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Inicio",
-      "item": "{{ request.url_for('root') }}"
+      "item": "{{ config.BASE_URL }}/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "{{ provincia }}",
-      "item": "{{ seo.canonical_url }}"
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}/"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "{{ municipio }}",
-      "item": "{{ seo.canonical_url }}"
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}/{{ municipio_slug }}/"
     },
     {
       "@type": "ListItem",
@@ -208,7 +346,7 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Inicio",
-      "item": "{{ request.url_for('root') }}"
+      "item": "{{ config.BASE_URL }}/"
     },
     {
       "@type": "ListItem",

@@ -14,7 +14,17 @@ async def override_get_contenido():
             "contactEmail": "test@test.com",
             "whatsappUrl": "http://test.com",
             "technician": {"name": "Test", "role": "Test", "photo": {"src": "test.jpg", "alt": "Test"}},
-            "footerDescription": "Test footer description"
+            "footerDescription": "Test footer description",
+            "address": {
+                "streetAddress": "Test 123",
+                "postalCode": "1234",
+                "addressLocality": "Garín",
+                "addressRegion": "Buenos Aires",
+                "addressCountry": "AR"
+            },
+            "geo": {"lat": -34.423, "lng": -58.745},
+            "openingHours": "Mo-Fr 08:00-18:00",
+            "sameAs": ["https://www.linkedin.com/in/test"]
         },
         content={
             "hero": {

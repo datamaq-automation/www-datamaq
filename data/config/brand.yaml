@@ -13,3 +13,17 @@ technician:
   linkedin_url: "https://www.linkedin.com/in/agustin-bustos"
   bio: "Técnico UTN con +15 años de experiencia en mantenimiento eléctrico industrial. Ex-Tenaris Siderca (Grupo Techint). Docente universitario UTN en Mantenimiento Industrial, Electrotecnia e Instalaciones y Máquinas Eléctricas. Posgrado en Gestión de la Innovación y Eficiencia Energética (ITBA)."
 footerDescription: "Mantenimiento Eléctrico Industrial para Oil & Gas y sector productivo."
+whatsappUrl: "https://wa.me/541156297160"
+# Datos estructurados (JSON-LD LocalBusiness) — completar valores reales antes del deploy
+address:
+  streetAddress: "CALLE Y NUMERO"       # ← completar
+  postalCode: "1619"                     # ← verificar CP de Garín
+  addressLocality: "Garín"
+  addressRegion: "Buenos Aires"
+  addressCountry: "AR"
+geo:
+  lat: -34.4230                          # ← verificar coordenadas reales
+  lng: -58.7450                          # ← verificar coordenadas reales
+openingHours: "Mo-Fr 08:00-18:00"       # ← verificar horario real
+sameAs:
+  - "https://www.linkedin.com/in/agustin-bustos"

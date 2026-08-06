@@ -41,6 +41,11 @@ class BrandModel(BaseModel):
     whatsappUrl: Optional[str] = None
     technician: TechnicianModel
     footerDescription: str
+    # Datos estructurados JSON-LD (opcionales)
+    address: Optional[Dict[str, str]] = None
+    geo: Optional[Dict[str, float]] = None
+    openingHours: Optional[str] = None
+    sameAs: Optional[List[str]] = None
 
 class HeroModel(BaseModel):
     badge: str
