@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Union
 from fastapi import APIRouter, Request, HTTPException, Depends
 from fastapi.responses import RedirectResponse
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token, get_cursos_service
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, LessonModel, QuizModel
 from src.application.data_service import DataService
@@ -14,7 +14,6 @@ async def listado_cursos(
     request: Request,
     contenido: ContenidoModel = Depends(get_contenido),
     cursos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     presented = present_contenido(contenido)
     brand_data = presented["brand"]
@@ -40,7 +39,6 @@ async def listado_cursos(
         "cursos": cursos,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/list.html", context=context)
 
@@ -63,7 +61,6 @@ async def detalle_instructor(
     instructor_id: str,
     contenido: ContenidoModel = Depends(get_contenido),
     cursos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     instructor = cursos_service.get_instructor_por_id(instructor_id)
     if not instructor:
@@ -93,7 +90,6 @@ async def detalle_instructor(
         "cursos": cursos,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/instructor.html", context=context)
 
@@ -104,16 +100,15 @@ async def detalle_curso(
     curso_slug: str,
     contenido: ContenidoModel = Depends(get_contenido),
     cursos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     curso = cursos_service.get_curso_por_slug(curso_slug)
     if not curso:
         raise HTTPException(status_code=404, detail="Curso no encontrado")
-        
+
     presented = present_contenido(contenido)
     brand_data = presented["brand"]
     content_data = presented["content"]
-    
+
     presented_c = present_course(curso)
 
     seo: Dict[str, Any] = {
@@ -133,7 +128,6 @@ async def detalle_curso(
         "curso": presented_c,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/detail.html", context=context)
 
@@ -145,7 +139,6 @@ async def vista_leccion(
     leccion_slug: str,
     contenido: ContenidoModel = Depends(get_contenido),
     cursos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     resultado = cursos_service.get_leccion(curso_slug, leccion_slug)
     if not resultado:
@@ -197,6 +190,5 @@ async def vista_leccion(
         "next_lesson": next_lesson.model_dump() if next_lesson else None,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="cursos/lesson.html", context=context)

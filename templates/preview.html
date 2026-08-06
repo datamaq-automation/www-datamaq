@@ -21,7 +21,7 @@
             {% import 'partials/components/profile.html' as profile_macro %}
             {% import 'partials/components/dock.html' as dock_macro %}
             {% import 'partials/components/hero.html' as hero_macro %}
-            {% import 'partials/components/chatwoot_fab.html' as chatwoot_macro %}
+            {% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
             {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
             {% import 'partials/components/icon.html' as icon_macro %}
             {% import 'partials/components/section_wrapper.html' as section_wrapper_macro %}
@@ -38,8 +38,8 @@
                 {{ profile_macro.profile(request, brand, content.profile) }}
             {% elif 'hero' in partial_name %}
                 {{ hero_macro.hero(request, content.hero) }}
-            {% elif 'chatwoot_fab' in partial_name %}
-                {{ chatwoot_macro.chatwoot_fab(config.CHATWOOT_BASE_URL, chatwoot_token) }}
+            {% elif 'whatsapp_fab' in partial_name %}
+                {{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
             {% elif 'cookie_banner' in partial_name %}
                 {{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
             {% elif 'dock' in partial_name %}

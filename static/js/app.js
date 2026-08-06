@@ -1,4 +1,3 @@
-import { initChatwoot } from './modules/ChatwootManager.js';
 import { initCookieManager } from './modules/CookieManager.js';
 import { loadThirdPartyScripts } from './modules/ThirdPartyScriptsManager.js';
 import { FormManager } from './modules/FormManager.js';
@@ -9,14 +8,7 @@ export const APP_CONFIG = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Chatwoot
-    try {
-        initChatwoot(document.getElementById('chatwoot-config'));
-    } catch (e) {
-        console.error("[App] Fallo crítico al inicializar Chatwoot:", e);
-    }
-
-    // 2. Cookies
+    // 1. Cookies
     try {
         initCookieManager(
             document.getElementById('cookie-banner'),
@@ -28,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("[App] Fallo crítico al inicializar CookieManager:", e);
     }
 
-    // 3. Contact Form Manager
+    // 2. Contact Form Manager
     try {
         const contactForm = document.querySelector('.c-contact form');
         if (contactForm && APP_CONFIG.apiUrl) {

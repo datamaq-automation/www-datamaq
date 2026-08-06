@@ -3,9 +3,9 @@ import tempfile
 from unittest.mock import patch
 from httpx import AsyncClient, ASGITransport # type: ignore
 from src.infrastructure.fastapi.app import app
-from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token, get_chatwoot_gateway
+from src.infrastructure.fastapi.dependencies import get_contenido, get_notification_gateway
 from src.domain.models import ContenidoModel
-from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
+from src.infrastructure.gateways.notification_gateway_stub import NotificationGatewayStub
 
 # Mock data actualizado a la nueva estructura
 # Mock data actualizado a la nueva estructura
@@ -102,16 +102,12 @@ async def override_get_contenido():
 @pytest.fixture(autouse=True)
 def setup_dependency_overrides():
     app.dependency_overrides[get_contenido] = override_get_contenido
-    app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
-    app.dependency_overrides[get_chatwoot_gateway] = override_get_chatwoot_gateway
+    app.dependency_overrides[get_notification_gateway] = override_get_notification_gateway
     yield
     app.dependency_overrides.clear()
 
-async def override_get_chatwoot_token():
-    return "test_token"
-
-async def override_get_chatwoot_gateway():
-    return ChatwootGatewayStub()
+async def override_get_notification_gateway():
+    return NotificationGatewayStub()
 
 @pytest.mark.asyncio  # type: ignore
 async def test_sitemap_rendered():
@@ -260,7 +256,7 @@ async def test_submit_contact_returns_success():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_submit_contact_returns_partial_success_when_chatwoot_fails():
+async def test_submit_contact_returns_partial_success_when_notification_fails():
     transport = ASGITransport(app=app)
     payload = {
         "name": "Test User",
@@ -272,7 +268,7 @@ async def test_submit_contact_returns_partial_success_when_chatwoot_fails():
 
     with tempfile.TemporaryDirectory() as tmpdir:
         with patch("src.infrastructure.persistence.json.lead_repository_json.DATA_DIR", tmpdir):
-            with patch("src.infrastructure.gateways.chatwoot_gateway_stub.ChatwootGatewayStub.create_contact", side_effect=Exception("Chatwoot down")):
+            with patch("src.infrastructure.gateways.notification_gateway_stub.NotificationGatewayStub.notify_lead", side_effect=Exception("Notification down")):
                 async with AsyncClient(transport=transport, base_url="http://test") as ac:
                     response = await ac.post("/api/v1/contact", json=payload)
 

@@ -49,7 +49,6 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             "content": contenido.content.model_dump(),
             "seo": seo,
             "footer": contenido.footer.model_dump() if contenido.footer else None,
-            "chatwoot_token": config.CHATWOOT_TOKEN or "",
             "page_robots": "noindex,follow",
         }
         return templates.TemplateResponse(request=request, name="404.html", context=context, status_code=404)

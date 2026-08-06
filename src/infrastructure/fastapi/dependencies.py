@@ -7,9 +7,9 @@ from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
 from src.domain.models import ContenidoModel, LandingContentModel
 from src.application.data_service import DataService
-from src.application.gateways.chatwoot_gateway import ChatwootGateway
-from src.infrastructure.gateways.chatwoot_gateway_stub import ChatwootGatewayStub
-from src.infrastructure.gateways.chatwoot_gateway_http import ChatwootGatewayHttp
+from src.application.gateways.notification_gateway import NotificationGateway
+from src.infrastructure.gateways.notification_gateway_stub import NotificationGatewayStub
+from src.infrastructure.gateways.email_notification_gateway import EmailNotificationGateway
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.persistence.json.lead_repository_json import LeadRepositoryJson
 import subprocess
@@ -44,22 +44,22 @@ def get_industrias(): return data_service.get_industrias()
 def get_cursos_service() -> DataService: return data_service
 def get_redirects() -> Dict[str, str]: return data_service.get_redirects()
 def get_landing_content() -> LandingContentModel: return data_service.get_landing_content()
-def get_chatwoot_token() -> str:
-    return config.CHATWOOT_TOKEN or ""
 
 # --- Dependencias de Infraestructura (Repository + Gateway) ---
 def get_lead_repository() -> LeadRepository:
     return LeadRepositoryJson()
 
-def get_chatwoot_gateway() -> ChatwootGateway:
-    if config.CHATWOOT_ACCOUNT_ID and config.CHATWOOT_API_TOKEN:
-        return ChatwootGatewayHttp(
-            base_url=config.CHATWOOT_BASE_URL,
-            account_id=config.CHATWOOT_ACCOUNT_ID,
-            api_token=config.CHATWOOT_API_TOKEN,
+def get_notification_gateway() -> NotificationGateway:
+    if config.SMTP_USERNAME and config.SMTP_PASSWORD and config.NOTIFICATION_EMAIL:
+        return EmailNotificationGateway(
+            host=config.SMTP_HOST,
+            port=config.SMTP_PORT,
+            username=config.SMTP_USERNAME,
+            password=config.SMTP_PASSWORD,
+            to_email=config.NOTIFICATION_EMAIL,
         )
-    logger.warning("[dependencies] CHATWOOT_ACCOUNT_ID o CHATWOOT_API_TOKEN no configurados; usando ChatwootGatewayStub")
-    return ChatwootGatewayStub()
+    logger.warning("[dependencies] SMTP_USERNAME, SMTP_PASSWORD o NOTIFICATION_EMAIL no configurados; usando NotificationGatewayStub")
+    return NotificationGatewayStub()
 
 # --- Configuración Jinja2 ---
 def get_static_version() -> str:

@@ -2,7 +2,7 @@
 {% import 'partials/head.html' as seo_macro %}
 {% import 'partials/components/header.html' as header_macro %}
 {% import 'partials/components/footer.html' as footer_macro %}
-{% import 'partials/components/chatwoot_fab.html' as chatwoot_macro %}
+{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
 {% import 'partials/components/dock.html' as dock_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block fab %}
-{{ chatwoot_macro.chatwoot_fab(config.CHATWOOT_BASE_URL, config.CHATWOOT_TOKEN) }}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
 {% endblock %}
 
 {% block dock %}

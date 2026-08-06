@@ -2,13 +2,12 @@ from typing import Any, Dict
 from fastapi import APIRouter, HTTPException, Request, Depends
 from src.domain.models import ContactSubmitPayload, ContenidoModel
 from src.domain.repositories.lead_repository import LeadRepository
-from src.application.gateways.chatwoot_gateway import ChatwootGateway
+from src.application.gateways.notification_gateway import NotificationGateway
 from src.infrastructure.fastapi.dependencies import (
     templates,
     get_contenido,
-    get_chatwoot_token,
     get_lead_repository,
-    get_chatwoot_gateway,
+    get_notification_gateway,
 )
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.settings import config
@@ -20,12 +19,12 @@ router = APIRouter()
 logger = setup_logger(config.LOGGER_NAME)
 
 @router.get("/contact")
-async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def contact_page(request: Request, contenido: ContenidoModel = Depends(get_contenido)):
     presented = present_contenido(contenido)
     brand_data = presented["brand"]
     content_data = presented["content"]
     contact_data = content_data["contact"]
-    
+
     base_seo = presented["seo"]
     seo = {
         **base_seo,
@@ -40,7 +39,6 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
         "content": content_data,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
         "contact_hero": {
             "title": f"{contact_data['title']} con {brand_data['brandName']}",
             "subtitle": contact_data["subtitle"],
@@ -52,14 +50,14 @@ async def contact_page(request: Request, contenido: ContenidoModel = Depends(get
 async def submit_contact(
     payload: ContactSubmitPayload,
     repository: LeadRepository = Depends(get_lead_repository),
-    chatwoot_gateway: ChatwootGateway = Depends(get_chatwoot_gateway),
+    notification_gateway: NotificationGateway = Depends(get_notification_gateway),
 ):
     logger.info("[submit_contact] Recibiendo POST /api/v1/contact")
     logger.debug("[submit_contact] Payload validado: name presente=%s, email presente=%s, phone presente=%s",
                  bool(payload.name), bool(payload.email), bool(payload.phone))
 
     try:
-        use_case = SubmitLeadUseCase(repository=repository, chatwoot_gateway=chatwoot_gateway)
+        use_case = SubmitLeadUseCase(repository=repository, notification_gateway=notification_gateway)
         result = await use_case.execute(payload)
         logger.info("[submit_contact] Lead procesado: submission_id=%s, status=%s", result.submission_id, result.submit_status)
         return {

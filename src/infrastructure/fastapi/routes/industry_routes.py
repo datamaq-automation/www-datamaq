@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_industrias, get_chatwoot_token, get_landing_content
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_industrias, get_landing_content
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel, LandingContentModel
 from src.adapters.presenters.content_presenter import present_contenido
@@ -8,7 +8,7 @@ from src.adapters.presenters.content_presenter import present_contenido
 router = APIRouter()
 
 @router.get("/industria/{industria}.html")
-async def pagina_industria(request: Request, industria: str, contenido: ContenidoModel = Depends(get_contenido), industrias_data: IndustriaModel = Depends(get_industrias), landing_content: LandingContentModel = Depends(get_landing_content), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def pagina_industria(request: Request, industria: str, contenido: ContenidoModel = Depends(get_contenido), industrias_data: IndustriaModel = Depends(get_industrias), landing_content: LandingContentModel = Depends(get_landing_content)):
 
     nombre_industria = industrias_data.industrias.get(industria)
 
@@ -40,7 +40,6 @@ async def pagina_industria(request: Request, industria: str, contenido: Contenid
         "content": content_data,
         "servicios": servicios_data,
         "faq": content_data["faq"]["questions"],
-        "chatwoot_token": chatwoot_token,
         "industria_nombre": nombre_industria,
         "seo": seo,
         "footer": presented.get("footer"),

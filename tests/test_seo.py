@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient, ASGITransport  # type: ignore
 from src.infrastructure.fastapi.app import app
-from src.infrastructure.fastapi.dependencies import get_contenido, get_chatwoot_token
+from src.infrastructure.fastapi.dependencies import get_contenido
 from src.domain.models import ContenidoModel
 
 
@@ -108,13 +108,8 @@ async def override_get_contenido():
 @pytest.fixture(autouse=True)
 def setup_dependency_overrides():
     app.dependency_overrides[get_contenido] = override_get_contenido
-    app.dependency_overrides[get_chatwoot_token] = override_get_chatwoot_token
     yield
     app.dependency_overrides.clear()
-
-
-async def override_get_chatwoot_token():
-    return "test_token"
 
 
 @pytest.mark.asyncio  # type: ignore

@@ -1,6 +1,5 @@
 
-from src.application.gateways.chatwoot_gateway import ChatwootGateway
-from src.application.mappers.chatwoot_contact_mapper import lead_to_chatwoot_contact
+from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.mappers.lead_mapper import payload_to_lead
 from src.domain.models import ContactSubmitPayload
 from src.domain.repositories.lead_repository import LeadRepository
@@ -13,11 +12,11 @@ logger = setup_logger(config.LOGGER_NAME)
 
 
 class SubmitLeadUseCase:
-    """Caso de uso que orquesta la recepción, persistencia y sincronización de un lead."""
+    """Caso de uso que orquesta la recepción, persistencia y notificación de un lead."""
 
-    def __init__(self, repository: LeadRepository, chatwoot_gateway: ChatwootGateway):
+    def __init__(self, repository: LeadRepository, notification_gateway: NotificationGateway):
         self._repository = repository
-        self._chatwoot_gateway = chatwoot_gateway
+        self._notification_gateway = notification_gateway
 
     async def execute(self, payload: ContactSubmitPayload) -> LeadSubmissionResult:
         logger.info("[SubmitLeadUseCase] Iniciando procesamiento de lead")
@@ -25,7 +24,6 @@ class SubmitLeadUseCase:
                      payload.name, bool(payload.email), bool(payload.phone), bool(payload.company))
 
         lead = payload_to_lead(payload)
-        chatwoot_contact = lead_to_chatwoot_contact(lead)
         submission_id = str(lead.id)
         request_id = f"req_{uuid.uuid4().hex[:8]}"
 
@@ -40,21 +38,30 @@ class SubmitLeadUseCase:
                 request_id=request_id,
                 submission_id=submission_id,
                 lead_saved=False,
-                chatwoot_synced=False,
+                notification_sent=False,
                 error_message="No se pudo guardar el lead",
             )
 
+        lead_data = {
+            "name": lead.contact.name,
+            "email": lead.contact.email,
+            "phone": lead.contact.phone,
+            "company": lead.contact.company,
+            "comment": lead.comment,
+            "source": lead.preferred_contact_channel,
+        }
+
         try:
-            await self._chatwoot_gateway.create_contact(chatwoot_contact)
-            logger.info("[SubmitLeadUseCase] Lead %s sincronizado con Chatwoot", submission_id)
+            await self._notification_gateway.notify_lead(lead_data)
+            logger.info("[SubmitLeadUseCase] Lead %s notificado correctamente", submission_id)
         except Exception as e:
-            logger.warning("[SubmitLeadUseCase] Fallo al sincronizar lead %s con Chatwoot: %s", submission_id, e)
+            logger.warning("[SubmitLeadUseCase] Fallo al notificar lead %s: %s", submission_id, e)
             return LeadSubmissionResult(
                 request_id=request_id,
                 submission_id=submission_id,
                 lead_saved=True,
-                chatwoot_synced=False,
-                error_message="Lead guardado, pero no se pudo sincronizar con Chatwoot",
+                notification_sent=False,
+                error_message="Lead guardado, pero no se pudo enviar la notificación",
             )
 
         logger.info("[SubmitLeadUseCase] Procesamiento de lead %s completado exitosamente", submission_id)
@@ -62,6 +69,5 @@ class SubmitLeadUseCase:
             request_id=request_id,
             submission_id=submission_id,
             lead_saved=True,
-            chatwoot_synced=True,
+            notification_sent=True,
         )
-

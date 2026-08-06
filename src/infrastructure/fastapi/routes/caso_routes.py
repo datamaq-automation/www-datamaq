@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_chatwoot_token, get_cursos_service
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel
 from src.application.data_service import DataService
@@ -13,7 +13,6 @@ async def listado_casos(
     request: Request,
     contenido: ContenidoModel = Depends(get_contenido),
     casos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     presented = present_contenido(contenido)
     brand_data = presented["brand"]
@@ -39,7 +38,6 @@ async def listado_casos(
         "casos": casos,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="casos/list.html", context=context)
 
@@ -50,7 +48,6 @@ async def detalle_caso(
     caso_slug: str,
     contenido: ContenidoModel = Depends(get_contenido),
     casos_service: DataService = Depends(get_cursos_service),
-    chatwoot_token: str = Depends(get_chatwoot_token)
 ):
     caso = casos_service.get_caso_por_slug(caso_slug)
     if not caso:
@@ -79,6 +76,5 @@ async def detalle_caso(
         "caso": presented_caso,
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
     }
     return templates.TemplateResponse(request=request, name="casos/detail.html", context=context)

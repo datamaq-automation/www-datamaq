@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request, Depends
 from fastapi.responses import FileResponse
 from datetime import datetime
 from src.infrastructure.settings import config
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_chatwoot_token, get_cursos_service
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_industrias, get_cursos_service
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, IndustriaModel
 from src.adapters.presenters.content_presenter import present_contenido
@@ -108,14 +108,13 @@ async def sitemap(
     )
 
 @router.get("/dev/preview/{partial_name:path}")
-async def preview(request: Request, partial_name: str, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def preview(request: Request, partial_name: str, contenido: ContenidoModel = Depends(get_contenido)):
     presented = present_contenido(contenido)
     context: Dict[str, Any] = {
         "brand": presented["brand"],
         "content": presented["content"],
         "seo": presented["seo"],
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token,
         "partial_name": partial_name,
         "config": config
     }
@@ -124,7 +123,7 @@ async def preview(request: Request, partial_name: str, contenido: ContenidoModel
     return response
 
 @router.get("/")
-async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def root(request: Request, contenido: ContenidoModel = Depends(get_contenido)):
     presented = present_contenido(contenido)
     base_seo: Dict[str, Any] = presented["seo"]
     seo: Dict[str, Any] = {
@@ -138,12 +137,11 @@ async def root(request: Request, contenido: ContenidoModel = Depends(get_conteni
         "content": presented["content"],
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)
 
 @router.get("/terminos-y-condiciones")
-async def terms(request: Request, contenido: ContenidoModel = Depends(get_contenido), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def terms(request: Request, contenido: ContenidoModel = Depends(get_contenido)):
     presented = present_contenido(contenido)
     base_seo: Dict[str, Any] = presented["seo"]
     seo: Dict[str, Any] = {
@@ -161,6 +159,5 @@ async def terms(request: Request, contenido: ContenidoModel = Depends(get_conten
         "cookie_banner": presented["content"]["cookie_banner"],
         "seo": seo,
         "footer": presented.get("footer"),
-        "chatwoot_token": chatwoot_token
     }
     return templates.TemplateResponse(request=request, name="terms.html", context=context)

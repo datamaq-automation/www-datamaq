@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from fastapi import APIRouter, Request, HTTPException, Depends
-from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_chatwoot_token, get_landing_content
+from src.infrastructure.fastapi.dependencies import templates, get_contenido, get_geografia, get_landing_content
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.domain.models import ContenidoModel, LandingContentModel
 from src.adapters.presenters.content_presenter import present_contenido
@@ -8,7 +8,7 @@ from src.adapters.presenters.content_presenter import present_contenido
 router = APIRouter()
 
 @router.get("/{provincia}/{municipio}/{localidad}.html")
-async def pagina_localidad(request: Request, provincia: str, municipio: str, localidad: str, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), landing_content: LandingContentModel = Depends(get_landing_content), chatwoot_token: str = Depends(get_chatwoot_token)):
+async def pagina_localidad(request: Request, provincia: str, municipio: str, localidad: str, contenido: ContenidoModel = Depends(get_contenido), geografia: Dict[str, Any] = Depends(get_geografia), landing_content: LandingContentModel = Depends(get_landing_content)):
     # Validar existencia
     locs: Dict[str, Any] = geografia.get("localidades", {})
     prov = locs.get(provincia, {})
@@ -50,7 +50,6 @@ async def pagina_localidad(request: Request, provincia: str, municipio: str, loc
         "content": content_data,
         "servicios": servicios_data,
         "faq": content_data["faq"]["questions"],
-        "chatwoot_token": chatwoot_token,
         "localidad_nombre": nombre_localidad,
         "municipio": municipio_formateado,
         "provincia": provincia.replace("-", " ").title(),
